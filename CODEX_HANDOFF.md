@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A terminé et publié ; arrêt avant FR-01B. Le nouveau commit documentaire de politique multilingue reste local, sans autorisation de push.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A terminé et publié ; arrêt avant FR-01B. Politique multilingue publiée dans d1022580 sur accord explicite. Le présent suivi de publication reste local.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est une plateforme multilingue, fork amélioré de Frappe Le
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `f1492f65` (corrections i18n et tests).
-- Dernier commit local avant cette actualisation : `15b0f323` (reprise FR-01A), désormais publié.
-- Le commit portant cette actualisation documentaire est intitulé `docs: define multilingual EN-FR policy and next phases`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Dernier commit avant ce suivi : `d1022580` (politique multilingue), désormais publié.
+- Le commit portant cette actualisation documentaire est intitulé `docs: record multilingual policy publication`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -95,22 +95,23 @@ Publication confirmée le 28 octobre 2026, après vérification du checkout prop
 
 Références distantes vérifiées après publication :
 
-- `refs/heads/littlepool-dev` : `15b0f323e46881080f8961ac11a4fdb3f8e3d92b`.
+- `refs/heads/littlepool-dev` : `d1022580386e366ec0d5e09154bbeb57bc50156f`.
 - `refs/heads/develop` : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 
-Les trois commits autorisés sont désormais publiés :
+Les commits autorisés sont désormais publiés :
 
 1. `f1492f65` — corrections i18n et tests.
 2. `556bf7bd` — rapport FR-01A.
 3. `15b0f323` — handoff et règles de reprise.
+4. `d1022580` — politique multilingue et phases suivantes, publié lors de la dernière opération sur accord explicite.
 
-**Seul commit non publié après cette mission :** le commit documentaire portant la politique multilingue, `docs: define multilingual EN-FR policy and next phases` (SHA exact à relever avec `git log -1 --oneline`). Son parent est 15b0f323. Fichiers inclus : `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md`, `CODEX_HANDOFF.md` uniquement. Les audits et résultats historiques restent conservés. Aucun changement de code, PO, asset ou configuration n’est inclus.
+**Seul commit non publié après cette opération :** le présent suivi, `docs: record multilingual policy publication`, qui modifie uniquement CODEX_HANDOFF.md et a pour parent d1022580. SHA à relever avec `git log -1 --oneline`. Il reste local ; l’autorisation reçue couvrait d1022580 uniquement.
 
-Checkout initial propre ; aucun changement non enregistré prévu après le commit documentaire. Confirmer `git status --short` à la reprise. Les références distantes sont un relevé daté. Contrôles de cette mission : Git local/distant, liste des commits/fichiers, recherche ciblée de secrets, relecture et `git diff --check` ; aucun test applicatif relancé.
+Contrôles de publication : checkout propre et branche littlepool-dev, fichiers attendus uniquement dans d1022580, recherche ciblée de secrets sans motif détecté, référence distante égale au parent avant push (aucune divergence), push normal sans force. Après fetch de littlepool-dev depuis GitHub, les identifiants des trois blobs CODEX_HANDOFF.md, ROADMAP.md et PLAN_FRANCISATION.md correspondent exactement à d1022580. develop reste inchangée. Aucun test applicatif, build, installation ou travail FR-01B exécuté. Aucun changement non enregistré prévu après ce commit local de suivi.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise : lire ce handoff, vérifier rapidement Git, puis présenter le nouveau commit documentaire et demander l’accord avant de le pousser.** L’autorisation reçue couvrait uniquement les trois commits FR-01A, pas ce nouveau commit. Ne pas publier de nouveau travail sans accord explicite.
+**Prochaine action précise :** lire ce handoff et vérifier rapidement Git, puis attendre la nouvelle mission. d1022580 est publié : ne pas refaire son push. Le suivi local ne peut être poussé qu’avec un nouvel accord explicite.
 
 **Prochaine phase de développement recommandée : FR-01B**, à démarrer uniquement sur nouvelle instruction. Lire le périmètre actualisé de PLAN_FRANCISATION, traiter les chaînes Vue directes de StudentCourseProgress, Statistics et UnsplashImageBrowser, préserver les sources anglaises et la présentation, vérifier les tests ciblés FR/EN et l’extraction/Crowdin. Ne pas refaire FR-01A.
 
