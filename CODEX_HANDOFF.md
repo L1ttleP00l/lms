@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A publié ; FR-01B réalisé et validé localement. Arrêt avant FR-02. 1f3db262 publié sur accord explicite ; nouveaux commits FR-01B non publiés.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A et FR-01B terminés et publiés. FR-01C préparatoire terminé localement : stratégie et glossaire proposés, aucune intégration réalisée. Arrêt avant FR-02 ; nouveau commit documentaire non publié.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est une plateforme multilingue, fork amélioré de Frappe Le
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit fonctionnel local : `bc5cd471` (libellés Vue FR-01B et tests), non publié.
-- Base FR-01B : `1f3db262`, publiée ; correction locale suivante bc5cd471.
-- Le commit portant cette actualisation documentaire est intitulé `docs: record FR-01B results and handoff`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
+- Base locale et distante avant FR-01C : `b70e7d38`, rapport FR-01B et handoff publiés.
+- Le commit portant cette actualisation documentaire est intitulé `docs: propose FR-01C translation strategy and French glossary`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -45,7 +45,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 5. Français système enregistré par la méthode native `lms.lms.api.set_system_preferences(language='fr')` sur ce site. Aucune préférence de compte existant forcée.
 6. Deux anomalies reproduites puis corrigées dans LMS : API sans repli pour compte sans langue ; rendu Vue figé après arrivée asynchrone du dictionnaire. Aucun changement de source Framework.
 7. Politique multilingue publiée dans d1022580 ; suivi 1f3db262 vérifié puis publié lors de FR-01B sur accord explicite.
-8. FR-01B : trois composants Vue rendus traduisibles (13 clés distinctes, 17 emplacements), sans modifier scripts métier, classes CSS, API ou permissions. 16 tests ciblés, extraction native et build réussis ; Chromium FR/EN sur statistiques et progression. Aucun nouveau catalogue ni installation ; compte de test temporairement passé en anglais puis restauré en français.
+8. FR-01B : trois composants Vue rendus traduisibles (13 clés distinctes, 17 emplacements), sans modifier scripts métier, classes CSS, API ou permissions. 16 tests ciblés, extraction native et build réussis ; Chromium FR/EN sur statistiques et progression. Aucun nouveau catalogue ni installation ; compte de test temporairement passé en anglais puis restauré en français. bc5cd471 et b70e7d38 publiés sur accord explicite.
+9. FR-01C : examen ciblé des workflows Crowdin, de leur helper, de la chaîne native et des métriques ; stratégie comparative A/B/C et glossaire préparés. Projet Crowdin LittlePool recommandé sous réserve de validation/budget/droits ; Translation natif avec fixtures filtrées comme repli limité si Crowdin indisponible. Aucune configuration créée.
 
 ## 5. Fichiers créés ou modifiés
 
@@ -58,6 +59,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 - `CODEX_HANDOFF.md` et encart de reprise dans `AGENTS.md` : continuité et règles permanentes.
 
 FR-01B : `frontend/src/pages/Courses/StudentCourseProgress.vue`, `frontend/src/pages/Statistics.vue`, `frontend/src/components/UnsplashImageBrowser.vue` et le nouveau `frontend/src/tests/fr01bTranslations.test.ts`. Rapport : `docs/FR-01B-RESULTATS.md`. Le handoff est actualisé ; aucun autre composant modifié.
+
+FR-01C : `docs/FR-01C-STRATEGIE.md` (comparaison, architecture, dix clés candidates et aria-label distinct, revue des trois traductions existantes), `docs/GLOSSAIRE_FR.md` (15 termes pédagogiques et arbitrages), et ce handoff. Aucun autre fichier modifié dans cette phase.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -89,6 +92,10 @@ Tests exécutés lors de FR-01A, **ne pas les relancer sans nécessité** :
 - Trois traductions ciblées réellement disponibles : Courses → Cours, Upload Image → Télécharger une image, Uploading {0}% → Envoi de {0}%. Dix clés ciblées encore absentes du dictionnaire FR : voir rapport. Les dictionnaires synthétiques des tests ne valent pas traductions déployées.
 - UnsplashImageBrowser sans usage trouvé dans les écrans : tests de composant seulement, pas de parcours Chromium ni appel externe. Aucun upload réel testé.
 
+### Contrôles FR-01C
+
+Étude documentaire seulement : code/configuration versionnés et preuves FR-01B réutilisées, contrôle Git local/distant et relecture/diff/secrets des livrables. Aucun test applicatif, build, extraction, compilation, installation, accès Crowdin ou consultation de credentials. Politique linguistique et résultats précédents conservés.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -98,29 +105,31 @@ Tests exécutés lors de FR-01A, **ne pas les relancer sans nécessité** :
 - Un bref texte anglais avant réception RPC reste possible ; le rendu figé après réception est corrigé. Pas de basculement de langue instantané ajouté : rechargement testé.
 - Non exécutés : suite backend complète, E2E historique complet, charge, autres navigateurs, mobile exhaustif, emails/PDF et connecteurs externes.
 - Date Day.js française non activée et marque inchangée ; les chaînes directes des trois composants ciblés sont désormais enveloppées. La couverture des autres écrans n’est pas certifiée.
+- FR-01C : workflow d’export Crowdin distinct bien présent, mais littlepool-dev non ciblé automatiquement. Le helper de génération POT pousse explicitement vers frappe/lms et y ouvre la PR : ne pas l’exécuter sans adaptation autorisée. Droits Crowdin, export des seules chaînes approuvées et coût d’un projet propre non vérifiés.
+- Traductions candidates non livrées : Signups désigne des comptes, Enrollment des inscriptions pédagogiques ; Certifications compte des certificats publiés. Upload Image envoie un fichier local au serveur : Importer une image est proposé en remplacement de Télécharger une image, sans modifier le catalogue.
 
 Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors dépôt. Cinq comptes fictifs et un cours FR01 à deux leçons sont conservés sur le site local. Ne pas lire, copier ou publier les fichiers de credentials ; aucun secret n’est nécessaire dans ce handoff.
 
 ## 8. État Git local et distant
 
-Relevé de cette mission après publication autorisée du seul suivi 1f3db262 :
+Références vérifiées au début de FR-01C (28 octobre 2026) :
 
-- littlepool-dev distant : `1f3db2621e3bbc6a501f7c20a4253ebb19dce6b5`.
+- littlepool-dev local et distant : `b70e7d38e4bbea3d049cfa242c41218b067bb372` ; checkout initial propre.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
-- Déjà publiés : f1492f65, 556bf7bd, 15b0f323, d1022580 et 1f3db262.
-- Non publiés : `bc5cd471` (trois composants et test FR-01B), puis le commit portant ce rapport/handoff, `docs: record FR-01B results and handoff` (SHA à relever avec git log).
+- bc5cd471 et b70e7d38 sont publiés ; ne pas les pousser à nouveau.
+- Nouveau commit local documentaire FR-01C : `docs: propose FR-01C translation strategy and French glossary` (SHA à relever avec git log). Parent b70e7d38 ; trois fichiers seulement : stratégie, glossaire et handoff. Aucun push autorisé ou effectué pour ce commit.
 
-1f3db262 était présent, limité au handoff, sans motif de secret détecté ; distant égal à son parent avant push, publication normale sans force. Aucun nouveau commit FR-01B n’a été poussé.
-
-Checkout initial propre ; aucun changement non enregistré prévu après le commit documentaire. Fichiers générés du build restaurés. Preuves FR-01B dans `/workspace/work/fr01b/`, hors dépôt. Ne pas publier les credentials locaux. Confirmer l’état réel avec git status à la reprise.
+Aucun changement non enregistré prévu après ce commit. Aucun PO/POT, workflow, code applicatif ou paramètre de site modifié. Confirmer rapidement git status et le distant lors de la prochaine reprise plutôt que de déduire leur état des mentions historiques.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire le handoff et le rapport FR-01B, vérifier rapidement Git, présenter les deux commits locaux et obtenir l’accord explicite avant tout push. Ne pas republier 1f3db262 : sa sauvegarde est faite.
+**Prochaine action précise :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute publication du commit documentaire ou configuration externe. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
 
-FR-01B terminé ; ne pas enchaîner sur FR-02. Le travail de traduction manquant exige le circuit Crowdin : sept clés à intégrer au POT puis exporter, trois clés déjà présentes mais vides à compléter ; l’aria-label existant Search by keyword reste également sans traduction. L’extraction des treize clés ciblées est vérifiée, pas la livraison de leurs traductions manquantes. Pas de PO modifié à la main ni workflow modifié ; droits et procédure d’export Crowdin restent à établir avant une action externe.
+Après choix et autorisation seulement : préparer une génération POT contrôlée depuis le commit du fork et un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser tel quel le helper qui cible frappe/lms. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
-Après revue et nouvelle instruction : FR-02 parcours apprenant ; FR-03 formateur/administration ; FR-04 notifications/courriels/certificats ; FR-05 interfaces secondaires et couverture globale. I18N-01 : fonctions natives de sélection/default, amélioration après validation. Chaque lot conserve EN source/secours, préférence prioritaire/persistante et défaut d’instance configurable ; tests ciblés FR/EN plutôt qu’une relance systématique de toutes les suites.
+FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; sept clés sont absentes du POT actuel, trois déjà présentes sont vides ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
+
+Ne pas commencer FR-02 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
