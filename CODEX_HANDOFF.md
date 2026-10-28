@@ -1,17 +1,17 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A et FR-01B terminés et publiés. FR-01C préparatoire terminé localement : stratégie et glossaire proposés, aucune intégration réalisée. Arrêt avant FR-02 ; nouveau commit documentaire non publié.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A et FR-01B terminés et publiés. FR-01C préparatoire terminé localement ; BRAND-01 : étude de cinq noms préparée, identité en attente de validation. Aucun renommage ni intégration réalisé. Arrêt avant FR-02 ; commits documentaires non publiés.**
 
 ## 1. Projet et références Git
 
-LittlePool Learning est une plateforme multilingue, fork amélioré de Frappe Learning. Politique officielle : **Fournir une traduction française intégrale tout en conservant l'anglais comme langue source et de secours, avec une langue système configurable et des préférences utilisateurs persistantes.** Réutiliser les mécanismes natifs Frappe/gettext/Crowdin, conserver les clés anglaises, ne pas coder le français directement et distinguer contenus pédagogiques et traduction d’interface. Le site local reste français ; les instances internationales peuvent choisir l’anglais ou une autre langue. Toute amélioration du sélecteur doit commencer par l’étude des fonctions natives, puis être validée, avec ordinateur et mobile prévus.
+LittlePool Learning est un nom de travail provisoire pour une plateforme multilingue, fork amélioré de Frappe Learning. BRAND-01 propose Didorive (recommandé à approfondir), Syllovia, Didalume, Modulien et Savolet ; aucune identité finale validée, aucune disponibilité juridique ou de domaine établie. Politique officielle : **Fournir une traduction française intégrale tout en conservant l'anglais comme langue source et de secours, avec une langue système configurable et des préférences utilisateurs persistantes.** Réutiliser les mécanismes natifs Frappe/gettext/Crowdin, conserver les clés anglaises, ne pas coder le français directement et distinguer contenus pédagogiques et traduction d’interface. Le site local reste français ; les instances internationales peuvent choisir l’anglais ou une autre langue. Toute amélioration du sélecteur doit commencer par l’étude des fonctions natives, puis être validée, avec ordinateur et mobile prévus.
 
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
-- Base locale et distante avant FR-01C : `b70e7d38`, rapport FR-01B et handoff publiés.
-- Le commit portant cette actualisation documentaire est intitulé `docs: propose FR-01C translation strategy and French glossary`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Base locale avant BRAND-01 : `58c03aee`, stratégie/glossaire FR-01C non publiés. Dernier distant connu : b70e7d38 (relevé FR-01C).
+- Le commit portant cette actualisation documentaire est intitulé `docs: propose project naming study and pending identity`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -48,6 +48,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 8. FR-01B : trois composants Vue rendus traduisibles (13 clés distinctes, 17 emplacements), sans modifier scripts métier, classes CSS, API ou permissions. 16 tests ciblés, extraction native et build réussis ; Chromium FR/EN sur statistiques et progression. Aucun nouveau catalogue ni installation ; compte de test temporairement passé en anglais puis restauré en français. bc5cd471 et b70e7d38 publiés sur accord explicite.
 9. FR-01C : examen ciblé des workflows Crowdin, de leur helper, de la chaîne native et des métriques ; stratégie comparative A/B/C et glossaire préparés. Projet Crowdin LittlePool recommandé sous réserve de validation/budget/droits ; Translation natif avec fixtures filtrées comme repli limité si Crowdin indisponible. Aucune configuration créée.
 
+10. BRAND-01 : étude documentaire de nommage avec recherche web préliminaire ; cinq propositions et recommandation conditionnelle. Aucun choix adopté, dépôt/identifiant lms/visuels/domaines inchangés.
+
 ## 5. Fichiers créés ou modifiés
 
 - `docs/AUDIT.md`, `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md` : contexte historique ; consulter selon besoin, sans relire systématiquement tout l’audit.
@@ -61,6 +63,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 FR-01B : `frontend/src/pages/Courses/StudentCourseProgress.vue`, `frontend/src/pages/Statistics.vue`, `frontend/src/components/UnsplashImageBrowser.vue` et le nouveau `frontend/src/tests/fr01bTranslations.test.ts`. Rapport : `docs/FR-01B-RESULTATS.md`. Le handoff est actualisé ; aucun autre composant modifié.
 
 FR-01C : `docs/FR-01C-STRATEGIE.md` (comparaison, architecture, dix clés candidates et aria-label distinct, revue des trois traductions existantes), `docs/GLOSSAIRE_FR.md` (15 termes pédagogiques et arbitrages), et ce handoff. Aucun autre fichier modifié dans cette phase.
+
+BRAND-01 : `docs/IDENTITE_PROJET.md` et ce handoff. Contrôles : pré-recherche web de confusions, références INPI/EUIPO/OMPI, cohérence et diff des documents ; aucun test applicatif ni vérification de disponibilité auprès des registres de marques/domaines/GitHub.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -117,13 +121,16 @@ Références vérifiées au début de FR-01C (28 octobre 2026) :
 - littlepool-dev local et distant : `b70e7d38e4bbea3d049cfa242c41218b067bb372` ; checkout initial propre.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 - bc5cd471 et b70e7d38 sont publiés ; ne pas les pousser à nouveau.
-- Nouveau commit local documentaire FR-01C : `docs: propose FR-01C translation strategy and French glossary` (SHA à relever avec git log). Parent b70e7d38 ; trois fichiers seulement : stratégie, glossaire et handoff. Aucun push autorisé ou effectué pour ce commit.
+- Commit local FR-01C non publié : `58c03aee` — stratégie, glossaire et handoff ; parent b70e7d38.
+- Commit local BRAND-01 non publié : `docs: propose project naming study and pending identity` (SHA exact à relever avec git log), parent 58c03aee ; identité et handoff uniquement. Aucun push autorisé pour ces deux commits. Checkout propre au début de BRAND-01 ; distant non interrogé à nouveau pour cette étude documentaire.
 
 Aucun changement non enregistré prévu après ce commit. Aucun PO/POT, workflow, code applicatif ou paramètre de site modifié. Confirmer rapidement git status et le distant lors de la prochaine reprise plutôt que de déduire leur état des mentions historiques.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute publication du commit documentaire ou configuration externe. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
+**Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
+
+**Suite FR-01C, toujours en attente :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute publication du commit documentaire ou configuration externe. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
 
 Après choix et autorisation seulement : préparer une génération POT contrôlée depuis le commit du fork et un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser tel quel le helper qui cible frappe/lms. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
