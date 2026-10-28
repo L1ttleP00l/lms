@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01D.3 terminé : les cinq commits FR-01D/FR-01D.2 sont publiés jusqu’à 1896abb6. Le POT validé de 2 980 clés est intégré dans un nouveau commit local non publié, avec rapport/handoff. Aucun PO ni code applicatif modifié. Attendre l’autorisation avant de publier ce commit POT. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
+Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01D et POT de 2 980 clés publiés dans 22795529. FR-01E : étude documentaire du circuit français terminée localement, aucun service configuré. Recommandation : livraison native Git/POT/PO/MO avec atelier Crowdin conditionnel, pilote PO local possible après exception explicite à la convention. Éligibilité gratuite et prix payants Crowdin non confirmés pour ce fork. Attendre le choix du propriétaire ; aucun PO ni workflow à modifier, aucun push autorisé pour le commit documentaire FR-01E. Arrêt avant FR-02.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
-- Dernier distant littlepool-dev vérifié après publication FR-01D.3 : `1896abb62f359b997f91d5a522acf7cd58b3155b`. Les cinq commits FR-01D/FR-01D.2 et les documents FR-01C/BRAND-01 sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `chore(i18n): integrate validated POT catalogue and update handoff`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Dernier distant littlepool-dev vérifié pendant FR-01E : `2279552914d1fb51dd425effcf192e4a2b519e11`. Tous les commits FR-01D/FR-01D.2 et le POT sont publiés. Ne pas déduire l’état actuel des anciens rapports.
+- Le commit portant cette actualisation documentaire est intitulé `docs: compare French translation workflows and Crowdin eligibility`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -55,6 +55,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 
 13. FR-01D.3 : publication des cinq commits autorisés par push normal vérifiée ; candidat FR-01D.2 applicable (sources/mapping/Framework inchangés), intégré localement sans nouvelle extraction. Babel et contrôles 13+8 clés, 311 ajouts/4 suppressions/506 références, paramètres/contextes/pluriels et 79 PO réussis. Aucun TSX suivi ou dans frontend/src. Nouveau commit POT non publié.
 
+14. FR-01E : sources officielles Crowdin consultées le 29 octobre ; programme open source conditionnel (ancienneté, communauté, absence de produits commerciaux associés notamment), admission du fork non établie. Montants payants non accessibles dans la page officielle dynamique, donc non confirmés. Comparaison Crowdin / PO natifs / hybride, procédure d’amorçage/export approuvé et plan de lots préparés ; aucun compte/service créé.
+
 ## 5. Fichiers créés ou modifiés
 
 - `docs/AUDIT.md`, `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md` : contexte historique ; consulter selon besoin, sans relire systématiquement tout l’audit.
@@ -76,6 +78,8 @@ FR-01D : `.github/helper/update_pot_file.sh`, `.github/workflows/generate-pot-fi
 FR-01D.2 : nouveau `babel_extractors.csv` racine et `lms/tests/test_gettext_extraction.py`, commit local `6fdb0dc1` ; mise à jour du rapport FR-01D et de ce handoff dans le commit documentaire courant. Aucune source applicative ni Framework modifiée.
 
 FR-01D.3 : `lms/locale/main.pot` intégré depuis le candidat validé, `docs/FR-01D-RESULTATS.md` et ce handoff actualisés dans un seul commit local. Aucun PO, code, Framework ou mapping modifié par cette mission.
+
+FR-01E : nouveau `docs/FR-01E-CIRCUIT-TRADUCTION.md` et ce handoff uniquement ; un seul commit documentaire local.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -134,6 +138,14 @@ Correction native : règles LMS placées avant les règles Framework, première 
 - 79 PO, Framework, remotes et POT suivi inchangés. Génération effectuée depuis checkout propre 6fdb0dc1 via bench generate-pot-file --app lms ; aucun update-po-files, réseau externe ou Crowdin. POT original restauré après copie du candidat.
 - Artefacts : /workspace/work/fr01d2/ (main.before.pot, main.generated.pot, main.generated.diff, comparison.json/log, compare.py, before.json, generation.log, tests-before/after/final.log). Empreinte du candidat dans la section FR-01D.2 du rapport. Ne pas écraser ces preuves.
 
+### Étude FR-01E (documentaire seulement)
+
+Sources officielles datées/liées dans docs/FR-01E-CIRCUIT-TRADUCTION.md ; pas de tarif payant actuel certifié. La licence open source annoncerait 0 abonnement si accordée, mais le fork public seul ne démontre pas l’éligibilité (conditions d’activité/ancienneté et partage Global TM à accepter). Base locale sans abonnement SaaS possible avec éditeur PO et revue, après validation de l’exception à AGENTS.md. Aucun coût humain chiffré ni souscription proposée comme déjà décidée.
+
+Lecture seule : 568 clés du POT ont une traduction non vide dans fr.po (aucune fuzzy), 2 412 n’y ont pas de traduction renseignée. Le runtime Framework peut couvrir d’autres clés ; ne pas présenter cette mesure comme un test de rendu. Empreintes 79 PO et POT publié inchangées. Aucun test, build, extraction, compilation, installation ou nouveau conteneur. La page GNU complémentaire n’a pas répondu ; les tarifs dynamiques Crowdin ne sont pas lisibles par les sources accessibles. Aucun accès de compte/secret ni contact externe.
+
+Risque à traiter au premier import : export approuvé seul peut vider les traductions héritées non encore approuvées ; préserver la base et organiser la revue/approbation avant remplacement complet. Une seule autorité d’édition par phase, pas de traductions locales et Crowdin concurrentes. Contextes d’éditeur ≠ msgctxt runtime ; le plugin Vue actuel ne lit pas le troisième argument de contexte.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -146,31 +158,30 @@ Correction native : règles LMS placées avant les règles Framework, première 
 - FR-01C : workflow d’export Crowdin distinct bien présent, mais littlepool-dev non ciblé automatiquement. Le helper de génération POT cible toujours explicitement frappe/lms, mais FR-01D le bloque désormais hors Actions officiel. Ne jamais le réutiliser pour la génération locale du fork ; appeler directement Bench. Droits Crowdin, export des seules chaînes approuvées et coût d’un projet propre non vérifiés.
 - Traductions candidates non livrées : Signups désigne des comptes, Enrollment des inscriptions pédagogiques ; Certifications compte des certificats publiés. Upload Image envoie un fichier local au serveur : Importer une image est proposé en remplacement de Télécharger une image, sans modifier le catalogue.
 
-FR-01D : le POT historique du 23 octobre est en retard sur plusieurs évolutions métier de la base. FR-01D.2 ajoute encore 200 clés TypeScript au candidat initial ; ces ajouts ont été contrôlés. Le rafraîchissement global a été autorisé et intégré localement dans FR-01D.3 ; sa publication reste en attente. Les appels dynamiques, chaînes non enveloppées, .tsx et futures syntaxes TS ne sont pas couverts automatiquement. Les garde-fous de CI préviennent un accident ; ils ne sont pas une frontière de sécurité contre des variables falsifiées.
+FR-01D : le POT historique du 23 octobre est en retard sur plusieurs évolutions métier de la base. FR-01D.2 ajoute encore 200 clés TypeScript au candidat initial ; ces ajouts ont été contrôlés. Le rafraîchissement global a été autorisé et intégré localement dans FR-01D.3 ; sa publication a été autorisée et vérifiée dans 22795529. Les appels dynamiques, chaînes non enveloppées, .tsx et futures syntaxes TS ne sont pas couverts automatiquement. Les garde-fous de CI préviennent un accident ; ils ne sont pas une frontière de sécurité contre des variables falsifiées.
 
 Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors dépôt. Cinq comptes fictifs et un cours FR01 à deux leçons sont conservés sur le site local. Ne pas lire, copier ou publier les fichiers de credentials ; aucun secret n’est nécessaire dans ce handoff.
 
 ## 8. État Git local et distant
 
-Références réellement vérifiées pendant FR-01D.3, 28 octobre 2026 :
+Références vérifiées pendant FR-01E, 29 octobre 2026 :
 
-- Distant littlepool-dev après push et fetch : `1896abb62f359b997f91d5a522acf7cd58b3155b`.
-- Cinq commits autorisés publiés, ordre vérifié : a628ed1a, dd9ec7b7, 47cf7cf7, 6fdb0dc1, 1896abb6. Aucun push forcé ni fusion.
+- Base locale et distant littlepool-dev : `2279552914d1fb51dd425effcf192e4a2b519e11`, checkout initial propre ; commit POT publié sur autorisation lors de la tâche précédente.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
-- Seul nouveau commit local non publié : `chore(i18n): integrate validated POT catalogue and update handoff`, avec uniquement POT, rapport et handoff. Relever son SHA exact par git log -1 (impossible d’inscrire son propre hash dans son contenu).
-- Checkout propre prévu après ce commit ; confirmer git status à la reprise. Publication de ce commit POT non autorisée à ce jour. Aucun changement non enregistré prévu.
+- Seul commit local non publié : `docs: compare French translation workflows and Crowdin eligibility`, avec uniquement FR-01E-CIRCUIT-TRADUCTION.md et ce handoff. SHA exact à relever par git log -1 (impossible d’inscrire son propre hash dans son contenu).
+- Aucun push FR-01E, aucune modification des PO/POT/workflows/code. Checkout propre prévu après commit ; confirmer git status à la reprise. Aucun changement non enregistré prévu.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** demander l’autorisation de publier le nouveau commit local contenant le POT de 2 980 clés, déjà intégré et validé. Ne pas régénérer ni réintégrer inutilement. Dernier distant : 1896abb6 ; commit local à relever par git log -1. Le POT intégré correspond au SHA-256 f089553d58a2c1a5fbab4457857ee5dbb0e17eec8beeb6425b184f1502a15a92. Aucun PO/runtime/Crowdin à modifier en attendant. Les validations spécifiques d’intégration sont dans la section FR-01D.3 du rapport et /workspace/work/fr01d3/validation.json. Les tests d’extraction/protection FR-01D.2 sont réutilisés sans relance ; aucun TSX suivi ni dans frontend/src. Après autorisation distincte seulement, avancer sur le circuit de traduction approuvé.
+**Prochaine action précise :** soumettre docs/FR-01E-CIRCUIT-TRADUCTION.md pour choisir le circuit et son relecteur : pilote PO local avec exception explicite à la convention Crowdin, ou projet Crowdin après clarification de l’éligibilité/budget/droits et du partage Global TM. Faire approuver le glossaire et le premier lot (dix manques FR-01B + aria-label, puis messages TS d’inscription). Ne créer aucun compte, synchronisation, PO ou token par déduction. Dernier distant : 22795529 ; le POT est déjà intégré/publié, ne pas le régénérer. Publication du seul commit documentaire FR-01E également soumise à autorisation.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
-**Suite FR-01C, toujours en attente :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute configuration externe. Les documents FR-01C/BRAND-01 sont déjà publiés. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
+**Suite FR-01C précisée par FR-01E :** Crowdin dédié reste l’atelier collaboratif privilégié sous conditions ; la livraison repose toujours sur les PO versionnés et le runtime natif. Le pilote local nécessite son accord explicite, ne remplace pas silencieusement la convention Crowdin. Valider budget/droits, traductions et glossaire avant toute édition/configuration. Les documents FR-01C/BRAND-01 sont déjà publiés. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
 
 Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, sans intégration à cause du diff global ; toute intégration ultérieure doit être revue. Après choix Crowdin et autorisation seulement : préparer un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser le helper de publication amont. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
-FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; les treize clés ciblées sont désormais dans le POT intégré localement, mais les dix traductions FR manquantes restent à produire/importer par le circuit approuvé ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
+FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; les treize clés ciblées sont désormais dans le POT publié, mais les dix traductions FR manquantes restent à produire/importer par le circuit approuvé ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
 
 Ne pas commencer FR-02 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
