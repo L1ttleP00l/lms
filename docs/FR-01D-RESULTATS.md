@@ -312,3 +312,89 @@ Prochaine autorisation à demander : étude/correction minimale du périmètre d
 Après autorisation et intégration du POT revu : contrôler les 13 clés FR-01B, les clés TypeScript de résultat/action, l’absence de pertes inattendues, les paramètres/contextes/indicateurs et les traductions sources anglaises ; vérifier que seuls les fichiers autorisés changent et que les PO restent intacts. Le futur import PO par le circuit approuvé devra préserver la mémoire des clés obsolètes, faire relire les fuzzy, puis contrôler la compilation et le comportement FR/EN ciblé. L’intégration d’un POT seul n’active aucune traduction française.
 
 Revue effectuée : lecture des artefacts et des sources, comparaison des références, recherche des chaînes exactes et consultation de l’historique Git ; lecture des PO pour évaluer l’impact des quatre suppressions. Un petit lecteur de catalogues hors dépôt a servi à classer les références et à contrôler les occurrences ; aucun extracteur ni test déjà validé n’a été relancé. Une première lecture des références des PO a rencontré un ancien format sans numéro de ligne ; le lecteur d’analyse a été adapté, sans modifier de catalogue. POT suivi, PO et sources applicatives inchangés ; aucune intégration autorisée ni exécutée.
+
+## FR-01D.2 — Extraction TypeScript corrigée (28 octobre 2026)
+
+**Résultat : candidat natif de 2 980 clés, non intégré.** La lacune TypeScript identifiée dans la revue précédente est résolue. Cette section actualise sa recommandation : le candidat complet peut désormais être proposé à l’intégration après validation du propriétaire. Aucune traduction française nouvelle n’est activée par cette correction.
+
+### Mapping natif ajouté
+
+Fichier racine `babel_extractors.csv` :
+
+```csv
+frontend/src/**.d.ts,ignore
+frontend/src/**.test.ts,ignore
+frontend/src/**.spec.ts,ignore
+frontend/src/tests/**.ts,ignore
+frontend/src/**/__tests__/**.ts,ignore
+frontend/src/**.ts,frappe.gettext.extractors.javascript.extract
+```
+
+`get_method_map('lms')` lit ce CSV depuis la racine LMS. `generate_pot()` ajoute ensuite les règles Framework ; Babel utilise la première règle correspondante. Les exclusions sont limitées aux fichiers TypeScript : aucune règle Vue/JavaScript/Python/JSON existante n’est remplacée. Les fichiers de configuration hors frontend/src, dépendances et assets publics ne sont pas inclus par cette nouvelle règle. Les déclarations .d.ts (notamment générées) sont exclues. Aucun extracteur personnalisé, transpilation ou modification Framework.
+
+L’extracteur JavaScript natif est un analyseur lexical, pas un compilateur TypeScript. Compatibilité vérifiée avec le module réel enrollment.ts (interfaces, types, génériques, assertions, optional chaining, callbacks et tableaux de paramètres), d’autres modules réels et un exemple ciblé contenant `import type`, `satisfies`, `as`, types génériques, coalescence, paramètres et contexte. Cela ne garantit pas toute syntaxe TypeScript future, les appels dynamiques ou les fichiers .tsx, hors périmètre de cette règle.
+
+### Régression automatisée et contrôles
+
+Nouveau test autonome `lms/tests/test_gettext_extraction.py`, sans site ni base : il combine les mappings natifs dans le même ordre que generate_pot et utilise Babel sur des copies temporaires des sources/fixtures, sans écrire de catalogue.
+
+Commande réellement exécutée dans le conteneur existant :
+
+```bash
+docker exec lms-bench bash -lc 'cd /workspace/frappe-bench && env/bin/python -m unittest discover -s apps/lms/lms/tests -p test_gettext_extraction.py -v'
+```
+
+- Avant ajout du CSV : **3 tests échoués**, dont absence des huit messages d’inscription.
+- Après correction, puis validation finale après rangement des imports : **3/3 tests réussis**, 0,051 s lors du passage final.
+- Test réel : huit clés d’inscription et échantillons proctoring, quizSummary, useSettingsSource ; paramètres conservés.
+- Test syntaxe : clé exacte `Result {0}: {1}`, contexte `Enrollment outcome`, occurrences répétées, absence des commentaires et arguments secondaires parasites.
+- Test périmètre : .test.ts/.spec.ts, dossiers tests et __tests__, .d.ts, configuration, dépendances et assets hors périmètre exclus ; règles JS, Vue et Python préservées.
+- Tests de garde publication : **2/2 méthodes réussies**, six contextes, aucun corps de publication exécuté. `bash -n` réussi. Contrôle YAML inclus dans ces tests.
+- Ruff a signalé puis corrigé un ordre d’imports dans le nouveau test ; lint et format ciblés réussis. `git diff --check` et recherche ciblée de secrets réussis.
+- Aucun test Vue ou backend applicatif complet, aucun build, navigateur, HTTP, compilation MO ou changement de langue. Lanceur pre-commit global non relancé (blocage npm précédemment documenté) ; outils existants réutilisés, aucune installation.
+
+### Génération et nombres exacts
+
+Après commit local du correctif/test, branche et checkout propre vérifiés dans le conteneur. Commande native : `bench generate-pot-file --app lms`, exécutée depuis /workspace/frappe-bench dans lms-bench. Sortie 0 ; aucun helper amont, aucune publication, aucun appel update-po-files ou Crowdin. Le candidat a été copié hors Git avant restauration octet pour octet du POT suivi.
+
+| Comparaison | Avant | Après | Ajouts | Suppressions | Entrées communes avec références modifiées |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| POT suivi → candidat FR-01D.2 | 2 673 | 2 980 | 311 | 4 | 506 |
+| Candidat FR-01D → candidat FR-01D.2 | 2 780 | 2 980 | 200 | 0 | 93 |
+
+Les 311 ajouts correspondent aux 111 déjà examinés plus 200 clés TypeScript supplémentaires. Les quatre suppressions restent exactement celles du formulaire individuel détaillées plus haut : aucune perte supplémentaire. Les 93 modifications de références par rapport au candidat précédent viennent de nouveaux usages TypeScript de clés déjà présentes. Les indicateurs gettext communs sont inchangés. Diff brut contre le POT suivi : 1 957 lignes ajoutées, 479 retirées ; à distinguer des nombres de messages.
+
+Inventaire natif du périmètre : **434 fichiers .ts**, dont **256 ignorés**, 178 éligibles, **38 contenant 365 occurrences**, regroupées en **293 couples clé/contexte distincts**. Parmi ces 293 clés, 200 sont nouvelles et 93 déjà présentes. Les 140 autres fichiers éligibles n’apportent aucun message. Toutes les occurrences extraites de cet inventaire sont présentes dans le candidat ; aucun emplacement de test/spec/déclaration TypeScript ne pollue ce catalogue. La comparaison auxiliaire avec les appels littéraux des sources n’a montré qu’un écart : un exemple `__('Open the ')` dans un commentaire de transactions.ts, correctement ignoré.
+
+### Messages attendus et qualité du candidat
+
+Les **13/13 clés FR-01B** restent présentes. Les **8/8 clés TypeScript** sont maintenant présentes exactement :
+
+| Clés de résultat ou d’action |
+| --- |
+| `1 student enrolled` |
+| `{0} students enrolled` |
+| `1 student upgraded to certificate` |
+| `{0} students upgraded to certificate` |
+| `1 student could not be enrolled` |
+| `{0} students could not be enrolled` |
+| `Enroll 1 student` |
+| `Enroll {0} students` |
+
+Lecture Babel et `Catalog.check()` : **aucune erreur**. Paramètres {0}/{1} et % littéraux conservés ; tous les msgstr du candidat sont vides. Contextes réels absents dans ce candidat comme dans les précédents ; le contexte explicite a été vérifié dans la fixture du test. Plusieurs occurrences d’une clé sont regroupées dans le catalogue natif sans créer de doublon d’identité.
+
+Les nouveaux messages viennent d’inscription, réglages (comptes mail, badges, membres, transactions et connecteurs), Raven, éditeur, quiz, exercices et utilitaires. Les libellés `API Key`, `API Secret`, `Password is required` sont destinés à l’interface et ne contiennent aucune valeur secrète. `johndoe@example.com` est un placeholder explicitement enveloppé dans __(), sur un domaine d’exemple ; pas une donnée personnelle. Les aides d’administration contiennent parfois JSON, noms techniques et exemples : les conserver fidèlement à la traduction. Pas d’ajout parasite identifié nécessitant de filtrer manuellement le POT.
+
+Limites restantes : les clés dynamiques telles que `__(target.title)` ne sont pas résolues par une extraction lexicale ; chaînes non enveloppées, .tsx et futurs dossiers/fichiers générés demandent une revue spécifique. Aucune couverture de traduction intégrale de l’application n’est revendiquée. Les libellés singulier/pluriel restent des clés anglaises séparées, selon le code existant ; aucune migration de modèle pluriel ou refonte de sources effectuée.
+
+### Artefacts, intégrité et prochaine action
+
+Dossier hors Git `/workspace/work/fr01d2/` : `main.before.pot`, `main.generated.pot`, `main.generated.diff`, `comparison.json` (comparaisons, 200 ajouts et inventaire par fichier), `comparison.log`, `compare.py`, `before.json`, `generation.log`, `tests-before.log`, `tests-after.log`, `tests-final.log`. Les candidats précédents restent dans /workspace/work/fr01d/. Ces artefacts dépendent de la conservation du workspace ; ne pas les écraser lors d’une reprise.
+
+Les **79 PO LMS/Framework**, HEAD/état Framework, remotes et POT suivi sont identiques aux relevés avant génération. Sources applicatives inchangées. Aucun accès GitHub distant pendant cette mission ; dernier distant réellement vérifié précédemment : 040496fa. develop, production et workflows Crowdin inchangés.
+
+Empreinte SHA-256 du candidat FR-01D.2 : `f089553d58a2c1a5fbab4457857ee5dbb0e17eec8beeb6425b184f1502a15a92` (généré depuis le checkout propre `6fdb0dc1`).
+
+Commit correctif/test local : `6fdb0dc1`. Le commit documentaire courant actualise uniquement ce rapport et CODEX_HANDOFF ; relever son SHA par git log. Les trois commits FR-01D précédents restent également locaux. Aucun push effectué.
+
+**Recommandation finale : intégration complète du candidat FR-01D.2 acceptable après autorisation explicite**, avec contrôle de son empreinte, du diff (311 ajouts / 4 retraits), des 13+8 clés, de l’intégrité des PO et de l’absence de modification de sources avant commit. Ne pas intégrer le candidat précédent de 2 780 clés. Si les sources ou le mapping évoluent entre-temps, refaire une extraction contrôlée plutôt que copier un artefact périmé. Les validations Babel/extraction ont déjà réussi : les réexécuter seulement si le contenu change ou si l’intégrité n’est plus démontrable. Puis attendre les décisions distinctes sur le circuit Crowdin, le glossaire et les traductions françaises avant tout import/synchronisation. Aucune intégration ni publication autorisée à ce stade ; arrêt après FR-01D.2.

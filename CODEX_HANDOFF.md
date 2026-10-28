@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A/B et documents FR-01C/BRAND-01 publiés. FR-01D : protections de publication amont ajoutées ; génération native réussie, mais POT non intégré après diff plus large que prévu. Trois commits documentaires/CI FR-01D locaux après revue du comparatif, aucun push. Lacune confirmée : messages du module enrollment.ts absents du candidat POT. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A/B et documents FR-01C/BRAND-01 publiés. FR-01D : protections de publication amont ajoutées ; génération native réussie, mais POT non intégré après diff plus large que prévu. FR-01D.2 terminé : mapping TypeScript natif corrigé et testé ; nouveau candidat de 2 980 clés, non intégré, POT suivi restauré. Cinq commits FR-01D/FR-01D.2 locaux au total, aucun push. La lacune enrollment.ts est résolue dans le nouveau candidat. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
 
 ## 1. Projet et références Git
 
@@ -11,7 +11,7 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
 - Base FR-01D locale et distante vérifiée : `040496fa78636a42eca414020973e6fe3640bc34`. FR-01C `58c03aee` et BRAND-01 `040496fa` sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `docs: review POT removals references and TypeScript extraction gap`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Le commit portant cette actualisation documentaire est intitulé `docs: record TypeScript gettext extraction and revised POT candidate`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -51,6 +51,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 10. BRAND-01 : étude documentaire de nommage avec recherche web préliminaire ; cinq propositions et recommandation conditionnelle. Aucun choix adopté, dépôt/identifiant lms/visuels/domaines inchangés.
 11. FR-01D : job POT limité à frappe/lms ; helper refusant tout contexte autre que GitHub Actions officiel avant installation/Git/gh. Génération locale native exécutée sur checkout propre. Résultat : 2 673 → 2 780 entrées, 111 ajouts / 4 retraits, 444 références modifiées. Les 13 clés FR-01B dont 7 nouvelles sont présentes ; validation Babel réussie. Diff global inattendu : intégration arrêtée et POT suivi restauré à l’identique, candidat conservé hors dépôt. Aucun changement des 79 PO contrôlés, du Framework ou des remotes.
 
+12. FR-01D.2 : mapping natif LMS ajouté pour frontend/src/**.ts, exclusions des tests et déclarations. Trois tests de régression échoués avant et réussis après ; génération native 2 980 clés (311 ajouts / 4 retraits depuis le POT suivi, +200 / aucune suppression depuis le candidat FR-01D). 13 clés FR-01B et 8 clés enrollment.ts présentes. Aucun POT intégré, PO inchangés.
+
 ## 5. Fichiers créés ou modifiés
 
 - `docs/AUDIT.md`, `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md` : contexte historique ; consulter selon besoin, sans relire systématiquement tout l’audit.
@@ -68,6 +70,8 @@ FR-01C : `docs/FR-01C-STRATEGIE.md` (comparaison, architecture, dix clés candid
 BRAND-01 : `docs/IDENTITE_PROJET.md` et ce handoff. Contrôles : pré-recherche web de confusions, références INPI/EUIPO/OMPI, cohérence et diff des documents ; aucun test applicatif ni vérification de disponibilité auprès des registres de marques/domaines/GitHub.
 
 FR-01D : `.github/helper/update_pot_file.sh`, `.github/workflows/generate-pot-file.yml`, nouveau `.github/helper/test_pot_publication_guard.py` (commit local `a628ed1a`) ; `docs/FR-01D-RESULTATS.md` et ce handoff (rapport initial `dd9ec7b7`, puis revue documentaire courante). Aucun POT/PO committé.
+
+FR-01D.2 : nouveau `babel_extractors.csv` racine et `lms/tests/test_gettext_extraction.py`, commit local `6fdb0dc1` ; mise à jour du rapport FR-01D et de ce handoff dans le commit documentaire courant. Aucune source applicative ni Framework modifiée.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -116,6 +120,16 @@ Analyse seule, sans génération ni tests répétés : les 111 ajouts sont prés
 
 Lacune confirmée : les 6 messages singulier/pluriel de résultat d’enrollment.ts et les 2 actions Enroll 1 student / Enroll {0} students sont absents du candidat ; mapping natif sans .ts et pas de mapping propre LMS. Recommandation : corriger le périmètre d’extraction côté LMS après autorisation, vérifier la compatibilité de l’extracteur natif avec TypeScript puis refaire une extraction contrôlée. Aucun changement de sources ni POT fait pendant la revue. Détails, classement des 111 ajouts et impact des suppressions ajoutés au rapport existant. Artefacts d’analyse supplémentaires hors Git : /workspace/work/fr01d/review.py, review.json, review.log.
 
+### Validation FR-01D.2
+
+Correction native : règles LMS placées avant les règles Framework, première correspondance prioritaire ; extracteur JavaScript natif compatible avec le TypeScript actuel. CSV limité à frontend/src, ignore .d.ts/.test.ts/.spec.ts et dossiers tests/__tests__ sans remplacer les règles existantes des autres langages.
+
+- 3 tests d’extraction échoués avant, 3/3 réussis après (passage final 0,051 s) ; vrais modules enrollment/proctoring/quizSummary/useSettingsSource, syntaxe TS et contexte synthétique, paramètres, occurrences répétées, exclusions et préservation JS/Vue/Python.
+- Protections de publication : 2/2 méthodes réussies ; bash -n, Ruff lint/format ciblés, Babel Catalog.check, contrôles d’intégrité et secrets/diff réussis. Aucun test applicatif complet, installation, frontend build, navigateur ou MO.
+- Inventaire : 434 TS, 256 ignorés, 178 éligibles, 38 avec messages ; 365 occurrences / 293 clés distinctes. Candidat : 2 980 entrées, 311 ajouts / 4 suppressions / 506 références modifiées contre le POT suivi ; +200 clés / 0 suppression / 93 références modifiées contre le candidat précédent. Tous msgstr vides et indicateurs communs inchangés. Les 13+8 clés attendues sont présentes ; aucune occurrence de test/déclaration TS dans le catalogue.
+- 79 PO, Framework, remotes et POT suivi inchangés. Génération effectuée depuis checkout propre 6fdb0dc1 via bench generate-pot-file --app lms ; aucun update-po-files, réseau externe ou Crowdin. POT original restauré après copie du candidat.
+- Artefacts : /workspace/work/fr01d2/ (main.before.pot, main.generated.pot, main.generated.diff, comparison.json/log, compare.py, before.json, generation.log, tests-before/after/final.log). Empreinte du candidat dans la section FR-01D.2 du rapport. Ne pas écraser ces preuves.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -128,7 +142,7 @@ Lacune confirmée : les 6 messages singulier/pluriel de résultat d’enrollment
 - FR-01C : workflow d’export Crowdin distinct bien présent, mais littlepool-dev non ciblé automatiquement. Le helper de génération POT cible toujours explicitement frappe/lms, mais FR-01D le bloque désormais hors Actions officiel. Ne jamais le réutiliser pour la génération locale du fork ; appeler directement Bench. Droits Crowdin, export des seules chaînes approuvées et coût d’un projet propre non vérifiés.
 - Traductions candidates non livrées : Signups désigne des comptes, Enrollment des inscriptions pédagogiques ; Certifications compte des certificats publiés. Upload Image envoie un fichier local au serveur : Importer une image est proposé en remplacement de Télécharger une image, sans modifier le catalogue.
 
-FR-01D : le POT historique du 23 octobre est en retard sur plusieurs évolutions métier de la base ; le candidat régénéré comprend 104 ajouts au-delà des 7 FR-01B. Cause probable documentée, pas de rafraîchissement global approuvé. Les garde-fous de CI préviennent un accident ; ils ne sont pas une frontière de sécurité contre des variables falsifiées.
+FR-01D : le POT historique du 23 octobre est en retard sur plusieurs évolutions métier de la base. FR-01D.2 ajoute encore 200 clés TypeScript au candidat initial ; ces ajouts ont été contrôlés. Le rafraîchissement global est techniquement acceptable mais reste non approuvé pour intégration. Les appels dynamiques, chaînes non enveloppées, .tsx et futures syntaxes TS ne sont pas couverts automatiquement. Les garde-fous de CI préviennent un accident ; ils ne sont pas une frontière de sécurité contre des variables falsifiées.
 
 Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors dépôt. Cinq comptes fictifs et un cours FR01 à deux leçons sont conservés sur le site local. Ne pas lire, copier ou publier les fichiers de credentials ; aucun secret n’est nécessaire dans ce handoff.
 
@@ -139,12 +153,12 @@ Références réellement vérifiées pendant FR-01D, 28 octobre 2026 :
 - Dernier distant littlepool-dev : `040496fa78636a42eca414020973e6fe3640bc34`, aligné avec le checkout propre initial. Aucune publication pendant FR-01D.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 - Commits FR-01C `58c03aee` et BRAND-01 `040496fa` déjà publiés sur accord explicite ; les mentions anciennes de non-publication sont historiques.
-- Commit local non publié : `a628ed1a` — protections et test de garde. Commit documentaire initial non publié : `dd9ec7b7`. Le commit de revue courant lui succède, avec uniquement FR-01D-RESULTATS et ce handoff ; relever son SHA exact par `git log -1 --oneline` (impossible d’inscrire son propre hash dans son contenu).
+- Commits locaux non publiés : `a628ed1a` (protections), `dd9ec7b7` (rapport initial), `47cf7cf7` (revue du comparatif), `6fdb0dc1` (mapping TypeScript et tests), puis commit documentaire FR-01D.2 courant (rapport/handoff uniquement). Relever son SHA exact par `git log -1 --oneline` (impossible d’inscrire son propre hash dans son contenu).
 - Aucun commit du POT : fichier original restauré. Aucun changement non enregistré prévu après le commit documentaire. Confirmer `git status --short --branch` à la reprise. Aucun push autorisé pour les commits FR-01D.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise FR-01D :** obtenir l’autorisation d’étudier/corriger le périmètre d’extraction TypeScript côté LMS, puis d’effectuer une nouvelle extraction native contrôlée avant intégration. Le comparatif a été revu : les 111 ajouts/4 retraits sont cohérents, mais le candidat omet les messages/actions visibles d’enrollment.ts. Ne pas intégrer le candidat ni ajouter ces clés manuellement au POT. Aucun changement POT/PO/runtime en attendant. Publication des trois commits FR-01D également soumise à autorisation ; aucun push demandé ou effectué pendant la revue.
+**Prochaine action précise :** demander l’autorisation d’intégrer intégralement le candidat FR-01D.2 de 2 980 clés. Vérifier son empreinte (rapport), l’absence d’évolution des sources/mapping depuis 6fdb0dc1 et le diff 311 ajouts / 4 retraits avant tout commit POT. Ne pas intégrer l’ancien candidat de 2 780 clés. Si l’intégrité ou la correspondance au code ne peut être démontrée, refaire une extraction contrôlée. Aucun POT/PO/runtime à modifier en attendant. Les cinq commits locaux restent non publiés ; publication soumise à une autorisation distincte.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -152,7 +166,7 @@ Références réellement vérifiées pendant FR-01D, 28 octobre 2026 :
 
 Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, sans intégration à cause du diff global ; toute intégration ultérieure doit être revue. Après choix Crowdin et autorisation seulement : préparer un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser le helper de publication amont. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
-FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; sept clés restent absentes du POT suivi (présentes dans le candidat FR-01D non intégré), trois déjà présentes sont vides ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
+FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; sept clés restent absentes du POT suivi (présentes dans le candidat FR-01D.2 non intégré), trois déjà présentes sont vides ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
 
 Ne pas commencer FR-02 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
