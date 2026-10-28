@@ -1,17 +1,17 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A terminé ; arrêt avant FR-01B. Aucun push autorisé pour les commits locaux ci-dessous.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A terminé et publié ; arrêt avant FR-01B. Le nouveau commit documentaire de politique multilingue reste local, sans autorisation de push.**
 
 ## 1. Projet et références Git
 
-LittlePool Learning est un fork francophone et amélioré de Frappe Learning. Réutiliser les fonctions pédagogiques natives et préserver le multilinguisme.
+LittlePool Learning est une plateforme multilingue, fork amélioré de Frappe Learning. Politique officielle : **Fournir une traduction française intégrale tout en conservant l'anglais comme langue source et de secours, avec une langue système configurable et des préférences utilisateurs persistantes.** Réutiliser les mécanismes natifs Frappe/gettext/Crowdin, conserver les clés anglaises, ne pas coder le français directement et distinguer contenus pédagogiques et traduction d’interface. Le site local reste français ; les instances internationales peuvent choisir l’anglais ou une autre langue. Toute amélioration du sélecteur doit commencer par l’étude des fonctions natives, puis être validée, avec ordinateur et mobile prévus.
 
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `f1492f65` (corrections i18n et tests).
-- Dernier commit avant création de cette reprise : `556bf7bd` (rapport FR-01).
-- Le commit portant ce fichier et les règles de reprise est le commit documentaire suivant, intitulé `docs: preserve Codex handoff and FR-01A status`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Dernier commit local avant cette actualisation : `15b0f323` (reprise FR-01A), désormais publié.
+- Le commit portant cette actualisation documentaire est intitulé `docs: define multilingual EN-FR policy and next phases`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -39,11 +39,12 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 ## 4. Phase et travaux terminés
 
 1. Audit et feuille de route rédigés : `79c42808`.
-2. Plan de francisation : `8b61d828` ; documents précédents publiés sur littlepool-dev.
+2. Plan de francisation : `8b61d828` ; documents précédents publiés sur littlepool-dev. Politique multilingue et phases suivantes actualisées dans ROADMAP, PLAN_FRANCISATION et ce handoff, sans nouveau développement.
 3. **FR-01A** : activation des traductions françaises existantes et validation achevées. Le rapport initial appelle cette phase « FR-01 » ; la mission suivante l’a explicitement nommée FR-01A. Pas de FR-01B réalisé.
 4. Catalogues français LMS et Framework compilés via `bench compile-po-to-mo --app <app> --locale fr`. Cache de traduction invalidé dans le contexte du seul site de développement.
 5. Français système enregistré par la méthode native `lms.lms.api.set_system_preferences(language='fr')` sur ce site. Aucune préférence de compte existant forcée.
 6. Deux anomalies reproduites puis corrigées dans LMS : API sans repli pour compte sans langue ; rendu Vue figé après arrivée asynchrone du dictionnaire. Aucun changement de source Framework.
+7. Mission actuelle : trois commits FR-01A vérifiés et publiés par push normal autorisé ; politique EN/FR enregistrée uniquement dans les trois documents concernés. Aucun test, build ou audit applicatif répété, aucune dépendance réinstallée, aucune configuration du site modifiée.
 
 ## 5. Fichiers créés ou modifiés
 
@@ -90,24 +91,30 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Relevé distant du 28 octobre 2026 :
+Publication confirmée le 28 octobre 2026, après vérification du checkout propre, des trois commits attendus, des fichiers inclus et recherche ciblée de motifs de secrets sur leurs ajouts (aucun motif détecté). Push normal sans force, sans divergence et sans fusion.
 
-- `refs/heads/littlepool-dev` : `8b61d828eb045a64c2a6ec1b205550ce4c6c8532`.
+Références distantes vérifiées après publication :
+
+- `refs/heads/littlepool-dev` : `15b0f323e46881080f8961ac11a4fdb3f8e3d92b`.
 - `refs/heads/develop` : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 
-Commits non publiés :
+Les trois commits autorisés sont désormais publiés :
 
-1. `f1492f65` — `fix(i18n): align language fallback and refresh translated Vue text`.
-2. `556bf7bd` — `docs: record FR-01 activation and validation results`.
-3. Le commit documentaire portant ce handoff — `docs: preserve Codex handoff and FR-01A status` (SHA à lire avec git log).
+1. `f1492f65` — corrections i18n et tests.
+2. `556bf7bd` — rapport FR-01A.
+3. `15b0f323` — handoff et règles de reprise.
 
-Checkout propre avant cette mise à jour ; les seuls changements de cette tâche sont ce fichier, AGENTS.md et l’annotation documentaire FR-01A, à inclure dans le même commit. Aucun changement de code ou configuration non enregistré prévu après ce commit. Les fichiers de travail hors dépôt ne constituent pas des modifications Git. Confirmer par `git status --short` à la reprise ; les références distantes ci-dessus sont un relevé daté, pas une garantie de leur état futur.
+**Seul commit non publié après cette mission :** le commit documentaire portant la politique multilingue, `docs: define multilingual EN-FR policy and next phases` (SHA exact à relever avec `git log -1 --oneline`). Son parent est 15b0f323. Fichiers inclus : `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md`, `CODEX_HANDOFF.md` uniquement. Les audits et résultats historiques restent conservés. Aucun changement de code, PO, asset ou configuration n’est inclus.
+
+Checkout initial propre ; aucun changement non enregistré prévu après le commit documentaire. Confirmer `git status --short` à la reprise. Les références distantes sont un relevé daté. Contrôles de cette mission : Git local/distant, liste des commits/fichiers, recherche ciblée de secrets, relecture et `git diff --check` ; aucun test applicatif relancé.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise : présenter le résumé et demander l’accord explicite pour pousser les trois commits locaux sur littlepool-dev. Attendre la réponse.** La demande utilisateur actuelle ne vaut pas accord de push. Une fois l’accord reçu, vérifier branche, checkout et références, puis effectuer un push normal sans force de littlepool-dev uniquement ; aucune fusion.
+**Prochaine action précise : lire ce handoff, vérifier rapidement Git, puis présenter le nouveau commit documentaire et demander l’accord avant de le pousser.** L’autorisation reçue couvrait uniquement les trois commits FR-01A, pas ce nouveau commit. Ne pas publier de nouveau travail sans accord explicite.
 
-FR-01A est terminé. Ne pas exécuter FR-01B sans nouvelle instruction. Mission ultérieure recommandée après sauvegarde autorisée : FR-01B limité aux chaînes directes StudentCourseProgress, Statistics et UnsplashImageBrowser, avec extraction/Crowdin et tests ciblés. Ensuite seulement : couverture du parcours pilote, dates, notifications/certificats et autres lots selon validation.
+**Prochaine phase de développement recommandée : FR-01B**, à démarrer uniquement sur nouvelle instruction. Lire le périmètre actualisé de PLAN_FRANCISATION, traiter les chaînes Vue directes de StudentCourseProgress, Statistics et UnsplashImageBrowser, préserver les sources anglaises et la présentation, vérifier les tests ciblés FR/EN et l’extraction/Crowdin. Ne pas refaire FR-01A.
+
+Ordre de localisation : FR-02 parcours apprenant ; FR-03 formateur/administration ; FR-04 notifications/courriels/certificats ; FR-05 interfaces secondaires et couverture globale. I18N-01 : étudier les fonctions natives de sélection et langue système, proposer une amélioration puis attendre validation avant développement. Chaque phase doit vérifier FR et EN, le repli anglais et les préférences persistantes. Aucune phase suivante n’a commencé dans cette mission.
 
 ## 10. Sécurité et déploiement
 

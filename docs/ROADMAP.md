@@ -4,26 +4,37 @@ Date : 28 octobre 2026. Point de départ : audit du checkout LMS `6b791f33…`, 
 
 ## Objectif et méthode
 
-Transformer l’installation existante en une plateforme LittlePool cohérente, francophone et testée, en réutilisant les cours, programmes, cohortes et évaluations déjà présents. Commencer par un parcours pilote complet avant d’ajouter des mécanismes pédagogiques sur mesure.
+Politique linguistique officielle, actualisée le 28 octobre 2026 : **Fournir une traduction française intégrale tout en conservant l'anglais comme langue source et de secours, avec une langue système configurable et des préférences utilisateurs persistantes.**
+
+La langue dépend de chaque instance : français pour une instance française, anglais pour une instance internationale, autres langues extensibles. Le site de développement reste configuré en français. Les clés sources anglaises et les mécanismes natifs Frappe/gettext/Crowdin sont conservés ; les contenus pédagogiques des utilisateurs restent distincts de l’interface.
+
+Transformer l’installation existante en une plateforme LittlePool multilingue et testée, avec une prise en charge française complète, en réutilisant les cours, programmes, cohortes et évaluations déjà présents. Commencer par un parcours pilote complet avant d’ajouter des mécanismes pédagogiques sur mesure.
 
 Conserver `develop` intact pendant les travaux. Travailler sur `littlepool-dev` et des branches de sujets dédiées, avec revue des changements et synchronisation contrôlée de l’amont. Épingler LMS, Frappe et Payments ainsi que les versions runtime. Privilégier les paramètres natifs, puis une application d’extension pour le métier LittlePool ; limiter les modifications du fork et éviter de modifier le Framework pour une règle métier locale.
 
-## Phases et critères de sortie
+## Phases de localisation et critères de sortie
 
-| Phase | Priorité / dépendance | Travaux proposés | Critères d’acceptation |
-| --- | --- | --- | --- |
-| 0. Base reproductible | P0, avant les autres étapes | Documenter démarrage Docker et accès Bench, verrouiller les versions, vérifier les assets, formaliser sauvegarde/restauration sur copie jetable, conserver les journaux CI | Une nouvelle tâche démarre le site et passe les contrôles HTTP/DB et tests ciblés ; restauration des données démontrée séparément |
-| 1. Français effectif | P0, après 0 | Identifier la commande de compilation adaptée à Frappe v17, produire les MO de LMS/Framework, vérifier leur distribution et les caches ; configurer langue système et comptes pilotes | `Courses → Cours` et `Next → Suivant` dans le dictionnaire effectif ; invité, apprenant et formateur affichent les traductions après connexion et rechargement |
-| 2. Français complet du pilote | P1, après 1 | Glossaire, traduction Crowdin, extraction des chaînes hors `__()`/`_()`, locale Day.js, formats et pluriels, emails et certificats | Aucun anglais non justifié sur inscription → cours → leçon → quiz → résultat → certificat ; dates françaises, substitutions conservées, revue linguistique et captures mobile/desktop |
-| 3. Identité et périmètre LittlePool | P1, parallélisable avec 2 après cadrage | Nom, logo, favicon, métadonnées, accueil et navigation ; configurer les fonctions visibles selon les rôles et le besoin ; modèles email/certificat | Marque cohérente sur le parcours pilote, emails et PDF ; permissions respectées ; absence de régression sur navigation et accessibilité |
-| 4. Pilote pédagogique | P1, après 2–3 | Construire un cours et un programme représentatifs, définir objectifs, prérequis, évaluations, feedback et critères de réussite ; tester une cohorte si retenue | Un apprenant termine le parcours ; un formateur corrige et suit la progression ; certificat conforme ; comportement des échecs et du déblocage documenté |
-| 5. Suivi et accompagnement | P2, après retour pilote | Définir indicateurs, suivi de cohortes, exports, relances et remédiation ; brancher visio/communication seulement si nécessaires | Indicateurs réconciliés avec les résultats sources ; droits vérifiés ; relances testées dans un canal de test ; connecteurs validés indépendamment |
-| 6. Enrichissements ciblés | P2/P3, après mesures d’usage | Étudier compétences, diagnostic initial, révision espacée, parcours adaptatifs, badges enrichis ; tester interopérabilité SCORM et décider si xAPI/LTI sont utiles | Chaque ajout répond à un besoin mesuré, réutilise l’existant lorsque possible et possède un test utile ; aucune promesse de standard sans validation |
-| 7. Préparation à la mise en service | Après validation du pilote ; décision distincte | Recette complète sur préproduction, rôles et sécurité, sauvegardes, observabilité, charge adaptée, accessibilité et procédure de retour arrière | Rapport de recette accepté, versions figées et récupération démontrée ; décision explicite avant toute action de production |
+FR-01A est terminé : activation, repli et réactivité validés ; voir `docs/FR-01-RESULTATS.md`. Les résultats existants (6 102 clés françaises, six profils Chromium, 2 680 tests Vue réussis) sont conservés comme référence, sans les réexécuter pour cette mise à jour documentaire.
 
-Les phases expriment un ordre de dépendance, pas des dates promises. Le chiffrage dépend du public, du volume de contenus, des intégrations et du niveau de personnalisation retenus.
+| Phase | Périmètre | Validation française et anglaise |
+| --- | --- | --- |
+| FR-01A — terminé | Activer les catalogues existants et corriger les défauts reproduits | Français du site local, comptes FR/EN, compte sans préférence, visiteur, rechargement et persistance déjà vérifiés |
+| FR-01B — prochaine phase, non commencée | Rendre traduisibles les chaînes anglaises directes dans Vue, en conservant les sources anglaises et la présentation | Tests ciblés : traductions FR, sources EN et repli anglais pour clé absente ; extraction et interpolations contrôlées |
+| FR-02 | Compléter le parcours apprenant : navigation, catalogue, cours/chapitres/leçons, quiz/évaluations/résultats, inscription/profil, erreurs, aides et accessibilité | Parcours représentatif en FR et EN ; formats de dates/nombres et états vides ; desktop/mobile |
+| FR-03 | Compléter les interfaces formateur et administration : tableaux de bord, paramètres, utilisateurs et corrections | Rôles et fonctions inchangés en FR/EN ; aucune traduction des identifiants ou valeurs stockées |
+| FR-04 | Notifications, courriels, certificats et attestations | Sujet/corps/langue destinataire et PDF en FR/EN ; variables, liens et accents conservés ; destinataires de test uniquement |
+| FR-05 | Interfaces secondaires et couverture linguistique globale | Relevé global des manques FR, non-régression EN, pluriels, dates/nombres, libellés accessibles et composants partagés ; contenus utilisateurs traités séparément |
+| I18N-01 | Étudier les sélecteurs et paramètres natifs existants, puis améliorer seulement après validation | Préférence explicite prioritaire et persistante, langue système configurable, changement et rechargement FR/EN sur ordinateur/mobile ; pas de mécanisme parallèle si Frappe suffit |
+
+Aucune de ces phases suivantes n’est autorisée à démarrer dans la mission documentaire actuelle. Le chiffrage dépend du périmètre accepté et des accès Crowdin ; aucune durée ou quantité de quota n’est supposée.
+
+## Chantiers produit distincts
+
+La base reproductible, l’identité LittlePool, le pilote pédagogique, le suivi des cohortes et les enrichissements restent des chantiers distincts à cadrer. Le pilote doit être utilisable en français et en anglais. Les intégrations et la mise en service nécessitent leur recette et une décision explicite ; aucune étape ne déploie automatiquement en production.
 
 ## Backlog initial concret
+
+Les preuves ci-dessous sont les constats historiques de l’audit ; elles ne décrivent pas toutes l’état actuel. LP-002 est couvert par FR-01A ; voir son rapport pour l’état effectif.
 
 | ID | Sujet | Preuve de départ | Vérification attendue |
 | --- | --- | --- | --- |
@@ -42,7 +53,7 @@ Les phases expriment un ordre de dépendance, pas des dates promises. Le chiffra
 - Public : adultes, établissements, associations ou mineurs ; disciplines et niveau d’autonomie.
 - Modalités : autoformation, cohortes accompagnées, direct, évaluations et remédiation.
 - Diffusion : catalogue public ou privé, inscription libre ou invitation, gratuité ou paiement.
-- Langues : français uniquement ou multilingue ; variantes et glossaire (`batch` → cohorte/session à décider).
+- Langues : architecture multilingue retenue, français intégral visé, anglais source et secours ; préciser les autres langues, variantes et le glossaire (`batch` → cohorte/session à décider).
 - Attestation : simple certificat de complétion ou validation de compétences avec évaluateur.
 - Contraintes : accessibilité, conservation/export des résultats, hébergement des médias et connecteurs réellement nécessaires.
 
@@ -50,6 +61,6 @@ Ces décisions peuvent être préparées en parallèle de la stabilisation techn
 
 ## Stratégie de validation
 
-Conserver la suite Vue et les tests Python existants. Ajouter des tests ciblés lors des changements de comportement : chargement français, interpolations, permissions et progression. Faire une recette Playwright puis humaine du parcours pilote sur desktop et mobile, en incluant échecs, tentatives épuisées, dates/fuseaux, emails et certificats. Pour SCORM, utiliser des paquets réels de chaque standard retenu et vérifier accès, reprise et complétion.
+Conserver la suite Vue et les tests Python existants. Ajouter des tests ciblés lors des changements de comportement : interfaces FR et EN, repli anglais, préférence utilisateur prioritaire, langue système configurable, interpolations, permissions et progression. Réutiliser les résultats déjà validés et ne pas relancer toutes les suites sans nécessité technique. Faire une recette Playwright puis humaine du parcours pilote sur desktop et mobile, en incluant échecs, tentatives épuisées, dates/fuseaux, emails et certificats. Pour SCORM, utiliser des paquets réels de chaque standard retenu et vérifier accès, reprise et complétion.
 
 À chaque livraison : examiner le diff, vérifier la migration éventuelle sur copie, conserver les résultats réellement exécutés et distinguer les contrôles automatisés de la recette manuelle. Les workflows existants de release et de publication d’assets doivent être revus avant tout push sur une branche qui les déclenche. Aucune étape de cette feuille de route ne doit déployer automatiquement en production pendant la phase de développement demandée.

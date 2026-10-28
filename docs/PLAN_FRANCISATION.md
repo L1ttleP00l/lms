@@ -2,6 +2,18 @@
 
 Date : 28 octobre 2026 (Europe/Paris). Travail documentaire sur `littlepool-dev`, à partir de `docs/AUDIT.md`, `docs/ROADMAP.md` et du code installé : LMS `2.45.2` (`6b791f33…`) et Frappe `17.0.0-dev` (`959b85de…`). Aucune modification fonctionnelle, graphique, de langue du site ou de catalogue n’est réalisée dans cette mission.
 
+## Politique linguistique officielle
+
+LittlePool Learning est une plateforme multilingue ; le français est une traduction complète visée, pas une langue imposée dans les sources.
+
+**Fournir une traduction française intégrale tout en conservant l'anglais comme langue source et de secours, avec une langue système configurable et des préférences utilisateurs persistantes.**
+
+Conserver les clés anglaises et les mécanismes natifs Frappe/gettext/Crowdin, sans français codé directement. La langue initiale est définie par instance (FR, EN ou autre), la préférence utilisateur explicite est prioritaire et persistante. Le site learning.localhost reste français ; aucun changement de configuration n’est demandé ici. Les contenus pédagogiques saisis restent distincts de la traduction d’interface.
+
+La couverture française visée comprend navigation/tableaux de bord, catalogue, cours/chapitres/leçons, quiz/évaluations/résultats, apprenants/formateurs, administration/paramètres, inscription/utilisateurs, notifications/courriels, certificats/attestations, erreurs/confirmations/aides, dates/nombres et libellés accessibles des composants.
+
+Le sélecteur de langue relève d’I18N-01 : commencer par examiner les fonctions natives (préférence User.language, réglages système et interfaces existantes), puis soumettre une proposition avant développement. Ne pas créer de stockage ou résolveur parallèle si les fonctions Frappe suffisent ; prévoir ordinateur et mobile. Cette étude n’est pas démarrée dans la présente mission.
+
 ## 1. Point de départ et sauvegarde
 
 Le commit `79c42808e9fbcf10ff9619e731f771b8a527a7de` ajoute uniquement `docs/AUDIT.md` et `docs/ROADMAP.md`. Les contenus ont été relus ; une recherche ciblée de clés privées, jetons GitHub, identifiants AWS et affectations de mots de passe/secrets n’a trouvé aucun motif suspect. Aucun fichier `.env`, configuration de site, mot de passe ni secret n’est inclus dans ce commit. Les chemins et noms de paramètres mentionnés dans l’audit ne sont pas leurs valeurs secrètes. Ce contrôle porte sur le commit documentaire, pas sur une certification de tout l’historique du fork.
@@ -113,27 +125,28 @@ Le mécanisme historique `build-message-files` / commandes CSV n’est pas le ch
 5. **Sources** : garder les clés anglaises, valeurs de statut, noms de DocTypes et contrats d’API. Envelopper uniquement la présentation, préserver `{0}`, balises et variables Jinja. Pour une phrase ambiguë, préférer un message complet avec paramètres à des fragments, avec revue de son impact sur les clés existantes.
 6. **Livraison** : ne suivre ni MO ni assets générés. Documenter compilation et invalidation du cache dans la procédure reproductible. Les traductions Framework partagées doivent rester dans leur circuit amont ; aucune modification du checkout Framework n’est prévue.
 
-## 7. Priorités et premier lot proposé
+## 7. Phases actualisées
 
-### Lot FR-01 — Activer et sécuriser le français existant (P0)
+### FR-01A — terminé et validé
 
-Périmètre volontairement réduit pour une prochaine mission :
+L’activation et la validation sont documentées dans `docs/FR-01-RESULTATS.md` : 6 102 clés françaises chargées ; repli API aligné sur le bootstrap ; dictionnaire Vue réactif ; six profils Chromium et préférences FR/EN vérifiés ; 5 tests backend ciblés, 9 tests frontend ciblés, 2 680 tests Vue complets et build réussis. Réutiliser ces résultats ; ne pas recommencer FR-01A pour cette mise à jour documentaire.
 
-- Compiler les PO français LMS et Framework présents, vider les caches ciblés et configurer la langue sur le seul site de développement et trois comptes pilotes (apprenant, formateur, gestionnaire).
-- Vérifier le repli de langue pour Guest et un compte sans préférence. Si une incohérence bootstrap/API est reproduite, préparer une correction minimale et un test de régression, dans un commit séparé.
-- Rendre traduisibles `Student Progress`, les neuf clés distinctes listées pour Statistics et `search by keyword`, sans changement de mise en page. Faire passer les clés absentes par extraction/Crowdin ; utiliser une surcharge native uniquement si elle relève du vocabulaire LittlePool validé.
-- Préparer une sélection éditoriale limitée aux clés d’un parcours « catalogue → cours → leçon → quiz → résultat », à valider dans Crowdin. Ne pas promettre de traduire d’un bloc les 2 105 manques.
+Les consignes de la mission FR-01A ont réservé les chaînes directes au sous-lot suivant : elles ne sont pas déclarées corrigées.
 
-Critères de sortie : MO présents et lisibles ; `Courses → Cours` et `Next → Suivant` disponibles à l’exécution ; absence de régression sur les interpolations ; préférence utilisateur respectée ; chaînes ciblées effectivement françaises après rendu ; aucune différence fonctionnelle ou graphique involontaire. Le seuil n’est pas le nombre global de clés fusionnées, qui dépend des autres applications.
+| Phase future | Travaux | Tests FR et EN à prévoir |
+| --- | --- | --- |
+| FR-01B | StudentCourseProgress, Statistics, UnsplashImageBrowser : envelopper les chaînes directes, préserver les sources anglaises et vérifier extraction/Crowdin | Composants ciblés en FR/EN, clé absente → source anglaise, paramètres conservés, aucun changement graphique |
+| FR-02 | Traduction complète du parcours apprenant, y compris navigation, cours/leçons/quiz, utilisateurs et états d’erreur | Parcours pilote FR/EN, états vides, pluriels, dates/nombres, clavier et libellés accessibles, desktop/mobile |
+| FR-03 | Interfaces formateur et administration | Rôles et réglages FR/EN, corrections, données et contrats métier inchangés |
+| FR-04 | Notifications, courriels, certificats et attestations | Langue destinataire FR/EN, sujets/corps, variables et liens, accents et PDF ; aucun envoi hors test |
+| FR-05 | Interfaces secondaires et couverture globale | Inventaire global FR, non-régression EN, dates/nombres/accessibilité, revue linguistique ; contenus utilisateur distincts |
+| I18N-01 | Étude des fonctions natives de sélection de langue et langue par défaut ; amélioration après validation seulement | Défaut d’instance configurable, préférence utilisateur prioritaire/persistante, FR/EN sur ordinateur/mobile, absence de mécanisme parallèle |
 
-### Lots suivants
-
-- **FR-02 (P1)** : dates Day.js françaises, navigation, inscription/profil et totalité du parcours pilote, avec états vides, erreurs, pluriels et accessibilité.
-- **FR-03 (P1)** : écrans formateur/administration, devoirs et corrections, progression et cohortes.
-- **FR-04 (P1/P2)** : notifications, sujets d’emails, langue du destinataire, modèles de certificats et rendu PDF ; utiliser uniquement des destinataires de test.
-- **FR-05 (P2)** : fonctions secondaires et contenus pédagogiques/SCORM, avec traduction éditoriale indépendante et contrôle de la qualité linguistique.
+Ces phases ne sont pas commencées pendant la mission documentaire actuelle. Les dates, emails et certificats ne sont pas couverts par la seule activation des MO.
 
 ## 8. Tests nécessaires pour les futurs lots
+
+Chaque phase doit vérifier le français **et** l’anglais, la priorité de la préférence utilisateur, sa persistance et le repli sur les clés anglaises. La langue système est configurable par instance : aucun test ou correctif ne doit supposer un français codé en dur. Choisir les contrôles ciblés utiles ; réutiliser les validations FR-01A sans relancer automatiquement les suites complètes.
 
 | Niveau | Vérifications |
 | --- | --- |
@@ -141,7 +154,7 @@ Critères de sortie : MO présents et lisibles ; `Courses → Cours` et `Next �
 | Serveur | Dictionnaire français par app puis fusionné, surcharges Translation et cache invalidé ; langue système, utilisateur fr/en et utilisateur sans langue ; contrôles de permissions inchangés |
 | Vue | Étendre `frontend/src/tests/translation.test.ts` si nécessaire : repli anglais, tableau de substitutions, `.format`, premier chargement et changement de langue ; tests ciblés des titres et placeholders modifiés |
 | Dates | Locale fr, noms des mois, temps relatifs, singulier/pluriel, fuseau du site et du navigateur, conservation des datetimes serveur |
-| Navigateur | Parcours invité/apprenant/formateur/gestionnaire, premier rendu et rechargement ; desktop/mobile, clavier et libellés accessibles ; absence d’anglais sur le périmètre accepté |
+| Navigateur | Parcours invité/apprenant/formateur/gestionnaire, premier rendu et rechargement ; desktop/mobile, clavier et libellés accessibles ; absence d’anglais non justifié en mode FR et maintien de l’interface source en mode EN sur le périmètre accepté |
 | Notifications et documents | Sujet/corps/destinataire, variables et liens conservés, langue attendue, caractères accentués et débordements PDF ; aucun envoi réel hors test |
 | Régression | Suite Vue, modules Python concernés, build des assets si les sources changent et recette Playwright ciblée. Conserver explicitement tout échec et toute relance |
 
@@ -156,7 +169,7 @@ Les résultats de l’audit précédent (39 tests backend réussis, 2 677 tests 
 - MO manquants, cache serveur ancien ou état client non renouvelé peuvent masquer une traduction correcte. Valider la chaîne complète après chaque livraison.
 - Ne pas confondre traduction, marque, contenu pédagogique et changement métier ; aucun renommage des valeurs stockées, permissions ou routes pour franciser une interface.
 
-## 10. Contrôles réellement exécutés dans cette mission
+## 10. Contrôles historiques de la mission de préparation initiale
 
 - Vérification de la branche courante `littlepool-dev`, checkout initial propre, origine `L1ttleP00l/lms`, contenu exact du commit 79c42808 et lecture des deux documents.
 - Recherche ciblée de motifs de secrets sur les deux blobs documentaires : aucun résultat ; contrôle des noms de fichiers et du diff.
@@ -165,4 +178,4 @@ Les résultats de l’audit précédent (39 tests backend réussis, 2 677 tests 
 - Lecture des mécanismes Framework/LMS et aides exécutées dans lms-bench : `bench compile-po-to-mo --help`, `bench generate-pot-file --help`, `bench update-po-files --help`.
 - Relevé statique des entrées françaises vides et classement indicatif documenté ci-dessus ; revue ciblée des chaînes Vue.
 
-Aucune compilation de catalogue, extraction POT, modification de PO, modification de langue ou de cache, reconstruction d’assets, migration ni suite applicative n’a été exécutée ici. Les commandes de préparation sont proposées et leur syntaxe est vérifiée, mais leur résultat d’exécution reste à démontrer pendant FR-01.
+Lors de la préparation initiale, seules les aides CLI avaient été exécutées. L’activation et les tests ont depuis été réalisés dans FR-01A : leur rapport fait foi. La présente actualisation de la politique linguistique modifie uniquement les documents ; elle ne répète aucune compilation, modification de langue, installation ou suite de tests.
