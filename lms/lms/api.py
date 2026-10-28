@@ -18,7 +18,7 @@ from frappe.integrations.frappe_providers.frappecloud_billing import (
 	is_fc_site,
 )
 from frappe.rate_limiter import rate_limit
-from frappe.translate import get_all_translations
+from frappe.translate import get_all_translations, get_user_lang
 from frappe.utils import (
 	add_days,
 	cint,
@@ -195,11 +195,7 @@ def _doctype_permissions():
 
 @frappe.whitelist(allow_guest=True)
 def get_translations():
-	if frappe.session.user != "Guest":
-		language = frappe.db.get_value("User", frappe.session.user, "language")
-	else:
-		language = frappe.db.get_single_value("System Settings", "language")
-	return get_all_translations(language)
+	return get_all_translations(get_user_lang())
 
 
 @frappe.whitelist()

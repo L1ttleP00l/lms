@@ -1,6 +1,10 @@
 import { createResource } from 'frappe-ui'
+import { shallowRef } from 'vue'
+
+const messages = shallowRef({})
 
 export default function translationPlugin(app) {
+	messages.value = window.translatedMessages || {}
 	app.config.globalProperties.__ = translate
 	window.__ = translate
 	if (!window.translatedMessages) fetchTranslations()
@@ -15,7 +19,7 @@ function fill(message, args) {
 // LMS calls __('Hello {0}').format(name). Frappe's shared UI calls it the
 // Desk way, __('Hello {0}', [name]), and needs a string back.
 function translate(message, replace) {
-	let translatedMessages = window.translatedMessages || {}
+	let translatedMessages = messages.value
 	let translatedMessage = translatedMessages[message] || message
 
 	if (Array.isArray(replace)) return fill(translatedMessage, replace)
@@ -31,13 +35,14 @@ function translate(message, replace) {
 	}
 }
 
-function fetchTranslations(lang) {
+function fetchTranslations() {
 	createResource({
 		url: 'lms.lms.api.get_translations',
 		cache: 'translations',
 		auto: true,
 		transform: (data) => {
 			window.translatedMessages = data
+			messages.value = data
 		},
 	})
 }
