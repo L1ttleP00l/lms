@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A/B et documents FR-01C/BRAND-01 publiés. FR-01D : protections de publication amont ajoutées ; génération native réussie, mais POT non intégré après diff plus large que prévu. Deux commits FR-01D locaux, aucun push. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A/B et documents FR-01C/BRAND-01 publiés. FR-01D : protections de publication amont ajoutées ; génération native réussie, mais POT non intégré après diff plus large que prévu. Trois commits documentaires/CI FR-01D locaux après revue du comparatif, aucun push. Lacune confirmée : messages du module enrollment.ts absents du candidat POT. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
 
 ## 1. Projet et références Git
 
@@ -11,7 +11,7 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
 - Base FR-01D locale et distante vérifiée : `040496fa78636a42eca414020973e6fe3640bc34`. FR-01C `58c03aee` et BRAND-01 `040496fa` sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `docs: record FR-01D safety checks and deferred POT integration`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Le commit portant cette actualisation documentaire est intitulé `docs: review POT removals references and TypeScript extraction gap`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -67,7 +67,7 @@ FR-01C : `docs/FR-01C-STRATEGIE.md` (comparaison, architecture, dix clés candid
 
 BRAND-01 : `docs/IDENTITE_PROJET.md` et ce handoff. Contrôles : pré-recherche web de confusions, références INPI/EUIPO/OMPI, cohérence et diff des documents ; aucun test applicatif ni vérification de disponibilité auprès des registres de marques/domaines/GitHub.
 
-FR-01D : `.github/helper/update_pot_file.sh`, `.github/workflows/generate-pot-file.yml`, nouveau `.github/helper/test_pot_publication_guard.py` (commit local `a628ed1a`) ; `docs/FR-01D-RESULTATS.md` et ce handoff (commit documentaire courant). Aucun POT/PO committé.
+FR-01D : `.github/helper/update_pot_file.sh`, `.github/workflows/generate-pot-file.yml`, nouveau `.github/helper/test_pot_publication_guard.py` (commit local `a628ed1a`) ; `docs/FR-01D-RESULTATS.md` et ce handoff (rapport initial `dd9ec7b7`, puis revue documentaire courante). Aucun POT/PO committé.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -110,6 +110,12 @@ Tests exécutés lors de FR-01A, **ne pas les relancer sans nécessité** :
 - 79 empreintes PO identiques ; remotes, HEAD/état Framework inchangés ; POT suivi restauré octet pour octet ; diff et recherche ciblée de secrets contrôlés. Aucun frontend/backend/HTTP/navigateur/build/MO exécuté pour FR-01D.
 - Comparaison persistante : rapport FR-01D avec inventaire des 111 ajouts et 4 retraits. Preuves complémentaires hors Git : /workspace/work/fr01d/{main.before.pot,main.generated.pot,main.generated.diff,comparison.json,generation.log,before.json,compare.py,validate_generated.py}. Leur persistance dépend de la restauration du workspace.
 
+### Revue du comparatif FR-01D
+
+Analyse seule, sans génération ni tests répétés : les 111 ajouts sont présents aux références indiquées. Les 4 suppressions viennent des anciens formulaires individuels remplacés par l’inscription multiple ; traductions FR vides, traductions non vides dans d’autres PO à conserver en mémoire lors d’une future synchronisation. Références : 409 déplacements de lignes, 6 changements de multiplicité à chemins identiques, 29 changements d’ensemble de chemins (22 ajouts seuls / 4 retraits seuls / 3 mixtes). Aucun msgctxt ni indicateur des clés communes modifié.
+
+Lacune confirmée : les 6 messages singulier/pluriel de résultat d’enrollment.ts et les 2 actions Enroll 1 student / Enroll {0} students sont absents du candidat ; mapping natif sans .ts et pas de mapping propre LMS. Recommandation : corriger le périmètre d’extraction côté LMS après autorisation, vérifier la compatibilité de l’extracteur natif avec TypeScript puis refaire une extraction contrôlée. Aucun changement de sources ni POT fait pendant la revue. Détails, classement des 111 ajouts et impact des suppressions ajoutés au rapport existant. Artefacts d’analyse supplémentaires hors Git : /workspace/work/fr01d/review.py, review.json, review.log.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -133,12 +139,12 @@ Références réellement vérifiées pendant FR-01D, 28 octobre 2026 :
 - Dernier distant littlepool-dev : `040496fa78636a42eca414020973e6fe3640bc34`, aligné avec le checkout propre initial. Aucune publication pendant FR-01D.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 - Commits FR-01C `58c03aee` et BRAND-01 `040496fa` déjà publiés sur accord explicite ; les mentions anciennes de non-publication sont historiques.
-- Commit local non publié : `a628ed1a` — protections et test de garde. Le commit documentaire courant lui succède, avec uniquement FR-01D-RESULTATS et ce handoff ; relever son SHA exact par `git log -1 --oneline` (impossible d’inscrire son propre hash dans son contenu).
+- Commit local non publié : `a628ed1a` — protections et test de garde. Commit documentaire initial non publié : `dd9ec7b7`. Le commit de revue courant lui succède, avec uniquement FR-01D-RESULTATS et ce handoff ; relever son SHA exact par `git log -1 --oneline` (impossible d’inscrire son propre hash dans son contenu).
 - Aucun commit du POT : fichier original restauré. Aucun changement non enregistré prévu après le commit documentaire. Confirmer `git status --short --branch` à la reprise. Aucun push autorisé pour les commits FR-01D.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise FR-01D :** faire examiner le rapport comparatif des 111 ajouts / 4 retraits et obtenir l’accord explicite pour revoir/intégrer le rafraîchissement global du POT. Ne pas générer un POT réduit manuellement ; ne pas intégrer le candidat actuel sans revue. Aucun POT/PO ou runtime à modifier en attendant. Procédure native reproductible dans docs/FR-01D-RESULTATS.md. Publication des deux commits FR-01D également soumise à autorisation.
+**Prochaine action précise FR-01D :** obtenir l’autorisation d’étudier/corriger le périmètre d’extraction TypeScript côté LMS, puis d’effectuer une nouvelle extraction native contrôlée avant intégration. Le comparatif a été revu : les 111 ajouts/4 retraits sont cohérents, mais le candidat omet les messages/actions visibles d’enrollment.ts. Ne pas intégrer le candidat ni ajouter ces clés manuellement au POT. Aucun changement POT/PO/runtime en attendant. Publication des trois commits FR-01D également soumise à autorisation ; aucun push demandé ou effectué pendant la revue.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 

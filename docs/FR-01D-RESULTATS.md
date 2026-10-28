@@ -228,3 +228,87 @@ Sources et numéros de ligne observés au moment de la génération ; une seule 
 | `{0} students` | `frontend/src/components/Enrollment/EnrollStudentsForm.vue:514` |
 | `{0} students selected` | `frontend/src/components/Enrollment/EnrollSelectionBanner.vue:105` |
 | `{0} {1} does not exist. Choose an existing {0}.` | `lms/lms/bulk_enrollment.py:76` |
+
+## Revue approfondie du comparatif — 28 octobre 2026
+
+Cette analyse réutilise exclusivement les POT et comparaisons conservés ; aucune génération, suite de tests ou compilation relancée. Elle précise la décision provisoire précédente. Le candidat contient bien les 111 clés nouvelles annoncées, toutes retrouvées dans les sources à leurs références, et les 13 clés FR-01B. Aucune entrée ajoutée ne provient d’un fichier de test, d’un asset généré ou d’une dépendance. Les clés sont distinctes, avec contexte absent ; plusieurs usages d’une même clé sont regroupés normalement.
+
+### Quatre suppressions : origine, remplacement et impact
+
+| Clé anglaise exacte | Ancienne origine dans le POT | Situation et remplacement actuels |
+| --- | --- | --- |
+| `Enroll Student` | BatchStudentForm.vue:2 et CourseEnrollmentForm.vue:2 | Ancien titre singulier disparu. Les deux pages délèguent maintenant au composant Enrollment/EnrollStudentsForm.vue, dont le titre est `Enroll Students` (ligne 3). Nouvelle clé plurielle : pas de transfert automatique de traduction. |
+| `Please select a student to enroll.` | BatchStudentForm.vue:152 et CourseEnrollmentForm.vue:172 | Ancien toast de validation disparu. Le parcours accepte plusieurs membres et désactive l’action sans sélection (`canEnroll`, lignes 329–338 du formulaire partagé). `Add students to enroll`, `No students added`, `Students you add will be listed here.` orientent la sélection. Remplacement fonctionnel, sans clé équivalente unique. |
+| `Student enrolled successfully` | BatchStudentForm.vue:164 et CourseEnrollmentForm.vue:191 | Ancien toast disparu. Le résultat est construit par `enrollOutcome` dans Enrollment/enrollment.ts:125–155, appelé par le formulaire partagé:671. Succès : `1 student enrolled` / `{0} students enrolled` ; résultat distinct pour mise à niveau du certificat et erreurs partielles. **Ces clés de résultat ne sont pas dans le candidat**, voir lacune TypeScript ci-dessous. |
+| `Please select a payment for the purchased certificate.` | CourseEnrollmentForm.vue:176 | Ancienne validation du certificat disparu. Le parcours commun distingue création et liaison d’un paiement. `Choose a payment to link for {0}` (formulaire:524), `Fill in {0} in the details for all` (:528) et les validations backend assurent désormais cette information. Pas de correspondance univoque ; relire chaque nouvelle traduction dans son contexte. |
+
+L’historique `74aad759` confirme le passage aux inscriptions multiples et la suppression des anciens toasts ; `5a668b04` poursuit la refonte du dialogue partagé. Les quatre chaînes exactes ne figurent plus dans les sources applicatives courantes. Leur présence historique dans les PO/POT ne constitue pas un usage actif.
+
+Le PO français contient les quatre entrées mais leurs traductions sont vides : aucune traduction FR renseignée ne serait perdue pour ces quatre clés. D’autres langues ont des traductions non vides : 3 pour `Enroll Student` (bs, eo, sv), 13 pour chacune des trois autres (bs, da, de, eo, es, hr, mn, sk, sr, sr_CS, sv, uz, zh_TW). Ce comptage inclut toute valeur non vide et ne certifie ni approbation ni qualité. L’intégration d’un POT seul ne modifie ni PO ni MO, donc ne supprime pas immédiatement ces traductions au runtime. Un futur import/synchronisation pourra les rendre obsolètes ; conserver la mémoire de traduction et revoir les suggestions/fuzzy, surtout singulier → pluriel et ancien paiement → nouveau parcours. Ne pas recopier automatiquement l’ancien texte sur les nouvelles clés.
+
+### Classement des 111 ajouts
+
+Attribution à la première référence pour obtenir des groupes disjoints totalisant 111. L’annexe précédente conserve l’inventaire clé par clé et ses références.
+
+| Origine | Nombre | Fonction et appréciation |
+| --- | ---: | --- |
+| Enrollment/EnrollStudentsForm.vue | 16 | Dialogue, choix et détails d’inscription ; textes visibles réels. Interpolations et fragments de liste à relire linguistiquement. |
+| Enrollment/EnrollPaymentPanel.vue | 19 | Paiement, adresse et détails communs/individuels ; textes visibles, aides et valeurs de présentation. |
+| Enrollment/EnrollSelectionBanner.vue | 6 | Sélection et actions collectives ; formes `1 student selected` / `{0} students selected` intentionnelles, non doublons. |
+| Enrollment/StudentPicker.vue | 4 | Recherche, sélection et états vides ; textes visibles. |
+| Enrollment/EnrollStudentTable.vue | 2 | Colonne `Billing` et indication `Requires address` ; préciser le contexte comptable pour la revue. |
+| lms/lms/bulk_enrollment.py | 30 | Erreurs de validation membres, paiement et adresse ; messages destinés aux utilisateurs/API. Vocabulaire technique, mais pas de pollution par des identifiants internes seuls. |
+| lms/lms/api.py | 15 | Validations d’inscription, permissions et paiement ; erreurs effectivement transmises à l’appelant. |
+| Statistics.vue | 6 | Statistiques FR-01B : titres et sous-titres. Signups = comptes créés ; Certifications = certificats publiés : ambiguïtés déjà documentées, à traiter dans le glossaire. |
+| Courses/StudentCourseProgress.vue | 1 | Titre Student Progress, FR-01B. |
+| Quiz.vue | 2 | Erreur de connexion et refus d’accès au quiz ; messages destinés au lecteur. |
+| lms_settings.json | 5 | Libellés administrateur des exigences de réussite ; destinés à la traduction. |
+| permissions.py | 2 | Erreur et titre du refus de soumission pour autrui ; tous deux affichables. |
+| lms_batch_feedback.py | 2 | Refus de retour sur une session sans inscription ; message et titre. |
+| lms_payment.py | 1 | Source is required., validation affichable. |
+
+Points de vigilance non bloquants pour les 111 ajouts :
+
+- `Payment arguments must be JSON objects.`, `Linked payments must map each user email to an LMS Payment name.` et les erreurs de clés autorisées sont techniques **mais traduisibles** car elles expliquent une erreur à l’appelant. JSON, noms de DocTypes, noms de champs transmis en paramètres et identifiants doivent rester reconnaissables dans la traduction. Aucun chemin de fichier, secret, SQL ou nom de fonction isolé n’a été trouvé parmi ces 111 clés.
+- `Member payment details`, `Payment details`, `Linked payments`, `The common address` sont des libellés employés dans des erreurs composées ; ce ne sont pas des variables accidentellement extraites. Relire les accords avec le message enveloppant.
+- `Upgrade`, `Required`, `Varies` et les fragments `{0} and {1}` / `{0} students` demandent leur contexte métier. `What you enter applies to these {0}. Empty fields use the details for all.` insère un nombre de lignes : source anglaise peu naturelle, sans perte de paramètre ni défaut d’extraction. À améliorer seulement dans une mission sources autorisée.
+- Pas de doublon exact nouveau détecté. Les formes singulier/pluriel sont des clés séparées voulues. Les différences de casse (`Billing name` dans TypeScript / `Billing Name` ailleurs, recherche Unsplash majuscule/minuscule) ne doivent pas être fusionnées automatiquement.
+
+### Lacune confirmée : messages TypeScript absents
+
+Le remplacement de `Student enrolled successfully` conduit à des clés visibles dans `frontend/src/components/Enrollment/enrollment.ts`, absentes du candidat :
+
+- `1 student enrolled` / `{0} students enrolled`.
+- `1 student upgraded to certificate` / `{0} students upgraded to certificate`.
+- `1 student could not be enrolled` / `{0} students could not be enrolled`.
+
+Les actions `Enroll 1 student` / `Enroll {0} students` du même module sont également absentes. Le formulaire appelle les helpers correspondants : il ne s’agit pas de code de test ou de simples chaînes inutilisées.
+
+La configuration Framework `babel_extractors.csv` couvre `.py`, `.js`, `.html`, `.vue` et plusieurs JSON, mais aucun `.ts` ; LMS ne fournit pas de `babel_extractors.csv` propre. Le mécanisme natif utilise la première règle correspondant au fichier. Ces constats expliquent l’omission sans lancer une nouvelle extraction. Cela ne remet pas en cause l’extraction des 13 clés Vue FR-01B, mais empêche de qualifier le candidat de couverture complète du nouveau parcours d’inscription. Ni les six clés de résultat ni les deux boutons ne doivent être ajoutés manuellement au POT.
+
+### Les 444 modifications de références
+
+Comptage par entrée commune, et non par ligne du diff :
+
+| Catégorie exclusive | Entrées | Effet |
+| --- | ---: | --- |
+| Mêmes chemins et même multiplicité, seuls numéros de ligne modifiés | 409 | Déplacement dans les fichiers ; aucune identité gettext modifiée. |
+| Mêmes chemins, nombre d’occurrences modifié | 6 | Enrollments, Include in preview, Members must be a list of users., Search text must be text., Try again, Upcoming. Usages ajoutés ou retirés dans un fichier existant. |
+| Ensemble de chemins modifié | 29 | 22 ajouts de chemins uniquement, 4 retraits uniquement, 3 cas mixtes. Il s’agit de lieux d’usage, pas de 29 fichiers renommés. |
+| Total | 444 | Aucun changement de msgid, msgctxt ou indicateur gettext des clés communes. |
+
+Les quatre retraits de chemins uniquement concernent `All`, `Enroll`, `Error`, `Purchased Certificate`. Les trois cas mixtes sont `Loading...`, `Payment`, `Student` : notamment déplacement des anciens formulaires vers les composants partagés. Les 22 ajouts correspondent surtout au nouveau dialogue, aux validations backend et à FR-01B : Courses/Signups/Enrollments dans les statistiques, ainsi que recherche et upload Unsplash.
+
+Impact sémantique : aucune modification de contexte explicite gettext (msgctxt absent avant et après). En revanche, de nouveaux usages élargissent le contexte de revue : `Source` dans une validation de paiement, `New` comme statut d’inscription, `Incomplete` dans le tableau d’inscription, `Signups` dans les statistiques. Les traducteurs doivent examiner ces usages partagés ; une référence seule n’invalide pas une traduction mais peut exposer une ambiguïté globale. Pour les 409 déplacements, le classement décrit les métadonnées de référence ; il ne constitue pas un test fonctionnel de tous les écrans.
+
+Aucun chemin extérieur, référence à un artefact généré ou déplacement inexpliqué relevé. Les ajouts d’usages et suppressions sont cohérents avec les modifications préexistantes. Anomalie significative : couverture TypeScript manquante, distincte de ces 444 changements normaux.
+
+### Recommandation et contrôles ultérieurs
+
+**Recommandation : intégration après correction du périmètre d’extraction, avec nouvelle extraction contrôlée nécessaire ensuite.** Le candidat est un instantané cohérent du périmètre natif actuel ; ses 111 ajouts et 4 suppressions ne justifient pas un filtrage manuel. Mais le remplacement du message de succès par des clés TypeScript absentes est une lacune concrète à résoudre avant de présenter le rafraîchissement comme complet.
+
+Prochaine autorisation à demander : étude/correction minimale du périmètre d’extraction côté LMS, sans changer Framework. Examiner un mapping Babel propre à LMS utilisant un extracteur natif compatible avec le TypeScript réel ; sa compatibilité doit être vérifiée par un contrôle ciblé, pas supposée. Puis générer à nouveau nativement, revoir le diff complet et les nouvelles clés par rapport à ce candidat. Aucun de ces travaux n’a été effectué pendant cette analyse.
+
+Après autorisation et intégration du POT revu : contrôler les 13 clés FR-01B, les clés TypeScript de résultat/action, l’absence de pertes inattendues, les paramètres/contextes/indicateurs et les traductions sources anglaises ; vérifier que seuls les fichiers autorisés changent et que les PO restent intacts. Le futur import PO par le circuit approuvé devra préserver la mémoire des clés obsolètes, faire relire les fuzzy, puis contrôler la compilation et le comportement FR/EN ciblé. L’intégration d’un POT seul n’active aucune traduction française.
+
+Revue effectuée : lecture des artefacts et des sources, comparaison des références, recherche des chaînes exactes et consultation de l’historique Git ; lecture des PO pour évaluer l’impact des quatre suppressions. Un petit lecteur de catalogues hors dépôt a servi à classer les références et à contrôler les occurrences ; aucun extracteur ni test déjà validé n’a été relancé. Une première lecture des références des PO a rencontré un ancien format sans numéro de ligne ; le lecteur d’analyse a été adapté, sans modifier de catalogue. POT suivi, PO et sources applicatives inchangés ; aucune intégration autorisée ni exécutée.
