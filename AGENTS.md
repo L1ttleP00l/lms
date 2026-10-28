@@ -1,5 +1,12 @@
 # Frappe Learning — Project Context
 
+## LittlePool — Reprise et quota Codex
+
+- À chaque tâche, lire d’abord `CODEX_HANDOFF.md` s’il existe, puis uniquement les documents nécessaires ; vérifier rapidement Git et réutiliser l’environnement existant.
+- Suivre les règles de quota et d’interruption du handoff : pas de réinstallation ou de répétition de tests validés sans nécessité, signaler les blocages avant des opérations coûteuses.
+- En fin de tâche, même interrompue, actualiser le handoff, noter tests et changements non enregistrés, effectuer un commit local cohérent et donner un résumé court en français.
+- Travailler sur `littlepool-dev` uniquement ; aucun push sans accord explicite, aucune fusion ou modification de `develop`, aucune intervention sur la production OpenMediaVault 8. Ne pas commencer FR-01B sans instruction.
+
 ## What this project is
 
 Frappe Learning (`frappe/lms`) is a learning management system built on the Frappe

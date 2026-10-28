@@ -160,3 +160,10 @@ Un texte anglais peut encore apparaître brièvement avant la réception du dict
 Correction et régressions : commit local `f1492f65` — `fix(i18n): align language fallback and refresh translated Vue text` (quatre fichiers : API, plugin Vue et leurs tests). Ce document fait l’objet d’un commit documentaire distinct.
 
 Aucun push effectué dans cette mission. Aucun merge vers develop, aucune publication de production, aucune modification de configuration Docker ou du serveur OpenMediaVault 8. Les commits restent locaux, en attente de présentation des résultats et de l’accord explicite demandé par l’utilisateur avant publication sur GitHub.
+
+
+## 9. Reprise et dénomination FR-01A
+
+La consigne de continuité du 28 octobre 2026 nomme **FR-01A** le périmètre d’activation/validation déjà réalisé dans ce rapport sous le titre FR-01. Ce travail est terminé ; FR-01B n’a pas commencé. `CODEX_HANDOFF.md` décrit désormais la reprise, les contraintes et les commits locaux non publiés.
+
+Lors de cette mise à jour documentaire, seuls les contrôles légers nécessaires ont été répétés : état Git local/distant, ping du site, langue système fr, dictionnaire de 6 102 entrées, présence des MO et empreintes PO inchangées. Aucun test applicatif, build, compilation, installation ou correctif fonctionnel supplémentaire n’a été exécuté. Les résultats des sections précédentes sont réutilisés et restent datés de FR-01A. Aucun push autorisé ou effectué.
