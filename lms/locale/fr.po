@@ -3793,7 +3793,7 @@ msgstr ""
 #: lms/lms/workspace/learning/learning.json:14
 #: lms/workspace_sidebar/learning.json:26
 msgid "Enrollments"
-msgstr ""
+msgstr "Inscriptions"
 
 #: frontend/src/components/Settings/BrandSettings.vue:25
 msgid "Enter Brand Name"
@@ -10064,7 +10064,7 @@ msgstr ""
 #. Label of a chart in the Learning Workspace
 #: lms/lms/workspace/learning/learning.json:10
 msgid "Signups"
-msgstr ""
+msgstr "Comptes créés"
 
 #: frontend/src/components/Quiz/QuestionBankPanel.vue:160
 msgid "Single / Multiple choice"
@@ -11715,7 +11715,7 @@ msgstr ""
 
 #: frontend/src/components/Modals/EditCoverImage.vue:36
 msgid "Upload Image"
-msgstr "Télécharger une image"
+msgstr "Importer une image"
 
 #: frontend/src/pages/Forms/ChapterForm.vue:118
 msgid "Upload a ZIP file"
@@ -13110,7 +13110,7 @@ msgstr ""
 
 #: frontend/src/components/Modals/EditCoverImage.vue:16
 msgid "search by keyword"
-msgstr ""
+msgstr "Rechercher par mot-clé"
 
 #: lms/lms/email_account.py:419
 msgid "search must be a string"
@@ -13607,4 +13607,69 @@ msgstr ""
 #, python-brace-format
 msgid "{} Published"
 msgstr "{} Publié"
+
+#: frontend/src/pages/Courses/StudentCourseProgress.vue:4
+msgid "Student Progress"
+msgstr "Progression de l’apprenant"
+
+#: frontend/src/pages/Statistics.vue:35 frontend/src/pages/Statistics.vue:87
+msgid "Completions"
+msgstr "Cours terminés"
+
+#: frontend/src/components/Settings/Sidebar/sidebar.ts:27
+#: frontend/src/pages/Statistics.vue:42 frontend/src/pages/Statistics.vue:77
+msgid "Certifications"
+msgstr "Certificats"
+
+#: frontend/src/pages/Statistics.vue:56
+msgid "Signups per day"
+msgstr "Comptes créés par jour"
+
+#: frontend/src/pages/Statistics.vue:67
+msgid "Enrollments per day"
+msgstr "Inscriptions aux cours par jour"
+
+#: frontend/src/pages/Statistics.vue:78
+msgid "Certifications per day"
+msgstr "Certificats publiés par jour"
+
+#: frontend/src/pages/Statistics.vue:88
+msgid "Course Completion"
+msgstr "Achèvement des cours"
+
+#: frontend/src/components/Enrollment/enrollment.ts:126
+msgid "1 student enrolled"
+msgstr "1 apprenant inscrit"
+
+#: frontend/src/components/Enrollment/enrollment.ts:126
+#, python-brace-format
+msgid "{0} students enrolled"
+msgstr "{0} apprenants inscrits"
+
+#: frontend/src/components/Enrollment/enrollment.ts:130
+msgid "1 student upgraded to certificate"
+msgstr "1 apprenant passé à l’option avec certificat"
+
+#: frontend/src/components/Enrollment/enrollment.ts:131
+#, python-brace-format
+msgid "{0} students upgraded to certificate"
+msgstr "{0} apprenants passés à l’option avec certificat"
+
+#: frontend/src/components/Enrollment/enrollment.ts:135
+msgid "1 student could not be enrolled"
+msgstr "1 apprenant n’a pas pu être inscrit"
+
+#: frontend/src/components/Enrollment/enrollment.ts:136
+#, python-brace-format
+msgid "{0} students could not be enrolled"
+msgstr "{0} apprenants n’ont pas pu être inscrits"
+
+#: frontend/src/components/Enrollment/enrollment.ts:159
+msgid "Enroll 1 student"
+msgstr "Inscrire 1 apprenant"
+
+#: frontend/src/components/Enrollment/enrollment.ts:159
+#, python-brace-format
+msgid "Enroll {0} students"
+msgstr "Inscrire {0} apprenants"
 
