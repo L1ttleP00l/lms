@@ -1,5 +1,11 @@
 #!/bin/bash
 set -e
+# Upstream publication only: fail closed before setup or any Git operation.
+if [[ "${GITHUB_ACTIONS:-}" != "true" || "${GITHUB_REPOSITORY:-}" != "frappe/lms" ]]; then
+    echo "POT publication is restricted to GitHub Actions in frappe/lms." >&2
+    exit 1
+fi
+
 cd ~ || exit
 
 echo "Setting Up Bench..."

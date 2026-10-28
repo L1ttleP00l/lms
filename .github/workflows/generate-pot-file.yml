@@ -6,6 +6,7 @@ on:
 
 jobs:
   regenerate-pot-file:
+    if: github.repository == 'frappe/lms'
     name: Release
     runs-on: ubuntu-latest
     strategy:
