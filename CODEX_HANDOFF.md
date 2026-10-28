@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01F terminé localement : exception autorisée pour 21 clés du seul fr.po LMS, 18 traductions ajoutées, une corrigée, deux conservées ; 586 traductions PO/MO, dictionnaire FR 6 120 clés. Compilation et contrôles ciblés FR/EN réussis ; aucune publication. FR-01E 0b71f90c et les deux commits FR-01F restent locaux. Relire les formulations signalées avant publication ou tout nouveau lot. Arrêt après FR-01F, sans FR-02.**
+Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. Relecture finale FR-01F terminée : Inscriptions/Certificats conservés ; deux messages remplacés par Option certificat activée pour 1 apprenant / {0} apprenants. Les 19 autres traductions sont inchangées. Validation gettext et compilation en mémoire réussies, aucun test antérieur relancé. MO actif du site non recompilé : ces deux nouvelles phrases ne sont pas encore chargées à l’exécution. Quatre commits locaux avec FR-01E, aucun push. Attendre l’accord avant publication ; statistiques reportées à un lot UX distinct, aucun nouveau lot commencé.**
 
 ## 1. Projet et références Git
 
@@ -11,7 +11,7 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
 - Dernier distant littlepool-dev vérifié pendant FR-01E : `2279552914d1fb51dd425effcf192e4a2b519e11`. Tous les commits FR-01D/FR-01D.2 et le POT sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `docs: record scoped French pilot results and handoff`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Le commit portant cette actualisation documentaire est intitulé `fix(i18n): finalize French certificate option wording`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -160,6 +160,14 @@ Risque à traiter au premier import : export approuvé seul peut vider les tradu
 - Harnais navigateur initial échoué sur retour __() avec placeholder (objet .format), corrigé dans le seul script de contrôle ; parcours FR/EN final complet réussi. Pas d’installation typescript : Node stripTypeScriptTypes existant utilisé pour exécuter les vrais helpers dans le navigateur avec window.__ réel ; avertissement expérimental sans erreur pageerror. Détails dans le rapport.
 - Preuves : /workspace/work/fr01f/ (sauvegarde fr.before.po, plan.json, scripts, empreintes, avant/après, journaux qualité/compilation/navigateur et captures). Ne pas publier les credentials existants. Les MO/cache du site de développement ne sont pas transportés par Git.
 
+### Relecture finale FR-01F
+
+Décisions utilisateur appliquées : Enrollments → Inscriptions et Certifications → Certificats conservés ; deux upgraded messages → Option certificat activée pour 1 apprenant / Option certificat activée pour {0} apprenants. Contexte confirmé : activation de purchased_certificate sur inscription existante, sans délivrance immédiate de certificat. Les 21 entrées sont relues, aucune autre correction linguistique nécessaire ; améliorations des statistiques reportées à un lot UX séparé.
+
+Babel ciblé, conservation des autres messages/paramètres/contextes/indicateurs, compilation MO en mémoire et interpolation pour 2 apprenants : réussis. Toujours 586 traductions sur 2 688 entrées PO ; 78 autres PO et POT inchangés. Attente du test pilote alignée sur les deux nouvelles phrases, sans relancer les tests existants. Pas de compilation MO sur le site ni de navigateur : les deux formulations révisées sont dans Git/PO, mais le MO de développement et les preuves de rendu FR-01F gardent l’ancien texte. Avant nouvelle vérification runtime autorisée, compiler LMS/fr et invalider le cache du seul site de développement.
+
+Rapport et handoff actualisés dans un seul commit local de relecture avec PO/test. Preuves : /workspace/work/fr01f-review/. Limites inchangées : Unsplash non rendu, graphique d’achèvement masqué, textes hors lot restant anglais. Aucune généralisation de l’exception PO.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-01F, 586/2 688 entrées PO LMS renseignées ; POT toujours 2 980 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -182,12 +190,13 @@ Références vérifiées pendant FR-01F, 29 octobre 2026 :
 
 - Distant littlepool-dev : `2279552914d1fb51dd425effcf192e4a2b519e11` ; develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
 - Base initiale locale propre : `0b71f90c` (rapport FR-01E non publié).
-- Nouveaux commits locaux FR-01F : `3fd92090` (fr.po et test autonome), puis `docs: record scoped French pilot results and handoff` (rapport et ce handoff uniquement). SHA exact du second à relever par git log -1 ; ne pas créer un commit pour inscrire son propre SHA.
-- Trois commits non publiés au total avec FR-01E. Aucun push/PR/Crowdin effectué ni autorisé. Checkout propre prévu après commit documentaire, aucun changement non enregistré prévu ; confirmer git status à la reprise.
+- Commits locaux non publiés : 0b71f90c (FR-01E), 3fd92090 (pilote PO/tests), 39eb30af (rapport/handoff), puis `fix(i18n): finalize French certificate option wording` (relecture finale ; PO/test/rapport/handoff). SHA exact du dernier à relever par git log -1 ; ne pas créer un commit de suivi pour son propre SHA.
+- Quatre commits non publiés au total. Aucun push/PR/Crowdin autorisé ou effectué. Checkout propre prévu après commit de relecture ; confirmer git status. Aucun changement non enregistré prévu.
+
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** faire relire les formulations du pilote dans docs/FR-01F-RESULTATS.md (Inscriptions/Certificats globaux, Comptes créés/activés, Cours terminés par inscription, option avec certificat), puis obtenir une autorisation explicite avant publication des trois commits locaux ou extension à d’autres clés. Ne pas étendre l’exception locale à AGENTS.md : seules les 21 clés FR-01F du fr.po LMS étaient autorisées. L’aria-label Search by keyword, les descriptions d’erreurs multiples et la recette du graphique d’achèvement sont des suites possibles, pas démarrées. Dernier distant : 22795529. Aucun nouveau PO/POT, service, compte ou token à modifier par déduction.
+**Prochaine action précise :** présenter les quatre commits locaux pour autorisation de publication (0b71f90c, 3fd92090, 39eb30af et dernier commit de relecture à relever). Ne pousser qu’après accord explicite. La relecture des 21 clés est terminée ; aucune nouvelle traduction à lancer. Pour une prochaine validation runtime autorisée, recompiler le seul catalogue LMS/fr puis invalider le cache du seul site de développement afin de charger les deux phrases finales ; ne pas prétendre qu’elles sont déjà affichées. Statistiques : améliorations réservées à un lot UX distinct. Unsplash et graphique d’achèvement restent des limites documentées, pas un nouveau lot autorisé.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 

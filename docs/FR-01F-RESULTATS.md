@@ -6,11 +6,11 @@ Date : 29 octobre 2026 (Europe/Paris). Branche littlepool-dev ; base locale 0b71
 
 L’utilisateur autorise explicitement une **dérogation limitée à AGENTS.md pour le seul fr.po LMS et les 21 clés de ce pilote**. La convention générale Crowdin reste intacte ; aucune autorisation implicite pour les autres langues ou futurs lots. Aucun contenu pédagogique, nom de personne, donnée métier, source d’interface ou source Framework traduit/modifié.
 
-**18 traductions renseignées supplémentaires, une correction et deux conservées.** Les 18 se répartissent entre 15 entrées ajoutées depuis le POT et trois entrées déjà présentes mais vides. Upload Image est corrigé de Télécharger une image vers Importer une image. Courses → Cours et Uploading {0}% → Envoi de {0}% sont conservés. Total PO : **2 673 → 2 688 entrées ; 568 → 586 traductions non vides**. Les 21 clés ciblées sont désormais traduites dans le PO, le MO et le dictionnaire réellement chargé.
+**18 traductions renseignées supplémentaires, une correction et deux conservées.** Les 18 se répartissent entre 15 entrées ajoutées depuis le POT et trois entrées déjà présentes mais vides. Upload Image est corrigé de Télécharger une image vers Importer une image. Courses → Cours et Uploading {0}% → Envoi de {0}% sont conservés. Total PO : **2 673 → 2 688 entrées ; 568 → 586 traductions non vides**. Les 21 clés ciblées ont été vérifiées dans le PO, le MO et le dictionnaire à la fin du pilote initial. La relecture finale ci-dessous ajuste ensuite deux formulations dans le PO sans recompiler le site ; les preuves de rendu initiales restent datées de cet état antérieur.
 
 ## Les 21 clés : relevé initial et résultat
 
-Toutes sont présentes dans le POT publié de 2 980 clés. Les colonnes PO et traduction initiale décrivent l’état avant pilote ; la dernière colonne est le choix appliqué, soumis à la relecture finale du pilote. Les formulations ne valent pas validation générale de tout le glossaire.
+Toutes sont présentes dans le POT publié de 2 980 clés. Les colonnes PO et traduction initiale décrivent l’état avant pilote ; la dernière colonne présente les choix après relecture finale du pilote. Les formulations ne valent pas validation générale de tout le glossaire.
 
 | Clé anglaise exacte | Contexte | POT | PO initial | Français initial | Français retenu |
 | --- | --- | --- | --- | --- | --- |
@@ -29,8 +29,8 @@ Toutes sont présentes dans le POT publié de 2 980 clés. Les colonnes PO et tr
 | `Uploading {0}%` | Progression d’envoi ; pourcentage interpolé | Oui | Présente | Envoi de {0}% | Envoi de {0}% |
 | `1 student enrolled` | Résultat d’une inscription réussie | Oui | Absente | — (absent) | 1 apprenant inscrit |
 | `{0} students enrolled` | Résultat de plusieurs inscriptions réussies | Oui | Absente | — (absent) | {0} apprenants inscrits |
-| `1 student upgraded to certificate` | Résultat du passage à l’option avec certificat | Oui | Absente | — (absent) | 1 apprenant passé à l’option avec certificat |
-| `{0} students upgraded to certificate` | Passage de plusieurs inscrits à l’option avec certificat | Oui | Absente | — (absent) | {0} apprenants passés à l’option avec certificat |
+| `1 student upgraded to certificate` | Résultat du passage à l’option avec certificat | Oui | Absente | — (absent) | Option certificat activée pour 1 apprenant |
+| `{0} students upgraded to certificate` | Passage de plusieurs inscrits à l’option avec certificat | Oui | Absente | — (absent) | Option certificat activée pour {0} apprenants |
 | `1 student could not be enrolled` | Échec d’une inscription | Oui | Absente | — (absent) | 1 apprenant n’a pas pu être inscrit |
 | `{0} students could not be enrolled` | Échec de plusieurs inscriptions | Oui | Absente | — (absent) | {0} apprenants n’ont pas pu être inscrits |
 | `Enroll 1 student` | Action d’inscription pour une personne | Oui | Absente | — (absent) | Inscrire 1 apprenant |
@@ -39,10 +39,10 @@ Toutes sont présentes dans le POT publié de 2 980 clés. Les colonnes PO et tr
 ### Formulations et ambiguïtés à relire
 
 - **Enrollments → Inscriptions** : choix générique conforme au glossaire demandé. La clé sert aussi aux inscriptions à un parcours ; Inscriptions aux cours aurait été trop spécifique dans cet usage partagé. Le sous-titre Enrollments per day reste explicitement lié aux cours.
-- **Certifications → Certificats** : distingue un document du processus de certification et convient à la navigation comme au compteur. Dans les statistiques, seuls les certificats publiés sont comptés ; le sous-titre précise Certificats publiés par jour. La série utilise issue_date : ce n’est pas nécessairement le jour de publication. Confirmer ces libellés génériques lors de la relecture métier ; ne pas imposer Certificats publiés à toute la navigation.
+- **Certifications → Certificats** : distingue un document du processus de certification et convient à la navigation comme au compteur. Dans les statistiques, seuls les certificats publiés sont comptés ; le sous-titre précise Certificats publiés par jour. La série utilise issue_date : ce n’est pas nécessairement le jour de publication. Ces libellés génériques sont confirmés par l’utilisateur lors de la relecture finale ; ne pas imposer Certificats publiés à toute la navigation.
 - **Signups → Comptes créés** suit le glossaire et se distingue d’Inscription. Le compteur actuel ne prend que les utilisateurs activés ; l’infobulle Active Members apporte ce contexte. Ne pas présenter ce chiffre comme un cumul historique immuable de toutes les créations. Si une distinction plus stricte est souhaitée, il faudra des sources contextualisées dans une mission autorisée.
 - **Completions → Cours terminés** désigne un décompte d’inscriptions arrivées à 100 %, pas de cours uniques. Achèvement des cours est conservé pour le concept du graphique.
-- **Passé à l’option avec certificat** traduit upgraded to certificate sans promettre un certificat déjà délivré ni une certification reconnue. Formulation volontairement explicite, à confirmer par le propriétaire ; elle n’introduit aucun nouveau comportement métier.
+- **Option certificat activée pour…** remplace les premières formulations Passé/passés à l’option avec certificat, sur décision de l’utilisateur. Le backend active purchased_certificate sur une inscription existante et retourne upgraded ; il ne délivre pas un certificat à cet endroit. La formulation proposée est donc cohérente, plus naturelle et ne promet pas de certification reconnue.
 - **Importer une image** corrige le sens d’un envoi local → serveur. Envoi de {0}% reste compréhensible et préserve une traduction existante correcte ; aucune correction cosmétique de sa ponctuation n’est ajoutée au pilote.
 
 Les cinq équivalences imposées sont respectées : Apprenant, Formateur, Inscription, Cours, Progression. Aucune clé du pilote ne nécessitait d’ajouter une traduction de Instructor/Formateur hors périmètre.
@@ -107,6 +107,26 @@ Le nombre de clés du POT reste **2 980** ; les autres langues restent intactes.
 
 ## Suite recommandée, soumise à accord
 
-Relire les formulations signalées, notamment les libellés globaux Inscriptions/Certificats, le compteur des comptes activés, Cours terminés et l’option avec certificat. Autoriser ensuite seulement publication des commits ou nouveau lot. L’aria-label Unsplash et les descriptions d’erreurs d’inscription sont des candidats utiles, mais **ne pas étendre automatiquement le périmètre**.
+Relecture linguistique du pilote terminée : conserver Inscriptions/Certificats, appliquer les deux formulations Option certificat activée pour… ; reporter les améliorations de statistiques à un lot UX distinct. Attendre l’autorisation de publication et ne pas démarrer de nouveau lot. L’aria-label Unsplash et les descriptions d’erreurs d’inscription sont des candidats utiles, mais **ne pas étendre automatiquement le périmètre**.
 
 Pour les lots suivants : conserver la base française utile, travailler par clés exactes avec contexte et provenance, mise à jour PO ciblée par Babel/éditeur compatible, vérification des usages partagés, paramètres et blocs hors cible, compilation native et contrôles FR/EN ciblés. Ne généraliser ni l’exception à AGENTS.md ni la modification fragmentaire des catalogues sans décision ; un futur circuit Crowdin devra reprendre ces traductions locales sans les écraser et avec un statut d’approbation honnête. Arrêt après FR-01F, sans FR-02.
+
+
+## Relecture linguistique finale — 29 octobre 2026
+
+Les **21 entrées ont été relues** : français naturel, Apprenant/Inscription/Cours/Progression cohérents, actions à l’infinitif, résultats au singulier/pluriel et paramètres intacts. Les 19 autres traductions restent inchangées, y compris Inscriptions et Certificats confirmés par l’utilisateur. Aucune retouche cosmétique du pourcentage, aucune amélioration UX/statistique ou traduction hors lot.
+
+Deux corrections demandées et justifiées par lms/lms/api.py:3755–3761 et enrollment.ts:128–131 :
+
+| Clé source | Formulation finale |
+| --- | --- |
+| `1 student upgraded to certificate` | Option certificat activée pour 1 apprenant |
+| `{0} students upgraded to certificate` | Option certificat activée pour {0} apprenants |
+
+Mise à jour de ces deux seules valeurs par lecture/sérialisation Babel ciblée ; aucune nouvelle entrée. PO toujours 2 688 entrées et 586 traductions non vides. Contrôles gettext exécutés parce que ces valeurs changent : lecture/validation Babel sans erreur, comparaison de tous les messages avant/après (seules ces deux traductions diffèrent), paramètres avec multiplicité, contextes, indicateurs et références conservés ; compilation MO **en mémoire** puis relecture réussies pour les nouvelles valeurs. Interpolation contrôlée : Option certificat activée pour 2 apprenants. Les 78 autres PO et le POT sont inchangés. Diff PO : deux lignes de traduction remplacées.
+
+L’attente du test existant lms/tests/test_french_pilot.py est alignée sur les deux nouvelles formulations, pour éviter de conserver une assertion sur l’ancien texte. Aucune suite ni test déjà validé relancé ; aucun navigateur, build, recompilation des assets MO du site ou invalidation de cache. Le MO actif du développement et les preuves Chromium précédentes utilisent donc encore les deux anciennes phrases. Avant une prochaine validation de rendu, compiler nativement le seul catalogue LMS et invalider le cache du seul site de développement : **les nouvelles phrases ne sont pas annoncées comme déjà affichées**.
+
+Limites inchangées : aucun rendu réel d’UnsplashImageBrowser, Course Completion masqué faute de complétions ; aria-label Search by keyword et descriptions d’erreurs multiples hors des 21 clés, restant potentiellement en anglais. Les nuances des compteurs sont consignées pour un lot UX distinct, sans modification de calcul ou de clé source.
+
+Preuves de relecture hors Git : /workspace/work/fr01f-review/fr.before.po, review.py et validation.json. Un seul commit local de relecture regroupe les deux valeurs PO, l’attente de test, ce rapport et le handoff ; titre `fix(i18n): finalize French certificate option wording`. Les commits locaux prêts à soumettre à la publication sont 0b71f90c (FR-01E), 3fd92090 (pilote), 39eb30af (rapport initial) et le commit courant de relecture (SHA à relever par git log). Aucun push autorisé ou effectué. Attendre l’accord du propriétaire avant publication ; aucun nouveau lot commencé.

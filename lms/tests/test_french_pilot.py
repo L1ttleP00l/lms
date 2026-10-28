@@ -65,7 +65,14 @@ class FrenchPilotTests(unittest.TestCase):
 		self.assertEqual(french.get("1 student enrolled").string, "1 apprenant inscrit")
 		self.assertEqual(french.get("{0} students enrolled").string.format(2), "2 apprenants inscrits")
 		self.assertEqual(french.get("Enroll {0} students").string.format(2), "Inscrire 2 apprenants")
-		self.assertIn("option avec certificat", french.get("1 student upgraded to certificate").string)
+		self.assertEqual(
+			french.get("1 student upgraded to certificate").string,
+			"Option certificat activée pour 1 apprenant",
+		)
+		self.assertEqual(
+			french.get("{0} students upgraded to certificate").string.format(2),
+			"Option certificat activée pour 2 apprenants",
+		)
 		self.assertIn("n’ont pas pu", french.get("{0} students could not be enrolled").string)
 
 

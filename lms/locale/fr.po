@@ -13648,12 +13648,12 @@ msgstr "{0} apprenants inscrits"
 
 #: frontend/src/components/Enrollment/enrollment.ts:130
 msgid "1 student upgraded to certificate"
-msgstr "1 apprenant passé à l’option avec certificat"
+msgstr "Option certificat activée pour 1 apprenant"
 
 #: frontend/src/components/Enrollment/enrollment.ts:131
 #, python-brace-format
 msgid "{0} students upgraded to certificate"
-msgstr "{0} apprenants passés à l’option avec certificat"
+msgstr "Option certificat activée pour {0} apprenants"
 
 #: frontend/src/components/Enrollment/enrollment.ts:135
 msgid "1 student could not be enrolled"
