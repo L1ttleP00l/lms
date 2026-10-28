@@ -398,3 +398,32 @@ Empreinte SHA-256 du candidat FR-01D.2 : `f089553d58a2c1a5fbab4457857ee5dbb0e17e
 Commit correctif/test local : `6fdb0dc1`. Le commit documentaire courant actualise uniquement ce rapport et CODEX_HANDOFF ; relever son SHA par git log. Les trois commits FR-01D précédents restent également locaux. Aucun push effectué.
 
 **Recommandation finale : intégration complète du candidat FR-01D.2 acceptable après autorisation explicite**, avec contrôle de son empreinte, du diff (311 ajouts / 4 retraits), des 13+8 clés, de l’intégrité des PO et de l’absence de modification de sources avant commit. Ne pas intégrer le candidat précédent de 2 780 clés. Si les sources ou le mapping évoluent entre-temps, refaire une extraction contrôlée plutôt que copier un artefact périmé. Les validations Babel/extraction ont déjà réussi : les réexécuter seulement si le contenu change ou si l’intégrité n’est plus démontrable. Puis attendre les décisions distinctes sur le circuit Crowdin, le glossaire et les traductions françaises avant tout import/synchronisation. Aucune intégration ni publication autorisée à ce stade ; arrêt après FR-01D.2.
+
+## FR-01D.3 — Publication et intégration locale contrôlée (28 octobre 2026)
+
+Les cinq commits autorisés ont été publiés par push normal, sans force, sur littlepool-dev : a628ed1a → dd9ec7b7 → 47cf7cf7 → 6fdb0dc1 → **1896abb62f359b997f91d5a522acf7cd58b3155b**. Avant publication : checkout propre, parent distant 040496fa, ordre et listes de fichiers exacts vérifiés pour chacun des cinq commits, aucun commit de fusion, recherche ciblée de secrets dans tous les fichiers concernés à chaque révision. Aucune divergence. Un fetch après push confirme le dernier SHA et la présence des cinq ancêtres sur GitHub. develop distant reste 6b791f33b34efa15566a0cb707f5be59d136df50. Aucun autre commit publié.
+
+### Candidat réutilisé et intégré
+
+Le candidat /workspace/work/fr01d2/main.generated.pot existe et son SHA-256 est exactement celui documenté : `f089553d58a2c1a5fbab4457857ee5dbb0e17eec8beeb6425b184f1502a15a92`. Le diff entre son checkout de génération 6fdb0dc1 et le checkout courant ne contient que le rapport et le handoff. L’état du Framework et les 79 PO correspondent aux relevés de génération. Le candidat reste donc applicable ; **aucune nouvelle extraction** n’a été nécessaire.
+
+Après validation Babel préalable, copie intégrale et sans réécriture du candidat dans lms/locale/main.pot. Nouvelle lecture Babel du fichier intégré avec arrêt sur erreur de syntaxe, puis Catalog.check : aucune erreur. Le fichier intégré est identique octet pour octet au candidat.
+
+- **2 673 → 2 980 clés : 311 ajouts, 4 suppressions, 506 entrées communes avec références modifiées.**
+- 13 clés FR-01B et huit messages TypeScript présents exactement ; paramètres et indicateurs communs préservés, notamment {0}/{1} et Uploading {0}%.
+- Suppressions limitées à Enroll Student ; Please select a student to enroll. ; Student enrolled successfully ; Please select a payment for the purchased certificate. Aucune suppression inexpliquée.
+- Aucun contexte explicite ou msgid_plural avant/après. Les variantes singulier/pluriel restent les clés anglaises séparées prévues par le code existant ; aucune perte d’un pluriel gettext.
+- Tous les msgstr restent vides. Aucun emplacement de test/spec/déclaration TypeScript introduit. Sources anglaises inchangées.
+- Empreintes des 79 PO inchangées ; ni code applicatif, ni mapping, ni Framework modifié pendant l’intégration. Diff brut du POT : 1 957 lignes ajoutées, 479 retirées, conformément au candidat.
+
+### Vérification TSX et limites
+
+`git ls-files '*.tsx'` ne trouve aucun fichier TSX suivi dans le dépôt ; la recherche physique dans frontend/src n’en trouve aucun non plus. Aucun appel de traduction TSX identifié dans ces périmètres. Pas d’ajout de support .tsx. Les éventuels fichiers de dépendances/build hors périmètre ne sont pas des sources LMS à extraire. Les lacunes restantes concernent les appels à clés dynamiques, les chaînes non enveloppées et les syntaxes/fichiers futurs : ne pas déduire une couverture universelle du résultat actuel.
+
+### Contrôles exécutés et état final
+
+Contrôles spécifiques FR-01D.3 : Git local/distant, contenu et ordre des cinq commits, absence de divergence, recherche ciblée de secrets, empreinte/provenance du candidat, lecture/validation Babel avant puis après copie, comparaison sémantique au POT original, clés/paramètres/contextes/pluriels, contrôle des 79 PO, intégrité Framework, recherche TSX et git diff --check. Résultats réussis. Les 3 tests d’extraction et 2 tests de protection FR-01D.2 restent applicables et n’ont pas été réexécutés : leur code, le mapping et le Framework sont inchangés. Aucune suite applicative, installation, compilation, navigateur, synchronisation Crowdin, update-po-files ou déploiement.
+
+Preuves complémentaires hors Git : /workspace/work/fr01d3/validate_integration.py et validation.json. Les artefacts FR-01D.2 sont conservés. Le commit local d’intégration contient uniquement lms/locale/main.pot, ce rapport et CODEX_HANDOFF.md ; son titre est `chore(i18n): integrate validated POT catalogue and update handoff`, SHA à relever avec git log. Il **n’est pas publié**. Aucun commit de suivi séparé créé pour simplement constater la publication.
+
+Prochaine opération : obtenir l’autorisation explicite de publier ce nouveau commit POT. Le catalogue source est désormais intégré localement ; cela ne complète pas les traductions françaises ni les MO. Après publication seulement et sur instruction distincte : valider le circuit Crowdin, budget/droits, glossaire et propositions françaises avant toute configuration ou synchronisation. Arrêt après FR-01D.3, sans FR-02.
