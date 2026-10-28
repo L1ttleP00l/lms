@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01D et POT de 2 980 clés publiés dans 22795529. FR-01E : étude documentaire du circuit français terminée localement, aucun service configuré. Recommandation : livraison native Git/POT/PO/MO avec atelier Crowdin conditionnel, pilote PO local possible après exception explicite à la convention. Éligibilité gratuite et prix payants Crowdin non confirmés pour ce fork. Attendre le choix du propriétaire ; aucun PO ni workflow à modifier, aucun push autorisé pour le commit documentaire FR-01E. Arrêt avant FR-02.**
+Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01F terminé localement : exception autorisée pour 21 clés du seul fr.po LMS, 18 traductions ajoutées, une corrigée, deux conservées ; 586 traductions PO/MO, dictionnaire FR 6 120 clés. Compilation et contrôles ciblés FR/EN réussis ; aucune publication. FR-01E 0b71f90c et les deux commits FR-01F restent locaux. Relire les formulations signalées avant publication ou tout nouveau lot. Arrêt après FR-01F, sans FR-02.**
 
 ## 1. Projet et références Git
 
@@ -11,7 +11,7 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
 - Dernier distant littlepool-dev vérifié pendant FR-01E : `2279552914d1fb51dd425effcf192e4a2b519e11`. Tous les commits FR-01D/FR-01D.2 et le POT sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `docs: compare French translation workflows and Crowdin eligibility`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Le commit portant cette actualisation documentaire est intitulé `docs: record scoped French pilot results and handoff`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -57,6 +57,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 
 14. FR-01E : sources officielles Crowdin consultées le 29 octobre ; programme open source conditionnel (ancienneté, communauté, absence de produits commerciaux associés notamment), admission du fork non établie. Montants payants non accessibles dans la page officielle dynamique, donc non confirmés. Comparaison Crowdin / PO natifs / hybride, procédure d’amorçage/export approuvé et plan de lots préparés ; aucun compte/service créé.
 
+15. FR-01F : pilote local explicitement autorisé en dérogation limitée à la convention Crowdin pour les 21 clés du seul lms/locale/fr.po. 15 entrées ajoutées depuis le POT, 18 traductions renseignées, une correction Upload Image et deux conservations. Autres blocs/78 PO/POT intacts. MO compilé et cache du seul site de développement invalidé ; 21 traductions réellement chargées, contrôles Chromium FR/EN ciblés réussis. Aucun push.
+
 ## 5. Fichiers créés ou modifiés
 
 - `docs/AUDIT.md`, `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md` : contexte historique ; consulter selon besoin, sans relire systématiquement tout l’audit.
@@ -81,7 +83,9 @@ FR-01D.3 : `lms/locale/main.pot` intégré depuis le candidat validé, `docs/FR-
 
 FR-01E : nouveau `docs/FR-01E-CIRCUIT-TRADUCTION.md` et ce handoff uniquement ; un seul commit documentaire local.
 
-Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
+FR-01F : `lms/locale/fr.po` et nouveau `lms/tests/test_french_pilot.py` dans 3fd92090 ; `docs/FR-01F-RESULTATS.md` et ce handoff dans le commit documentaire courant. Exception limitée consignée dans le rapport, convention générale AGENTS.md inchangée.
+
+Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les PO sont restés inchangés jusqu’à FR-01E ; seul fr.po LMS est modifié dans le pilote autorisé FR-01F.
 
 ## 6. Résultats validés et état effectif
 
@@ -146,9 +150,19 @@ Lecture seule : 568 clés du POT ont une traduction non vide dans fr.po (aucune 
 
 Risque à traiter au premier import : export approuvé seul peut vider les traductions héritées non encore approuvées ; préserver la base et organiser la revue/approbation avant remplacement complet. Une seule autorité d’édition par phase, pas de traductions locales et Crowdin concurrentes. Contextes d’éditeur ≠ msgctxt runtime ; le plugin Vue actuel ne lit pas le troisième argument de contexte.
 
+### Validation FR-01F (état courant du pilote local)
+
+- 21 clés : 13 FR-01B et huit résultats/actions d’inscription TS ; 18 traductions ajoutées, une correction (Upload Image → Importer une image), deux conservations. 2 688 entrées PO / 586 non vides contre 2 673 / 568 avant. Les nouveaux libellés globaux Enrollments → Inscriptions et Certifications → Certificats évitent de restreindre les usages parcours/navigation. Signups → Comptes créés conserve une nuance : utilisateurs activés seulement. Formulations à relire, détails dans FR-01F-RESULTATS.
+- 3/3 nouveaux tests autonomes de catalogue réussis (0,161 s final), Babel/paramètres/flags/contextes et conservation des blocs hors cible réussis. 78 autres PO et POT inchangés ; Framework et code applicatif inchangés. Ruff/format, diff et secrets ciblés réussis. Pas de suite générale ni build.
+- bench compile-po-to-mo --app lms --locale fr puis bench --site learning.localhost execute frappe.translate.clear_cache : réussis. MO LMS 586 messages / 27 525 octets ; SHA-256 f17789e78594b7c6b8ee233966a11ebe33e870f3b13a4c99036903ffee26cba2. FR runtime 6 102 → 6 120 ; 21/21 valeurs correspondent au plan final. Framework non recompilé.
+- Backend : Guest/compte FR/sans préférence → fr ; compte EN → en malgré défaut site fr. Chromium : cartes et trois sous-titres temporels, progression individuelle, plugin réel (21 clés), huit helpers d’inscription 1/2, pourcentage 0/37/100, repli anglais, préférence/rechargement FR/EN réussis. Compte formateur fictif temporairement EN puis restauré FR, vérifié en base. Aucune inscription/paiement créé.
+- Rendu non vérifié : Course Completion masqué faute de complétions ; UnsplashImageBrowser sans parcours accessible. Leurs clés sont chargées, mais pas de preuve de rendu de ces deux surfaces. L’aria-label Search by keyword et descriptions d’erreurs multiples restent hors lot, avec repli anglais.
+- Harnais navigateur initial échoué sur retour __() avec placeholder (objet .format), corrigé dans le seul script de contrôle ; parcours FR/EN final complet réussi. Pas d’installation typescript : Node stripTypeScriptTypes existant utilisé pour exécuter les vrais helpers dans le navigateur avec window.__ réel ; avertissement expérimental sans erreur pageerror. Détails dans le rapport.
+- Preuves : /workspace/work/fr01f/ (sauvegarde fr.before.po, plan.json, scripts, empreintes, avant/après, journaux qualité/compilation/navigateur et captures). Ne pas publier les credentials existants. Les MO/cache du site de développement ne sont pas transportés par Git.
+
 ## 7. Problèmes connus et limites
 
-- Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
+- Traduction partielle : après FR-01F, 586/2 688 entrées PO LMS renseignées ; POT toujours 2 980 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
 - Babel signale une anomalie préexistante dans le PO Framework : `Use % for any non empty value.` / incompatibilité de paramètres. Compilation réussie mais validation Babel non entièrement verte. Aucun PO à modifier manuellement ; remonter au circuit amont.
 - Pre-commit complet bloqué à l’installation npm du miroir Prettier (`EALLOWGIT`). Les contrôles Python et les versions prévues de Prettier/ESLint ont été exécutés séparément. Ne pas déclarer le lanceur complet réussi ; ne pas repartir dans une longue réparation sans nécessité.
 - Avertissements de build existants : Vite esbuildOptions dépréciée, Browserslist ancien, module fs externalisé pour face-api.js.
@@ -164,27 +178,27 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Références vérifiées pendant FR-01E, 29 octobre 2026 :
+Références vérifiées pendant FR-01F, 29 octobre 2026 :
 
-- Base locale et distant littlepool-dev : `2279552914d1fb51dd425effcf192e4a2b519e11`, checkout initial propre ; commit POT publié sur autorisation lors de la tâche précédente.
-- develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
-- Seul commit local non publié : `docs: compare French translation workflows and Crowdin eligibility`, avec uniquement FR-01E-CIRCUIT-TRADUCTION.md et ce handoff. SHA exact à relever par git log -1 (impossible d’inscrire son propre hash dans son contenu).
-- Aucun push FR-01E, aucune modification des PO/POT/workflows/code. Checkout propre prévu après commit ; confirmer git status à la reprise. Aucun changement non enregistré prévu.
+- Distant littlepool-dev : `2279552914d1fb51dd425effcf192e4a2b519e11` ; develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
+- Base initiale locale propre : `0b71f90c` (rapport FR-01E non publié).
+- Nouveaux commits locaux FR-01F : `3fd92090` (fr.po et test autonome), puis `docs: record scoped French pilot results and handoff` (rapport et ce handoff uniquement). SHA exact du second à relever par git log -1 ; ne pas créer un commit pour inscrire son propre SHA.
+- Trois commits non publiés au total avec FR-01E. Aucun push/PR/Crowdin effectué ni autorisé. Checkout propre prévu après commit documentaire, aucun changement non enregistré prévu ; confirmer git status à la reprise.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** soumettre docs/FR-01E-CIRCUIT-TRADUCTION.md pour choisir le circuit et son relecteur : pilote PO local avec exception explicite à la convention Crowdin, ou projet Crowdin après clarification de l’éligibilité/budget/droits et du partage Global TM. Faire approuver le glossaire et le premier lot (dix manques FR-01B + aria-label, puis messages TS d’inscription). Ne créer aucun compte, synchronisation, PO ou token par déduction. Dernier distant : 22795529 ; le POT est déjà intégré/publié, ne pas le régénérer. Publication du seul commit documentaire FR-01E également soumise à autorisation.
+**Prochaine action précise :** faire relire les formulations du pilote dans docs/FR-01F-RESULTATS.md (Inscriptions/Certificats globaux, Comptes créés/activés, Cours terminés par inscription, option avec certificat), puis obtenir une autorisation explicite avant publication des trois commits locaux ou extension à d’autres clés. Ne pas étendre l’exception locale à AGENTS.md : seules les 21 clés FR-01F du fr.po LMS étaient autorisées. L’aria-label Search by keyword, les descriptions d’erreurs multiples et la recette du graphique d’achèvement sont des suites possibles, pas démarrées. Dernier distant : 22795529. Aucun nouveau PO/POT, service, compte ou token à modifier par déduction.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
-**Suite FR-01C précisée par FR-01E :** Crowdin dédié reste l’atelier collaboratif privilégié sous conditions ; la livraison repose toujours sur les PO versionnés et le runtime natif. Le pilote local nécessite son accord explicite, ne remplace pas silencieusement la convention Crowdin. Valider budget/droits, traductions et glossaire avant toute édition/configuration. Les documents FR-01C/BRAND-01 sont déjà publiés. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
+**Suite FR-01C précisée par FR-01E :** Crowdin dédié reste l’atelier collaboratif privilégié sous conditions ; la livraison repose toujours sur les PO versionnés et le runtime natif. Le pilote FR-01F a reçu une exception explicite limitée à ses 21 clés ; toute généralisation reste à approuver et ne remplace pas la convention Crowdin. Valider budget/droits, traductions et glossaire avant toute édition/configuration. Les documents FR-01C/BRAND-01 sont déjà publiés. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
 
 Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, sans intégration à cause du diff global ; toute intégration ultérieure doit être revue. Après choix Crowdin et autorisation seulement : préparer un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser le helper de publication amont. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
-FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; les treize clés ciblées sont désormais dans le POT publié, mais les dix traductions FR manquantes restent à produire/importer par le circuit approuvé ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
+FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
 Ne pas commencer FR-02 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
-Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Pas de modification manuelle des PO ; suivre Crowdin et les conventions AGENTS.md. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
+Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exception FR-01F autorisée uniquement pour les 21 clés du fr.po LMS, via Babel contrôlé, non généralisable sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
