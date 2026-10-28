@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A et FR-01B terminés et publiés. FR-01C préparatoire terminé localement ; BRAND-01 : étude de cinq noms préparée, identité en attente de validation. Aucun renommage ni intégration réalisé. Arrêt avant FR-02 ; commits documentaires non publiés.**
+Mis à jour le 28 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-01A/B et documents FR-01C/BRAND-01 publiés. FR-01D : protections de publication amont ajoutées ; génération native réussie, mais POT non intégré après diff plus large que prévu. Deux commits FR-01D locaux, aucun push. Arrêt avant FR-02 ; identité et circuit Crowdin en attente de validation.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
-- Base locale avant BRAND-01 : `58c03aee`, stratégie/glossaire FR-01C non publiés. Dernier distant connu : b70e7d38 (relevé FR-01C).
-- Le commit portant cette actualisation documentaire est intitulé `docs: propose project naming study and pending identity`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Base FR-01D locale et distante vérifiée : `040496fa78636a42eca414020973e6fe3640bc34`. FR-01C `58c03aee` et BRAND-01 `040496fa` sont publiés. Ne pas déduire l’état actuel des anciens rapports.
+- Le commit portant cette actualisation documentaire est intitulé `docs: record FR-01D safety checks and deferred POT integration`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -49,6 +49,7 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 9. FR-01C : examen ciblé des workflows Crowdin, de leur helper, de la chaîne native et des métriques ; stratégie comparative A/B/C et glossaire préparés. Projet Crowdin LittlePool recommandé sous réserve de validation/budget/droits ; Translation natif avec fixtures filtrées comme repli limité si Crowdin indisponible. Aucune configuration créée.
 
 10. BRAND-01 : étude documentaire de nommage avec recherche web préliminaire ; cinq propositions et recommandation conditionnelle. Aucun choix adopté, dépôt/identifiant lms/visuels/domaines inchangés.
+11. FR-01D : job POT limité à frappe/lms ; helper refusant tout contexte autre que GitHub Actions officiel avant installation/Git/gh. Génération locale native exécutée sur checkout propre. Résultat : 2 673 → 2 780 entrées, 111 ajouts / 4 retraits, 444 références modifiées. Les 13 clés FR-01B dont 7 nouvelles sont présentes ; validation Babel réussie. Diff global inattendu : intégration arrêtée et POT suivi restauré à l’identique, candidat conservé hors dépôt. Aucun changement des 79 PO contrôlés, du Framework ou des remotes.
 
 ## 5. Fichiers créés ou modifiés
 
@@ -65,6 +66,8 @@ FR-01B : `frontend/src/pages/Courses/StudentCourseProgress.vue`, `frontend/src/p
 FR-01C : `docs/FR-01C-STRATEGIE.md` (comparaison, architecture, dix clés candidates et aria-label distinct, revue des trois traductions existantes), `docs/GLOSSAIRE_FR.md` (15 termes pédagogiques et arbitrages), et ce handoff. Aucun autre fichier modifié dans cette phase.
 
 BRAND-01 : `docs/IDENTITE_PROJET.md` et ce handoff. Contrôles : pré-recherche web de confusions, références INPI/EUIPO/OMPI, cohérence et diff des documents ; aucun test applicatif ni vérification de disponibilité auprès des registres de marques/domaines/GitHub.
+
+FR-01D : `.github/helper/update_pot_file.sh`, `.github/workflows/generate-pot-file.yml`, nouveau `.github/helper/test_pot_publication_guard.py` (commit local `a628ed1a`) ; `docs/FR-01D-RESULTATS.md` et ce handoff (commit documentaire courant). Aucun POT/PO committé.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les fichiers PO n’ont pas été modifiés.
 
@@ -100,6 +103,13 @@ Tests exécutés lors de FR-01A, **ne pas les relancer sans nécessité** :
 
 Étude documentaire seulement : code/configuration versionnés et preuves FR-01B réutilisées, contrôle Git local/distant et relecture/diff/secrets des livrables. Aucun test applicatif, build, extraction, compilation, installation, accès Crowdin ou consultation de credentials. Politique linguistique et résultats précédents conservés.
 
+### Contrôles FR-01D (ne pas relancer les tests applicatifs)
+
+- 2 méthodes unittest réussies : 6 contextes de garde dont 5 refusés aussi avec le vrai script protégé ; contexte officiel testé uniquement sur le préambule terminé par sentinelle. Corps de publication jamais exécuté. YAML : condition du job et matrice contrôlées ; pas d’exécution Actions distante.
+- bash -n, lecture YAML, AST/compilation Python, Ruff lint et format : réussis. Bench generate-pot-file --app lms : sortie 0, catalogue validé avec Babel ; 13/13 clés ciblées et 7/7 nouvelles ; paramètres et indicateurs communs préservés, msgstr vides.
+- 79 empreintes PO identiques ; remotes, HEAD/état Framework inchangés ; POT suivi restauré octet pour octet ; diff et recherche ciblée de secrets contrôlés. Aucun frontend/backend/HTTP/navigateur/build/MO exécuté pour FR-01D.
+- Comparaison persistante : rapport FR-01D avec inventaire des 111 ajouts et 4 retraits. Preuves complémentaires hors Git : /workspace/work/fr01d/{main.before.pot,main.generated.pot,main.generated.diff,comparison.json,generation.log,before.json,compare.py,validate_generated.py}. Leur persistance dépend de la restauration du workspace.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : 568/2 673 entrées LMS renseignées, 2 105 vides. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -109,32 +119,34 @@ Tests exécutés lors de FR-01A, **ne pas les relancer sans nécessité** :
 - Un bref texte anglais avant réception RPC reste possible ; le rendu figé après réception est corrigé. Pas de basculement de langue instantané ajouté : rechargement testé.
 - Non exécutés : suite backend complète, E2E historique complet, charge, autres navigateurs, mobile exhaustif, emails/PDF et connecteurs externes.
 - Date Day.js française non activée et marque inchangée ; les chaînes directes des trois composants ciblés sont désormais enveloppées. La couverture des autres écrans n’est pas certifiée.
-- FR-01C : workflow d’export Crowdin distinct bien présent, mais littlepool-dev non ciblé automatiquement. Le helper de génération POT pousse explicitement vers frappe/lms et y ouvre la PR : ne pas l’exécuter sans adaptation autorisée. Droits Crowdin, export des seules chaînes approuvées et coût d’un projet propre non vérifiés.
+- FR-01C : workflow d’export Crowdin distinct bien présent, mais littlepool-dev non ciblé automatiquement. Le helper de génération POT cible toujours explicitement frappe/lms, mais FR-01D le bloque désormais hors Actions officiel. Ne jamais le réutiliser pour la génération locale du fork ; appeler directement Bench. Droits Crowdin, export des seules chaînes approuvées et coût d’un projet propre non vérifiés.
 - Traductions candidates non livrées : Signups désigne des comptes, Enrollment des inscriptions pédagogiques ; Certifications compte des certificats publiés. Upload Image envoie un fichier local au serveur : Importer une image est proposé en remplacement de Télécharger une image, sans modifier le catalogue.
+
+FR-01D : le POT historique du 23 octobre est en retard sur plusieurs évolutions métier de la base ; le candidat régénéré comprend 104 ajouts au-delà des 7 FR-01B. Cause probable documentée, pas de rafraîchissement global approuvé. Les garde-fous de CI préviennent un accident ; ils ne sont pas une frontière de sécurité contre des variables falsifiées.
 
 Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors dépôt. Cinq comptes fictifs et un cours FR01 à deux leçons sont conservés sur le site local. Ne pas lire, copier ou publier les fichiers de credentials ; aucun secret n’est nécessaire dans ce handoff.
 
 ## 8. État Git local et distant
 
-Références vérifiées au début de FR-01C (28 octobre 2026) :
+Références réellement vérifiées pendant FR-01D, 28 octobre 2026 :
 
-- littlepool-dev local et distant : `b70e7d38e4bbea3d049cfa242c41218b067bb372` ; checkout initial propre.
+- Dernier distant littlepool-dev : `040496fa78636a42eca414020973e6fe3640bc34`, aligné avec le checkout propre initial. Aucune publication pendant FR-01D.
 - develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
-- bc5cd471 et b70e7d38 sont publiés ; ne pas les pousser à nouveau.
-- Commit local FR-01C non publié : `58c03aee` — stratégie, glossaire et handoff ; parent b70e7d38.
-- Commit local BRAND-01 non publié : `docs: propose project naming study and pending identity` (SHA exact à relever avec git log), parent 58c03aee ; identité et handoff uniquement. Aucun push autorisé pour ces deux commits. Checkout propre au début de BRAND-01 ; distant non interrogé à nouveau pour cette étude documentaire.
-
-Aucun changement non enregistré prévu après ce commit. Aucun PO/POT, workflow, code applicatif ou paramètre de site modifié. Confirmer rapidement git status et le distant lors de la prochaine reprise plutôt que de déduire leur état des mentions historiques.
+- Commits FR-01C `58c03aee` et BRAND-01 `040496fa` déjà publiés sur accord explicite ; les mentions anciennes de non-publication sont historiques.
+- Commit local non publié : `a628ed1a` — protections et test de garde. Le commit documentaire courant lui succède, avec uniquement FR-01D-RESULTATS et ce handoff ; relever son SHA exact par `git log -1 --oneline` (impossible d’inscrire son propre hash dans son contenu).
+- Aucun commit du POT : fichier original restauré. Aucun changement non enregistré prévu après le commit documentaire. Confirmer `git status --short --branch` à la reprise. Aucun push autorisé pour les commits FR-01D.
 
 ## 9. Prochaine opération et travaux restants
 
+**Prochaine action précise FR-01D :** faire examiner le rapport comparatif des 111 ajouts / 4 retraits et obtenir l’accord explicite pour revoir/intégrer le rafraîchissement global du POT. Ne pas générer un POT réduit manuellement ; ne pas intégrer le candidat actuel sans revue. Aucun POT/PO ou runtime à modifier en attendant. Procédure native reproductible dans docs/FR-01D-RESULTATS.md. Publication des deux commits FR-01D également soumise à autorisation.
+
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
-**Suite FR-01C, toujours en attente :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute publication du commit documentaire ou configuration externe. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
+**Suite FR-01C, toujours en attente :** faire valider au propriétaire l’option B (Crowdin dédié LittlePool, réutilisation officielle par revue), budget/droits, les dix traductions candidates plus l’aria-label et le glossaire ; obtenir l’accord explicite avant toute configuration externe. Les documents FR-01C/BRAND-01 sont déjà publiés. Option A reste utile pour contribuer les termes génériques ; option C, fixtures Translation natives filtrées dans une extension versionnée, est le repli limité si B n’est pas retenu. Rien de tout cela n’est déployé.
 
-Après choix et autorisation seulement : préparer une génération POT contrôlée depuis le commit du fork et un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser tel quel le helper qui cible frappe/lms. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
+Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, sans intégration à cause du diff global ; toute intégration ultérieure doit être revue. Après choix Crowdin et autorisation seulement : préparer un export/import dirigé vers le projet approuvé et littlepool-dev. Ne pas utiliser le helper de publication amont. Vérifier le filtrage des traductions approuvées, les variantes régionales et l’absence de secrets dans les livrables. Si C est choisi, valider d’abord l’exception au circuit Crowdin, le filtre de fixtures et le nettoyage des surcharges retirées.
 
-FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; sept clés sont absentes du POT actuel, trois déjà présentes sont vides ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
+FR-01C s’arrête à la préparation. Les dix traductions FR-01B restent manquantes à l’exécution ; sept clés restent absentes du POT suivi (présentes dans le candidat FR-01D non intégré), trois déjà présentes sont vides ; Search by keyword est une clé d’accessibilité supplémentaire. Les propositions du document ne sont ni approuvées ni importées.
 
 Ne pas commencer FR-02 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
