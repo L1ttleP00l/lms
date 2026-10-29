@@ -48,7 +48,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCard.vue:194
 msgid "1 lesson"
-msgstr ""
+msgstr "1 leçon"
 
 #: frontend/src/utils/quizQuestion.js:95
 msgid "1 mark"
@@ -605,7 +605,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCreatorCard.vue:49
 msgid "Also teaching"
-msgstr ""
+msgstr "Autres formateurs"
 
 #. Option for the 'Color' (Select) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:285
@@ -2672,7 +2672,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCreatorCard.vue:139
 msgid "Course creator"
-msgstr ""
+msgstr "Formateur"
 
 #: frontend/src/pages/Courses/CourseForm.vue:249
 msgid "Course deleted successfully"
@@ -8925,7 +8925,7 @@ msgstr ""
 #: frontend/src/components/CourseCard.vue:88
 #, python-brace-format
 msgid "Rated {0} out of 5"
-msgstr ""
+msgstr "Note : {0} sur 5"
 
 #. Label of the rating (Rating) field in DocType 'LMS Certificate Evaluation'
 #. Label of the rating (Data) field in DocType 'LMS Course'
@@ -9659,11 +9659,11 @@ msgstr ""
 
 #: frontend/src/components/CourseReviews.vue:85
 msgid "See less"
-msgstr ""
+msgstr "Voir moins"
 
 #: frontend/src/components/CourseReviews.vue:85
 msgid "See more"
-msgstr ""
+msgstr "Voir plus"
 
 #: frontend/src/components/AudioBlock.vue:30
 #: frontend/src/components/VideoBlock.vue:76
@@ -9969,7 +9969,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCreatorCard.vue:66
 msgid "Show more instructors"
-msgstr ""
+msgstr "Afficher les autres formateurs"
 
 #: lms/lms/utils.py:895
 msgid "Show the chart by day, week, month, quarter or year."
@@ -10618,12 +10618,12 @@ msgstr "Tâches"
 
 #: frontend/src/components/CourseCreatorCard.vue:140
 msgid "Taught by"
-msgstr ""
+msgstr "Animé par"
 
 #: frontend/src/components/CourseCreatorCard.vue:141
 #, python-brace-format
 msgid "Taught by a team of {0}"
-msgstr ""
+msgstr "Animé par une équipe de {0} formateurs"
 
 #: frontend/src/pages/Forms/PersonaForm.vue:120
 msgid "Teachable"
@@ -11944,7 +11944,7 @@ msgstr ""
 
 #: frontend/src/components/CourseReviews.vue:97
 msgid "View all reviews"
-msgstr ""
+msgstr "Voir tous les avis"
 
 #: frontend/src/components/CommandPalette/CommandPalette.vue:459
 #, python-brace-format
@@ -12150,7 +12150,7 @@ msgstr "Espaces de travail"
 #: frontend/src/components/CourseReviews.vue:24
 #: frontend/src/components/Modals/ReviewModal.vue:4
 msgid "Write a Review"
-msgstr ""
+msgstr "Donner un avis"
 
 #: frontend/src/components/Assessment/AssessmentBlockPreview.vue:103
 #: frontend/src/components/Assignment.vue:153
@@ -13401,7 +13401,7 @@ msgstr ""
 #: frontend/src/components/CourseCard.vue:195
 #, python-brace-format
 msgid "{0} lessons"
-msgstr ""
+msgstr "{0} leçons"
 
 #: frontend/src/utils/quizQuestion.js:95
 #, python-brace-format
@@ -13705,4 +13705,51 @@ msgstr "Avec certificat"
 #: frontend/src/pages/Courses/Courses.vue:13
 msgid "There are no courses currently. Keep an eye out, fresh learning experiences are on the way!"
 msgstr "Aucun cours pour le moment. De nouvelles possibilités d’apprentissage arrivent bientôt."
+
+#: frontend/src/pages/Courses/CourseOverview.vue:217
+msgid "1 chapter"
+msgstr "1 chapitre"
+
+#: frontend/src/pages/Courses/CourseOverview.vue:218
+#, python-brace-format
+msgid "{0} chapters"
+msgstr "{0} chapitres"
+
+#: frontend/src/components/CourseCreatorCard.vue:59
+#, python-brace-format
+msgid "Show instructor {0}"
+msgstr "Afficher le formateur {0}"
+
+#: frontend/src/components/CourseInstructors.vue:55
+#, python-brace-format
+msgid "and {0} other instructors"
+msgstr "et {0} autres formateurs"
+
+#: frontend/src/components/CourseReviews.vue:172
+#, python-brace-format
+msgid "Average rating: {0}/5 · 1 review"
+msgstr "Note moyenne : {0}/5 · 1 avis"
+
+#: frontend/src/components/CourseReviews.vue:173
+#, python-brace-format
+msgid "Average rating: {0}/5 · {1} reviews"
+msgstr "Note moyenne : {0}/5 · {1} avis"
+
+#: frontend/src/components/CourseReviews.vue:211
+msgid "1 day ago"
+msgstr "Il y a 1 jour"
+
+#: frontend/src/components/CourseReviews.vue:211
+#, python-brace-format
+msgid "{0} days ago"
+msgstr "Il y a {0} jours"
+
+#: frontend/src/components/CourseReviews.vue:206
+msgid "1 month ago"
+msgstr "Il y a 1 mois"
+
+#: frontend/src/components/CourseReviews.vue:207
+#, python-brace-format
+msgid "{0} months ago"
+msgstr "Il y a {0} mois"
 

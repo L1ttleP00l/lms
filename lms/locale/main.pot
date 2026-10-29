@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-29 11:24+0000\n"
-"PO-Revision-Date: 2026-10-29 11:24+0000\n"
+"POT-Creation-Date: 2026-10-29 14:40+0000\n"
+"PO-Revision-Date: 2026-10-29 14:40+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -44,12 +44,25 @@ msgstr ""
 msgid "1 Import"
 msgstr ""
 
+#: frontend/src/pages/Courses/CourseOverview.vue:217
+msgid "1 chapter"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:211
+msgid "1 day ago"
+msgstr ""
+
 #: frontend/src/components/CourseCard.vue:202
+#: frontend/src/pages/Courses/CourseOverview.vue:223
 msgid "1 lesson"
 msgstr ""
 
 #: frontend/src/utils/quizQuestion.js:95
 msgid "1 mark"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:206
+msgid "1 month ago"
 msgstr ""
 
 #: frontend/src/components/Layouts/pages/ListPage.vue:309
@@ -712,7 +725,7 @@ msgstr ""
 msgid "Already using Frappe / ERPNext"
 msgstr ""
 
-#: frontend/src/components/CourseCreatorCard.vue:49
+#: frontend/src/components/CourseCreatorCard.vue:50
 msgid "Also teaching"
 msgstr ""
 
@@ -1208,6 +1221,16 @@ msgstr ""
 
 #: frontend/src/components/Modals/VideoStatistics.vue:77
 msgid "Average Watch Time (mins)"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:172
+#, python-brace-format
+msgid "Average rating: {0}/5 · 1 review"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:173
+#, python-brace-format
+msgid "Average rating: {0}/5 · {1} reviews"
 msgstr ""
 
 #: frontend/src/pages/Forms/PersonaForm.vue:159
@@ -3056,7 +3079,7 @@ msgstr ""
 msgid "Course created successfully"
 msgstr ""
 
-#: frontend/src/components/CourseCreatorCard.vue:139
+#: frontend/src/components/CourseCreatorCard.vue:143
 msgid "Course creator"
 msgstr ""
 
@@ -9930,6 +9953,7 @@ msgid "Randomize the order of questions for each attempt."
 msgstr ""
 
 #: frontend/src/components/CourseCard.vue:86
+#: frontend/src/components/CourseReviews.vue:56
 #, python-brace-format
 msgid "Rated {0} out of 5"
 msgstr ""
@@ -10711,11 +10735,11 @@ msgstr ""
 msgid "See all"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:85
+#: frontend/src/components/CourseReviews.vue:88
 msgid "See less"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:85
+#: frontend/src/components/CourseReviews.vue:88
 msgid "See more"
 msgstr ""
 
@@ -11110,12 +11134,17 @@ msgstr ""
 msgid "Show day view in timetable"
 msgstr ""
 
+#: frontend/src/components/CourseCreatorCard.vue:59
+#, python-brace-format
+msgid "Show instructor {0}"
+msgstr ""
+
 #. Label of the show_live_class (Check) field in DocType 'LMS Batch'
 #: lms/lms/doctype/lms_batch/lms_batch.json:247
 msgid "Show live class"
 msgstr ""
 
-#: frontend/src/components/CourseCreatorCard.vue:66
+#: frontend/src/components/CourseCreatorCard.vue:69
 msgid "Show more instructors"
 msgstr ""
 
@@ -11809,11 +11838,11 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: frontend/src/components/CourseCreatorCard.vue:140
+#: frontend/src/components/CourseCreatorCard.vue:144
 msgid "Taught by"
 msgstr ""
 
-#: frontend/src/components/CourseCreatorCard.vue:141
+#: frontend/src/components/CourseCreatorCard.vue:145
 #, python-brace-format
 msgid "Taught by a team of {0}"
 msgstr ""
@@ -12616,7 +12645,7 @@ msgstr ""
 msgid "To join this batch, please contact the Administrator."
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:199
+#: frontend/src/components/CourseReviews.vue:213
 msgid "Today"
 msgstr ""
 
@@ -13253,7 +13282,7 @@ msgstr ""
 msgid "View all feedback"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:97
+#: frontend/src/components/CourseReviews.vue:100
 msgid "View all reviews"
 msgstr ""
 
@@ -13476,7 +13505,7 @@ msgstr ""
 msgid "Workspaces"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:24
+#: frontend/src/components/CourseReviews.vue:15
 #: frontend/src/components/Modals/ReviewModal.vue:4
 msgid "Write a Review"
 msgstr ""
@@ -14181,7 +14210,6 @@ msgid "Zoom account updated successfully"
 msgstr ""
 
 #: frontend/src/components/CourseInstructors.vue:30
-#: frontend/src/components/CourseInstructors.vue:55
 msgid "and"
 msgstr ""
 
@@ -14192,6 +14220,11 @@ msgstr ""
 #: frontend/src/components/Layouts/settings/desktop/SettingsTable.vue:254
 #, python-brace-format
 msgid "and {0} more: {1}"
+msgstr ""
+
+#: frontend/src/components/CourseInstructors.vue:55
+#, python-brace-format
+msgid "and {0} other instructors"
 msgstr ""
 
 #: lms/lms/doctype/lms_quiz/lms_quiz.py:783
@@ -14273,10 +14306,6 @@ msgstr ""
 msgid "course must be a string"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:10
-msgid "course rating"
-msgstr ""
-
 #: frontend/src/pages/Programs/StudentPrograms.vue:31
 msgid "courses"
 msgstr ""
@@ -14285,20 +14314,12 @@ msgstr ""
 msgid "data must be an object"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:197
-msgid "day ago"
-msgstr ""
-
 #: frontend/src/pages/Home/Streak.vue:19
 msgid "day streak"
 msgstr ""
 
 #: frontend/src/pages/Home/Streak.vue:32 frontend/src/pages/Home/Streak.vue:40
 msgid "days"
-msgstr ""
-
-#: frontend/src/components/CourseReviews.vue:197
-msgid "days ago"
 msgstr ""
 
 #: frontend/src/components/ContinueCoursePanel.vue:236
@@ -14357,11 +14378,6 @@ msgstr ""
 msgid "kind must be 'incoming' or 'outgoing'"
 msgstr ""
 
-#: frontend/src/pages/Courses/CourseOverview.vue:223
-msgid "lesson"
-msgstr ""
-
-#: frontend/src/pages/Courses/CourseOverview.vue:223
 #: frontend/src/pages/Programs/ProgramEnrollment.vue:62
 msgid "lessons"
 msgstr ""
@@ -14406,14 +14422,6 @@ msgstr ""
 msgid "minutes"
 msgstr ""
 
-#: frontend/src/components/CourseReviews.vue:193
-msgid "month ago"
-msgstr ""
-
-#: frontend/src/components/CourseReviews.vue:193
-msgid "months ago"
-msgstr ""
-
 #. Option for the 'Event Type' (Select) field in DocType 'LMS Quiz Violation
 #. Log'
 #: lms/lms/doctype/lms_quiz_violation_log/lms_quiz_violation_log.json:28
@@ -14436,10 +14444,6 @@ msgstr ""
 
 #: frontend/src/components/Layouts/pages/ListPage.vue:102
 msgid "of"
-msgstr ""
-
-#: frontend/src/components/CourseInstructors.vue:55
-msgid "others"
 msgstr ""
 
 #: lms/lms/api.py:3205
@@ -14504,14 +14508,6 @@ msgstr ""
 msgid "search must be a string"
 msgstr ""
 
-#: frontend/src/pages/Courses/CourseOverview.vue:217
-msgid "section"
-msgstr ""
-
-#: frontend/src/pages/Courses/CourseOverview.vue:217
-msgid "sections"
-msgstr ""
-
 #: lms/lms/email_account.py:162 lms/lms/email_account.py:341
 msgid "service must be a string"
 msgstr ""
@@ -14565,14 +14561,6 @@ msgstr ""
 
 #: lms/lms/api.py:3036
 msgid "user must be a string"
-msgstr ""
-
-#: frontend/src/components/CourseReviews.vue:14
-msgid "user rating"
-msgstr ""
-
-#: frontend/src/components/CourseReviews.vue:15
-msgid "user ratings"
 msgstr ""
 
 #. Option for the 'Severity' (Select) field in DocType 'LMS Quiz Violation Log'
@@ -14651,9 +14639,19 @@ msgstr ""
 msgid "{0} cannot be changed."
 msgstr ""
 
+#: frontend/src/pages/Courses/CourseOverview.vue:218
+#, python-brace-format
+msgid "{0} chapters"
+msgstr ""
+
 #: frontend/src/components/Quiz.vue:1499
 #, python-brace-format
 msgid "{0} correct"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:211
+#, python-brace-format
+msgid "{0} days ago"
 msgstr ""
 
 #: lms/lms/api.py:1062
@@ -14818,6 +14816,7 @@ msgid "{0} left"
 msgstr ""
 
 #: frontend/src/components/CourseCard.vue:203
+#: frontend/src/pages/Courses/CourseOverview.vue:223
 #, python-brace-format
 msgid "{0} lessons"
 msgstr ""
@@ -14840,6 +14839,11 @@ msgstr ""
 #: lms/lms/utils.py:768 lms/lms/utils.py:774
 #, python-brace-format
 msgid "{0} mentioned you in a comment in {1}"
+msgstr ""
+
+#: frontend/src/components/CourseReviews.vue:207
+#, python-brace-format
+msgid "{0} months ago"
 msgstr ""
 
 #: lms/lms/email_account.py:330
