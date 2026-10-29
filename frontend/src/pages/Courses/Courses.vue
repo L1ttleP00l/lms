@@ -8,6 +8,7 @@
 		:has-next-page="courses.hasNextPage"
 		v-model:page-length="pageLength"
 		empty-name="Courses"
+		:empty-title="__('No courses found')"
 		empty-icon="lucide-book-open"
 		:search-query="title"
 		:filtered="Boolean(currentCategory || certification)"

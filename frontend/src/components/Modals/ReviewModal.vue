@@ -5,7 +5,7 @@
 		size="xl"
 		:actions="[
 			{
-				label: 'Submit',
+				label: __('Submit'),
 				variant: 'solid',
 				onClick: ({ close }) => submitReview(close),
 			},
@@ -15,7 +15,7 @@
 			<div class="flex flex-col gap-4">
 				<Rating v-model="review.rating" :label="__('Rating')" />
 				<FormControl
-					:label="__('Review')"
+					:label="__('Your review')"
 					type="textarea"
 					v-model="review.review"
 					:rows="5"
@@ -63,7 +63,7 @@ function submitReview(close: () => void) {
 	submitResource(createReview, review, {
 		validate() {
 			if (!review.rating) {
-				return 'Please enter a rating.'
+				return __('Please enter a rating.')
 			}
 		},
 		onSuccess() {
@@ -72,7 +72,7 @@ function submitReview(close: () => void) {
 			close()
 		},
 		onError(err: string | FrappeResourceError) {
-			toast.error(resourceErrorMessage(err, 'Error'))
+			toast.error(resourceErrorMessage(err, __('Error')))
 		},
 	})
 }

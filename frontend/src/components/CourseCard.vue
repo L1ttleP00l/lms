@@ -67,9 +67,7 @@
 								{{ formatAmount(course.enrollments) }}
 							</span>
 							<span class="sr-only">
-								{{
-									__('{0} enrolled').format(formatAmount(course.enrollments))
-								}}
+								{{ enrollmentCountLabel }}
 							</span>
 						</span>
 					</Tooltip>
@@ -122,7 +120,11 @@
 			/>
 
 			<div v-if="user && course.membership" class="text-sm mt-2 mb-4">
-				{{ Math.ceil(course.membership.progress) }}% {{ __('completed') }}
+				{{
+					__('Course progress: {0}%').format(
+						Math.ceil(course.membership.progress)
+					)
+				}}
 			</div>
 
 			<div class="flex items-center justify-between mt-auto">
@@ -188,6 +190,12 @@ const props = defineProps({
 		default: false,
 	},
 })
+
+const enrollmentCountLabel = computed(() =>
+	Number(props.course.enrollments) === 1
+		? __('1 student enrolled')
+		: __('{0} students enrolled').format(formatAmount(props.course.enrollments))
+)
 
 const lessonCount = computed(() =>
 	props.course.lessons == 1

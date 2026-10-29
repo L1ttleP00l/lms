@@ -40,10 +40,7 @@
 						<template v-if="course.data.enrollments">
 							<div class="flex items-center gap-1.5">
 								<span class="lucide-users-round size-4" />
-								<span
-									>{{ formatAmount(course.data.enrollments) }}
-									{{ __('Students') }}</span
-								>
+								<span>{{ enrollmentCountLabel }}</span>
 							</div>
 							<span class="lucide-dot size-5 text-ink-gray-7" />
 						</template>
@@ -197,6 +194,14 @@ watch(
 		if (name) outline.fetch()
 	},
 	{ immediate: true }
+)
+
+const enrollmentCountLabel = computed(() =>
+	Number(props.course.data?.enrollments) === 1
+		? __('1 student enrolled')
+		: __('{0} students enrolled').format(
+				formatAmount(props.course.data?.enrollments || 0)
+		  )
 )
 
 const outlineStats = computed(() => {

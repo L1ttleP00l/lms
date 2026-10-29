@@ -104,7 +104,7 @@
 					class="flex items-center gap-3 text-ink-gray-8"
 				>
 					<span class="lucide-users size-4 shrink-0 text-ink-gray-7" />
-					<span>{{ enrolledLabel }} {{ __('enrolled') }}</span>
+					<span>{{ enrollmentCountLabel }}</span>
 				</div>
 				<div
 					v-if="course.data?.video_link"
@@ -215,7 +215,7 @@ const is_instructor = (): boolean =>
 
 const priceLabel = computed<string>(() => {
 	if (props.course.data?.paid_course) return props.course.data?.price || ''
-	return __('Free')
+	return __('Free course')
 })
 
 const enrolledLabel = computed<string>(() => {
@@ -225,6 +225,12 @@ const enrolledLabel = computed<string>(() => {
 	const tier = n < 1000 ? 50 : 100
 	return `${Math.floor(n / tier) * tier}+`
 })
+
+const enrollmentCountLabel = computed<string>(() =>
+	Number(props.course.data?.enrollments) === 1
+		? __('1 student enrolled')
+		: __('{0} students enrolled').format(enrolledLabel.value)
+)
 
 const hasCourseStats = computed<boolean>(() =>
 	Boolean(

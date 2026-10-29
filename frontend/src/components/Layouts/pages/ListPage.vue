@@ -70,6 +70,7 @@
 		<div v-else class="flex-1">
 			<EmptyStateLayout
 				:name="emptyName"
+				:title="emptyTitle"
 				:icon="emptyIcon"
 				:description="emptyStateDescription"
 			>
@@ -168,6 +169,8 @@ const props = withDefaults(
 		pageLengthOptions?: number[]
 		/** What the empty state calls these rows, e.g. "Courses". */
 		emptyName?: string
+		/** Optional localized sentence, also used for the empty status announcement. */
+		emptyTitle?: string
 		emptyIcon?: string
 		/** Replaces the default empty-state sentence, which suits learner pages. */
 		emptyDescription?: string
@@ -190,6 +193,7 @@ const props = withDefaults(
 		// of cards is never a stub. 60 and 120 keep that property.
 		pageLengthOptions: () => [24, 60, 120],
 		emptyName: '',
+		emptyTitle: '',
 		emptyIcon: 'lucide-graduation-cap',
 		emptyDescription: '',
 		searchQuery: '',
@@ -297,7 +301,8 @@ const loadedMessage = () => {
 	// Matches the empty state's wording deliberately, so it doesn't read as a
 	// second, different event. A failed first fetch also lands here: the
 	// resource leaves `rows` empty and reports failure only via `error`.
-	if (!props.rows.length) return __('No {0} Found').format(props.emptyName)
+	if (!props.rows.length)
+		return props.emptyTitle || __('No {0} Found').format(props.emptyName)
 	// Counted rather than named. `emptyName` is a plural noun passed untranslated
 	// ("Courses"), so a translated frame around it reads half-English, and there
 	// is no singular of it to reach for when the count is one.
