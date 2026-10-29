@@ -56,7 +56,7 @@ msgstr ""
 
 #: frontend/src/components/Layouts/pages/ListPage.vue:304
 msgid "1 result loaded"
-msgstr ""
+msgstr "1 résultat chargé"
 
 #: frontend/src/components/ResponsiveListView.vue:348
 msgid "1 row selected"
@@ -185,7 +185,7 @@ msgstr "A Propos"
 
 #: frontend/src/pages/Courses/CourseOverview.vue:124
 msgid "About this course"
-msgstr ""
+msgstr "À propos de ce cours"
 
 #. Label of the verify_terms (Check) field in DocType 'User'
 #: lms/fixtures/custom_field.json:88
@@ -1625,7 +1625,7 @@ msgstr "Nom de la certification"
 #: frontend/src/pages/Batches/Batches.vue:59
 #: frontend/src/pages/Courses/Courses.vue:65
 msgid "Certification available"
-msgstr ""
+msgstr "Certificat disponible"
 
 #: lms/lms/doctype/lms_certificate/lms_certificate.py:96
 msgid "Certification cannot be issued as the member has not completed the course."
@@ -1871,7 +1871,7 @@ msgstr "Nettoyer"
 
 #: frontend/src/components/Layouts/pages/ListPage.vue:78
 msgid "Clear filters"
-msgstr ""
+msgstr "Effacer les filtres"
 
 #: frontend/src/pages/ProfileEvaluator.vue:77
 msgid "Clear time off"
@@ -2304,7 +2304,7 @@ msgstr "Contenu"
 
 #: frontend/src/components/CourseCardOverlay.vue:38
 msgid "Continue Learning"
-msgstr ""
+msgstr "Reprendre le cours"
 
 #: frontend/src/components/ContinueCoursePanel.vue:82
 msgid "Continue editing"
@@ -2660,7 +2660,7 @@ msgstr ""
 
 #: frontend/src/pages/Courses/CourseOverview.vue:93
 msgid "Course content"
-msgstr ""
+msgstr "Contenu du cours"
 
 #: frontend/src/pages/Courses/CourseOverview.vue:110
 msgid "Course content coming soon!"
@@ -7367,11 +7367,11 @@ msgstr "Remarques"
 #: frontend/src/components/Layouts/pages/ListPage.vue:224
 #, python-brace-format
 msgid "Nothing matches \"{0}\". Try another search or clear the filters."
-msgstr ""
+msgstr "Aucun résultat pour « {0} ». Essayez une autre recherche ou effacez les filtres."
 
 #: frontend/src/components/Layouts/pages/ListPage.vue:229
 msgid "Nothing matches the filters applied. Try changing or clearing them."
-msgstr ""
+msgstr "Aucun résultat pour les filtres appliqués. Modifiez-les ou effacez-les."
 
 #: frontend/src/components/ProgrammingExercises/ExerciseConsole.vue:59
 msgid "Nothing to show yet — run your code"
@@ -7508,7 +7508,7 @@ msgstr ""
 
 #: frontend/src/pages/Courses/Courses.vue:66
 msgid "Only show courses that offer a certificate"
-msgstr ""
+msgstr "Afficher uniquement les cours proposant un certificat."
 
 #: frontend/src/pages/Forms/AssignmentForm.vue:18
 msgid "Only the authors of this assignment can edit it."
@@ -10190,7 +10190,7 @@ msgstr "Date de Début:"
 #: frontend/src/pages/Lesson.vue:74 frontend/src/pages/SCORMChapter.vue:28
 #: lms/templates/emails/lms_course_interest.html:9
 msgid "Start Learning"
-msgstr ""
+msgstr "Commencer le cours"
 
 #: frontend/src/components/Assessment/AssessmentBlockPreview.vue:55
 #: frontend/src/components/Quiz.vue:277
@@ -11015,7 +11015,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:100
 msgid "This course includes:"
-msgstr ""
+msgstr "Ce cours comprend :"
 
 #: lms/lms/utils.py:3038
 msgid "This course is free."
@@ -11672,7 +11672,7 @@ msgstr ""
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.json:153
 #: lms/lms/doctype/lms_course/lms_course.json:120
 msgid "Upcoming"
-msgstr ""
+msgstr "À venir"
 
 #: frontend/src/pages/Home/AdminHome.vue:110
 msgid "Upcoming Batches"
@@ -13519,7 +13519,7 @@ msgstr ""
 #: frontend/src/components/Layouts/pages/ListPage.vue:305
 #, python-brace-format
 msgid "{0} results loaded"
-msgstr ""
+msgstr "{0} résultats chargés"
 
 #: frontend/src/components/ResponsiveListView.vue:349
 #, python-brace-format
@@ -13693,4 +13693,16 @@ msgstr "Veuillez attribuer une note."
 #, python-brace-format
 msgid "Course progress: {0}%"
 msgstr "Progression du cours : {0} %"
+
+#: frontend/src/pages/Courses/Courses.vue:356
+msgid "My enrollments"
+msgstr "Mes inscriptions"
+
+#: frontend/src/pages/Courses/Courses.vue:70
+msgid "With certificate"
+msgstr "Avec certificat"
+
+#: frontend/src/pages/Courses/Courses.vue:13
+msgid "There are no courses currently. Keep an eye out, fresh learning experiences are on the way!"
+msgstr "Aucun cours pour le moment. De nouvelles possibilités d’apprentissage arrivent bientôt."
 

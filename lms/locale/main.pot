@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-29 01:16+0000\n"
-"PO-Revision-Date: 2026-10-29 01:16+0000\n"
+"POT-Creation-Date: 2026-10-29 11:24+0000\n"
+"PO-Revision-Date: 2026-10-29 11:24+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -1735,8 +1735,8 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:53
 #: frontend/src/pages/CertifiedParticipants.vue:40
 #: frontend/src/pages/CertifiedParticipants.vue:41
-#: frontend/src/pages/Courses/Courses.vue:59
-#: frontend/src/pages/Courses/Courses.vue:60
+#: frontend/src/pages/Courses/Courses.vue:64
+#: frontend/src/pages/Courses/Courses.vue:65
 #: frontend/src/pages/Forms/NewBatchForm.vue:58
 #: frontend/src/pages/Forms/NewCourseForm.vue:19
 #: lms/lms/doctype/lms_batch/lms_batch.json:178
@@ -1847,7 +1847,7 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:58
 #: frontend/src/pages/Courses/CourseCertification.vue:3
 #: frontend/src/pages/Courses/CourseCertification.vue:132
-#: frontend/src/pages/Courses/Courses.vue:65 lms/fixtures/custom_field.json:984
+#: lms/fixtures/custom_field.json:984
 #: lms/lms/doctype/certification/certification.json:68
 #: lms/lms/doctype/lms_batch/lms_batch.json:354
 #: lms/lms/doctype/lms_enrollment/lms_enrollment.json:116
@@ -1866,7 +1866,7 @@ msgid "Certification Name"
 msgstr ""
 
 #: frontend/src/pages/Batches/Batches.vue:59
-#: frontend/src/pages/Courses/Courses.vue:66
+#: frontend/src/pages/Courses/Courses.vue:71
 msgid "Certification available"
 msgstr ""
 
@@ -3153,8 +3153,8 @@ msgstr ""
 #: frontend/src/pages/Batches/components/BatchOverlay.vue:43
 #: frontend/src/pages/Courses/CourseCertification.vue:124
 #: frontend/src/pages/Courses/CourseDetail.vue:485
-#: frontend/src/pages/Courses/Courses.vue:386
-#: frontend/src/pages/Courses/Courses.vue:393
+#: frontend/src/pages/Courses/Courses.vue:391
+#: frontend/src/pages/Courses/Courses.vue:398
 #: frontend/src/pages/Forms/ProgramForm.vue:44
 #: frontend/src/pages/Lesson.vue:736
 #: frontend/src/pages/Programs/Programs.vue:67
@@ -3263,7 +3263,7 @@ msgid "Create your first quiz"
 msgstr ""
 
 #: frontend/src/components/Settings/Categories.vue:227
-#: frontend/src/pages/Courses/Courses.vue:348
+#: frontend/src/pages/Courses/Courses.vue:353
 #: frontend/src/pages/DataImports.vue:214
 msgid "Created"
 msgstr ""
@@ -4280,7 +4280,6 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:333
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:5
 #: frontend/src/pages/Courses/CourseDashboard.vue:7
-#: frontend/src/pages/Courses/Courses.vue:351
 #: frontend/src/pages/Programs/StudentPrograms.vue:98
 msgid "Enrolled"
 msgstr ""
@@ -5710,7 +5709,7 @@ msgstr ""
 
 #: frontend/src/components/Sidebar/UserDropdown.vue:185
 #: frontend/src/pages/Batches/Batches.vue:20
-#: frontend/src/pages/Courses/Courses.vue:27
+#: frontend/src/pages/Courses/Courses.vue:32
 #: frontend/src/pages/Forms/CourseImportForm.vue:87
 msgid "Import"
 msgstr ""
@@ -5723,11 +5722,11 @@ msgstr ""
 msgid "Import courses, batches or categories from a spreadsheet with New Import."
 msgstr ""
 
-#: frontend/src/pages/Courses/Courses.vue:367
+#: frontend/src/pages/Courses/Courses.vue:372
 msgid "Import from a spreadsheet"
 msgstr ""
 
-#: frontend/src/pages/Courses/Courses.vue:375
+#: frontend/src/pages/Courses/Courses.vue:380
 msgid "Import via ZIP"
 msgstr ""
 
@@ -7662,6 +7661,10 @@ msgstr ""
 msgid "My Profile"
 msgstr ""
 
+#: frontend/src/pages/Courses/Courses.vue:356
+msgid "My enrollments"
+msgstr ""
+
 #. Label of the name1 (Data) field in DocType 'LMS Sidebar Item'
 #: frontend/src/components/Settings/Categories.vue:39
 #: frontend/src/components/Settings/Raven/ChannelView.vue:46
@@ -7727,7 +7730,7 @@ msgstr ""
 msgid "New Coupon"
 msgstr ""
 
-#: frontend/src/pages/Courses/Courses.vue:34
+#: frontend/src/pages/Courses/Courses.vue:39
 #: frontend/src/pages/Forms/NewCourseForm.vue:2
 #: frontend/src/pages/Home/AdminHome.vue:160 lms/www/_lms.py:117
 msgid "New Course"
@@ -8375,7 +8378,7 @@ msgstr ""
 msgid "Only show batches that offer a certificate"
 msgstr ""
 
-#: frontend/src/pages/Courses/Courses.vue:67
+#: frontend/src/pages/Courses/Courses.vue:72
 msgid "Only show courses that offer a certificate"
 msgstr ""
 
@@ -9670,7 +9673,7 @@ msgstr ""
 #. Label of the published (Check) field in DocType 'LMS Program'
 #: frontend/src/components/Layouts/pages/PageHeader.vue:20
 #: frontend/src/components/Modals/Event.vue:135
-#: frontend/src/pages/Courses/Courses.vue:335
+#: frontend/src/pages/Courses/Courses.vue:340
 #: frontend/src/pages/Forms/BulkCertificatesForm.vue:44
 #: frontend/src/pages/Forms/ProgramForm.vue:28
 #: frontend/src/pages/Programs/Programs.vue:260
@@ -10608,8 +10611,8 @@ msgstr ""
 #: frontend/src/pages/CertifiedParticipants.vue:28
 #: frontend/src/pages/CertifiedParticipants.vue:29
 #: frontend/src/pages/Courses/CourseDashboard.vue:50
-#: frontend/src/pages/Courses/Courses.vue:47
-#: frontend/src/pages/Courses/Courses.vue:48
+#: frontend/src/pages/Courses/Courses.vue:52
+#: frontend/src/pages/Courses/Courses.vue:53
 #: frontend/src/pages/JobApplications.vue:21 frontend/src/pages/Jobs.vue:46
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExercises.vue:38
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExercises.vue:39
@@ -12112,6 +12115,10 @@ msgstr ""
 msgid "There are no courses currently. Create your first course to get started!"
 msgstr ""
 
+#: frontend/src/pages/Courses/Courses.vue:13
+msgid "There are no courses currently. Keep an eye out, fresh learning experiences are on the way!"
+msgstr ""
+
 #: lms/lms/doctype/lms_batch/lms_batch.py:187
 #: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:107
 msgid "There are no seats available in this batch."
@@ -12890,7 +12897,7 @@ msgstr ""
 
 #: frontend/src/components/ContinueCoursePanel.vue:39
 #: frontend/src/pages/Batches/Batches.vue:328
-#: frontend/src/pages/Courses/Courses.vue:349
+#: frontend/src/pages/Courses/Courses.vue:354
 #: frontend/src/pages/Programs/Programs.vue:264
 msgid "Unpublished"
 msgstr ""
@@ -12942,7 +12949,7 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:326
 #: frontend/src/pages/Batches/Batches.vue:331
 #: frontend/src/pages/Courses/CoursePublishSettings.vue:8
-#: frontend/src/pages/Courses/Courses.vue:339
+#: frontend/src/pages/Courses/Courses.vue:344
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.json:153
 #: lms/lms/doctype/lms_course/lms_course.json:120
 msgid "Upcoming"
@@ -13413,6 +13420,10 @@ msgstr ""
 
 #: frontend/src/pages/QuizSubmission.vue:440 frontend/src/utils/proctoring.ts:7
 msgid "Window focus lost"
+msgstr ""
+
+#: frontend/src/pages/Courses/Courses.vue:70
+msgid "With certificate"
 msgstr ""
 
 #: lms/templates/emails/certification.html:10
