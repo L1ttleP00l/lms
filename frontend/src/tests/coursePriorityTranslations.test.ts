@@ -22,7 +22,8 @@ vi.mock('frappe-ui', () => {
 		LoadingIndicator: slot,
 		Alert: { props: ['description'], template: '<div>{{ description }}</div>' },
 		Button: {
-			props: ['label'],
+			name: 'TestButton',
+			props: ['label', 'route'],
 			template: '<button>{{ label }}<slot /></button>',
 		},
 		FormControl: {
@@ -125,6 +126,14 @@ vi.mock('@/components/RelatedCourses.vue', () => ({
 }))
 
 const french: Record<string, string> = {
+	'1 result loaded': '1 résultat chargé',
+	'{0} results loaded': '{0} résultats chargés',
+	'Nothing matches "{0}". Try another search or clear the filters.':
+		'Aucun résultat pour « {0} ». Essayez une autre recherche ou effacez les filtres.',
+	'Clear filters': 'Effacer les filtres',
+	'Start Learning': 'Commencer le cours',
+	'Continue Learning': 'Reprendre le cours',
+	'This course includes:': 'Ce cours comprend :',
 	Free: 'Libre',
 	Review: 'Révoir',
 	'Free course': 'Gratuit',
@@ -260,5 +269,120 @@ describe('scoped learner catalogue translations', () => {
 				language === 'fr' ? 'Erreur' : 'Error'
 			)
 		})
+	}
+})
+
+describe('learner catalogue filters, announcements and actions', () => {
+	for (const language of ['fr', 'en']) {
+		it.each([0, 1, 2, 5])(
+			`announces the actual result count in ${language}: %s`,
+			async (count) => {
+				const view = render(
+					ListPage,
+					{
+						breadcrumbs: [],
+						rows: [],
+						loading: true,
+						emptyTitle:
+							language === 'fr' ? 'Aucun cours trouvé' : 'No courses found',
+					},
+					language
+				)
+				await view.setProps({
+					rows: Array.from({ length: count }, (_, i) => ({ name: String(i) })),
+					loading: false,
+				})
+				await new Promise((r) => setTimeout(r, 550))
+				expect(view.get('[role="status"]').text()).toBe(
+					count === 0
+						? language === 'fr'
+							? 'Aucun cours trouvé'
+							: 'No courses found'
+						: count === 1
+						? language === 'fr'
+							? '1 résultat chargé'
+							: '1 result loaded'
+						: language === 'fr'
+						? `${count} résultats chargés`
+						: `${count} results loaded`
+				)
+			}
+		)
+		it(`keeps contextual empty copy, search parameters and clearing in ${language}`, async () => {
+			const description =
+				language === 'fr'
+					? 'Aucun cours pour le moment. De nouvelles possibilités d’apprentissage arrivent bientôt.'
+					: 'There are no courses currently. Keep an eye out, fresh learning experiences are on the way!'
+			const view = render(
+				ListPage,
+				{
+					breadcrumbs: [],
+					rows: [],
+					emptyName: 'Courses',
+					emptyDescription: description,
+				},
+				language
+			)
+			expect(view.text()).toContain(description)
+			await view.setProps({ searchQuery: 'biology <0>' })
+			expect(view.text()).toContain(
+				language === 'fr'
+					? 'Aucun résultat pour « biology <0> ». Essayez une autre recherche ou effacez les filtres.'
+					: 'Nothing matches "biology <0>". Try another search or clear the filters.'
+			)
+			const clear = view
+				.findAll('button')
+				.find(
+					(b) =>
+						b.text() ===
+						(language === 'fr' ? 'Effacer les filtres' : 'Clear filters')
+				)!
+			await clear.trigger('click')
+			expect(view.emitted('clearFilters')).toHaveLength(1)
+		})
+		it.each([0, 25])(
+			`preserves the start/resume action and route in ${language}: %s`,
+			(progress) => {
+				const view = render(
+					CourseCardOverlay,
+					{
+						course: {
+							data: {
+								name: 'COURSE',
+								lessons: 2,
+								membership: { progress },
+								current_lesson: '1-2',
+							},
+						},
+					},
+					language
+				)
+				expect(
+					view
+						.findAllComponents({ name: 'TestButton' })
+						.find((b) => b.props('route'))
+						?.props('route')
+				).toEqual({
+					name: 'Lesson',
+					params: {
+						courseName: 'COURSE',
+						chapterNumber: '1',
+						lessonNumber: '2',
+					},
+				})
+				expect(view.text()).toContain(
+					language === 'fr'
+						? progress
+							? 'Reprendre le cours'
+							: 'Commencer le cours'
+						: progress
+						? 'Continue Learning'
+						: 'Start Learning'
+				)
+				expect(view.text()).toContain(
+					language === 'fr' ? 'Ce cours comprend :' : 'This course includes:'
+				)
+			}
+		)
 	}
 })

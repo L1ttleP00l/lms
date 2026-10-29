@@ -112,6 +112,7 @@ vi.mock('frappe-ui', () => ({
 		template: `<input
 			type="checkbox"
 			data-testid="toggle-checkbox"
+			:aria-label="label"
 			:checked="modelValue"
 			@change="onChange"
 		/>`,
@@ -195,7 +196,7 @@ async function mountCourses(user: { data: Record<string, unknown> | null }) {
 				$user: user,
 				$dayjs: () => ({ add: () => ({ format: () => '' }) }),
 			},
-			mocks: { __: (s: string) => s },
+			mocks: { __: (s: string) => window.__(s) },
 			// The page now hosts its two form child routes through an outlet.
 			// No router plugin is installed here (vue-router is mocked down to
 			// useRouter), so the outlet has to be stubbed or it stays an
@@ -378,3 +379,41 @@ describe('Courses list filters', () => {
 		).toBeUndefined()
 	})
 })
+
+it.each(['fr', 'en'])(
+	'localizes learner tabs and certificate labels without changing filter values: %s',
+	async (language) => {
+		const labels: Record<string, string> =
+			language === 'fr'
+				? {
+						Upcoming: 'À venir',
+						'My enrollments': 'Mes inscriptions',
+						'With certificate': 'Avec certificat',
+						'Certification available': 'Certificat disponible',
+						'Only show courses that offer a certificate':
+							'Afficher uniquement les cours proposant un certificat.',
+				  }
+				: {}
+		vi.stubGlobal('__', (key: string) => labels[key] || key)
+		try {
+			const wrapper = await mountCourses({
+				data: { name: 'learner@example.com', is_student: true },
+			})
+			expect(wrapper.get('[data-testid="tab-upcoming"]').text()).toBe(
+				language === 'fr' ? 'À venir' : 'Upcoming'
+			)
+			expect(wrapper.get('[data-testid="tab-enrolled"]').text()).toBe(
+				language === 'fr' ? 'Mes inscriptions' : 'My enrollments'
+			)
+			await wrapper.get('[data-testid="tab-enrolled"]').trigger('click')
+			expect(checkedTab(wrapper)).toBe('tab-enrolled')
+			expect(requests.current.at(-1).filters).toMatchObject({ enrolled: 1 })
+			expect(
+				wrapper.get('[data-testid="toggle-checkbox"]').attributes('aria-label')
+			).toBe(language === 'fr' ? 'Avec certificat' : 'With certificate')
+			wrapper.unmount()
+		} finally {
+			vi.stubGlobal('__', (s: string) => s)
+		}
+	}
+)

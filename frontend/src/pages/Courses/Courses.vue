@@ -9,6 +9,11 @@
 		v-model:page-length="pageLength"
 		empty-name="Courses"
 		:empty-title="__('No courses found')"
+		:empty-description="
+			__(
+				'There are no courses currently. Keep an eye out, fresh learning experiences are on the way!'
+			)
+		"
 		empty-icon="lucide-book-open"
 		:search-query="title"
 		:filtered="Boolean(currentCategory || certification)"
@@ -62,7 +67,7 @@
 			/>
 			<ToggleFilter
 				:modelValue="certification"
-				:label="__('Certification')"
+				:label="__('With certificate')"
 				:mobileLabel="__('Certification available')"
 				:tooltip="__('Only show courses that offer a certificate')"
 				@update:modelValue="setCertification"
@@ -348,7 +353,7 @@ const courseTabs = computed(() => {
 		tabs.push({ label: __('Created'), value: 'created' })
 		tabs.push({ label: __('Unpublished'), value: 'unpublished' })
 	} else if (user.data) {
-		tabs.push({ label: __('Enrolled'), value: 'enrolled' })
+		tabs.push({ label: __('My enrollments'), value: 'enrolled' })
 	}
 	return tabs
 })
