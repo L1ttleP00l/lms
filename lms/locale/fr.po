@@ -2664,7 +2664,7 @@ msgstr "Contenu du cours"
 
 #: frontend/src/pages/Courses/CourseOverview.vue:110
 msgid "Course content coming soon!"
-msgstr ""
+msgstr "Le contenu du cours sera bientôt disponible !"
 
 #: frontend/src/pages/Forms/NewCourseForm.vue:361
 msgid "Course created successfully"
@@ -7435,7 +7435,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:114
 msgid "On demand course video"
-msgstr ""
+msgstr "Vidéo du cours à la demande"
 
 #: frontend/src/pages/Forms/JobForm.vue:305
 msgid "On site"
@@ -8874,11 +8874,11 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:135
 msgid "Quiz topic"
-msgstr ""
+msgstr "activité de quiz"
 
 #: frontend/src/components/CourseCardOverlay.vue:136
 msgid "Quiz topics"
-msgstr ""
+msgstr "activités de quiz"
 
 #: frontend/src/pages/Forms/QuizForm.vue:1003
 msgid "Quiz updated successfully"
@@ -9035,7 +9035,7 @@ msgstr ""
 #: lms/lms/doctype/lms_course/lms_course.json:151
 #: lms/lms/doctype/related_courses/related_courses.json:26
 msgid "Related Courses"
-msgstr ""
+msgstr "Cours associés"
 
 #: frontend/src/components/Quiz.vue:1536
 #, python-brace-format
@@ -11918,7 +11918,7 @@ msgstr ""
 #: frontend/src/components/VideoPreview.vue:9
 #: frontend/src/components/VideoPreview.vue:23
 msgid "Video preview"
-msgstr ""
+msgstr "Aperçu vidéo"
 
 #: frontend/src/components/Modals/VideoStatistics.vue:237
 #, python-brace-format
