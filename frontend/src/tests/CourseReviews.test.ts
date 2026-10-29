@@ -88,7 +88,14 @@ vi.mock('@/components/Modals/ReviewModal.vue', () => ({
 }))
 vi.mock('@/utils', () => ({ formatRating: (r: string) => String(r) }))
 
-vi.stubGlobal('__', (s: string) => s)
+const translate = (s: string) =>
+	/{\d+}/.test(s)
+		? {
+				format: (...args: unknown[]) =>
+					s.replace(/{(\d+)}/g, (_, i) => String(args[Number(i)])),
+		  }
+		: s
+vi.stubGlobal('__', translate)
 
 const mountReviews = (props: Record<string, unknown> = {}) =>
 	mount(CourseReviews, {
@@ -98,7 +105,7 @@ const mountReviews = (props: Record<string, unknown> = {}) =>
 				$user: { data: { name: 'a@b.c' } },
 				$dayjs: dayjs,
 			},
-			mocks: { __: (s: string) => s },
+			mocks: { __: translate },
 			stubs: { LucideStar: true, RouterLink: true },
 		},
 	})
@@ -183,8 +190,8 @@ describe('CourseReviews list rendering', () => {
 		await flushPromises()
 		const header = wrapper.text()
 		expect(header).toContain('4.5')
-		expect(header).toContain('1 user rating')
-		expect(header).not.toContain('user ratings')
+		expect(header).toContain('Average rating: 4.5/5 · 1 review')
+		expect(header).not.toContain('1 reviews')
 	})
 
 	it('clamps long review text behind a "See more" toggle', async () => {

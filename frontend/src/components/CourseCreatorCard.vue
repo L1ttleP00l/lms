@@ -26,6 +26,7 @@
 		<template v-else>
 			<router-link
 				v-if="focused"
+				ref="focusedProfileLink"
 				:to="profileLink(focused)"
 				class="flex items-center gap-4"
 			>
@@ -54,7 +55,9 @@
 							v-for="(instructor, idx) in visiblePeers"
 							:key="instructor.username || instructor.name || idx"
 							type="button"
-							:aria-label="instructor.full_name"
+							:aria-label="
+								__('Show instructor {0}').format(instructor.full_name)
+							"
 							class="rounded-full hover:-translate-y-0.5 transition -ms-1.5 first:ms-0"
 							@click="focusInstructor(instructor)"
 						>
@@ -80,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, nextTick } from 'vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import { decodeEntities, htmlToText } from '@/utils'
 import type { CourseInstructorInfo } from '@/types'
@@ -89,6 +92,7 @@ const props = defineProps<{
 	instructors: CourseInstructorInfo[]
 }>()
 
+const focusedProfileLink = ref<{ $el?: HTMLElement } | null>(null)
 const focusedKey = ref<string | null>(null)
 
 const instructorKey = (i: CourseInstructorInfo) =>
@@ -152,5 +156,6 @@ function profileLink(instructor: CourseInstructorInfo) {
 
 function focusInstructor(instructor: CourseInstructorInfo) {
 	focusedKey.value = instructorKey(instructor)
+	nextTick(() => focusedProfileLink.value?.$el?.focus())
 }
 </script>

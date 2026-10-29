@@ -3,17 +3,8 @@
 		<div class="flex items-center justify-between gap-3 mb-8">
 			<div class="flex items-center gap-2">
 				<LucideStar class="size-5 text-transparent fill-ink-amber-7" />
-				<span class="text-3xl-semibold text-ink-gray-9">
-					{{ avg_rating ? formatRating(avg_rating) : '0' }}
-				</span>
 				<span class="text-lg text-ink-gray-7">
-					{{ __('course rating') }} &amp;
-					{{ reviews.data?.length || 0 }}
-					{{
-						(reviews.data?.length || 0) === 1
-							? __('user rating')
-							: __('user ratings')
-					}}
+					{{ ratingSummary }}
 				</span>
 			</div>
 			<Button
@@ -58,9 +49,18 @@
 							{{ formatReviewDate(review.creation) }}
 						</span>
 					</div>
-					<div class="flex gap-1 mt-2">
+					<div
+						class="flex gap-1 mt-2"
+						role="img"
+						:aria-label="
+							__('Rated {0} out of 5').format(
+								formatRating(String(review.rating))
+							)
+						"
+					>
 						<LucideStar
 							v-for="i in 5"
+							aria-hidden="true"
 							:key="i"
 							class="size-4 text-transparent"
 							:class="
@@ -72,6 +72,7 @@
 					</div>
 					<p
 						v-if="review.review"
+						:id="`${reviewId}-${review.name}`"
 						class="text-ink-gray-7 mt-3 leading-6"
 						:class="{ 'line-clamp-5': !expanded[review.name] }"
 					>
@@ -80,6 +81,8 @@
 					<button
 						v-if="review.review && isClampable(review.review)"
 						class="font-medium text-ink-gray-9 hover:underline mt-1"
+						:aria-expanded="Boolean(expanded[review.name])"
+						:aria-controls="`${reviewId}-${review.name}`"
 						@click="toggleExpand(review.name)"
 					>
 						{{ expanded[review.name] ? __('See less') : __('See more') }}
@@ -108,7 +111,7 @@
 
 <script setup lang="ts">
 import { createResource, Button } from 'frappe-ui'
-import { computed, inject, reactive, ref, watch } from 'vue'
+import { computed, inject, reactive, ref, watch, useId } from 'vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import { formatRating } from '@/utils'
 import ReviewModal from '@/components/Modals/ReviewModal.vue'
@@ -161,6 +164,15 @@ watch(
 	}
 )
 
+const reviewId = useId()
+const ratingSummary = computed(() => {
+	const count = reviews.data?.length || 0
+	const average = props.avg_rating ? formatRating(props.avg_rating) : '0'
+	return count === 1
+		? __('Average rating: {0}/5 · 1 review').format(average)
+		: __('Average rating: {0}/5 · {1} reviews').format(average, count)
+})
+
 const showReviewModal = ref(false)
 const showAll = ref(false)
 const expanded = reactive<Record<string, boolean>>({})
@@ -190,11 +202,13 @@ function formatReviewDate(date: string) {
 	const d = dayjs(date)
 	const months = dayjs().diff(d, 'month')
 	if (months >= 1) {
-		return `${months} ${months === 1 ? __('month ago') : __('months ago')}`
+		return months === 1
+			? __('1 month ago')
+			: __('{0} months ago').format(months)
 	}
 	const days = dayjs().diff(d, 'day')
 	if (days >= 1) {
-		return `${days} ${days === 1 ? __('day ago') : __('days ago')}`
+		return days === 1 ? __('1 day ago') : __('{0} days ago').format(days)
 	}
 	return __('Today')
 }

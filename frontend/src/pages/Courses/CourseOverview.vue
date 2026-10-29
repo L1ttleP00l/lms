@@ -213,14 +213,14 @@ const outlineStats = computed(() => {
 	const parts: string[] = []
 	if (chapters.length) {
 		parts.push(
-			`${chapters.length} ${
-				chapters.length === 1 ? __('section') : __('sections')
-			}`
+			chapters.length === 1
+				? __('1 chapter')
+				: __('{0} chapters').format(chapters.length)
 		)
 	}
 	if (lessonCount) {
 		parts.push(
-			`${lessonCount} ${lessonCount === 1 ? __('lesson') : __('lessons')}`
+			lessonCount === 1 ? __('1 lesson') : __('{0} lessons').format(lessonCount)
 		)
 	}
 	return parts.join(' · ')
