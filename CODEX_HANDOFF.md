@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. Relecture finale FR-01F terminée : Inscriptions/Certificats conservés ; deux messages remplacés par Option certificat activée pour 1 apprenant / {0} apprenants. Les 19 autres traductions sont inchangées. Validation gettext et compilation en mémoire réussies, aucun test antérieur relancé. MO actif du site non recompilé : ces deux nouvelles phrases ne sont pas encore chargées à l’exécution. Quatre commits locaux avec FR-01E, aucun push. Attendre l’accord avant publication ; statistiques reportées à un lot UX distinct, aucun nouveau lot commencé.**
+Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. Les quatre commits FR-01E/FR-01F sont publiés jusqu’à 50384d1e. Vérification fonctionnelle finale effectuée : MO LMS recompilé, ancien cache identifié puis invalidé sur learning.localhost seulement ; les deux formulations Option certificat activée… sont maintenant chargées et vérifiées en FR/EN avec valeurs 1/2/5. Préférence du compte fictif restaurée FR, aucune donnée pédagogique/paiement modifiée. Attention : contrôle global des journaux non vierge (télémétrie 403, socket 400, favicon 404, script externe refusé), sans exception JavaScript ou erreur de traduction détectée. Commit documentaire courant local/non publié ; arrêt après contrôle, sans FR-02.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
-- Dernier distant littlepool-dev vérifié pendant FR-01E : `2279552914d1fb51dd425effcf192e4a2b519e11`. Tous les commits FR-01D/FR-01D.2 et le POT sont publiés. Ne pas déduire l’état actuel des anciens rapports.
-- Le commit portant cette actualisation documentaire est intitulé `fix(i18n): finalize French certificate option wording`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Dernier distant littlepool-dev vérifié lors de la publication précédente : `50384d1e575eaf1d625f8ba9e491c95bca308309`. Les quatre commits FR-01E/FR-01F sont publiés ; checkout propre à ce SHA confirmé au début de la vérification fonctionnelle finale, sans nouvelle interrogation distante nécessaire.
+- Le commit portant cette actualisation documentaire est intitulé `docs: record final French runtime validation and log findings`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -168,6 +168,20 @@ Babel ciblé, conservation des autres messages/paramètres/contextes/indicateurs
 
 Rapport et handoff actualisés dans un seul commit local de relecture avec PO/test. Preuves : /workspace/work/fr01f-review/. Limites inchangées : Unsplash non rendu, graphique d’achèvement masqué, textes hors lot restant anglais. Aucune généralisation de l’exception PO.
 
+### Vérification fonctionnelle finale FR-01F — état runtime actuel
+
+Début sur littlepool-dev propre à 50384d1e575eaf1d625f8ba9e491c95bca308309. Commande exécutée dans le conteneur existant lms-bench : bench compile-po-to-mo --app lms --locale fr, depuis /workspace/frappe-bench. Réussie ; MO LMS 27 514 octets, SHA-256 321e896bbf31487514a995cc36fac38c9cdf7b0f156cc752849693dd29d5df51. Aucune installation, nouvelle extraction, modification de PO/POT ou code.
+
+Après compilation : PO et MO contenaient les nouvelles formulations, mais get_all_translations('fr') gardait les deux anciennes. Cause identifiée avant nettoyage : cache natif de traduction fusionnée encore alimenté par l’ancien MO. Commande native bench --site learning.localhost execute frappe.translate.clear_cache exécutée sur le seul site de développement. Après : PO/MO/dictionnaire concordent, 6 120 clés, langue système fr inchangée. Aucun nettoyage global Redis ni autre site touché.
+
+Chromium : source réelle enrollment.ts dépouillée des types via Node existant, helpers enrollOutcome exécutés avec résultats fictifs et vrai window.__ de la page. Les résultats sont affichés dans une zone DOM de contrôle ajoutée temporairement à la page, puis vérifiés pour 1, 2, 5 apprenants : Option certificat activée pour 1 apprenant / 2 apprenants / 5 apprenants. Français brut chargé avec {0} conservé ; anglais : 1 student upgraded to certificate / 2 et 5 students upgraded to certificate. Repli de la clé hors lot Search by keyword vers anglais correct. Préférence fr puis en vérifiée après rechargement, compte formateur fictif restauré à sa préférence initiale fr et confirmé en base. Aucun appel d’inscription/paiement ni modification pédagogique. Ce n’est pas une E2E transactionnelle du formulaire ou du toast métier.
+
+Journaux : aucune pageerror JavaScript et aucune erreur de traduction identifiée. **L’assertion d’absence totale d’erreurs du harnais navigateur échoue**, malgré le succès des assertions linguistiques : trois réponses 403 de boot_config de télémétrie durant le parcours FR/EN, puis une quatrième lors du diagnostic ; logs frappe/services confirment quatre PermissionError pour cette URL. Diagnostic complémentaire identifie aussi socket.io HTTP 400, favicon.ico 404 et chargement de https://pulse.m.frappe.cloud/assets/pulse/js/pulse_client.js refusé par le tunnel/proxy. Ne pas déclarer l’environnement sans erreur ni qualifier ces erreurs de préexistantes sans preuve. Aucune correction de ces services hors périmètre entreprise.
+
+Lecture des ajouts aux journaux bench.log, database.log, frappe.log et services.log ainsi qu’aux journaux de site depuis offsets enregistrés : quatre PermissionError de télémétrie, aucune exception de traduction/HTTP 500 relevée dans cet intervalle. Une sonde auxiliaire a échoué en essayant de compter Error Log via SQL : DocType virtuel SQLiteLogDocument (is_virtual=1), donc pas de table MariaDB tabError Log ; lecture des fichiers utilisée à la place, aucune migration ou modification DB. Les essais de contrôle échoués ne sont pas revendiqués comme réussis.
+
+Preuves hors Git : /workspace/work/fr01f-final/ (compile.log, cache.log, after-compile.json, after-cache.json, final.json/log, measure.py, browser.cjs/log/json, render-fr/en.png, logs.before.json, log-review.json, network-diagnostic.cjs/log/json). Aucun credential copié. Aucun test/suite applicative, build, revalidation générale du pilote ou génération de données relancé. Les limites Unsplash/graphique masqué restent inchangées. Le rapport FR-01F historique garde les preuves datées avant cette activation ; ce paragraphe remplace la mention ancienne « deux nouvelles phrases non encore chargées ».
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-01F, 586/2 688 entrées PO LMS renseignées ; POT toujours 2 980 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -186,17 +200,16 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Références vérifiées pendant FR-01F, 29 octobre 2026 :
+État vérifié au début du contrôle fonctionnel final, 29 octobre 2026 :
 
-- Distant littlepool-dev : `2279552914d1fb51dd425effcf192e4a2b519e11` ; develop distant : `6b791f33b34efa15566a0cb707f5be59d136df50`, inchangé.
-- Base initiale locale propre : `0b71f90c` (rapport FR-01E non publié).
-- Commits locaux non publiés : 0b71f90c (FR-01E), 3fd92090 (pilote PO/tests), 39eb30af (rapport/handoff), puis `fix(i18n): finalize French certificate option wording` (relecture finale ; PO/test/rapport/handoff). SHA exact du dernier à relever par git log -1 ; ne pas créer un commit de suivi pour son propre SHA.
-- Quatre commits non publiés au total. Aucun push/PR/Crowdin autorisé ou effectué. Checkout propre prévu après commit de relecture ; confirmer git status. Aucun changement non enregistré prévu.
-
+- Checkout local propre sur littlepool-dev à `50384d1e575eaf1d625f8ba9e491c95bca308309`, correspondant au SHA publié confirmé dans la tâche précédente.
+- Commits 0b71f90c, 3fd92090, 39eb30af et 50384d1e déjà publiés. Ne pas les présenter comme restant à pousser.
+- Dernier develop distant vérifié lors de la publication : 6b791f33b34efa15566a0cb707f5be59d136df50 ; aucune opération sur develop dans ce contrôle.
+- Seul commit local non publié : `docs: record final French runtime validation and log findings`, contenant uniquement ce handoff ; SHA à relever par git log -1. Aucun push autorisé. Checkout propre prévu après commit, aucun autre changement suivi attendu ; MO/cache de développement modifiés hors Git.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** présenter les quatre commits locaux pour autorisation de publication (0b71f90c, 3fd92090, 39eb30af et dernier commit de relecture à relever). Ne pousser qu’après accord explicite. La relecture des 21 clés est terminée ; aucune nouvelle traduction à lancer. Pour une prochaine validation runtime autorisée, recompiler le seul catalogue LMS/fr puis invalider le cache du seul site de développement afin de charger les deux phrases finales ; ne pas prétendre qu’elles sont déjà affichées. Statistiques : améliorations réservées à un lot UX distinct. Unsplash et graphique d’achèvement restent des limites documentées, pas un nouveau lot autorisé.
+**Prochaine action précise :** soumettre le bilan final et les erreurs annexes observées ; attendre une instruction avant publication du commit documentaire ou nouvelle mission. La compilation/cache des deux phrases est terminée : ne pas la répéter sans raison. Si le propriétaire souhaite un environnement sans erreurs réseau/journaux, cadrer séparément la télémétrie 403, socket 400, favicon 404 et l’accès externe refusé ; ne pas modifier Framework/proxy/production dans le lot de traduction. Aucun nouveau lot de chaînes ni FR-02 autorisé.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
