@@ -2717,7 +2717,7 @@ msgstr ""
 #: frontend/src/components/CourseCard.vue:121
 #: frontend/src/components/CourseCardOverlay.vue:13
 msgid "Course progress"
-msgstr ""
+msgstr "Progression du cours"
 
 #: frontend/src/pages/Courses/CourseDetail.vue:339
 msgid "Course published"
@@ -13457,7 +13457,7 @@ msgstr "{0} introuvable"
 #: frontend/src/components/CourseCardOverlay.vue:269
 #, python-brace-format
 msgid "{0} of {1} lessons completed"
-msgstr ""
+msgstr "Leçons terminées : {0} sur {1}"
 
 #: frontend/src/components/Quiz.vue:540
 #, python-brace-format
@@ -13672,4 +13672,25 @@ msgstr "Inscrire 1 apprenant"
 #, python-brace-format
 msgid "Enroll {0} students"
 msgstr "Inscrire {0} apprenants"
+
+#: frontend/src/components/CourseCardOverlay.vue:218
+msgid "Free course"
+msgstr "Gratuit"
+
+#: frontend/src/components/Modals/ReviewModal.vue:18
+msgid "Your review"
+msgstr "Avis"
+
+#: frontend/src/pages/Courses/Courses.vue:11
+msgid "No courses found"
+msgstr "Aucun cours trouvé"
+
+#: frontend/src/components/Modals/ReviewModal.vue:66
+msgid "Please enter a rating."
+msgstr "Veuillez attribuer une note."
+
+#: frontend/src/components/CourseCard.vue:124
+#, python-brace-format
+msgid "Course progress: {0}%"
+msgstr "Progression du cours : {0} %"
 

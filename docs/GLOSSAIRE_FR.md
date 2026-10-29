@@ -58,3 +58,13 @@ Les compteurs Certifications actuels filtrent les certificats publiés et leur s
 7. Images : confirmer Importer / Importation, ou Téléverser / Téléversement ; conserver la cohérence du bouton et du pourcentage.
 
 Après validation, ces décisions pourront guider Crowdin et la revue des traductions officielles réutilisées. Le présent document n’active ni projet, ni catalogue, ni surcharge en base.
+
+
+## Décisions contextuelles confirmées — FR-02B.1 (29 octobre 2026)
+
+| Source contextualisée | Français retenu | Portée confirmée |
+| --- | --- | --- |
+| Free course | **Gratuit** | Prix d’un cours gratuit ; éviter Libre dans ce contexte. La clé globale Free reste inchangée pour les autres usages. |
+| Your review | **Avis** | Champ de rédaction d’un avis sur un cours ; éviter Révoir. La clé globale Review reste inchangée. |
+
+Ces décisions sont autorisées pour FR-02B.1 ; elles ne valident pas toutes les propositions historiques du glossaire et n’autorisent pas un nouveau lot.

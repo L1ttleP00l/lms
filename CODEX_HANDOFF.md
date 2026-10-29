@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-02A terminé : audit documentaire du catalogue/fiches apprenant, bureau et mobile, sur le site existant. Matrice de 39 clés prioritaires et défauts de composition/littéraux identifiés, aucune correction appliquée. Les commits locaux non publiés sont 88b8a96b (validation runtime FR-01F) et le commit d’audit courant. Aucun code, PO/POT, Framework ou configuration modifié ; arrêter avant FR-02B et attendre la validation du périmètre.**
+Mis à jour le 29 octobre 2026 (Europe/Paris). **Lire ce fichier en premier à chaque reprise. FR-02B.1 terminé localement : prix Gratuit/avis Avis contextualisés, état vide correct et annoncé, compteurs d’inscription accordés, progression et dialogue d’avis traduisibles. Sept traductions nécessaires, 60 tests ciblés et rendu réel FR/EN bureau/mobile réussis, aucune sauvegarde d’avis. POT natif 2 983 clés, PO FR 593 traductions ; 78 autres PO/Framework intacts. Quatre commits locaux non publiés au total avec 88b8a96b/9bca8c1f. Arrêt avant FR-02B.2, attendre accord de publication.**
 
 ## 1. Projet et références Git
 
@@ -11,7 +11,7 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit fonctionnel : `bc5cd471` (libellés Vue FR-01B et tests), publié.
 - Dernier distant littlepool-dev vérifié lors de la publication précédente : `50384d1e575eaf1d625f8ba9e491c95bca308309`. Les quatre commits FR-01E/FR-01F sont publiés ; checkout propre à ce SHA confirmé au début de la vérification fonctionnelle finale, sans nouvelle interrogation distante nécessaire.
-- Le commit portant cette actualisation documentaire est intitulé `docs: audit learner course catalogue and detail translations`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
+- Le commit portant cette actualisation documentaire est intitulé `feat(i18n): deliver scoped French course catalogue translations`. Son SHA ne peut pas être écrit dans son propre contenu ; à la reprise, relever le dernier commit exact par `git log -1 --oneline`.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -61,6 +61,8 @@ Sur une nouvelle restauration, les processus peuvent être arrêtés : lire `/wo
 
 16. FR-02A : catalogue publié/inscrit/à venir/recherche vide, fiche FR01, vues mobile et volet Filtres, dialogue d’avis sans soumission parcourus avec compte apprenant fictif FR. 39 clés prioritaires proposées dans FR-02A-AUDIT ; inventaire technique 105 clés dont branches secondaires/édition, pas 105 corrections automatiques. Aucun nouveau test complet ni build ; pas de modification applicative/catalogue.
 
+17. FR-02B.1 : six catégories prioritaires autorisées corrigées sans élargir aux 39 clés de l’audit. Code/tests dans 55e4dd3a ; génération native contrôlée +5 clés / -2 inutilisées / 48 références, POT 2 983 ; sept traductions PO ajoutées, total 593. Compilation, build nécessaire, 60 tests ciblés et quatre parcours FR/EN bureau/mobile réussis. Aucune donnée pédagogique/avis enregistrée.
+
 ## 5. Fichiers créés ou modifiés
 
 - `docs/AUDIT.md`, `docs/ROADMAP.md`, `docs/PLAN_FRANCISATION.md` : contexte historique ; consulter selon besoin, sans relire systématiquement tout l’audit.
@@ -88,6 +90,8 @@ FR-01E : nouveau `docs/FR-01E-CIRCUIT-TRADUCTION.md` et ce handoff uniquement ; 
 FR-01F : `lms/locale/fr.po` et nouveau `lms/tests/test_french_pilot.py` dans 3fd92090 ; `docs/FR-01F-RESULTATS.md` et ce handoff dans le commit documentaire courant. Exception limitée consignée dans le rapport, convention générale AGENTS.md inchangée.
 
 FR-02A : nouveau `docs/FR-02A-AUDIT.md` et ce handoff uniquement, un seul commit documentaire local.
+
+FR-02B.1 : six Vue (Courses, CourseOverview, CourseCard, CourseCardOverlay, ListPage, ReviewModal) et nouveau coursePriorityTranslations.test.ts ; lms/locale/main.pot et fr.po ; docs/FR-02B1-RESULTATS.md, deux termes confirmés dans GLOSSAIRE_FR.md et ce handoff. Aucun autre catalogue/source Framework/dépendance modifié.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les PO sont restés inchangés jusqu’à FR-01E ; seul fr.po LMS est modifié dans le pilote autorisé FR-01F.
 
@@ -200,9 +204,25 @@ Contenus anglais de description/introduction du cours, catégorie Business, tags
 
 Artefacts hors Git : /workspace/work/fr02a/ (browser/extra-browser scripts, journaux/JSON, captures, inventory.py/log/json et catalog-hashes.json). Intégrité des 79 PO, POT et Framework vérifiée avant commit documentaire ; aucune modification de sources. Rapport préparé et recommandations soumises, FR-02B non démarré.
 
+### FR-02B.1 — validation finale
+
+Origines et résultats détaillés dans docs/FR-02B1-RESULTATS.md. Clés contextuelles Free course → Gratuit, Your review → Avis, No courses found → Aucun cours trouvé ; globals Free/Review conservés (Libre/Révoir pour leurs usages hors lot). Submit/Error enveloppés et traductions existantes réutilisées ; validation Please enter a rating. → Veuillez attribuer une note. Nouvelle prop emptyTitle optionnelle de ListPage pour panneau ET annonce, autres pages gardant le fallback précédent.
+
+Compteurs des cartes/fiche : clés FR-01F 1 student enrolled / {0} students enrolled réutilisées (1 apprenant inscrit / n apprenants inscrits). Zéro reste masqué comme avant ; nombres/arrondis existants inchangés. Progression du cours : {0} %, aria Progression du cours et Leçons terminées : {0} sur {1} ajoutés directement dans les composants concernés. Sept traductions supplémentaires, PO 2 693 entrées / 593 renseignées ; 78 autres PO intacts.
+
+POT généré nativement sur checkout propre : 2 980 → 2 983, cinq ajouts contextualisés, enrolled/{0} enrolled retirés faute d’usage, 48 changements de références. Aucun indicateur commun changé, aucun rafraîchissement inattendu. Une tentative avec la clé globale {0}% completed a échoué en validation Babel (double flag brace/printf, % c) avant toute écriture PO ; remplacée par Course progress: {0}% sans altérer cette clé globale. Premier candidat conservé hors Git, final validé.
+
+7 fichiers / 60 tests ciblés réussis en 9,00 s dans l’état final ; 12 nouveaux cas FR/EN et compteurs 0/1/2/5, validation/fallback d’avis simulés. Avant correction 12 échecs ; deux attentes de zéro visible du harnais ont été rectifiées, pas le comportement de l’application. Prettier, Babel PO/POT et paramètres, git diff et intégrité réussis. Aucun backend/Vue complet. Build nécessaire aux sources Vue modifiées réussi (14,46 s), déclarations générées restaurées ; aucune installation ou publication d’assets.
+
+MO LMS/fr compilé (593 messages / 27 902 octets) et cache du seul site de développement invalidé. Sept valeurs concordent dans PO/MO/dictionnaire ; globals restent inchangés. Dictionnaire fusionné observé 6 265 clés (6 084 applications, 181 autres dont pays) : ne pas attribuer la différence avec 6 120 à ces seules sept traductions. Défaut site fr inchangé.
+
+Chromium fr/en × bureau/mobile : prix/compteurs/progression accessible, titre vide et annonce, champ Avis/Your review, Valider/Submit, validation de note zéro vérifiés. Zéro requête d’insertion d’avis, aucune donnée pédagogique/paiement modifiée. Préférence du compte apprenant fictif restaurée à fr et confirmée en base. Pas de pageerror ; erreurs HTTP annexes connues relevées, non corrigées. Bornes 0/1/2/5 testées avec données de composants ; navigateur sur effectif réel 3. Pas de test lecteur d’écran exhaustif.
+
+Preuves hors Git : /workspace/work/fr02b1/ (scripts, sauvegardes, empreintes, comparaisons, journaux tests/génération/compilation/build, captures et validation.json/final-check.json). Les autres libellés anglais de l’audit restent hors lot ; pas d’achat/certificat ni FR-02B.2. Dérogation Crowdin limitée aux sept traductions nécessaires, non généralisable.
+
 ## 7. Problèmes connus et limites
 
-- Traduction partielle : après FR-01F, 586/2 688 entrées PO LMS renseignées ; POT toujours 2 980 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
+- Traduction partielle : après FR-02B.1, 593/2 693 entrées PO LMS renseignées ; POT 2 983 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
 - Babel signale une anomalie préexistante dans le PO Framework : `Use % for any non empty value.` / incompatibilité de paramètres. Compilation réussie mais validation Babel non entièrement verte. Aucun PO à modifier manuellement ; remonter au circuit amont.
 - Pre-commit complet bloqué à l’installation npm du miroir Prettier (`EALLOWGIT`). Les contrôles Python et les versions prévues de Prettier/ESLint ont été exécutés séparément. Ne pas déclarer le lanceur complet réussi ; ne pas repartir dans une longue réparation sans nécessité.
 - Avertissements de build existants : Vite esbuildOptions dépréciée, Browserslist ancien, module fs externalisé pour face-api.js.
@@ -218,16 +238,16 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-État vérifié pendant FR-02A, 29 octobre 2026 :
+État pendant FR-02B.1, 29 octobre 2026 :
 
-- Checkout initial propre sur littlepool-dev à `88b8a96b`, commit local contenant uniquement le handoff de vérification runtime ; parent `50384d1e575eaf1d625f8ba9e491c95bca308309`.
-- Dernier distant connu/vérifié lors de la publication précédente : 50384d1e (non réinterrogé pour cet audit). Dernier develop distant connu : 6b791f33b34efa15566a0cb707f5be59d136df50 ; aucune opération sur develop.
-- Deux commits locaux non publiés : 88b8a96b et `docs: audit learner course catalogue and detail translations` (FR-02A-AUDIT et ce handoff uniquement). SHA du dernier à relever par git log -1 ; ne pas ajouter de commit pour inscrire son propre SHA.
-- Aucun push autorisé ou effectué. Checkout propre prévu après le commit courant, aucun autre changement suivi attendu. Aucun code, PO/POT ou MO modifié par FR-02A.
+- Base locale initiale propre : 9bca8c1f ; 88b8a96b et 9bca8c1f sont toujours des commits documentaires locaux non publiés.
+- Dernier distant connu/vérifié dans la publication antérieure : 50384d1e575eaf1d625f8ba9e491c95bca308309 ; develop connu 6b791f33b34efa15566a0cb707f5be59d136df50, aucune opération sur develop. Pas de réseau GitHub dans FR-02B.1.
+- Nouveaux commits locaux : 55e4dd3a (six Vue + test) et `feat(i18n): deliver scoped French course catalogue translations` (POT/PO, glossaire, rapport/handoff). Relever le SHA du dernier avec git log -1 ; quatre commits non publiés au total.
+- Aucun push/PR autorisé ou effectué. Checkout propre prévu après commit ; aucun autre changement suivi attendu. Les MO/assets de développement sont hors Git.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** soumettre docs/FR-02A-AUDIT.md et faire valider le futur périmètre FR-02B : commencer par état vide/avis et libellés centraux, avec choix des phrases complètes, accords et usages partagés. N’implémenter aucune traduction, modification PO/POT/code ou dépendance sans nouvelle instruction ; ne pas généraliser la dérogation FR-01F. Les 39 clés principales sont des propositions, pas un lot automatiquement autorisé. Publication des deux commits documentaires également soumise à accord. Les erreurs de télémétrie/socket/favicon restent hors audit linguistique ; ne pas les corriger par déduction.
+**Prochaine action précise :** présenter docs/FR-02B1-RESULTATS.md et les quatre commits locaux pour accord de publication. Ne pas démarrer FR-02B.2 ou traduire les autres clés de l’audit sans instruction. Les sept traductions du lot et le code ont été validés ; ne pas répéter les tests/build sans changement. Les achats/certificats, coque commune et erreurs de télémétrie/socket restent hors périmètre. Aucun nouveau service, déploiement ou modification de Framework à engager.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -237,8 +257,8 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02A est désormais autorisé et terminé ; ne pas commencer FR-02B sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 est autorisé et terminé ; ne pas commencer FR-02B.2 sans nouvelle instruction. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
-Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exception FR-01F autorisée uniquement pour les 21 clés du fr.po LMS, via Babel contrôlé, non généralisable sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
+Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) et FR-02B.1 (sept traductions nécessaires) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
