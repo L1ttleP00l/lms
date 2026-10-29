@@ -1,9 +1,13 @@
 <template>
-	<div v-if="relatedCourses.data?.length" class="mt-10">
+	<section
+		v-if="relatedCourses.data?.length"
+		class="mt-10"
+		:aria-labelledby="headingId"
+	>
 		<div class="flex items-center justify-between mb-6">
-			<div class="text-3xl-semibold text-ink-gray-9">
+			<h2 :id="headingId" class="text-3xl-semibold text-ink-gray-9">
 				{{ __('Related Courses') }}
-			</div>
+			</h2>
 		</div>
 		<div
 			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"
@@ -16,15 +20,17 @@
 				external
 			/>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script setup lang="ts">
 import { createResource } from 'frappe-ui'
-import { watch } from 'vue'
+import { watch, useId } from 'vue'
 import CourseCard from '@/components/CourseCard.vue'
 import type { LMSCourse } from '@/types/lms/LMSCourse'
 import type { Resource } from '@/types'
+
+const headingId = useId()
 
 const props = defineProps<{
 	courseName: string

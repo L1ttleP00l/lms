@@ -13,6 +13,7 @@
 		<video
 			v-else-if="videoPreview.type === 'file' && !videoError"
 			:src="safeUrl(videoPreview.src)"
+			:aria-label="__('Video preview')"
 			controls
 			class="size-full object-contain"
 			@error="videoError = true"
