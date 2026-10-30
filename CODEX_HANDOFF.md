@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C.4 terminé localement : achat de l’option / accès à l’évaluation / certificat de fin de cours / consultation distingués, badges descriptifs, planification contextualisée. PO 687 traductions, POT 2 997 (+4/-0). Final 38 tests Vue sur trois fichiers, une méthode Python/huit sous-cas et quatre parcours Chromium FR/EN bureau/mobile réussis. Aucune requête sensible ni PDF. Deux commits locaux non publiés ; arrêt avant FR-03/FR-04. Les 16 rejets de validation préexistants et le double clic restent ouverts, contrôle JS global non validé.**
+Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C.4 publié à d1ccb8d25c7094f0112a3f97fa6630d108a18f35, puis FR-03A achevé strictement en documentaire. Audit : 59 chaînes candidates (16 P0/41 P1/2 P2), matrice des permissions, modération et lots FR-03B.1–9 proposés. Aucune source/catalogue modifié, aucun test/build/API/DB/navigateur pendant l’audit. PO 687/POT 2 997 conservés. Un commit documentaire local non publié ; attendre accord pour FR-03B. Les 16 rejets JS, double clic et formats de dates restent ouverts.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier commit source/tests local : `b6ec4644` (FR-02C.4).
-- Dernier distant littlepool-dev vérifié : `8ea35b028eac4c37809d24ec598b609bb6829858` ; FR-02C.3 publié, preuves réutilisées sans relance de ses tests.
-- Commit courant de livraison : `feat(i18n): deliver French learner certification catalogue` ; relever son SHA avec git log -1.
+- Dernier distant littlepool-dev vérifié : `d1ccb8d25c7094f0112a3f97fa6630d108a18f35` ; FR-02C.4 publié avec b6ec4644, contrôles sans relance de tests. Dépendance FR-03A satisfaite avant audit.
+- Commit courant documentaire : `docs: audit instructor and administration localization` ; relever son SHA avec git log -1.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -314,6 +314,14 @@ Tests finaux : 38 Vue / trois fichiers tous réussis en 22,37 s (22 nouveaux, 16
 
 Chromium quatre parcours FR/EN bureau/mobile complets : liens achat/évaluation, modal vide/disponible, validation sans sélection, absence d’évaluateur, certificat délivré simulé, seuil 50/100. 48 détails certification, 48 outlines, 12 listes de demandes et 8 calendriers simulés avant navigation ; zéro requête sensible tentée/transmise, aucun PDF/email/délivrance/achat/réservation/annulation. Zéro pageerror/HTTP en erreur dans cette recette, 28 boot_config bloqués. Deux attentes de harnais corrigées (Submit déjà Valider ; format horaire AM/PM natif). **Ne pas déclarer le contrôle JS global réussi** : les 16 rejets FR-02C.2 et double clic restent ouverts, non rejoués/corrigés. Badges et droits/refus/chargement/listes remplies couverts au niveau composant, pas tous rejoués en navigateur. Dates Day.js, AM/PM et autres textes calendrier restent à I18N-01/lot ultérieur ; administration FR-03, emails/PDF FR-04. Preuves /workspace/work/fr02c4/. Aucun push ni nouvelle phase.
 
+### FR-03A — audit documentaire courant
+
+Rapport docs/FR-03A-AUDIT.md, base publiée d1ccb8d2. Cartographie accueil/navigation/statistiques, membres, cours/sessions, inscriptions multiples, paramètres/transactions, évaluateurs/certificats et modération. 59 candidats priorisés, valeur PO LMS/Framework et extraction distinguées du rendu effectif ; pas d’inventaire exhaustif. 16 P0/41 P1/2 P2, propositions non livrées. Ne pas confondre rôle Course Creator et affectation Course Instructor ; can_enroll_others session plus large que can_record_payments ; paiements du personnel = enregistrements reçus, pas encaissement ; option certificat ≠ délivrance.
+
+Points : Change (« la monnaie ») et Assignments (« Affectations ») partagés avec Framework ; préférer contextualiser. Phrase Students get the certificate… anglaise trompeuse dans enrollment.ts à revoir sur accord. Schémas Settings traduits par enfants mais plusieurs clés absentes POT ; trois appels Vue multilignes Enrollment absents POT, diagnostic natif ciblé à prévoir sans regénérer pendant l’audit. Open the fragment de transactions.ts est un exemple en commentaire, faux positif exclu. Joined repli direct dans CertifiedParticipants, dates I18N séparées.
+
+Modération confirmée par endpoints/DocPerm, mais menus de réponse visibles au propriétaire seulement ; aucune file de signalements/approbation/journal métier confirmé. Permissions effectives de DB non lues, pas de preuve de sécurité complète. get_discussion_topics(single_thread=True) peut créer un fil : simuler même cette lecture dans une future recette. Audit sans API/DB/navigateur/test/build/extraction/compilation, aucune écriture métier. Codes/catalogues 687 FR/POT 2 997 et 78 autres PO/Framework préservés. Un commit local documentaire uniquement ; lots FR-03B.1–9 proposés, FR-04 emails/PDF et I18N-01 réservés. Aucun nouveau correctif autorisé ni commencé.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-02C.4, 687/2 721 entrées PO LMS renseignées ; POT 2 997 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -332,13 +340,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Base FR-02C.4 propre : `8ea35b028eac4c37809d24ec598b609bb6829858`, distant vérifié identique. FR-02C.3 publié. develop reste `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre à `959b85de4086656273e1d158f41923dd3808c350`.
+FR-02C.4 publié par push normal des deux commits b6ec4644 et d1ccb8d2 après contrôles autorisés. Distant réellement relu : `d1ccb8d25c7094f0112a3f97fa6630d108a18f35` ; fetch confirmant alignement 0/0 avant l’audit. develop inchangé `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre `959b85de4086656273e1d158f41923dd3808c350`.
 
-Deux commits locaux non publiés : `b6ec4644` (trois Vue et deux tests), puis livraison courante fr.po/main.pot/rapport/handoff, SHA à relever. Checkout propre après commit. Les mentions historiques « non publié » des phases antérieures sont dépassées.
+Un seul nouveau commit local documentaire FR-03A non publié : docs/FR-03A-AUDIT.md et ce handoff, SHA à relever par git log -1. Checkout propre après commit ; aucune source, PO/POT ou dépendance modifiée. Mentions historiques « non publié » de FR-02C.4 dépassées.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-02C4-RESULTATS.md, revoir les deux commits puis attendre autorisation explicite de publication. Ne pas commencer FR-03/FR-04/I18N-01. Réutiliser les résultats ciblés ; aucune transaction réelle. Gestion des rejets et double clic : autorisation distincte nécessaire. Compléments calendrier et rendu de dates restent à planifier.
+**Prochaine action précise :** lire docs/FR-03A-AUDIT.md ; faire valider le périmètre du premier petit lot FR-03B.1 (membres/rôles/confirmations, deux formulaires) et sa méthode de traduction avant correction. Aucune exception PO FR-03 accordée par l’audit. Ne pas commencer FR-03B/FR-04/I18N-01 sans instruction. Publication du seul rapport également soumise à accord. Réutiliser les preuves, aucune transaction réelle.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -348,7 +356,7 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 local, attendre accord de publication ; aucun FR-03/FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A documentaire local terminé, attendre accord pour FR-03B ; aucun FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
