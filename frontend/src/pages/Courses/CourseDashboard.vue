@@ -4,7 +4,7 @@
 			class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5 text-ink-gray-9"
 		>
 			<NumberChartGraph
-				:title="__('Enrolled')"
+				:title="__('Enrolled learners')"
 				:value="formatAmount(course.data?.enrollments)"
 			/>
 			<NumberChartGraph

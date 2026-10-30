@@ -1,8 +1,13 @@
-import { describe, expect, it, vi } from 'vitest'
+import { installTranslations } from './helpers/frenchCatalog'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-type ResourceOptions = { url?: string; onSuccess?: (data: unknown) => void }
+type ResourceOptions = {
+	url?: string
+	onSuccess?: (data: unknown) => void
+	onError?: (error: any) => void
+}
 
 const { passthrough, resources, toast } = vi.hoisted(() => {
 	window.matchMedia ??= (() => ({
@@ -25,7 +30,14 @@ vi.mock('frappe-ui', async () => {
 	return {
 		createResource: (options: ResourceOptions) => {
 			resources.push(options)
-			return reactive({ data: null, loading: false, reload: vi.fn() })
+			return reactive({
+				data:
+					options.url === 'lms.lms.utils.get_course_details'
+						? { name: 'FAKE-COURSE', published: coursePublished }
+						: null,
+				loading: false,
+				reload: vi.fn(),
+			})
 		},
 		usePageMeta: vi.fn(),
 		toast,
@@ -57,7 +69,16 @@ vi.mock('@/components/HeaderButton.vue', stub)
 
 import CourseDetail from '@/pages/Courses/CourseDetail.vue'
 
-const publish = async (response: Record<string, unknown>) => {
+let coursePublished = 0
+const publish = async (
+	response: Record<string, unknown>,
+	lang = 'en',
+	published = 0
+) => {
+	const translate = installTranslations(lang)
+	vi.stubGlobal('__', translate)
+	resources.length = 0
+	coursePublished = published
 	const router = createRouter({
 		history: createMemoryHistory(),
 		routes: [
@@ -70,12 +91,13 @@ const publish = async (response: Record<string, unknown>) => {
 		global: {
 			plugins: [router],
 			provide: { $user: { data: { name: 'mod@example.com' } } },
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	await flushPromises()
 	const toggle = resources.find((r) => r.url === 'frappe.client.set_value')
 	toggle?.onSuccess?.(response)
+	return toggle
 }
 
 describe('publishing a course', () => {
@@ -94,4 +116,42 @@ describe('publishing a course', () => {
 		await publish({ published: 1 })
 		expect(toast.warning).not.toHaveBeenCalled()
 	})
+})
+
+describe('FR-03B.4 publication results in both languages', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		for (const alreadyPublished of [0, 1])
+			it(`keeps publication and quiz warning messages in ${lang}, published=${alreadyPublished}`, async () => {
+				toast.success.mockClear()
+				toast.warning.mockClear()
+				toast.error.mockClear()
+				const toggle = await publish(
+					{ __onload: { quizzes_without_questions: ['Fictional Quiz'] } },
+					lang,
+					alreadyPublished
+				)
+				expect(toast.success).toHaveBeenCalledWith(
+					lang === 'fr'
+						? alreadyPublished
+							? 'Cours dépublié'
+							: 'Cours publié'
+						: alreadyPublished
+						? 'Course unpublished'
+						: 'Course published'
+				)
+				expect(toast.warning).toHaveBeenCalledWith(
+					lang === 'fr'
+						? 'Ces quiz ne contiennent aucune question ; les apprenants peuvent les passer sans répondre : Fictional Quiz'
+						: 'These quizzes have no questions, so learners skip them: Fictional Quiz'
+				)
+				toggle?.onError?.({})
+				expect(toast.error).toHaveBeenCalledWith(
+					lang === 'fr'
+						? 'Impossible de modifier le statut de publication'
+						: 'Could not update publish status'
+				)
+				toggle?.onError?.({ messages: ['TEST-REFUSAL'] })
+				expect(toast.error).toHaveBeenCalledWith('TEST-REFUSAL')
+			})
 })
