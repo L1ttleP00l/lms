@@ -1411,7 +1411,7 @@ msgstr "Propriétaire de l'entreprise"
 
 #: frontend/src/components/CourseCardOverlay.vue:60
 msgid "Buy this course"
-msgstr ""
+msgstr "Acheter ce cours"
 
 #: lms/templates/emails/lms_message.html:11
 msgid "By"
@@ -3712,7 +3712,7 @@ msgstr ""
 #: frontend/src/components/CourseCardOverlay.vue:82
 #: frontend/src/pages/Batches/components/BatchOverlay.vue:106
 msgid "Enroll Now"
-msgstr ""
+msgstr "S'inscrire"
 
 #: frontend/src/pages/Forms/BatchStudentForm.vue:2
 #: frontend/src/pages/Forms/CourseEnrollmentForm.vue:2
@@ -12583,7 +12583,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:194
 msgid "You have been enrolled in this course"
-msgstr ""
+msgstr "Vous êtes inscrit à ce cours."
 
 #: lms/lms/doctype/lms_quiz_submission/lms_quiz_submission.py:43
 #, python-brace-format
@@ -12657,7 +12657,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:178
 msgid "You need to login first to enroll for this course"
-msgstr ""
+msgstr "Connectez-vous pour vous inscrire à ce cours."
 
 #: frontend/src/pages/Home/Streak.vue:14
 msgid "You rock,"
