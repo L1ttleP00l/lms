@@ -24,6 +24,7 @@ const PAYMENT_URL = 'lms.lms.payments.get_payment_link'
 let fieldMetaOverride = {}
 let accessAllowed = true
 let summaryFixture: Record<string, unknown> = {}
+let paymentResult: unknown = undefined
 let addressFixture: Record<string, unknown> | null = null
 
 const FIELD_META = {
@@ -99,6 +100,8 @@ const createResourceMock = (opts: ResourceOptions) => {
 				}
 				res.data = data
 				opts.onSuccess?.(data)
+			} else if (opts.url === PAYMENT_URL && paymentResult !== undefined) {
+				handlers.onSuccess?.(paymentResult)
 			} else if (opts.url === SUMMARY_URL) {
 				res.data = { ...SUMMARY, ...summaryFixture }
 			}
@@ -113,8 +116,9 @@ vi.mock('frappe-ui', () => ({
 	createResource: (opts: ResourceOptions) => createResourceMock(opts),
 	Breadcrumbs: { template: '<div />' },
 	Button: {
+		props: ['label'],
 		emits: ['click'],
-		template: `<button @click="$emit('click')"><slot /></button>`,
+		template: `<button :aria-label="label" @click="$emit('click')"><slot /></button>`,
 	},
 	FormControl: {
 		props: [
@@ -187,6 +191,15 @@ const french: Record<string, string> = {
 	'Payment for the course': 'Paiement du cours',
 	'Payment for the training session': 'Paiement de la session de formation',
 	'Payment for the certificate option': "Paiement de l'option certificat",
+	'Enter a Coupon Code': 'Saisissez un code de réduction',
+	'Coupon Code': 'Code de réduction',
+	'Remove coupon': 'Retirer le code de réduction',
+	'Please enter a coupon code': 'Veuillez saisir un code de réduction.',
+	'Could not start the payment. Please contact the administrator.':
+		"Impossible de démarrer le paiement. Contactez l'administrateur.",
+	Apply: 'Appliquer',
+	Discount: 'Remise',
+	Total: 'Total',
 	'Confirm without payment': 'Valider sans paiement',
 	'Proceed to Payment': 'Procéder au paiement',
 	'Billing Details': 'Informations de facturation',
@@ -216,6 +229,7 @@ const french: Record<string, string> = {
 }
 beforeEach(() => {
 	accessAllowed = true
+	paymentResult = undefined
 	fieldMetaOverride = {}
 	summaryFixture = {}
 	submitted.length = 0
@@ -591,6 +605,51 @@ describe('Billing contextual French and English', () => {
 			)
 			await consent(view)
 			expect(view.find('[data-slot="error"]').exists()).toBe(false)
+		})
+	}
+})
+
+describe('FR-02C.3 coupon messages', () => {
+	for (const lang of ['fr', 'en']) {
+		const tr = (key: string) => (lang === 'fr' ? french[key] || key : key)
+		it(`names the field and rejects an empty code in ${lang}`, async () => {
+			const view = await mountBilling({}, 'course', lang)
+			expect(view.text()).toContain(tr('Enter a Coupon Code'))
+			const input = view.get(`input[aria-label="${tr('Coupon Code')}"]`)
+			await input.setValue('   ')
+			await view
+				.findAll('button')
+				.find((b) => b.text() === tr('Apply'))!
+				.trigger('click')
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				tr('Please enter a coupon code')
+			)
+			expect(checkout()).toBeFalsy()
+		})
+		it(`keeps normalization and removes a simulated discount in ${lang}`, async () => {
+			summaryFixture = {
+				discount_amount: 10,
+				discount_amount_formatted: '10 EUR',
+			}
+			const view = await mountBilling({}, 'course', lang)
+			const input = view.get(`input[aria-label="${tr('Coupon Code')}"]`)
+			await input.setValue(' test-only ')
+			expect(view.text()).toContain(tr('Discount'))
+			expect(view.text()).toContain(tr('Total'))
+			await view
+				.get(`button[aria-label="${tr('Remove coupon')}"]`)
+				.trigger('click')
+			expect((input.element as HTMLInputElement).value).toBe('')
+			expect(checkout()).toBeFalsy()
+		})
+		it(`shows the invalid payment response fallback in ${lang} without network`, async () => {
+			paymentResult = {}
+			const view = await mountBilling({}, 'course', lang)
+			await consent(view)
+			await proceed(view)
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				tr('Could not start the payment. Please contact the administrator.')
+			)
 		})
 	}
 })

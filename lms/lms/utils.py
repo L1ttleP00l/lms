@@ -3116,9 +3116,9 @@ def validate_coupon_applicability(doctype: str, docname: str, coupon_name: str):
 	)
 	if not applicable_item:
 		frappe.throw(
-			_("This coupon is not applicable to this {0}.").format(
-				"Course" if doctype == "LMS Course" else "Batch"
-			)
+			_("This coupon is not applicable to this course.")
+			if doctype == "LMS Course"
+			else _("This coupon is not applicable to this training session.")
 		)
 
 
