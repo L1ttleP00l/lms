@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C.4 publié à d1ccb8d25c7094f0112a3f97fa6630d108a18f35, puis FR-03A achevé strictement en documentaire. Audit : 59 chaînes candidates (16 P0/41 P1/2 P2), matrice des permissions, modération et lots FR-03B.1–9 proposés. Aucune source/catalogue modifié, aucun test/build/API/DB/navigateur pendant l’audit. PO 687/POT 2 997 conservés. Un commit documentaire local non publié ; attendre accord pour FR-03B. Les 16 rejets JS, double clic et formats de dates restent ouverts.**
+Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-03A publié à 736b1523b220b08708b51fa53a545bf16e2dbebc. FR-03B.1 terminé localement : 32 traductions membres/rôles et quatre phrases d’état vide contextualisées ; 719 traductions, POT 3 001 (+4/-0). 81 tests Vue/six fichiers réussis, compilation/dictionnaire et build réussis. Chromium affichage FR/EN bureau/mobile validé sans écriture ; sauvegarde navigateur partielle (FR bureau réussi, toast création FR mobile expiré), ne pas déclarer toute la recette réussie. Aucune écriture sensible transmise ni rôle réel changé. Deux commits locaux non publiés ; arrêt avant FR-03B.2.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit source/tests local : `b6ec4644` (FR-02C.4).
-- Dernier distant littlepool-dev vérifié : `d1ccb8d25c7094f0112a3f97fa6630d108a18f35` ; FR-02C.4 publié avec b6ec4644, contrôles sans relance de tests. Dépendance FR-03A satisfaite avant audit.
-- Commit courant documentaire : `docs: audit instructor and administration localization` ; relever son SHA avec git log -1.
+- Dernier commit source/tests local : `b06c7bc0` (FR-03B.1).
+- Dernier distant littlepool-dev vérifié : `736b1523b220b08708b51fa53a545bf16e2dbebc` ; FR-03A publié après contrôles documentaires, rapport distant identique et fetch 0/0. Dépendance FR-03B.1 satisfaite avant modification.
+- Commit courant de livraison : `feat(i18n): deliver French member and role translations` ; relever son SHA par git log -1.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -322,9 +322,21 @@ Points : Change (« la monnaie ») et Assignments (« Affectations ») partagés
 
 Modération confirmée par endpoints/DocPerm, mais menus de réponse visibles au propriétaire seulement ; aucune file de signalements/approbation/journal métier confirmé. Permissions effectives de DB non lues, pas de preuve de sécurité complète. get_discussion_topics(single_thread=True) peut créer un fil : simuler même cette lecture dans une future recette. Audit sans API/DB/navigateur/test/build/extraction/compilation, aucune écriture métier. Codes/catalogues 687 FR/POT 2 997 et 78 autres PO/Framework préservés. Un commit local documentaire uniquement ; lots FR-03B.1–9 proposés, FR-04 emails/PDF et I18N-01 réservés. Aucun nouveau correctif autorisé ni commencé.
 
+### FR-03B.1 — livraison locale courante
+
+Rapport docs/FR-03B1-RESULTATS.md. Deux sources : Members fournit des phrases complètes d’états vides ; SettingsList ajoute deux overrides optionnels avec anciens replis pour les autres appelants. Recherche/filtres/pagination/branches/actions inchangés. members.ts, RoleSwitches, deux MemberForm et API byte-identiques à la base. Identifiants LMS Student/Course Creator/Batch Evaluator/Moderator et booléens conservés, aucun rôle/permission changé.
+
+32 valeurs nouvellement renseignées, 687 antérieures conservées ; PO 2 734 entrées / 719 FR. POT natif 3 001 (+4/-0), cinq références déplacées seulement. Not saved ajouté après mesure intermédiaire 718, clé déjà POT ; nouvelle compilation/check final 719. 78 autres PO/Framework intacts, paramètres/contextes/flags/en-tête/blocs non ciblés contrôlés. MO 719 et 32 valeurs chargées concordantes, préférences fr/en et système fr inchangés. Pas de dictionnaire runtime parallèle ; helper test lit le PO et installe le vrai plugin.
+
+Final 81 tests Vue/six fichiers réussis en une exécution 6,19 s ; premier 76/3 échecs de titre non rendu dans un stub, corrigé par assertion de l’attribut ; 79 puis ajout de deux cas read-only → 81. Création/édition/refus/rôles/échecs/partiels mockés ; pas de test Python applicatif, backend inchangé. Build 15,25 s réussi, déclarations restaurées. Prettier/diff/secrets/invariants/Babel réussis ; hooks désactivés après contrôles.
+
+Chromium de sauvegarde : FR ordinateur réussi ; FR mobile attente du toast de création expirée, cause non établie, recette globale **non validée**. Trois écritures fictives fulfill, zéro transmises ; pas de rôle réel attribué. Un rejet d’onboarding bloqué et HTTP sockets consignés ; ne pas masquer ni prétendre à un navigateur entièrement sans erreur. Premier harnais avait aussi un sélecteur Courriel exact incompatible avec le marqueur required et des lectures LMS Settings non simulées ; corrigés dans le harnais, pas dans l’app. Collecteur navigateur save_role URL ne lit pas le JSON (null), preuve des identifiants par tests/code uniquement.
+
+Recette différente d’affichage : quatre parcours FR/EN bureau/mobile complets, noms de rôles accessibles, fiche fictive rouverte et refus ; quatre lectures fake, zéro écriture même simulée, zéro endpoint interdit/transmis. Zéro pageerror, deux socket.io 400 et 12 boot_config bloqués dans cette recette. Elle ne remplace pas le test de sauvegarde échoué. Gestionnaire simulé dans get_user_info, pas attribué en DB ; suppression jamais exécutée. Liste/états vides/confirmation couverts en composants seulement, pas Chromium complet. Préserver 16 rejets FR-02C.2, double clic et dates hors lot. Preuves /workspace/work/fr03b1/, logs distincts. Deux commits locaux, aucun push, aucun FR-03B.2.
+
 ## 7. Problèmes connus et limites
 
-- Traduction partielle : après FR-02C.4, 687/2 721 entrées PO LMS renseignées ; POT 2 997 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
+- Traduction partielle : après FR-03B.1, 719/2 734 entrées PO LMS renseignées ; POT 3 001 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
 - Babel signale une anomalie préexistante dans le PO Framework : `Use % for any non empty value.` / incompatibilité de paramètres. Compilation réussie mais validation Babel non entièrement verte. Aucun PO à modifier manuellement ; remonter au circuit amont.
 - Pre-commit complet bloqué à l’installation npm du miroir Prettier (`EALLOWGIT`). Les contrôles Python et les versions prévues de Prettier/ESLint ont été exécutés séparément. Ne pas déclarer le lanceur complet réussi ; ne pas repartir dans une longue réparation sans nécessité.
 - Avertissements de build existants : Vite esbuildOptions dépréciée, Browserslist ancien, module fs externalisé pour face-api.js.
@@ -340,13 +352,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-FR-02C.4 publié par push normal des deux commits b6ec4644 et d1ccb8d2 après contrôles autorisés. Distant réellement relu : `d1ccb8d25c7094f0112a3f97fa6630d108a18f35` ; fetch confirmant alignement 0/0 avant l’audit. develop inchangé `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre `959b85de4086656273e1d158f41923dd3808c350`.
+FR-03A publié par push normal du seul commit 736b1523, distant vérifié identique après publication. develop reste `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre `959b85de4086656273e1d158f41923dd3808c350`.
 
-Un seul nouveau commit local documentaire FR-03A non publié : docs/FR-03A-AUDIT.md et ce handoff, SHA à relever par git log -1. Checkout propre après commit ; aucune source, PO/POT ou dépendance modifiée. Mentions historiques « non publié » de FR-02C.4 dépassées.
+Deux nouveaux commits locaux FR-03B.1 non publiés : b06c7bc0 (deux Vue et cinq fichiers de tests/helper), puis catalogue/rapport/handoff courant, SHA à relever. Checkout propre après commit. Mentions historiques « FR-03A non publié » dépassées.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-03A-AUDIT.md ; faire valider le périmètre du premier petit lot FR-03B.1 (membres/rôles/confirmations, deux formulaires) et sa méthode de traduction avant correction. Aucune exception PO FR-03 accordée par l’audit. Ne pas commencer FR-03B/FR-04/I18N-01 sans instruction. Publication du seul rapport également soumise à accord. Réutiliser les preuves, aucune transaction réelle.
+**Prochaine action précise :** lire docs/FR-03B1-RESULTATS.md ; présenter les deux commits et la limite du toast mobile pour autorisation de publication ou diagnostic ciblé. Ne pas considérer le contrôle navigateur de sauvegarde global réussi. Aucun FR-03B.2/FR-04/I18N-01 sans instruction. Pas d’écriture réelle ou changement de rôle à effectuer. Publication uniquement après accord explicite.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -356,8 +368,8 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A documentaire local terminé, attendre accord pour FR-03B ; aucun FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A publié ; FR-03B.1 local terminé, attendre accord de publication ; aucun FR-03B.2/FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
-Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) FR-02C.2 (17 blocs nécessaires) FR-02C.3 (13 blocs nécessaires) et FR-02C.4 (19 clés ciblées, 18 valeurs ajoutées) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
+Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) FR-02C.2 (17 blocs nécessaires) FR-02C.3 (13 blocs nécessaires) FR-02C.4 (19 clés ciblées, 18 valeurs ajoutées) et FR-03B.1 (32 valeurs ciblées) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.

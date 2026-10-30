@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 16:56+0000\n"
-"PO-Revision-Date: 2026-10-30 16:56+0000\n"
+"POT-Creation-Date: 2026-10-30 18:51+0000\n"
+"PO-Revision-Date: 2026-10-30 18:51+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -421,6 +421,10 @@ msgstr ""
 msgid "Add a lesson with content"
 msgstr ""
 
+#: frontend/src/components/Settings/Members/Members.vue:18
+msgid "Add a member to get started."
+msgstr ""
+
 #: frontend/src/components/Sidebar/AppSidebar.vue:451
 msgid "Add a program"
 msgstr ""
@@ -487,7 +491,7 @@ msgstr ""
 msgid "Add new address"
 msgstr ""
 
-#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:100
+#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:102
 msgid "Add one to get started"
 msgstr ""
 
@@ -5066,7 +5070,7 @@ msgstr ""
 msgid "Filter by payment status"
 msgstr ""
 
-#: frontend/src/components/Settings/Members/Members.vue:21
+#: frontend/src/components/Settings/Members/Members.vue:29
 msgid "Filter by role"
 msgstr ""
 
@@ -8036,8 +8040,21 @@ msgstr ""
 msgid "No members added yet."
 msgstr ""
 
+#: frontend/src/components/Settings/Members/Members.vue:12
+msgid "No members found"
+msgstr ""
+
 #: frontend/src/components/Programs/ProgramProgressSummary.vue:56
 msgid "No members found."
+msgstr ""
+
+#: frontend/src/components/Settings/Members/Members.vue:17
+msgid "No members match this role filter."
+msgstr ""
+
+#: frontend/src/components/Settings/Members/Members.vue:15
+#, python-brace-format
+msgid "No members match {0}."
 msgstr ""
 
 #: frontend/src/components/Courses/CourseOverviewSection.vue:38
@@ -8149,12 +8166,12 @@ msgstr ""
 msgid "No {0} Found"
 msgstr ""
 
-#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:88
+#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:89
 #, python-brace-format
 msgid "No {0} match this filter"
 msgstr ""
 
-#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:87
+#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:88
 #, python-brace-format
 msgid "No {0} match {1}"
 msgstr ""
@@ -10666,7 +10683,7 @@ msgstr ""
 #: frontend/src/components/CommandPalette/CommandPalette.vue:10
 #: frontend/src/components/Layouts/pages/ListPage.vue:17
 #: frontend/src/components/Layouts/pages/ListPage.vue:18
-#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:200
+#: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:204
 #: frontend/src/components/Programs/ProgramProgressSummary.vue:37
 #: frontend/src/components/Programs/ProgramProgressSummary.vue:38
 #: frontend/src/components/Quiz/QuestionBankPanel.vue:8

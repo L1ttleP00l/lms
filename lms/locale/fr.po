@@ -132,7 +132,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Members/MemberForm.vue:83
 msgid "A line or two about this person"
-msgstr ""
+msgstr "Quelques mots sur cette personne"
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:341
 #, python-brace-format
@@ -230,7 +230,7 @@ msgstr "Actions"
 #: frontend/src/components/Settings/Sidebar/SidebarSettings.vue:233
 #, python-brace-format
 msgid "Actions for {0}"
-msgstr ""
+msgstr "Actions pour {0}"
 
 #: frontend/src/components/Settings/Raven/WorkspaceList.vue:107
 #: frontend/src/pages/Batches/Batches.vue:323
@@ -3422,7 +3422,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:149
 #: frontend/src/pages/Forms/MemberForm.vue:3
 msgid "Edit Member"
-msgstr ""
+msgstr "Modifier un membre"
 
 #: frontend/src/pages/Forms/ProfileEditForm.vue:2
 #: frontend/src/pages/Profile.vue:51
@@ -4035,7 +4035,7 @@ msgstr ""
 #: lms/lms/doctype/lms_course/lms_course.json:278
 #: lms/templates/upcoming_evals.html:33
 msgid "Evaluator"
-msgstr ""
+msgstr "Évaluateur"
 
 #. Label of the evaluator_name (Data) field in DocType 'LMS Certificate'
 #. Label of the evaluator_name (Data) field in DocType 'LMS Certificate
@@ -4400,7 +4400,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Members/Members.vue:21
 msgid "Filter by role"
-msgstr ""
+msgstr "Filtrer par rôle"
 
 #: frontend/src/components/Settings/Raven/WorkspaceList.vue:25
 msgid "Filter by state"
@@ -4437,7 +4437,7 @@ msgstr "Prénom"
 
 #: frontend/src/components/Settings/Members/MemberForm.vue:208
 msgid "First Name is required"
-msgstr ""
+msgstr "Le prénom est obligatoire."
 
 #. Option for the 'Time Preference' (Select) field in DocType 'User'
 #: lms/fixtures/custom_field.json:1833
@@ -5145,7 +5145,7 @@ msgstr ""
 #: lms/lms/doctype/course_instructor/course_instructor.json:16
 #: lms/lms/doctype/lms_quiz_violation_log/lms_quiz_violation_log.json:73
 msgid "Instructor"
-msgstr ""
+msgstr "Formateur"
 
 #. Label of the instructor_content (Text) field in DocType 'Course Lesson'
 #: lms/lms/doctype/course_lesson/course_lesson.json:150
@@ -6564,7 +6564,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:296
 #: frontend/src/pages/Forms/MemberForm.vue:220
 msgid "Member added successfully"
-msgstr ""
+msgstr "Membre ajouté avec succès"
 
 #: frontend/src/pages/Forms/ProgramForm.vue:538
 msgid "Member added to program successfully"
@@ -6591,7 +6591,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:296
 #: frontend/src/pages/Forms/MemberForm.vue:243
 msgid "Member updated"
-msgstr ""
+msgstr "Membre mis à jour"
 
 #: lms/lms/api.py:1727 lms/lms/api.py:2943
 #, python-brace-format
@@ -6760,7 +6760,7 @@ msgstr "N° Mobile"
 #: lms/lms/doctype/lms_video_watch_duration/lms_video_watch_duration.json:132
 #: lms/lms/doctype/lms_zoom_settings/lms_zoom_settings.json:115
 msgid "Moderator"
-msgstr ""
+msgstr "Modérateur"
 
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExerciseSubmissions.vue:83
 msgid "Modified"
@@ -6950,7 +6950,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:148
 #: frontend/src/pages/Forms/MemberForm.vue:3
 msgid "New Member"
-msgstr ""
+msgstr "Nouveau membre"
 
 #: frontend/src/components/Settings/PaymentGateways/PaymentGatewayForm.vue:209
 msgid "New Payment Gateway"
@@ -7345,7 +7345,7 @@ msgstr ""
 #: frontend/src/pages/Forms/ProgrammingExerciseForm.vue:6
 #: frontend/src/pages/Forms/QuizForm.vue:9
 msgid "Not saved"
-msgstr ""
+msgstr "Modifications non enregistrées"
 
 #: frontend/src/components/Quiz/QuestionCard.vue:114
 msgid "Not saved yet"
@@ -10319,7 +10319,7 @@ msgstr ""
 #: lms/lms/doctype/lms_enrollment/lms_enrollment.json:46
 #: lms/templates/signup-form.html:40
 msgid "Student"
-msgstr ""
+msgstr "Apprenant"
 
 #: frontend/src/pages/Courses/CourseDetail.vue:78
 #: frontend/src/pages/Courses/CourseDetail.vue:82
@@ -11102,7 +11102,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Members/MemberForm.vue:205
 msgid "This member has not loaded yet"
-msgstr ""
+msgstr "Les informations de ce membre ne sont pas encore chargées."
 
 #: frontend/src/pages/Programs/ProgramEnrollment.vue:18
 #, python-brace-format
@@ -11152,7 +11152,7 @@ msgstr ""
 #: frontend/src/pages/Forms/ProfileEditForm.vue:124
 #: frontend/src/pages/Programs/ProgramEnrollment.vue:166
 msgid "This site is in read-only mode."
-msgstr ""
+msgstr "Ce site est en lecture seule."
 
 #: lms/lms/utils.py:2656
 msgid "This student is not enrolled in this batch."
@@ -11541,7 +11541,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:304
 #: frontend/src/pages/Forms/MemberForm.vue:224
 msgid "Unable to add member"
-msgstr ""
+msgstr "Impossible d’ajouter le membre"
 
 #: frontend/src/utils/index.js:876
 msgid "Unable to create category"
@@ -11562,11 +11562,11 @@ msgstr ""
 #: frontend/src/components/Modals/NewMemberModal.vue:193
 #: frontend/src/pages/Forms/MemberForm.vue:247
 msgid "Unable to update member"
-msgstr ""
+msgstr "Impossible de modifier le membre"
 
 #: frontend/src/components/Settings/Members/MemberForm.vue:304
 msgid "Unable to update user"
-msgstr ""
+msgstr "Impossible de modifier l’utilisateur"
 
 #. Label of the unavailability_section (Section Break) field in DocType 'Course
 #. Evaluator'
@@ -12291,7 +12291,7 @@ msgstr ""
 #: frontend/src/components/Settings/Members/MemberForm.vue:160
 #: frontend/src/pages/Forms/MemberForm.vue:116
 msgid "You are not permitted to manage members."
-msgstr ""
+msgstr "Vous n’êtes pas autorisé à gérer les membres."
 
 #: frontend/src/pages/Forms/ProgrammingExerciseForm.vue:39
 msgid "You are not permitted to manage programming exercises."
@@ -13813,4 +13813,57 @@ msgstr "Option certificat"
 #: frontend/src/components/UpcomingEvaluations.vue:8
 msgid "Schedule an evaluation"
 msgstr "Planifier une évaluation"
+
+#: frontend/src/components/Settings/Members/members.ts:54
+msgid "Learn courses and track progress"
+msgstr "Suivre des cours et sa progression"
+
+#: frontend/src/components/Settings/Members/members.ts:60
+msgid "Build and manage courses, chapters, and lessons"
+msgstr "Créer et gérer des cours, des chapitres et des leçons"
+
+#: frontend/src/components/Settings/Members/members.ts:66
+msgid "Manage batches, review and grade submissions"
+msgstr "Gérer des sessions de formation, examiner et noter les travaux remis"
+
+#: frontend/src/components/Settings/Members/members.ts:72
+msgid "Oversee all users, content, and system settings"
+msgstr "Superviser l’ensemble des utilisateurs, les contenus et les paramètres du système"
+
+#: frontend/src/components/Settings/Members/members.ts:137
+msgid "Delete user"
+msgstr "Supprimer le compte utilisateur"
+
+#: frontend/src/components/Settings/Members/members.ts:179
+msgid "This permanently deletes the user account and cannot be undone."
+msgstr "Cette action supprime définitivement le compte utilisateur et ne peut pas être annulée."
+
+#: frontend/src/components/Settings/Members/members.ts:162
+msgid "User deleted"
+msgstr "Compte utilisateur supprimé"
+
+#: frontend/src/components/Settings/Members/members.ts:166
+msgid "Unable to delete user"
+msgstr "Impossible de supprimer le compte utilisateur"
+
+#: frontend/src/components/Settings/Members/members.ts:132
+msgid "Go to Profile"
+msgstr "Consulter le profil"
+
+#: frontend/src/components/Settings/Members/Members.vue:12
+msgid "No members found"
+msgstr "Aucun membre trouvé"
+
+#: frontend/src/components/Settings/Members/Members.vue:15
+#, python-brace-format
+msgid "No members match {0}."
+msgstr "Aucun membre ne correspond à « {0} »."
+
+#: frontend/src/components/Settings/Members/Members.vue:17
+msgid "No members match this role filter."
+msgstr "Aucun membre ne correspond à ce filtre de rôle."
+
+#: frontend/src/components/Settings/Members/Members.vue:18
+msgid "Add a member to get started."
+msgstr "Ajoutez un membre pour commencer."
 
