@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 29 octobre 2026 (Europe/Paris). **FR-02B.4 terminé localement : cours associés, état sans contenu, vidéo et activités de quiz francisés. Six traductions ajoutées, total 637 ; POT 2 985 inchangé. 22 tests ciblés et quatre parcours Chromium FR/EN bureau/mobile réussis. Deux commits locaux à soumettre ; aucun push ni nouveau lot.**
+Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C terminé : audit documentaire inscriptions/paiements/certificats, aucune correction. Sources et MO conservés examinés ; environnement lms-bench arrêté, dictionnaire actif et navigateur non vérifiés. 54 points apprenant sélectionnés (10 P0/43 P1/1 P2), huit dépendances FR-03 et cinq traductions à conserver. Un commit documentaire local à présenter. Aucun test, paiement, inscription ou certificat exécuté ; attendre accord avant FR-02C.1.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit source/tests local : `16e5d6b4` (FR-02B.4).
-- Dernier distant littlepool-dev vérifié : `4fabc1f41d0dfa0fa50226c2caeb39c709f55305`, base initiale propre de FR-02B.4. Les deux commits FR-02B.3 16ed87d1/4fabc1f4 sont publiés.
-- Commit courant de catalogues/documentation : `feat(i18n): translate remaining noncommercial course details` ; relever son SHA par git log -1.
+- Dernier commit source/tests : `16e5d6b4` (FR-02B.4), publié.
+- Dernier distant littlepool-dev vérifié : `2c2ffd6cbc4f977ba5d4452cc627012768831963`, base initiale propre FR-02C. Les deux commits FR-02B.4 16e5d6b4/2c2ffd6c sont publiés.
+- Commit documentaire courant : `docs: audit learner enrollment payments and certificates` ; relever son SHA par git log -1.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -96,6 +96,8 @@ FR-02B.1 : six Vue (Courses, CourseOverview, CourseCard, CourseCardOverlay, List
 FR-02B.3 : CourseOverview.vue, CourseCreatorCard.vue, CourseInstructors.vue, CourseReviews.vue ; tests CourseReviews.test.ts et nouveau courseDetailTranslations.test.ts ; fr.po/main.pot, docs/FR-02B3-RESULTATS.md et ce handoff.
 
 FR-02B.4 : RelatedCourses.vue, VideoPreview.vue, nouveau courseRemainingTranslations.test.ts, fr.po, docs/FR-02B4-RESULTATS.md et ce handoff ; aucun POT ni source Framework modifié.
+
+FR-02C : nouveau docs/FR-02C-AUDIT.md et ce handoff uniquement ; aucune source applicative ni catalogue modifié.
 
 Les MO, assets générés, comptes et paramètres du site sont hors Git. Les commits seuls ne transportent pas l’activation de la base et les assets. Les PO sont restés inchangés jusqu’à FR-01E ; seul fr.po LMS est modifié dans le pilote autorisé FR-01F.
 
@@ -254,6 +256,18 @@ Tests ciblés : nouveau courseRemainingTranslations.test.ts, 16 cas ; final 22 t
 
 Chromium quatre combinaisons FR/EN bureau/mobile : cours associés réel vide puis deux cartes simulées avec liens/noms, aperçu iframe nommé avec média fictif intercepté sans lecture externe, deux activités de quiz puis zéro, état sans chapitre et sans média. Sans leçon avec chapitre couvert par composant. Préférence fictive restaurée fr confirmée en base. Zéro insertion/pageerror ; 18 HTTP annexes hors lot. Premier harnais interrompu par lecture d’une réponse après navigation, capture limitée à la première réponse puis quatre parcours réussis. Pas de lecteur d’écran, décodage vidéo ou suites complètes. Preuves hors Git /workspace/work/fr02b4/. Aucun nouveau lot ou push autorisé.
 
+### FR-02C — audit courant, sans correction
+
+Rapport docs/FR-02C-AUDIT.md. Matrices des états d’inscription, achats/coupons/total nul, option certificat, évaluation et délivrance ; rôles/effets analysés dans les composants et contrôleurs directs. Séparation FR-02 apprenant / FR-03 gestion multiple-évaluateurs / FR-04 mails-PDF conservée. 67 chaînes sélectionnées : 54 points apprenant (10 P0, 43 P1, 1 P2), huit dépendances FR-03 et cinq valeurs correctes à conserver. Dix valeurs disponibles dans les MO lus, pas preuve du dictionnaire live ; six constructions supplémentaires non extractibles/techniques détaillées séparément.
+
+Constats principaux confirmés par code : Get Certified recouvre achat puis évaluation ; Enroll for Free peut valider une option certificat à total nul ; Payment for suivi du type technique ; retour Billing(type=certificate) pointe vers batches/Checkout Batch ; titre Payment Gateway Not Configured et deux libellés Checkout absents du POT (sources dynamiques) ; validation d’adresse anglaise et Error brut malgré Erreur disponible ; deux clés de consentement ponctuées différemment. Aucun correctif engagé.
+
+Sécurité : ne jamais appeler get_payment_link pour observer l’écran, même total nul ou accès déjà acquis (paiement/adresse/inscription possibles). Interdire aussi insert d’inscription, create_certificate, demandes/annulations d’évaluation, callbacks de paiement et PDF réels. enable_certification et paid_certificate sont mutuellement exclusifs par validation du cours ; ne pas inventer un cas valide combinant les deux. Inscrire/acheter l’option/réserver une évaluation/délivrer/consulter sont des actions distinctes.
+
+Environnement à la reprise du 30 octobre : lms-bench arrêté ; tentative de lecture Frappe refusée avant exécution, aucune connexion DB. Aucun service redémarré. Lecture hors ligne des PO/POT et MO conservés (637 traductions / 2 706 PO, POT 2 985). Préférences/site inchangés. Aucun navigateur, rendu simulé, test applicatif, build, compilation, nettoyage de cache ou acte métier ; ne pas revendiquer de validation de paiement/émission ni de rendu actuel FR/EN bureau/mobile. Avant recette ultérieure, réutiliser le démarrage documenté uniquement dans le périmètre autorisé, puis installer une interception totale des API sensibles avant montage de Billing/certificats.
+
+Preuves hors Git /workspace/work/fr02c/ : candidats, offline.py, inventory.json/state.json et journaux ; inventory.py non exécuté dans le conteneur arrêté, pas une preuve runtime. Aucun secret ni donnée personnelle nécessaire. Sources, 79 PO/POT et Framework conservés. Prochain petit lot recommandé FR-02C.1 : quatre clés d’auto-inscription apprenant et fallback Error natif ; préserver l’avertissement administrateur déjà correct. Exige nouvelle autorisation, aucune exception PO généralisée depuis FR-02B.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-02B.4, 637/2 706 entrées PO LMS renseignées ; POT 2 985 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -272,13 +286,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Base FR-02B.4 propre : 4fabc1f4, identique au distant vérifié. develop distant connu 6b791f33b34efa15566a0cb707f5be59d136df50 ; Framework propre à 959b85de4086656273e1d158f41923dd3808c350. Aucune opération sur develop/Framework.
+Base FR-02C propre : 2c2ffd6c, identique au distant vérifié. develop distant connu 6b791f33b34efa15566a0cb707f5be59d136df50 ; Framework propre à 959b85de4086656273e1d158f41923dd3808c350. Aucune opération sur develop/Framework/production.
 
-Deux commits locaux non publiés : 16e5d6b4 (deux Vue et nouveau test), puis le commit courant de fr.po/rapport/handoff. Checkout propre attendu après ce dernier, aucun autre changement suivi. POT inchangé ; MO/assets et preuves hors Git. Mentions historiques « non publié » des phases précédentes dépassées.
+Un seul commit documentaire local non publié : rapport FR-02C et handoff. Checkout propre attendu après commit ; aucun autre changement suivi. Aucun PO/POT ni code changé. Les mentions historiques de commits non publiés des phases précédentes sont dépassées.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** présenter docs/FR-02B4-RESULTATS.md et les deux commits locaux pour accord de publication. Ne commencer aucun nouveau lot. Réutiliser les 22 tests, build et quatre parcours sans les relancer sans changement. Achats, inscriptions/certificats, locale Day.js globale, formateurs mobile, coque commune et télémétrie/socket restent hors périmètre.
+**Prochaine action précise :** présenter docs/FR-02C-AUDIT.md et le commit documentaire local pour revue. Obtenir l’accord de publication et, séparément, l’autorisation du petit lot FR-02C.1. Ne commencer aucune correction. Arbitrer les libellés achat d’option / évaluation / délivrance / consultation. Dictionnaire actif et rendus simulés à vérifier sur environnement actif lors de la recette autorisée ; conserver l’interdiction d’appeler get_payment_link. Aucun test déjà validé à répéter dans une publication documentaire.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -288,7 +302,7 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1/2/3 publiés ; FR-02B.4 terminé localement, attendre accord avant publication ou nouveau développement. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4 publiés ; FR-02C audité localement, attendre accord avant publication ou correction FR-02C.1. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
