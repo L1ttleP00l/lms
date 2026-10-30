@@ -275,8 +275,10 @@ const paste = async (wrapper: Wrapper, emails: string[]) => {
 
 const openDialog = async (
 	emails: string[],
-	target: EnrollTarget = paidCourse
+	target: EnrollTarget = paidCourse,
+	lang = 'en'
 ) => {
+	const translate = installTranslations(lang)
 	const wrapper = mount(EnrollStudentsForm, {
 		props: { target, refusal: '', loading: false },
 		attachTo: document.body,
@@ -1080,4 +1082,143 @@ describe('Enroll Students dialog, end to end', () => {
 		)
 		expect(wrapper.findAll('[data-testid="student-row"]')).toHaveLength(1)
 	})
+})
+
+describe('FR-03B.3 translated payment interactions', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en']) {
+		const tr = (fr: string, en: string) => (lang === 'fr' ? fr : en)
+		const addressFields = [
+			tr("Ligne d'adresse 1", 'Address line 1'),
+			tr('Ville', 'City'),
+			tr('Pays', 'Country'),
+		]
+		const fill = async (w: Wrapper) => {
+			for (const [i, label] of addressFields.entries())
+				await type(w, label, ['1 Fictional St', 'Testville', 'France'][i])
+		}
+		it(`separates creating and linking, missing selection and common details in ${lang}`, async () => {
+			linkableOf['a@x.com'] = [
+				{
+					name: 'PAY-FAKE',
+					amount: 100,
+					currency: 'INR',
+					creation: '2026-01-01',
+				},
+			]
+			const w = await openDialog(['a@x.com', 'b@x.com'], paidCourse, lang)
+			expect(w.text()).toContain(
+				tr('Enregistrer des paiements', 'Record payments')
+			)
+			await press(w, 'enroll-details')
+			expect(panelTitle(w)).toBe(
+				tr('Détails communs aux 2 apprenants', 'Details for all 2 students')
+			)
+			expect(missingNote(w)).toContain(
+				tr('Adresse de facturation', 'Billing address')
+			)
+			await fill(w)
+			await closePanel(w)
+			await editGroup(w, 'a@x.com')
+			expect(panel(w).text()).toContain(
+				tr('Nouveau paiement enregistré', 'New payment')
+			)
+			expect(panel(w).text()).toContain(
+				tr('Associer un paiement existant', 'Link existing')
+			)
+			expect(panel(w).get('[role="group"]').attributes('aria-label')).toBe(
+				tr("Mode d'enregistrement du paiement pour Ann", 'Payment mode for Ann')
+			)
+			await panel(w).get('[data-mode="link"]').trigger('click')
+			await settle()
+			expect(reason(w)).toBe(
+				tr(
+					'Sélectionnez un paiement à associer pour Ann',
+					'Choose a payment to link for Ann'
+				)
+			)
+			expect(submitButton(w).attributes('disabled')).toBeDefined()
+			await panel(w).get('[data-testid="payment-select"]').setValue('PAY-FAKE')
+			await settle()
+			const params = await enroll(w)
+			expect(json(params, 'linked_payments')).toEqual({ 'a@x.com': 'PAY-FAKE' })
+			expect(json(params, 'payment_details')).toMatchObject({
+				amount: 100,
+				currency: 'INR',
+				address: {
+					address_line1: '1 Fictional St',
+					city: 'Testville',
+					country: 'France',
+				},
+			})
+			expect(submitted).toHaveLength(1)
+		})
+		it(`replaces differing addresses locally and cancels without a submission in ${lang}`, async () => {
+			const w = await openDialog(['a@x.com', 'b@x.com'], paidCourse, lang)
+			await press(w, 'enroll-details')
+			await fill(w)
+			await closePanel(w)
+			await editGroup(w, 'a@x.com')
+			await type(w, addressFields[1], 'Different City')
+			await closePanel(w)
+			await editGroup(w, 'a@x.com', 'b@x.com')
+			expect(w.get('[data-testid="address-overwrite"]').text()).toBe(
+				tr('Remplacer les adresses de facturation', 'Replace billing addresses')
+			)
+			await press(w, 'address-overwrite')
+			await type(w, addressFields[0], 'Replacement')
+			await press(w, 'address-cancel')
+			expect(has(w, 'address-differs')).toBe(true)
+			await closePanel(w)
+			await editGroup(w, 'a@x.com')
+			expect(valueOf(w, addressFields[1])).toBe('Different City')
+			expect(submitted).toHaveLength(0)
+		})
+		for (const state of ['success', 'partial', 'failure'])
+			it(`renders ${state} after a fully mocked submission in ${lang}`, async () => {
+				const w = await openDialog(['a@x.com', 'b@x.com'], paidCourse, lang)
+				await press(w, 'enroll-details')
+				await fill(w)
+				await closePanel(w)
+				submitAnswer = () => ({
+					added:
+						state === 'success'
+							? ['a@x.com', 'b@x.com']
+							: state === 'partial'
+							? ['a@x.com']
+							: [],
+					errors:
+						state === 'success'
+							? []
+							: [{ member: 'b@x.com', error: 'TEST-REFUSAL' }],
+				})
+				await enroll(w)
+				const toast =
+					state === 'partial'
+						? toastMock.warning
+						: state === 'failure'
+						? toastMock.error
+						: toastMock.success
+				expect(toast).toHaveBeenCalledWith(
+					state === 'success'
+						? tr('2 apprenants inscrits', '2 students enrolled')
+						: state === 'partial'
+						? tr(
+								'1 apprenant inscrit, 1 apprenant n’a pas pu être inscrit',
+								'1 student enrolled, 1 student could not be enrolled'
+						  )
+						: tr(
+								'1 apprenant n’a pas pu être inscrit',
+								'1 student could not be enrolled'
+						  ),
+					{
+						description:
+							state === 'success'
+								? undefined
+								: tr('b@x.com : TEST-REFUSAL', 'b@x.com: TEST-REFUSAL'),
+					}
+				)
+				expect(submitted).toHaveLength(1)
+			})
+	}
 })

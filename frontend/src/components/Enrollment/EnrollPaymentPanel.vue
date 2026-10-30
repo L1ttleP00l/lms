@@ -143,7 +143,7 @@
 							<Button
 								data-testid="address-change"
 								variant="ghost"
-								:label="__('Change')"
+								:label="__('Change billing address')"
 								@click="picking = true"
 							/>
 							<Button
@@ -178,7 +178,7 @@
 							data-testid="address-overwrite"
 							class="shrink-0"
 							variant="ghost"
-							:label="__('Overwrite')"
+							:label="__('Replace billing addresses')"
 							@click="overwrite"
 						/>
 					</div>

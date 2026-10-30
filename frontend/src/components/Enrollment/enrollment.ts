@@ -78,7 +78,7 @@ export const paidSwitchDescription = (
 ): string => {
 	if (kind === 'certificate') {
 		const what = __(
-			'Students get the certificate and a payment is recorded for each.'
+			'For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked.'
 		)
 		return price ? `${what} ${__('Certificate price {0}.', [price])}` : what
 	}

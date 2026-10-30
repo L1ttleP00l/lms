@@ -176,6 +176,43 @@ const row = (
 })
 
 describe('EnrollSelectStep', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		for (const kind of ['course', 'batch', 'certificate'] as const)
+			it(`toggles ${kind} without submitting in ${lang}`, async () => {
+				installTranslations(lang)
+				const w = mount(EnrollSelectStep, {
+					props: {
+						target: target({
+							doctype: kind === 'batch' ? 'LMS Batch' : 'LMS Course',
+							paidKind: kind,
+						}),
+						members: [],
+						paid: false,
+						'onUpdate:paid': (paid: boolean) => w.setProps({ paid }),
+					},
+				})
+				expect(w.text()).toContain(
+					lang === 'fr'
+						? kind === 'certificate'
+							? "Activer l'option certificat payante"
+							: 'Enregistrer des paiements'
+						: kind === 'certificate'
+						? 'Include paid certificate'
+						: 'Record payments'
+				)
+				await w.get('[data-testid="switch-toggle"]').trigger('click')
+				expect(w.props('paid')).toBe(true)
+				expect(
+					w.get('[data-testid="picker"]').attributes('data-include-enrolled')
+				).toBe(String(kind === 'certificate'))
+				await w.get('[data-testid="switch-toggle"]').trigger('click')
+				expect(w.props('paid')).toBe(false)
+				expect(
+					w.get('[data-testid="picker"]').attributes('data-include-enrolled')
+				).toBe('false')
+			})
+
 	it('shows no paid switch for a free target', () => {
 		const wrapper = mount(EnrollSelectStep, {
 			props: { target: target(), members: [], paid: false },
@@ -196,7 +233,7 @@ describe('EnrollSelectStep', () => {
 		const text = wrapper.text()
 		expect(text).toContain('Include paid certificate')
 		expect(text).toContain(
-			'Students get the certificate and a payment is recorded for each. Certificate price ₹999.'
+			'For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked. Certificate price ₹999.'
 		)
 		expect(
 			wrapper.get('[data-testid="picker"]').attributes('data-include-enrolled')
@@ -555,6 +592,48 @@ describe('EnrollSelectionBanner', () => {
 })
 
 describe('EnrollPaymentPanel', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		it(`names the saved billing address action and preserves lookup in ${lang}`, async () => {
+			installTranslations(lang)
+			const w = mountPanel([row('fictional@example.com')], {
+				defaults: {
+					...defaults(),
+					address: { name: 'ADDR-FAKE', summary: 'Fictional Address' },
+				},
+			})
+			const change = w.get('[data-testid="address-change"]')
+			expect(change.text()).toBe(
+				lang === 'fr'
+					? "Modifier l'adresse de facturation"
+					: 'Change billing address'
+			)
+			await change.trigger('click')
+			expect(
+				w.get('[data-testid="link-Address"]').attributes('data-filters')
+			).toBe(
+				JSON.stringify({
+					link_doctype: 'User',
+					link_name: 'fictional@example.com',
+				})
+			)
+			callMock.mockResolvedValueOnce({
+				address_line1: 'Test Street',
+				city: 'Testville',
+				country: 'France',
+			})
+			await w.get('[data-testid="link-Address"]').setValue('ADDR-OTHER')
+			await flushPromises()
+			expect(w.get('[data-testid="saved-address"]').text()).toContain(
+				'Test Street, Testville, France'
+			)
+			expect(callMock).toHaveBeenCalledWith(
+				'frappe.client.get_value',
+				expect.objectContaining({ doctype: 'Address', filters: 'ADDR-OTHER' })
+			)
+			expect(w.find('[data-testid="tabs"]').exists()).toBe(false)
+		})
+
 	const defaults = (): PaymentDefaults => ({
 		amount: 999,
 		currency: 'INR',
@@ -965,7 +1044,7 @@ describe('EnrollPaymentPanel', () => {
 		expect(text(wrapper, 'address-differs')).toContain(
 			'Different addresses for these 2 students'
 		)
-		expect(text(wrapper, 'address-overwrite')).toBe('Overwrite')
+		expect(text(wrapper, 'address-overwrite')).toBe('Replace billing addresses')
 		expect(has(wrapper, 'address-fields')).toBe(false)
 		expect(has(wrapper, 'address-use-existing')).toBe(false)
 		expect(wrapper.find('[data-field="Phone"]').exists()).toBe(false)

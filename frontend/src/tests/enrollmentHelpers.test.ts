@@ -1,4 +1,5 @@
-import { describe, expect, it, test, vi } from 'vitest'
+import { installTranslations } from './helpers/frenchCatalog'
+import { afterEach, describe, expect, it, test, vi } from 'vitest'
 import {
 	buildSubmitParams,
 	canSubmitPayments,
@@ -137,7 +138,7 @@ describe('enrollment helpers', () => {
 			kind: 'certificate',
 			label: 'Include paid certificate',
 			description:
-				'Students get the certificate and a payment is recorded for each. Certificate price $10.',
+				'For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked. Certificate price $10.',
 			on: false,
 		},
 	] as const)('switch copy for $kind', ({ kind, label, description, on }) => {
@@ -154,7 +155,7 @@ describe('enrollment helpers', () => {
 		{
 			kind: 'certificate',
 			description:
-				'Students get the certificate and a payment is recorded for each.',
+				'For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked.',
 		},
 	] as const)(
 		'$kind switch drops the price sentence without a price',
@@ -724,4 +725,80 @@ describe('group field state', () => {
 	])('sharedAddress tells apart %s', (_, addresses) => {
 		expect(sharedAddress(addresses)).toEqual({ address: null, differs: true })
 	})
+})
+
+describe('FR-03B.3 administrative payment copy', () => {
+	afterEach(() => vi.stubGlobal('__', installTranslations('en')))
+	for (const lang of ['fr', 'en']) {
+		it(`describes the certificate option without delivery or capture in ${lang}`, () => {
+			vi.stubGlobal('__', installTranslations(lang))
+			expect(paidSwitchLabel('course')).toBe(
+				lang === 'fr' ? 'Enregistrer des paiements' : 'Record payments'
+			)
+			expect(paidSwitchLabel('certificate')).toBe(
+				lang === 'fr'
+					? "Activer l'option certificat payante"
+					: 'Include paid certificate'
+			)
+			expect(paidSwitchDescription('certificate', '10 EUR')).toBe(
+				lang === 'fr'
+					? "Pour chaque inscription ou activation réussie, l'option certificat payante est activée et un paiement est enregistré ou associé. Prix de l'option certificat : 10 EUR."
+					: 'For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked. Certificate price 10 EUR.'
+			)
+			for (const kind of ['course', 'batch'] as const)
+				expect(paidSwitchDescription(kind, null)).toBe(
+					lang === 'fr'
+						? 'Désactivez cette option pour inscrire sans enregistrer de paiement.'
+						: 'Turn off to enroll without a payment record.'
+				)
+			expect(listPaymentLabel({ mode: 'link', payment: null }, defaults)).toBe(
+				lang === 'fr' ? 'Associé · Non sélectionné' : 'Linked · Not selected'
+			)
+		})
+		it(`preserves successful, partial and failed outcomes and parameters in ${lang}`, () => {
+			vi.stubGlobal('__', installTranslations(lang))
+			const errors = [
+				{ member: 'fictional@example.com', error: 'TEST-REFUSAL' },
+				{ member: 'other@example.com', error: 'TEST-OTHER' },
+			]
+			const success = enrollOutcome({
+				added: ['a'],
+				upgraded: ['b', 'c'],
+				errors: [],
+			})
+			expect(success).toEqual({
+				type: 'success',
+				message:
+					lang === 'fr'
+						? '1 apprenant inscrit, Option certificat activée pour 2 apprenants'
+						: '1 student enrolled, 2 students upgraded to certificate',
+				description: '',
+			})
+			const partial = enrollOutcome({ added: ['a'], upgraded: [], errors })
+			expect(partial.type).toBe('warning')
+			expect(partial.message).toBe(
+				lang === 'fr'
+					? '1 apprenant inscrit, 2 apprenants n’ont pas pu être inscrits'
+					: '1 student enrolled, 2 students could not be enrolled'
+			)
+			expect(partial.description).toBe(
+				lang === 'fr'
+					? 'fictional@example.com : TEST-REFUSAL ; autres échecs : 1'
+					: 'fictional@example.com: TEST-REFUSAL, and 1 more'
+			)
+			expect(
+				enrollOutcome({ added: [], upgraded: [], errors: [errors[0]] })
+			).toEqual({
+				type: 'error',
+				message:
+					lang === 'fr'
+						? '1 apprenant n’a pas pu être inscrit'
+						: '1 student could not be enrolled',
+				description:
+					lang === 'fr'
+						? 'fictional@example.com : TEST-REFUSAL'
+						: 'fictional@example.com: TEST-REFUSAL',
+			})
+		})
+	}
 })
