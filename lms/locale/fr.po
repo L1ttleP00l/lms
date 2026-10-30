@@ -10346,7 +10346,7 @@ msgstr ""
 #: frontend/src/pages/Courses/CourseOverview.vue:45
 #: lms/lms/doctype/lms_settings/lms_settings.json:219
 msgid "Students"
-msgstr ""
+msgstr "Apprenants"
 
 #: frontend/src/pages/Forms/QuizForm.vue:131
 msgid "Students answer in a rich-text editor (image embeds allowed)."
@@ -13866,4 +13866,93 @@ msgstr "Aucun membre ne correspond à ce filtre de rôle."
 #: frontend/src/components/Settings/Members/Members.vue:18
 msgid "Add a member to get started."
 msgstr "Ajoutez un membre pour commencer."
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:3
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:41
+msgid "Enroll Students"
+msgstr "Inscrire des apprenants"
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:17
+#: frontend/src/components/Enrollment/EnrollStudentTable.vue:13
+msgid "Selected students"
+msgstr "Apprenants sélectionnés"
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:14
+msgid "Search by name or email, or paste emails"
+msgstr "Rechercher par nom ou adresse électronique, ou coller des adresses"
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:15
+msgid "No users found"
+msgstr "Aucun utilisateur trouvé"
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:69
+msgid "No students added"
+msgstr "Aucun apprenant ajouté"
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:70
+msgid "Students you add will be listed here."
+msgstr "Les apprenants ajoutés apparaîtront ici."
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:104
+msgid "1 student selected"
+msgstr "1 apprenant sélectionné"
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:105
+#, python-brace-format
+msgid "{0} students selected"
+msgstr "{0} apprenants sélectionnés"
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:98
+msgid "Remove selected students"
+msgstr "Retirer les apprenants sélectionnés"
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:99
+msgid "Reset details for selected students"
+msgstr "Réinitialiser les informations des apprenants sélectionnés"
+
+#: frontend/src/components/Enrollment/EnrollSelectionBanner.vue:100
+msgid "Clear selection"
+msgstr "Effacer la sélection"
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:224
+#, python-brace-format
+msgid "You can enroll up to {0} students at a time."
+msgstr "Vous pouvez inscrire jusqu'à {0} apprenants à la fois."
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:326
+#, python-brace-format
+msgid "{0} seats left, {1} selected"
+msgstr "{0} places restantes · Sélection : {1}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:325
+#, python-brace-format
+msgid "{0} seat left, {1} selected"
+msgstr "{0} place restante · Sélection : {1}"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:171
+#, python-brace-format
+msgid "Different addresses for these {0} students"
+msgstr "Ces {0} apprenants ont des adresses différentes"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:627
+msgid "Could not load students"
+msgstr "Impossible de charger les apprenants"
+
+#: frontend/src/components/Enrollment/enrollment.ts:369
+msgid "1 student"
+msgstr "1 apprenant"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:515
+#: frontend/src/components/Enrollment/enrollment.ts:369
+#, python-brace-format
+msgid "{0} students"
+msgstr "{0} apprenants"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:557
+msgid "Checking the selected students"
+msgstr "Vérification des apprenants sélectionnés"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:558
+msgid "Add students to enroll"
+msgstr "Ajoutez des apprenants à inscrire"
 

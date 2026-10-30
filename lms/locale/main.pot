@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 18:51+0000\n"
-"PO-Revision-Date: 2026-10-30 18:51+0000\n"
+"POT-Creation-Date: 2026-10-30 19:33+0000\n"
+"PO-Revision-Date: 2026-10-30 19:33+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgstr ""
 msgid "Add a Lesson"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:548
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:549
 #, python-brace-format
 msgid "Add a billing address for {0}"
 msgstr ""
@@ -524,7 +524,7 @@ msgstr ""
 msgid "Add slot for {0}"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:557
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:558
 msgid "Add students to enroll"
 msgstr ""
 
@@ -2095,7 +2095,7 @@ msgstr ""
 msgid "Check your connection and try again."
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:556
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:557
 msgid "Checking the selected students"
 msgstr ""
 
@@ -2131,7 +2131,7 @@ msgstr ""
 msgid "Choose a lesson from the chapters panel, or add a new one."
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:524
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:525
 #, python-brace-format
 msgid "Choose a payment to link for {0}"
 msgstr ""
@@ -2741,7 +2741,7 @@ msgstr ""
 msgid "Could not enable the integration"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:700
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:701
 msgid "Could not enroll students"
 msgstr ""
 
@@ -2761,7 +2761,7 @@ msgstr ""
 msgid "Could not load hours"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:626
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:627
 msgid "Could not load students"
 msgstr ""
 
@@ -3749,6 +3749,11 @@ msgstr ""
 msgid "Device"
 msgstr ""
 
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:171
+#, python-brace-format
+msgid "Different addresses for these {0} students"
+msgstr ""
+
 #: frontend/src/components/Profile/ProfileEvaluatorCalendar.vue:99
 msgid "Disable"
 msgstr ""
@@ -4418,16 +4423,16 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:467
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:468
 msgid "Enter details for all"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:462
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:463
 #, python-brace-format
 msgid "Enter details for {0}"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:465
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:466
 #, python-brace-format
 msgid "Enter details for {0} students"
 msgstr ""
@@ -5020,7 +5025,7 @@ msgstr ""
 msgid "Fill in every required field"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:545
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:546
 #, python-brace-format
 msgid "Fill in the missing details for {0}"
 msgstr ""
@@ -5029,12 +5034,12 @@ msgstr ""
 msgid "Fill in the title on the right. The quiz is created then, and questions can go in."
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:550
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:551
 #, python-brace-format
 msgid "Fill in {0} for {1}"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:528
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:529
 #, python-brace-format
 msgid "Fill in {0} in the details for all"
 msgstr ""
@@ -7734,7 +7739,7 @@ msgid "Names must be a list of users."
 msgstr ""
 
 #. Option for the 'Event' (Select) field in DocType 'LMS Badge'
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:345
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:346
 #: frontend/src/components/Layouts/settings/desktop/SettingsList.vue:20
 #: frontend/src/components/Settings/Categories.vue:10
 #: frontend/src/components/Settings/Raven/WorkspaceChannels.vue:7
@@ -13073,7 +13078,7 @@ msgstr ""
 msgid "Updated On"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:345
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:346
 msgid "Upgrade"
 msgstr ""
 
@@ -13749,6 +13754,11 @@ msgstr ""
 #: lms/lms/bulk_enrollment.py:57
 #, python-brace-format
 msgid "You can enroll at most {0} students at a time. Remove {1} and try again."
+msgstr ""
+
+#: frontend/src/components/Enrollment/StudentPicker.vue:224
+#, python-brace-format
+msgid "You can enroll up to {0} students at a time."
 msgstr ""
 
 #: lms/templates/emails/job_application.html:6
@@ -14694,7 +14704,7 @@ msgstr ""
 msgid "{0} Your changes are not saved. Do not close this tab until they are."
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:508
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:509
 #: frontend/src/utils/peopleSummary.ts:12
 #, python-brace-format
 msgid "{0} and {1}"
@@ -15020,12 +15030,22 @@ msgstr ""
 msgid "{0} rows selected"
 msgstr ""
 
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:325
+#, python-brace-format
+msgid "{0} seat left, {1} selected"
+msgstr ""
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:326
+#, python-brace-format
+msgid "{0} seats left, {1} selected"
+msgstr ""
+
 #: frontend/src/components/Profile/ProfileEvaluatorDay.vue:31
 #, python-brace-format
 msgid "{0} start time"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:514
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:515
 #: frontend/src/components/Enrollment/enrollment.ts:369
 #, python-brace-format
 msgid "{0} students"

@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-03A publié à 736b1523b220b08708b51fa53a545bf16e2dbebc. FR-03B.1 terminé localement : 32 traductions membres/rôles et quatre phrases d’état vide contextualisées ; 719 traductions, POT 3 001 (+4/-0). 81 tests Vue/six fichiers réussis, compilation/dictionnaire et build réussis. Chromium affichage FR/EN bureau/mobile validé sans écriture ; sauvegarde navigateur partielle (FR bureau réussi, toast création FR mobile expiré), ne pas déclarer toute la recette réussie. Aucune écriture sensible transmise ni rôle réel changé. Deux commits locaux non publiés ; arrêt avant FR-03B.2.**
+Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-03B.1 publié à b223c367e42b29613f46c68fbac220c1e49afb40. FR-03B.2 terminé localement : sélection multiple francisée, trois omissions Vue diagnostiquées et corrigées localement par __().format(), singulier seat ajouté. PO 740 traductions / 2 754 entrées ; POT 3 005 (+4/-0). Final 268 tests Vue/six fichiers, cinq tests Python d’extraction et quatre parcours Chromium FR/EN bureau/mobile réussis. Aucune écriture sensible tentée/transmise ; navigateur sur cours gratuit, preview non appelé. Deux commits locaux non publiés ; arrêt avant FR-03B.3. Limites mobile FR-03B.1/16 rejets JS/double clic/dates préservées.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit source/tests local : `b06c7bc0` (FR-03B.1).
-- Dernier distant littlepool-dev vérifié : `736b1523b220b08708b51fa53a545bf16e2dbebc` ; FR-03A publié après contrôles documentaires, rapport distant identique et fetch 0/0. Dépendance FR-03B.1 satisfaite avant modification.
-- Commit courant de livraison : `feat(i18n): deliver French member and role translations` ; relever son SHA par git log -1.
+- Dernier commit source/tests local : `52042468` (FR-03B.2).
+- Dernier distant littlepool-dev vérifié : `b223c367e42b29613f46c68fbac220c1e49afb40` ; FR-03B.1 publié après diagnostic du toast mobile restant non confirmé, sans régression attribuable identifiée. Base FR-03B.2 propre et distante identique avant modification.
+- Commit courant de livraison : `feat(i18n): deliver French bulk enrollment selection catalogue` ; relever son SHA par git log -1.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -334,9 +334,19 @@ Chromium de sauvegarde : FR ordinateur réussi ; FR mobile attente du toast de c
 
 Recette différente d’affichage : quatre parcours FR/EN bureau/mobile complets, noms de rôles accessibles, fiche fictive rouverte et refus ; quatre lectures fake, zéro écriture même simulée, zéro endpoint interdit/transmis. Zéro pageerror, deux socket.io 400 et 12 boot_config bloqués dans cette recette. Elle ne remplace pas le test de sauvegarde échoué. Gestionnaire simulé dans get_user_info, pas attribué en DB ; suppression jamais exécutée. Liste/états vides/confirmation couverts en composants seulement, pas Chromium complet. Préserver 16 rejets FR-02C.2, double clic et dates hors lot. Preuves /workspace/work/fr03b1/, logs distincts. Deux commits locaux, aucun push, aucun FR-03B.2.
 
+### FR-03B.2 — livraison locale courante
+
+Rapport docs/FR-03B2-RESULTATS.md. Diagnostic natif avant correction : trois clés présentes sources mais omises, génération complète de base inchangée hors dates. Variantes démontrent que seuls les retours à la ligne dans le tableau du deuxième argument échouent en Vue (regex HTML/template sans DOTALL), pas les retours avant le message ni le TypeScript. Correction locale __().format() dans StudentPicker/EnrollStudentsForm/EnrollPaymentPanel ; pas de modification Framework/mapping. Singulier {0} seat left ajouté, français Sélection : {1} neutre. Conditions/capacité/dédup/API/focus et paramètres conservés, scripts AST équivalents après normalisation linguistique.
+
+21 valeurs nouvelles, aucune ancienne corrigée/supprimée ; 740 FR / 2 754 entrées PO. POT 3 005 (+4/-0), 16 références déplacées seulement, diff intégral relu. 78 autres PO/Framework intacts. Babel/params/contextes/flags et compilation/cache du seul site réussis ; MO 740 et 21 valeurs chargées concordantes. Préférences fr/en et système fr inchangés.
+
+Tests finaux : 268 Vue/six fichiers réussis en une exécution 9,81 s ; cinq tests Python d’extraction réussis 0,049 s. Vraies sources échouaient sur trois clés avant correction ; variantes démontrées. Harnais initial Python TabError corrigé avant test de régression ; premier Vue cinq fichiers/229 passent mais StudentPicker import échoue sur hoisting Vue ; factory mock import Vue local, final six passent. Aucun nouveau fichier de test, quatre fichiers Vue étendus/adaptés et fichier Python existant. Bornes FR/EN 0/1/2/50/51, places 0/1/5 et sélection excessive, recherche nom/email, collage/doublons/éligibilité, aria-live et focus couverts. Build 16,41 s réussi, déclarations restaurées. Format/Ruff/AST/diff/secrets réussis ; hooks désactivés après contrôles.
+
+Chromium quatre parcours FR/EN ordinateur/mobile complets : cours gratuit, vide/recherche email/aucun résultat, collage 51+doublon plafonné 50, cases individuelles/toutes, aria-live, effacement de sélection et retrait d’une ligne. 16 recherches fictives, zéro preview appelé (interception prête ; tests composants couvrent son contrat), zéro endpoint sensible tenté/transmis ; aucun clic final d’inscription. Zéro pageerror/HTTP en erreur ciblé, quatre boot_config bloqués. Pas de transaction réelle ni nouvelle attribution de rôle ; données et gestionnaire côté réponse simulés. Pas de session payante/finance/adresse au navigateur. Ne pas confondre sélection et inscription, ni déclarer contrôle JS global validé. Preuves /workspace/work/fr03b2/. Toast mobile FR-03B.1 non confirmé, 16 rejets préexistants, double clic et dates restent ouverts. Aucun FR-03B.3, aucun push.
+
 ## 7. Problèmes connus et limites
 
-- Traduction partielle : après FR-03B.1, 719/2 734 entrées PO LMS renseignées ; POT 3 001 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
+- Traduction partielle : après FR-03B.2, 740/2 754 entrées PO LMS renseignées ; POT 3 005 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
 - Babel signale une anomalie préexistante dans le PO Framework : `Use % for any non empty value.` / incompatibilité de paramètres. Compilation réussie mais validation Babel non entièrement verte. Aucun PO à modifier manuellement ; remonter au circuit amont.
 - Pre-commit complet bloqué à l’installation npm du miroir Prettier (`EALLOWGIT`). Les contrôles Python et les versions prévues de Prettier/ESLint ont été exécutés séparément. Ne pas déclarer le lanceur complet réussi ; ne pas repartir dans une longue réparation sans nécessité.
 - Avertissements de build existants : Vite esbuildOptions dépréciée, Browserslist ancien, module fs externalisé pour face-api.js.
@@ -352,13 +362,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-FR-03A publié par push normal du seul commit 736b1523, distant vérifié identique après publication. develop reste `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre `959b85de4086656273e1d158f41923dd3808c350`.
+FR-03B.1 publié par push normal de b06c7bc0 et b223c367 sur accord explicite ; rapport distant vérifié identique, fetch aligné. Base FR-03B.2 : b223c367e42b29613f46c68fbac220c1e49afb40. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50 ; Framework propre à 959b85de4086656273e1d158f41923dd3808c350.
 
-Deux nouveaux commits locaux FR-03B.1 non publiés : b06c7bc0 (deux Vue et cinq fichiers de tests/helper), puis catalogue/rapport/handoff courant, SHA à relever. Checkout propre après commit. Mentions historiques « FR-03A non publié » dépassées.
+Deux nouveaux commits locaux FR-03B.2 non publiés : 52042468 (trois Vue, quatre tests Vue existants et test Python d’extraction), puis livraison courante PO/POT/rapport/handoff, SHA à relever. Checkout propre après commit. Mentions historiques FR-03B.1 non publié dépassées.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-03B1-RESULTATS.md ; présenter les deux commits et la limite du toast mobile pour autorisation de publication ou diagnostic ciblé. Ne pas considérer le contrôle navigateur de sauvegarde global réussi. Aucun FR-03B.2/FR-04/I18N-01 sans instruction. Pas d’écriture réelle ou changement de rôle à effectuer. Publication uniquement après accord explicite.
+**Prochaine action précise :** lire docs/FR-03B2-RESULTATS.md et présenter les deux commits pour revue/autorisation de publication. Ne pas commencer FR-03B.3. Aucune transaction réelle. Réutiliser les preuves ; conserver les limites FR-03B.1 et autres anomalies hors lot. Paiements/adresses détaillés et autres occurrences Vue à traiter seulement dans un lot autorisé.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -368,8 +378,8 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A publié ; FR-03B.1 local terminé, attendre accord de publication ; aucun FR-03B.2/FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A publié ; FR-03B.1 publié ; FR-03B.2 local terminé, attendre accord de publication ; aucun FR-03B.3/FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
-Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) FR-02C.2 (17 blocs nécessaires) FR-02C.3 (13 blocs nécessaires) FR-02C.4 (19 clés ciblées, 18 valeurs ajoutées) et FR-03B.1 (32 valeurs ciblées) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
+Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) FR-02C.2 (17 blocs nécessaires) FR-02C.3 (13 blocs nécessaires) FR-02C.4 (19 clés ciblées, 18 valeurs ajoutées) FR-03B.1 (32 valeurs ciblées) et FR-03B.2 (21 valeurs ciblées) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
