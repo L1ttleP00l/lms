@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
 	config,
@@ -7,8 +8,7 @@ import {
 } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
 
-const translate = (text: string, args?: unknown[]) =>
-	args ? text.replace(/\{(\d+)\}/g, (_, i) => String(args[Number(i)])) : text
+const translate = installTranslations('en')
 vi.stubGlobal('__', translate)
 enableAutoUnmount(afterEach)
 
@@ -453,6 +453,35 @@ describe('EnrollSelectionBanner', () => {
 
 	const get = (wrapper: ReturnType<typeof mountBanner>, id: string) =>
 		wrapper.get(`[data-testid="${id}"]`)
+
+	for (const lang of ['fr', 'en'])
+		it.each([0, 1, 2, 50])(`announces %s selected in ${lang}`, (n) => {
+			const translate = installTranslations(lang)
+			const view = mount(EnrollSelectionBanner, {
+				props: { count: n, total: 50, paid: false },
+				global: { mocks: { __: translate } },
+			})
+			expect(view.get('[aria-live="polite"]').text()).toBe(
+				!n
+					? ''
+					: lang === 'fr'
+					? `${n} apprenant${n === 1 ? '' : 's'} sélectionné${
+							n === 1 ? '' : 's'
+					  }`
+					: n === 1
+					? '1 student selected'
+					: `${n} students selected`
+			)
+			if (n)
+				expect(
+					view.get('[data-testid="selection-remove"]').attributes('aria-label')
+				).toBe(
+					lang === 'fr'
+						? 'Retirer les apprenants sélectionnés'
+						: 'Remove selected students'
+				)
+			installTranslations('en')
+		})
 
 	it('renders nothing visible and announces nothing with no selection', () => {
 		const wrapper = mountBanner({ count: 0, total: 3, paid: true })

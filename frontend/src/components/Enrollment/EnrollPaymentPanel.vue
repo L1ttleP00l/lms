@@ -168,9 +168,9 @@
 					>
 						<p class="min-w-0 text-p-sm text-ink-gray-6">
 							{{
-								__('Different addresses for these {0} students', [
-									members.length,
-								])
+								__('Different addresses for these {0} students').format(
+									members.length
+								)
 							}}
 						</p>
 						<Button

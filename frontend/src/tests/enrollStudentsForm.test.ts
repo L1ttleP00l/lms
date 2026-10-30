@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
@@ -12,8 +13,7 @@ import type {
 	StudentRow,
 } from '@/types'
 
-const translate = (text: string, args?: unknown[]) =>
-	args ? text.replace(/\{(\d+)\}/g, (_, i) => String(args[Number(i)])) : text
+const translate = installTranslations('en')
 vi.stubGlobal('__', translate)
 enableAutoUnmount(afterEach)
 
@@ -190,12 +190,15 @@ const mountForm = (
 		target: EnrollTarget | null
 		refusal: string
 		loading: boolean
-	}> = {}
-) =>
-	mount(EnrollStudentsForm, {
+	}> = {},
+	lang = 'en'
+) => {
+	const translate = installTranslations(lang)
+	return mount(EnrollStudentsForm, {
 		props: { target: courseTarget, refusal: '', loading: false, ...props },
 		global: { stubs: { teleport: true }, mocks: { __: translate } },
 	})
+}
 
 const setWidth = (value: number) => {
 	Object.defineProperty(window, 'innerWidth', {
@@ -1022,11 +1025,11 @@ describe('EnrollStudentsForm', () => {
 		)
 		await addressForAll(wrapper)
 		expect(wrapper.get('[data-testid="error"]').text()).toBe(
-			'1 seats left, 2 selected'
+			'1 seat left, 2 selected'
 		)
 		expect(byId(wrapper, 'enroll-submit').attributes('disabled')).toBeDefined()
 		expect(byId(wrapper, 'enroll-reason').text()).toBe(
-			'1 seats left, 2 selected'
+			'1 seat left, 2 selected'
 		)
 	})
 
@@ -1173,4 +1176,36 @@ describe('EnrollStudentsForm', () => {
 			'Enroll 2 students'
 		)
 	})
+})
+
+describe('FR-03B.2 seats in French and English', () => {
+	for (const lang of ['fr', 'en'])
+		it.each([0, 1, 5])(
+			`preserves capacity checks with %s seats in ${lang}`,
+			async (seats) => {
+				const view = mountForm({ target: paidBatch }, lang)
+				await selectPaid(
+					view,
+					AB,
+					preview(
+						AB.map((m) => row(m)),
+						{ seats_left: seats }
+					)
+				)
+				await addressForAll(view)
+				const exceeded = seats < 2
+				expect(
+					byId(view, 'enroll-submit').attributes('disabled') !== undefined
+				).toBe(exceeded)
+				if (exceeded)
+					expect(view.get('[data-testid="error"]').text()).toBe(
+						lang === 'fr'
+							? `${seats} place${seats === 1 ? '' : 's'} restante${
+									seats === 1 ? '' : 's'
+							  } · Sélection : 2`
+							: `${seats} seat${seats === 1 ? '' : 's'} left, 2 selected`
+					)
+				expect(resources[BATCH].submit).not.toHaveBeenCalled()
+			}
+		)
 })

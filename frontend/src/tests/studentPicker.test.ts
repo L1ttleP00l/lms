@@ -1,10 +1,9 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
-import { defineComponent, h, ref } from 'vue'
 import type { StudentOption } from '@/types'
 
-const translate = (text: string, args?: unknown[]) =>
-	args ? text.replace(/\{(\d+)\}/g, (_, i) => String(args[Number(i)])) : text
+const translate = installTranslations('en')
 vi.stubGlobal('__', translate)
 enableAutoUnmount(afterEach)
 
@@ -65,78 +64,86 @@ const respond = (params: Record<string, unknown>): StudentOption[] => {
 	}
 	const txt = String(params.txt ?? '').toLowerCase()
 	return eligible(params)
-		.filter((u) => !txt || u.label.toLowerCase().includes(txt))
+		.filter(
+			(u) =>
+				!txt ||
+				u.label.toLowerCase().includes(txt) ||
+				u.value.toLowerCase().includes(txt)
+		)
 		.slice(0, 2)
 }
 
-vi.mock('frappe-ui', () => ({
-	Avatar: defineComponent({
-		props: ['image', 'label', 'size'],
-		setup(props) {
-			return () =>
-				h('span', {
-					'data-testid': 'avatar',
-					'data-label': props.label,
-					'data-image': props.image ?? '',
-				})
-		},
-	}),
-	Button: defineComponent({
-		inheritAttrs: false,
-		props: ['icon', 'variant'],
-		setup(props, { attrs }) {
-			return () =>
-				h('button', { type: 'button', ...attrs }, [
-					props.icon ? h('span', { class: props.icon }) : null,
-				])
-		},
-	}),
-	MultiSelect: defineComponent({
-		name: 'MultiSelectStub',
-		props: [
-			'id',
-			'modelValue',
-			'query',
-			'options',
-			'loading',
-			'filterable',
-			'error',
-			'label',
-			'variant',
-		],
-		emits: ['update:modelValue', 'update:open', 'update:query'],
-		setup(props, { expose, slots }) {
-			const trigger = ref<HTMLButtonElement | null>(null)
-			expose({ focus: () => trigger.value?.focus() })
-			return () =>
-				h('div', [
-					h(
-						'button',
-						{ ref: trigger, type: 'button', 'data-testid': 'trigger' },
-						slots.prefix?.()
-					),
-					h('span', { 'data-testid': 'error' }, props.error as string),
-					h('input', {
-						id: `${props.id}-search-input`,
-						'data-testid': 'search-input',
-					}),
-					h(
-						'span',
-						{ 'data-testid': 'slots' },
-						Object.keys(slots).sort().join(',')
-					),
-				])
-		},
-	}),
-	createResource: () => ({
-		loading: false,
-		submit: async (params: Record<string, unknown>) => {
-			calls.params.push(params)
-			if (calls.fail) throw new Error('offline')
-			return respond(params)
-		},
-	}),
-}))
+vi.mock('frappe-ui', async () => {
+	const { defineComponent, h, ref } = await import('vue')
+	return {
+		Avatar: defineComponent({
+			props: ['image', 'label', 'size'],
+			setup(props) {
+				return () =>
+					h('span', {
+						'data-testid': 'avatar',
+						'data-label': props.label,
+						'data-image': props.image ?? '',
+					})
+			},
+		}),
+		Button: defineComponent({
+			inheritAttrs: false,
+			props: ['icon', 'variant'],
+			setup(props, { attrs }) {
+				return () =>
+					h('button', { type: 'button', ...attrs }, [
+						props.icon ? h('span', { class: props.icon }) : null,
+					])
+			},
+		}),
+		MultiSelect: defineComponent({
+			name: 'MultiSelectStub',
+			props: [
+				'id',
+				'modelValue',
+				'query',
+				'options',
+				'loading',
+				'filterable',
+				'error',
+				'label',
+				'variant',
+			],
+			emits: ['update:modelValue', 'update:open', 'update:query'],
+			setup(props, { expose, slots }) {
+				const trigger = ref<HTMLButtonElement | null>(null)
+				expose({ focus: () => trigger.value?.focus() })
+				return () =>
+					h('div', [
+						h(
+							'button',
+							{ ref: trigger, type: 'button', 'data-testid': 'trigger' },
+							slots.prefix?.()
+						),
+						h('span', { 'data-testid': 'error' }, props.error as string),
+						h('input', {
+							id: `${props.id}-search-input`,
+							'data-testid': 'search-input',
+						}),
+						h(
+							'span',
+							{ 'data-testid': 'slots' },
+							Object.keys(slots).sort().join(',')
+						),
+					])
+			},
+		}),
+		createResource: () => ({
+			loading: false,
+			submit: async (params: Record<string, unknown>) => {
+				calls.params.push(params)
+				if (calls.fail) throw new Error('offline')
+				return respond(params)
+			},
+		}),
+	}
+})
 
 import StudentPicker from '@/components/Enrollment/StudentPicker.vue'
 
@@ -153,8 +160,10 @@ const LIST_SLOT = `<template #list="{ students, remove }">
 const mountPicker = (
 	modelValue: string[] = [],
 	slots: Record<string, string> = {},
-	includeEnrolled = false
+	includeEnrolled = false,
+	lang = 'en'
 ) => {
+	const translate = installTranslations(lang)
 	const wrapper = mount(StudentPicker, {
 		slots: { list: LIST_SLOT, ...slots },
 		props: {
@@ -502,4 +511,52 @@ describe('StudentPicker', () => {
 		await flushPromises()
 		expect(lastModel(wrapper)).toEqual([])
 	})
+})
+
+describe('FR-03B.2 translated selection bounds', () => {
+	for (const lang of ['fr', 'en']) {
+		it.each([0, 1, 2, 50, 51])(
+			`limits %s proposed learners in ${lang}`,
+			async (n) => {
+				const view = mountPicker([], {}, false, lang)
+				expect(picker(view).props('label')).toBe(
+					lang === 'fr' ? 'Apprenants' : 'Students'
+				)
+				if (n === 0)
+					expect(view.text()).toContain(
+						lang === 'fr' ? 'Aucun apprenant ajouté' : 'No students added'
+					)
+				const names = Array.from(
+					{ length: n },
+					(_, i) => `fictitious${i}@example.com`
+				)
+				await pick(view, names)
+				expect(lastModel(view)?.length).toBe(Math.min(n, 50))
+				expect(picker(view).props('error')).toBe(
+					n > 50
+						? lang === 'fr'
+							? "Vous pouvez inscrire jusqu'à 50 apprenants à la fois."
+							: 'You can enroll up to 50 students at a time.'
+						: ''
+				)
+			}
+		)
+		it(`searches by name/email without altering API params in ${lang}`, async () => {
+			const view = mountPicker([], {}, false, lang)
+			await open(view)
+			await typeQuery(view, 'Jane')
+			await waitForSearch()
+			expect(optionValues(view)).toContain('jane@x.com')
+			await typeQuery(view, 'john@x.com')
+			await waitForSearch()
+			expect(optionValues(view)).toEqual(['john@x.com'])
+			expect(calls.params.at(-1)).toEqual({
+				txt: 'john@x.com',
+				enroll_doctype: 'LMS Course',
+				enroll_docname: 'course-1',
+				include_enrolled: false,
+				page_length: 20,
+			})
+		})
+	}
 })

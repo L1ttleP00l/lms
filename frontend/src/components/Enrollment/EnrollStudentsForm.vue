@@ -320,10 +320,11 @@ const seatsExceeded = computed<boolean>(() =>
 const seatsMessage = computed<string>(() => {
 	if (!paid.value || seatsLeft.value === null || !seatsExceeded.value) return ''
 	const ready = rows.value.filter((row) => row.status === 'ready').length
-	return __('{0} seats left, {1} selected', [
-		Math.max(seatsLeft.value, 0),
-		ready,
-	])
+	return (
+		seatsLeft.value === 1
+			? __('{0} seat left, {1} selected')
+			: __('{0} seats left, {1} selected')
+	).format(Math.max(seatsLeft.value, 0), ready)
 })
 
 const canEnroll = computed<boolean>(() => {

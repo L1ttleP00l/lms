@@ -32,6 +32,37 @@ def extract_files(files):
 
 
 class TypeScriptExtractionTests(unittest.TestCase):
+	def test_vue_bulk_enrollment_messages(self):
+		paths = [
+			"frontend/src/components/Enrollment/StudentPicker.vue",
+			"frontend/src/components/Enrollment/EnrollStudentsForm.vue",
+			"frontend/src/components/Enrollment/EnrollPaymentPanel.vue",
+		]
+		rows = extract_files({p: (ROOT / p).read_text() for p in paths})
+		keys = {message for _, _, message, _, _ in rows}
+		expected = {
+			"Different addresses for these {0} students",
+			"{0} seats left, {1} selected",
+			"You can enroll up to {0} students at a time.",
+		}
+		self.assertTrue(expected <= keys, f"Missing: {expected-keys}")
+
+	def test_vue_argument_layout_with_native_extractors(self):
+		variants = {
+			"simple": "__('Probe {0}', [value])",
+			"newline_before_message": "__(\n 'Probe {0}', [value])",
+			"newline_in_array": "__('Probe {0}', [\n value,\n])",
+			"external_format": "__('Probe {0}').format(\n value\n)",
+		}
+		for label, source in variants.items():
+			for suffix in ("vue", "ts"):
+				with self.subTest(label=label, suffix=suffix):
+					rows = extract_files({f"frontend/src/utils/probe.{suffix}": source})
+					self.assertEqual(
+						[message for _, _, message, _, _ in rows],
+						[] if label == "newline_in_array" and suffix == "vue" else ["Probe {0}"],
+					)
+
 	def test_real_typescript_messages(self):
 		paths = [
 			"frontend/src/components/Enrollment/enrollment.ts",

@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
@@ -5,8 +6,7 @@ import { defineComponent, h, reactive } from 'vue'
 import { formatMoney } from '@/components/Enrollment/enrollment'
 import type { EnrollStatus, EnrollTarget, LinkablePayment } from '@/types'
 
-const translate = (text: string, args?: unknown[]) =>
-	args ? text.replace(/\{(\d+)\}/g, (_, i) => String(args[Number(i)])) : text
+const translate = installTranslations('en')
 vi.stubGlobal('__', translate)
 enableAutoUnmount(afterEach)
 
