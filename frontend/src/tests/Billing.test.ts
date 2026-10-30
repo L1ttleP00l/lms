@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
 import { reactive } from 'vue'
 import Billing from '@/pages/Billing.vue'
+import translationPlugin from '@/translation'
 
 type BillingAddress = Record<string, unknown>
 type SubmittedCall = { url: string; params: { address: BillingAddress } }
@@ -20,6 +21,9 @@ const ACCESS_URL = 'lms.lms.api.validate_billing_access'
 const SUMMARY_URL = 'lms.lms.utils.get_order_summary'
 const PAYMENT_URL = 'lms.lms.payments.get_payment_link'
 
+let fieldMetaOverride = {}
+let accessAllowed = true
+let summaryFixture: Record<string, unknown> = {}
 let addressFixture: Record<string, unknown> | null = null
 
 const FIELD_META = {
@@ -88,15 +92,15 @@ const createResourceMock = (opts: ResourceOptions) => {
 			})
 			if (opts.url === ACCESS_URL) {
 				const data = {
-					access: true,
-					message: '',
+					access: accessAllowed,
+					message: accessAllowed ? '' : 'SIMULATED REFUSAL',
 					address: addressFixture,
-					billing_field_meta: FIELD_META,
+					billing_field_meta: { ...FIELD_META, ...fieldMetaOverride },
 				}
 				res.data = data
 				opts.onSuccess?.(data)
 			} else if (opts.url === SUMMARY_URL) {
-				res.data = SUMMARY
+				res.data = { ...SUMMARY, ...summaryFixture }
 			}
 		}),
 	})
@@ -159,7 +163,10 @@ vi.mock('@/stores/session', () => ({
 	sessionStore: () => ({ brand: { favicon: '' } }),
 }))
 vi.mock('@/components/NotPermitted.vue', () => ({
-	default: { template: '<div />' },
+	default: {
+		props: ['text', 'buttonLabel', 'buttonLink'],
+		template: '<a :href="buttonLink">{{ buttonLabel }}</a>',
+	},
 }))
 vi.mock('@/components/Controls/Link.vue', () => ({
 	default: {
@@ -176,25 +183,70 @@ vi.mock('@/utils/basePath', () => ({ getLmsRoute: (r: string) => `/lms/${r}` }))
 
 vi.stubGlobal('__', (s: string) => s)
 
+const french: Record<string, string> = {
+	'Payment for the course': 'Paiement du cours',
+	'Payment for the training session': 'Paiement de la session de formation',
+	'Payment for the certificate option': "Paiement de l'option certificat",
+	'Confirm without payment': 'Valider sans paiement',
+	'Proceed to Payment': 'Procéder au paiement',
+	'Billing Details': 'Informations de facturation',
+	'Back to course': 'Retour au cours',
+	'Back to training session': 'Retour à la session',
+	'Billing Name': 'Nom de facturation',
+	'Address Line 1': "Ligne d'adresse 1",
+	'Address Line 2': "Ligne d'adresse 2",
+	City: 'Ville',
+	'State/Province': 'État/Province',
+	'Postal Code': 'Code postal',
+	'Phone Number': 'Numéro de téléphone',
+	'GST Number': 'Numéro de GST',
+	'PAN Number': 'Numéro PAN',
+	Country: 'Pays',
+	'Please enter a valid value for {0}.':
+		'Veuillez saisir une valeur valide pour le champ « {0} ».',
+	'Please enter a valid PAN number.': 'Veuillez saisir un numéro PAN valide.',
+	'Please provide your consent to proceed with the payment':
+		'Veuillez donner votre accord pour poursuivre le paiement.',
+	'Please provide your consent to proceed with the payment.':
+		'Veuillez donner votre accord pour poursuivre le paiement.',
+	'I consent to my personal information being stored for invoicing':
+		'J’accepte que mes données personnelles soient conservées pour la facturation.',
+	'Please select your state from the list.':
+		'Veuillez sélectionner votre État dans la liste.',
+}
+beforeEach(() => {
+	accessAllowed = true
+	fieldMetaOverride = {}
+	summaryFixture = {}
+	submitted.length = 0
+	unhandled.length = 0
+	vi.clearAllMocks()
+})
+
 const address = (over: Record<string, unknown> = {}) => ({
-	billing_name: 'Channeltech Systems Pvt Ltd',
-	address_line1: 'Best Paper Mill Compound',
+	billing_name: 'FR02C2 Test Learner',
+	address_line1: '1 Fictional Test Street',
 	address_line2: '',
-	city: 'Vapi',
+	city: 'Test City',
 	state: 'Gujarat',
 	country: 'India',
-	pincode: '396195',
-	phone: '9974447180',
+	pincode: '000000',
+	phone: '0000000000',
 	...over,
 })
 
-const mountBilling = async (over: Record<string, unknown> = {}) => {
+const mountBilling = async (
+	over: Record<string, unknown> = {},
+	type = 'batch',
+	lang = 'en'
+) => {
+	window.translatedMessages = lang === 'fr' ? french : {}
 	addressFixture = address(over)
 	const wrapper = mount(Billing, {
-		props: { type: 'batch', name: 'BATCH-01' },
+		props: { type, name: 'BATCH-01' },
 		global: {
 			provide: { $user: { data: { name: 'a@b.c' } } },
-			mocks: { __: (s: string) => s },
+			plugins: [translationPlugin],
 			stubs: { RouterLink: true },
 		},
 	})
@@ -205,7 +257,7 @@ const mountBilling = async (over: Record<string, unknown> = {}) => {
 const consent = async (wrapper: VueWrapper) => {
 	const box = wrapper
 		.findAll('input[type="checkbox"]')
-		.find((i) => i.attributes('data-testid')?.includes('consent'))
+		.find((i) => i.attributes('type') === 'checkbox')
 	if (!box) throw new Error('consent checkbox not rendered')
 	await box.setValue(true)
 }
@@ -213,7 +265,11 @@ const consent = async (wrapper: VueWrapper) => {
 const proceed = async (wrapper: VueWrapper) => {
 	const button = wrapper
 		.findAll('button')
-		.find((b) => b.text().includes('Proceed to Payment'))
+		.find((b) =>
+			/Proceed to Payment|Confirm without payment|Procéder au paiement|Valider sans paiement/.test(
+				b.text()
+			)
+		)
 	if (!button) throw new Error('checkout button not rendered')
 	await button.trigger('click')
 	await flushPromises()
@@ -336,7 +392,7 @@ describe('Billing: checkout validation errors reach the user', () => {
 		const wrapper = await mountBilling()
 		const box = wrapper
 			.findAll('input[type="checkbox"]')
-			.find((i) => i.attributes('data-testid')?.includes('consent'))
+			.find((i) => i.attributes('type') === 'checkbox')
 
 		expect(box?.attributes('aria-required')).toBe('true')
 	})
@@ -395,4 +451,146 @@ describe('Billing: coupon field', () => {
 
 		expect(toastMock.error).toHaveBeenCalledWith('Please enter a coupon code')
 	})
+})
+
+describe('Billing contextual French and English', () => {
+	for (const lang of ['fr', 'en']) {
+		for (const type of ['course', 'batch', 'certificate']) {
+			it.each([
+				{ amount: 100, discount: 0 },
+				{ amount: 0, discount: 0 },
+				{ amount: 0, discount: 100 },
+			])(
+				`labels ${type} for amount $amount and discount $discount in ${lang}`,
+				async ({ amount, discount }) => {
+					summaryFixture = {
+						total_amount: amount,
+						discount_amount: discount,
+					}
+					const view = await mountBilling({}, type, lang)
+					const expected =
+						lang === 'fr'
+							? {
+									course: 'Paiement du cours',
+									batch: 'Paiement de la session de formation',
+									certificate: "Paiement de l'option certificat",
+							  }
+							: {
+									course: 'Payment for the course',
+									batch: 'Payment for the training session',
+									certificate: 'Payment for the certificate option',
+							  }
+					expect(view.text()).toContain(expected[type as keyof typeof expected])
+					expect(view.text()).toContain(
+						lang === 'fr'
+							? amount
+								? 'Procéder au paiement'
+								: 'Valider sans paiement'
+							: amount
+							? 'Proceed to Payment'
+							: 'Confirm without payment'
+					)
+					expect(checkout()).toBeFalsy()
+				}
+			)
+			it(`returns ${type} to the correct destination in ${lang}`, async () => {
+				accessAllowed = false
+				const view = await mountBilling({}, type, lang)
+				const link = view.get('a')
+				expect(link.attributes('href')).toBe(
+					`/lms/${type === 'batch' ? 'batches' : 'courses'}/BATCH-01`
+				)
+				expect(link.text()).toBe(
+					lang === 'fr'
+						? type === 'batch'
+							? 'Retour à la session'
+							: 'Retour au cours'
+						: type === 'batch'
+						? 'Back to training session'
+						: 'Back to course'
+				)
+			})
+		}
+		it.each([
+			'billing_name',
+			'address_line1',
+			'address_line2',
+			'city',
+			'state',
+			'pincode',
+			'country',
+			'phone',
+			'gstin',
+			'pan',
+		])(`localizes required field %s in ${lang}`, async (field) => {
+			fieldMetaOverride = { [field]: { reqd: 1 } }
+			const view = await mountBilling({ [field]: '' }, 'course', lang)
+			if (field === 'country')
+				await view
+					.get(`[data-testid="link-${lang === 'fr' ? 'Pays' : 'Country'}"]`)
+					.setValue('')
+			await consent(view)
+			await proceed(view)
+			const labels: Record<string, string> = {
+				billing_name: 'Billing Name',
+				address_line1: 'Address Line 1',
+				city: 'City',
+				country: 'Country',
+				address_line2: 'Address Line 2',
+				state: 'State/Province',
+				pincode: 'Postal Code',
+				phone: 'Phone Number',
+				gstin: 'GST Number',
+				pan: 'PAN Number',
+			}
+			const label =
+				lang === 'fr' ? french[labels[field]] || labels[field] : labels[field]
+			expect(toastMock.error).toHaveBeenCalledWith(
+				lang === 'fr'
+					? `Veuillez saisir une valeur valide pour le champ « ${label} ».`
+					: `Please enter a valid value for ${label}.`
+			)
+			expect(checkout()).toBeFalsy()
+		})
+		it(`localizes PAN, Indian-state and consent errors in ${lang}`, async () => {
+			const pan = await mountBilling(
+				{ gstin: 'SIMULATED-GST', pan: '' },
+				'course',
+				lang
+			)
+			await consent(pan)
+			await proceed(pan)
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				lang === 'fr'
+					? 'Veuillez saisir un numéro PAN valide.'
+					: 'Please enter a valid PAN number.'
+			)
+			const state = await mountBilling(
+				{ state: 'Invalid Test State' },
+				'course',
+				lang
+			)
+			await consent(state)
+			await proceed(state)
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				lang === 'fr'
+					? 'Veuillez sélectionner votre État dans la liste.'
+					: 'Please select your state from the list.'
+			)
+			const view = await mountBilling({}, 'course', lang)
+			await proceed(view)
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				lang === 'fr'
+					? 'Veuillez donner votre accord pour poursuivre le paiement.'
+					: 'Please provide your consent to proceed with the payment.'
+			)
+			expect(view.find('[data-slot="error"]').text()).toBe(
+				lang === 'fr'
+					? 'Veuillez donner votre accord pour poursuivre le paiement.'
+					: 'Please provide your consent to proceed with the payment'
+			)
+			await consent(view)
+			expect(view.find('[data-slot="error"]').exists()).toBe(false)
+		})
+	}
 })

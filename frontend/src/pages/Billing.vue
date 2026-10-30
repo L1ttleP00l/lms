@@ -7,7 +7,7 @@
 					<div class="h-fit bg-surface-gray-2 rounded-5 p-5 space-y-4">
 						<div class="space-y-1">
 							<div class="text-ink-gray-6 uppercase text-xs">
-								{{ __('Payment for ') }} {{ type }}:
+								{{ paymentPurpose }}:
 							</div>
 							<div class="leading-5 text-ink-gray-9">
 								{{ orderSummary.data.title }}
@@ -215,7 +215,9 @@
 							@click="generatePaymentLink()"
 						>
 							{{
-								isZeroAmount ? __('Enroll for Free') : __('Proceed to Payment')
+								isZeroAmount
+									? __('Confirm without payment')
+									: __('Proceed to Payment')
 							}}
 						</Button>
 					</div>
@@ -225,12 +227,8 @@
 		<div v-else-if="access.data?.message">
 			<NotPermitted
 				:text="access.data.message"
-				:buttonLabel="type == 'course' ? 'Checkout Course' : 'Checkout Batch'"
-				:buttonLink="
-					type == 'course'
-						? getLmsRoute(`courses/${name}`)
-						: getLmsRoute(`batches/${name}`)
-				"
+				:buttonLabel="returnLabel"
+				:buttonLink="returnLink"
 			/>
 		</div>
 		<div v-else-if="!user.data?.name">
@@ -290,6 +288,21 @@ const props = defineProps({
 		required: true,
 	},
 })
+
+const paymentPurpose = computed(() => {
+	if (props.type === 'batch') return __('Payment for the training session')
+	if (props.type === 'certificate')
+		return __('Payment for the certificate option')
+	return __('Payment for the course')
+})
+const returnLabel = computed(() =>
+	props.type === 'batch' ? __('Back to training session') : __('Back to course')
+)
+const returnLink = computed(() =>
+	getLmsRoute(
+		props.type === 'batch' ? `batches/${props.name}` : `courses/${props.name}`
+	)
+)
 
 const access = createResource({
 	url: 'lms.lms.api.validate_billing_access',
@@ -411,6 +424,20 @@ function removeCoupon() {
 	orderSummary.reload()
 }
 
+const billingFieldLabel = (field) =>
+	({
+		billing_name: __('Billing Name'),
+		address_line1: __('Address Line 1'),
+		address_line2: __('Address Line 2'),
+		city: __('City'),
+		state: __('State/Province'),
+		pincode: __('Postal Code'),
+		country: __('Country'),
+		phone: __('Phone Number'),
+		gstin: __('GST Number'),
+		pan: __('PAN Number'),
+	}[field])
+
 const validateAddress = () => {
 	let billingFields = [
 		'billing_name',
@@ -427,17 +454,13 @@ const validateAddress = () => {
 	let mandatoryFields = billingFields.filter((f) => fieldMeta[f]?.reqd)
 	for (let field of mandatoryFields) {
 		if (!billingDetails[field])
-			return (
-				'Please enter a valid ' +
-				field
-					.replaceAll('_', ' ')
-					.toLowerCase()
-					.replace(/\b\w/g, (s) => s.toUpperCase())
+			return __('Please enter a valid value for {0}.').format(
+				billingFieldLabel(field)
 			)
 	}
 
 	if (billingDetails.gstin && !billingDetails.pan)
-		return 'Please enter a valid pan number.'
+		return __('Please enter a valid PAN number.')
 
 	if (billingDetails.country != 'India') return
 

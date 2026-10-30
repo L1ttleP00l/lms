@@ -8,8 +8,6 @@ from lms.lms.utils import (
 	get_order_summary,
 )
 
-GATEWAY_NOT_CONFIGURED_TITLE = "Payment Gateway Not Configured"
-
 
 def get_payment_gateway():
 	return frappe.db.get_single_value("LMS Settings", "payment_gateway")
@@ -28,13 +26,13 @@ def validate_payment_gateway(payment_gateway):
 	if "payments" not in frappe.get_installed_apps():
 		frappe.throw(
 			_("The Payments app is not installed. Please contact the administrator."),
-			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
+			title=_("Payment Gateway Not Configured"),
 		)
 
 	if not payment_gateway:
 		frappe.throw(
 			_("No payment gateway is configured. Please contact the administrator."),
-			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
+			title=_("Payment Gateway Not Configured"),
 		)
 
 	if not frappe.db.exists("Payment Gateway", payment_gateway):
@@ -42,7 +40,7 @@ def validate_payment_gateway(payment_gateway):
 			_("The configured payment gateway {0} does not exist. Please contact the administrator.").format(
 				frappe.bold(payment_gateway)
 			),
-			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
+			title=_("Payment Gateway Not Configured"),
 		)
 
 
