@@ -204,7 +204,7 @@ function enrollStudent() {
 			}, 1000)
 		})
 		.catch((err: FrappeResourceError) => {
-			const msg = resourceErrorMessage(err, 'Error')
+			const msg = resourceErrorMessage(err, __('Error'))
 			toast.warning(__(msg))
 			console.error(err)
 		})
