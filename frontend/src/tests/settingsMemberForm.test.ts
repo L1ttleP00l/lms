@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 /**
  * Settings > Users > member form: adding and editing a member goes through the
  * members API (add_member, update_member), never a direct write on User, which
@@ -77,14 +78,16 @@ vi.mock('@/utils', () => ({ sanitizeHTML: (html: string) => html }))
 
 import MemberForm from '@/components/Settings/Members/MemberForm.vue'
 
-const mountForm = (name: string) =>
-	mount(MemberForm, {
+const mountForm = (name: string, lang = 'en', moderator = true) => {
+	const translate = installTranslations(lang)
+	return mount(MemberForm, {
 		props: { name },
 		global: {
-			mocks: { __: (text: string) => text },
-			provide: { $user: { data: { is_moderator: true } } },
+			mocks: { __: translate },
+			provide: { $user: { data: { is_moderator: moderator } } },
 		},
 	})
+}
 
 beforeEach(() => {
 	callMock.mockReset()
@@ -221,4 +224,80 @@ describe('Settings member form', () => {
 		await flushPromises()
 		expect(w.emitted('back')).toHaveLength(1)
 	})
+})
+
+describe('FR-03B.1 settings member messages', () => {
+	for (const lang of ['fr', 'en']) {
+		const tr = (fr: string, en: string) => (lang === 'fr' ? fr : en)
+		it(`refuses read-only mode before any write in ${lang}`, async () => {
+			const previous = (window as any).read_only_mode
+			try {
+				;(window as any).read_only_mode = true
+				record.doc = reactive({
+					email: 'fr03-test@example.com',
+					first_name: 'Fictional',
+				})
+				const view = mountForm('new', lang)
+				expect(view.text()).toContain(
+					tr('Ce site est en lecture seule.', 'This site is in read-only mode.')
+				)
+				expect(callMock).not.toHaveBeenCalled()
+			} finally {
+				;(window as any).read_only_mode = previous
+			}
+		})
+
+		it(`creates and edits entirely in memory in ${lang}`, async () => {
+			record.doc = reactive({
+				email: 'fr03-test@example.com',
+				first_name: 'Fictional',
+			})
+			callMock.mockResolvedValue({ name: 'fr03-test@example.com' })
+			const added = mountForm('new', lang)
+			await added.get('[data-testid="save"]').trigger('click')
+			await flushPromises()
+			expect(toastMock.success).toHaveBeenLastCalledWith(
+				tr('Membre ajouté avec succès', 'Member added successfully')
+			)
+			record.doc = reactive({
+				name: 'fr03-test@example.com',
+				first_name: 'Fictional',
+			})
+			const edited = mountForm('fr03-test@example.com', lang)
+			await edited.get('[data-testid="save"]').trigger('click')
+			await flushPromises()
+			expect(toastMock.success).toHaveBeenLastCalledWith(
+				tr('Membre mis à jour', 'Member updated')
+			)
+			expect(callMock.mock.calls.map((c) => c[0])).toEqual([
+				'lms.lms.api.add_member',
+				'lms.lms.api.update_member',
+			])
+		})
+		it(`validates, refuses and reports a simulated failure in ${lang}`, async () => {
+			record.doc = reactive({ email: '', first_name: '' })
+			const blank = mountForm('new', lang)
+			await blank.get('[data-testid="save"]').trigger('click')
+			await flushPromises()
+			expect(callMock).not.toHaveBeenCalled()
+			record.doc = reactive({
+				email: 'fr03-test@example.com',
+				first_name: 'Fictional',
+			})
+			const refused = mountForm('new', lang, false)
+			expect(refused.text()).toContain(
+				tr(
+					'Vous n’êtes pas autorisé à gérer les membres.',
+					'You are not permitted to manage members.'
+				)
+			)
+			callMock.mockRejectedValue({})
+			const failed = mountForm('new', lang)
+			await failed.get('[data-testid="save"]').trigger('click')
+			await flushPromises()
+			expect(toastMock.error).toHaveBeenLastCalledWith(
+				tr('Impossible d’ajouter le membre', 'Unable to add member')
+			)
+		})
+	}
 })

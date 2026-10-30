@@ -9,6 +9,14 @@
 		v-model:search="list.search"
 		searchable
 		empty-name="Users"
+		:empty-title="__('No members found')"
+		:empty-description="
+			list.search
+				? __('No members match {0}.').format(list.search)
+				: role !== 'All'
+				? __('No members match this role filter.')
+				: __('Add a member to get started.')
+		"
 		empty-icon="lucide-user"
 		@new="openForm(null)"
 		@load-more="list.loadMore()"

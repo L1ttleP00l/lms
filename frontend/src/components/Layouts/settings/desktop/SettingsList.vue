@@ -81,11 +81,12 @@
 			<EmptyStateLayout
 				v-else-if="search || filtered"
 				:name="emptyName"
-				:title="__('No results')"
+				:title="emptyTitle || __('No results')"
 				:description="
-					search
+					emptyDescription ||
+					(search
 						? __('No {0} match {1}').format(emptyName.toLowerCase(), search)
-						: __('No {0} match this filter').format(emptyName.toLowerCase())
+						: __('No {0} match this filter').format(emptyName.toLowerCase()))
 				"
 				:icon="emptyIcon"
 			/>
@@ -97,7 +98,8 @@
 			<EmptyStateLayout
 				v-else
 				:name="emptyName"
-				:description="__('Add one to get started')"
+				:title="emptyTitle"
+				:description="emptyDescription || __('Add one to get started')"
 				:icon="emptyIcon"
 			/>
 		</div>
@@ -133,6 +135,8 @@ const props = withDefaults(
 		newLabel?: string
 		showBack?: boolean
 		emptyName?: string
+		emptyTitle?: string
+		emptyDescription?: string
 		emptyIcon?: string
 		/**
 		 * Replaces the plain "Add one to get started" empty state with a page's

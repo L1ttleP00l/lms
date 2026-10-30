@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import {
@@ -151,8 +152,10 @@ const makeRouter = (): Router =>
 
 const mountForm = async (
 	router: Router,
-	user: Record<string, unknown> | null = moderator
+	user: Record<string, unknown> | null = moderator,
+	lang = 'en'
 ) => {
+	const translate = installTranslations(lang)
 	const wrapper = mount(defineComponent({ render: () => h(RouterView) }), {
 		global: {
 			plugins: [router],
@@ -160,7 +163,7 @@ const mountForm = async (
 			stubs: { teleport: true },
 			// vi.stubGlobal alone doesn't reach a compiled template's `_ctx.__`
 			// access — it has to be on the instance too (see FormShell.test.ts).
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	await flushPromises()
@@ -199,6 +202,33 @@ describe('the member form route', () => {
 		getCachedResourceMock.mockReturnValue(null)
 		toastMock.success.mockClear()
 		toastMock.error.mockClear()
+	})
+
+	it('renders French roles and preserves the technical save_role contract', async () => {
+		const router = makeRouter()
+		await router.push('/settings/users/new')
+		const view = await mountForm(router, moderator, 'fr')
+		for (const label of [
+			'Apprenant',
+			'Créateur de cours',
+			'Évaluateur',
+			'Modérateur',
+		])
+			expect(view.text()).toContain(label)
+		expect(view.text()).toContain('Suivre des cours et sa progression')
+		await switchNamed(view, 'Évaluateur').trigger('click')
+		await view
+			.get('[data-testid="field-Courriel"] input')
+			.setValue('fr03-test@example.com')
+		callMock.mockResolvedValue({ name: 'fr03-test@example.com' })
+		await save(view).trigger('click')
+		await flushPromises()
+		expect(callMock).toHaveBeenCalledWith('lms.lms.api.save_role', {
+			user: 'fr03-test@example.com',
+			role: 'Batch Evaluator',
+			value: 1,
+		})
+		expect(toastMock.success).toHaveBeenCalledWith('Membre ajouté avec succès')
 	})
 
 	// resolve(), not push(): matching is synchronous and does not pull in the

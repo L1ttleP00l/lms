@@ -370,3 +370,29 @@ describe('SettingsList', () => {
 		})
 	})
 })
+
+describe('contextual empty text overrides', () => {
+	it.each([
+		{ search: '' },
+		{ search: 'fictional' },
+		{ search: '', filtered: true },
+	])('uses complete caller messages in state $search / $filtered', (state) => {
+		const view = mount(SettingsList, {
+			props: {
+				title: 'Users',
+				columns: [],
+				rows: [],
+				emptyName: 'Users',
+				...state,
+				emptyTitle: 'Contextual title',
+				emptyDescription: 'Contextual description',
+			},
+			global: { mocks: { __: globalThis.__ } },
+		})
+		expect(view.get('[data-testid="empty"]').attributes('data-title')).toBe(
+			'Contextual title'
+		)
+		expect(view.text()).toContain('Contextual description')
+		expect(view.text()).not.toContain('No Users Found')
+	})
+})
