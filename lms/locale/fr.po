@@ -1329,7 +1329,7 @@ msgstr "Adresse de facturation"
 #: frontend/src/pages/Billing.vue:477
 #: lms/lms/doctype/lms_payment/lms_payment.json:124
 msgid "Billing Details"
-msgstr "Détails de la Facturation"
+msgstr "Informations de facturation"
 
 #. Label of the billing_name (Data) field in DocType 'LMS Payment'
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:20
@@ -4563,7 +4563,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:176
 msgid "GST Number"
-msgstr ""
+msgstr "Numéro de GST"
 
 #. Label of the gstin (Data) field in DocType 'LMS Payment'
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:294
@@ -4960,7 +4960,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:194
 msgid "I consent to my personal information being stored for invoicing"
-msgstr ""
+msgstr "J’accepte que mes données personnelles soient conservées pour la facturation."
 
 #. Label of the icon (Data) field in DocType 'LMS Sidebar Item'
 #: frontend/src/components/Settings/Sidebar/SidebarPageModal.vue:26
@@ -8185,11 +8185,11 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:204
 msgid "Please provide your consent to proceed with the payment"
-msgstr ""
+msgstr "Veuillez donner votre accord pour poursuivre le paiement."
 
 #: frontend/src/pages/Billing.vue:380
 msgid "Please provide your consent to proceed with the payment."
-msgstr ""
+msgstr "Veuillez donner votre accord pour poursuivre le paiement."
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:229
 #: lms/lms/doctype/lms_batch/lms_batch.py:465
@@ -8265,11 +8265,11 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:449
 msgid "Please select your state from the list."
-msgstr ""
+msgstr "Veuillez sélectionner votre État dans la liste."
 
 #: frontend/src/pages/Billing.vue:444
 msgid "Please select your state."
-msgstr ""
+msgstr "Veuillez sélectionner votre État."
 
 #: lms/templates/emails/job_report.html:6
 #, python-brace-format
@@ -8502,7 +8502,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:218
 msgid "Proceed to Payment"
-msgstr ""
+msgstr "Procéder au paiement"
 
 #: frontend/src/components/Assessment/AssessmentBlockPreview.vue:35
 msgid "Proctored"
@@ -13752,4 +13752,41 @@ msgstr "Il y a 1 mois"
 #, python-brace-format
 msgid "{0} months ago"
 msgstr "Il y a {0} mois"
+
+#: frontend/src/pages/Billing.vue:296
+msgid "Payment for the course"
+msgstr "Paiement du cours"
+
+#: frontend/src/pages/Billing.vue:293
+msgid "Payment for the training session"
+msgstr "Paiement de la session de formation"
+
+#: frontend/src/pages/Billing.vue:295
+msgid "Payment for the certificate option"
+msgstr "Paiement de l'option certificat"
+
+#: frontend/src/pages/Billing.vue:219
+msgid "Confirm without payment"
+msgstr "Valider sans paiement"
+
+#: frontend/src/pages/Billing.vue:299
+msgid "Back to course"
+msgstr "Retour au cours"
+
+#: frontend/src/pages/Billing.vue:299
+msgid "Back to training session"
+msgstr "Retour à la session"
+
+#: frontend/src/pages/Billing.vue:457
+#, python-brace-format
+msgid "Please enter a valid value for {0}."
+msgstr "Veuillez saisir une valeur valide pour le champ « {0} »."
+
+#: frontend/src/pages/Billing.vue:463
+msgid "Please enter a valid PAN number."
+msgstr "Veuillez saisir un numéro PAN valide."
+
+#: lms/lms/payments.py:29 lms/lms/payments.py:35 lms/lms/payments.py:43
+msgid "Payment Gateway Not Configured"
+msgstr "Passerelle de paiement non configurée"
 

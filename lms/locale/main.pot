@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-29 14:40+0000\n"
-"PO-Revision-Date: 2026-10-29 14:40+0000\n"
+"POT-Creation-Date: 2026-10-30 14:12+0000\n"
+"PO-Revision-Date: 2026-10-30 14:12+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -573,12 +573,13 @@ msgid "Address"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:31
-#: frontend/src/pages/Billing.vue:112 lms/lms/bulk_enrollment.py:84
+#: frontend/src/pages/Billing.vue:112 frontend/src/pages/Billing.vue:430
+#: lms/lms/bulk_enrollment.py:84
 msgid "Address Line 1"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:37
-#: frontend/src/pages/Billing.vue:118
+#: frontend/src/pages/Billing.vue:118 frontend/src/pages/Billing.vue:431
 msgid "Address Line 2"
 msgstr ""
 
@@ -1257,12 +1258,20 @@ msgstr ""
 msgid "Back to Home"
 msgstr ""
 
+#: frontend/src/pages/Billing.vue:299
+msgid "Back to course"
+msgstr ""
+
 #: frontend/src/pages/Forms/ProgrammingExerciseForm.vue:13
 msgid "Back to editing"
 msgstr ""
 
 #: frontend/src/components/DiscussionReplies.vue:7
 msgid "Back to topics"
+msgstr ""
+
+#: frontend/src/pages/Billing.vue:299
+msgid "Back to training session"
 msgstr ""
 
 #. Label of the badge (Link) field in DocType 'LMS Badge Assignment'
@@ -1550,8 +1559,8 @@ msgstr ""
 
 #. Label of the billing_details_section (Section Break) field in DocType 'LMS
 #. Payment'
-#: frontend/src/pages/Billing.vue:3 frontend/src/pages/Billing.vue:269
-#: frontend/src/pages/Billing.vue:477
+#: frontend/src/pages/Billing.vue:3 frontend/src/pages/Billing.vue:267
+#: frontend/src/pages/Billing.vue:500
 #: lms/lms/doctype/lms_payment/lms_payment.json:123
 msgid "Billing Details"
 msgstr ""
@@ -1559,7 +1568,8 @@ msgstr ""
 #. Label of the billing_name (Data) field in DocType 'LMS Payment'
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:20
 #: frontend/src/components/Settings/Transactions/transactions.ts:243
-#: frontend/src/pages/Billing.vue:106 lms/lms/bulk_enrollment.py:83
+#: frontend/src/pages/Billing.vue:106 frontend/src/pages/Billing.vue:429
+#: lms/lms/bulk_enrollment.py:83
 #: lms/lms/doctype/lms_payment/lms_payment.json:108
 msgid "Billing Name"
 msgstr ""
@@ -2145,8 +2155,8 @@ msgstr ""
 #. Label of the location (Data) field in DocType 'Job Opportunity'
 #: frontend/src/components/Enrollment/enrollment.ts:196
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:42
-#: frontend/src/pages/Billing.vue:124 frontend/src/pages/Forms/JobForm.vue:80
-#: lms/fixtures/custom_field.json:1992
+#: frontend/src/pages/Billing.vue:124 frontend/src/pages/Billing.vue:432
+#: frontend/src/pages/Forms/JobForm.vue:80 lms/fixtures/custom_field.json:1992
 #: lms/job/doctype/job_opportunity/job_opportunity.json:40
 #: lms/lms/bulk_enrollment.py:85
 msgid "City"
@@ -2553,6 +2563,10 @@ msgstr ""
 msgid "Confirm clearing demo data?"
 msgstr ""
 
+#: frontend/src/pages/Billing.vue:219
+msgid "Confirm without payment"
+msgstr ""
+
 #: frontend/src/pages/Batches/BatchForm.vue:572
 msgid "Confirm your action to delete"
 msgstr ""
@@ -2787,7 +2801,7 @@ msgstr ""
 msgid "Could not set the default"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:387
+#: frontend/src/pages/Billing.vue:400
 msgid "Could not start the payment. Please contact the administrator."
 msgstr ""
 
@@ -2818,9 +2832,9 @@ msgstr ""
 #. Label of the country (Link) field in DocType 'Payment Country'
 #: frontend/src/components/Enrollment/enrollment.ts:200
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:53
-#: frontend/src/pages/Billing.vue:151 frontend/src/pages/Forms/JobForm.vue:86
-#: frontend/src/pages/Jobs.vue:58 frontend/src/pages/Jobs.vue:59
-#: lms/fixtures/custom_field.json:32
+#: frontend/src/pages/Billing.vue:151 frontend/src/pages/Billing.vue:435
+#: frontend/src/pages/Forms/JobForm.vue:86 frontend/src/pages/Jobs.vue:58
+#: frontend/src/pages/Jobs.vue:59 lms/fixtures/custom_field.json:32
 #: lms/job/doctype/job_opportunity/job_opportunity.json:113
 #: lms/lms/bulk_enrollment.py:86
 #: lms/lms/doctype/payment_country/payment_country.json:17
@@ -4285,10 +4299,6 @@ msgstr ""
 msgid "Enroll Students"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:218
-msgid "Enroll for Free"
-msgstr ""
-
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:35
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:99
 #: frontend/src/pages/Courses/CourseDashboard.vue:34
@@ -4409,6 +4419,7 @@ msgstr ""
 msgid "Enter email subject"
 msgstr ""
 
+#: frontend/src/components/CourseCardOverlay.vue:207
 #: frontend/src/components/CourseOutline.vue:184
 #: frontend/src/components/CourseOutline.vue:225
 #: frontend/src/components/Modals/ReviewModal.vue:75
@@ -5225,7 +5236,7 @@ msgstr ""
 msgid "GST Amount"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:176
+#: frontend/src/pages/Billing.vue:176 frontend/src/pages/Billing.vue:437
 msgid "GST Number"
 msgstr ""
 
@@ -8028,7 +8039,7 @@ msgstr ""
 msgid "No output"
 msgstr ""
 
-#: lms/lms/payments.py:36
+#: lms/lms/payments.py:34
 msgid "No payment gateway is configured. Please contact the administrator."
 msgstr ""
 
@@ -8706,7 +8717,7 @@ msgstr ""
 msgid "PAN"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:182
+#: frontend/src/pages/Billing.vue:182 frontend/src/pages/Billing.vue:438
 msgid "PAN Number"
 msgstr ""
 
@@ -8869,6 +8880,10 @@ msgstr ""
 msgid "Payment Gateway"
 msgstr ""
 
+#: lms/lms/payments.py:29 lms/lms/payments.py:35 lms/lms/payments.py:43
+msgid "Payment Gateway Not Configured"
+msgstr ""
+
 #. Label of the payment_id (Data) field in DocType 'LMS Payment'
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:56
 #: lms/lms/doctype/lms_payment/lms_payment.json:46
@@ -8913,10 +8928,6 @@ msgstr ""
 msgid "Payment details must have amount and currency, and may add source and address."
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:10
-msgid "Payment for "
-msgstr ""
-
 #. Label of the payment_for_certificate (Check) field in DocType 'LMS Payment'
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:75
 #: lms/lms/doctype/lms_payment/lms_payment.json:163
@@ -8933,6 +8944,18 @@ msgstr ""
 #. Payment'
 #: lms/lms/doctype/lms_payment/lms_payment.json:141
 msgid "Payment for Document Type"
+msgstr ""
+
+#: frontend/src/pages/Billing.vue:295
+msgid "Payment for the certificate option"
+msgstr ""
+
+#: frontend/src/pages/Billing.vue:296
+msgid "Payment for the course"
+msgstr ""
+
+#: frontend/src/pages/Billing.vue:293
+msgid "Payment for the training session"
 msgstr ""
 
 #: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:50
@@ -9043,7 +9066,7 @@ msgid "Phone"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:64
-#: frontend/src/pages/Billing.vue:162
+#: frontend/src/pages/Billing.vue:162 frontend/src/pages/Billing.vue:436
 msgid "Phone Number"
 msgstr ""
 
@@ -9106,7 +9129,7 @@ msgstr ""
 msgid "Please ensure that the billing name you enter is correct, as it will be used on your invoice."
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:403
+#: frontend/src/pages/Billing.vue:416
 msgid "Please enter a coupon code"
 msgstr ""
 
@@ -9126,6 +9149,10 @@ msgstr ""
 msgid "Please enter a valid Contact Us URL."
 msgstr ""
 
+#: frontend/src/pages/Billing.vue:463
+msgid "Please enter a valid PAN number."
+msgstr ""
+
 #: lms/lms/doctype/lms_assignment_submission/lms_assignment_submission.py:122
 msgid "Please enter a valid URL."
 msgstr ""
@@ -9140,6 +9167,11 @@ msgstr ""
 
 #: frontend/src/components/Modals/QuizInVideo.vue:138
 msgid "Please enter a valid timestamp"
+msgstr ""
+
+#: frontend/src/pages/Billing.vue:457
+#, python-brace-format
+msgid "Please enter a valid value for {0}."
 msgstr ""
 
 #: frontend/src/pages/Forms/ProfileEditForm.vue:171
@@ -9157,7 +9189,7 @@ msgstr ""
 msgid "Please install the Payments App to create a paid course. Refer to the documentation for more details. {0}"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:376
+#: frontend/src/pages/Billing.vue:389
 msgid "Please let us know where you heard about us from."
 msgstr ""
 
@@ -9169,7 +9201,7 @@ msgstr ""
 msgid "Please login to access the quiz."
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:238
+#: frontend/src/pages/Billing.vue:236
 msgid "Please login to access this page."
 msgstr ""
 
@@ -9206,7 +9238,7 @@ msgstr ""
 msgid "Please provide your consent to proceed with the payment"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:380
+#: frontend/src/pages/Billing.vue:393
 msgid "Please provide your consent to proceed with the payment."
 msgstr ""
 
@@ -9273,11 +9305,11 @@ msgstr ""
 msgid "Please select an option"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:449
+#: frontend/src/pages/Billing.vue:472
 msgid "Please select your state from the list."
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:444
+#: frontend/src/pages/Billing.vue:467
 msgid "Please select your state."
 msgstr ""
 
@@ -9384,7 +9416,7 @@ msgid "Post"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:59
-#: frontend/src/pages/Billing.vue:156
+#: frontend/src/pages/Billing.vue:156 frontend/src/pages/Billing.vue:434
 msgid "Postal Code"
 msgstr ""
 
@@ -9519,7 +9551,7 @@ msgstr ""
 msgid "Problem Statement"
 msgstr ""
 
-#: frontend/src/pages/Billing.vue:218
+#: frontend/src/pages/Billing.vue:220
 msgid "Proceed to Payment"
 msgstr ""
 
@@ -10083,7 +10115,7 @@ msgstr ""
 #. Label of the related_courses (Table) field in DocType 'LMS Course'
 #. Name of a DocType
 #: frontend/src/components/Courses/CourseOverviewSection.vue:36
-#: frontend/src/components/RelatedCourses.vue:5
+#: frontend/src/components/RelatedCourses.vue:9
 #: lms/lms/doctype/lms_course/lms_course.json:151
 #: lms/lms/doctype/related_courses/related_courses.json:26
 msgid "Related Courses"
@@ -11444,6 +11476,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Transactions/AddressModal.vue:48
 #: frontend/src/pages/Billing.vue:131 frontend/src/pages/Billing.vue:140
+#: frontend/src/pages/Billing.vue:433
 msgid "State/Province"
 msgstr ""
 
@@ -11929,7 +11962,7 @@ msgstr ""
 msgid "That slot does not belong to this evaluator."
 msgstr ""
 
-#: lms/lms/payments.py:30
+#: lms/lms/payments.py:28
 msgid "The Payments app is not installed. Please contact the administrator."
 msgstr ""
 
@@ -11989,7 +12022,7 @@ msgstr ""
 msgid "The conditions on {0} could not be worked out, so there is no telling who this change adds or removes. It usually means the app that supplies a condition type is no longer installed. Saving applies the change anyway."
 msgstr ""
 
-#: lms/lms/payments.py:42
+#: lms/lms/payments.py:40
 #, python-brace-format
 msgid "The configured payment gateway {0} does not exist. Please contact the administrator."
 msgstr ""
@@ -13256,7 +13289,8 @@ msgstr ""
 
 #: frontend/src/components/Controls/VideoPreviewField.vue:17
 #: frontend/src/components/VideoPreview.vue:9
-#: frontend/src/components/VideoPreview.vue:23
+#: frontend/src/components/VideoPreview.vue:16
+#: frontend/src/components/VideoPreview.vue:24
 msgid "Video preview"
 msgstr ""
 
