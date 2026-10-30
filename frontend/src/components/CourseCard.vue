@@ -149,14 +149,14 @@
 
 					<Tooltip
 						v-if="course.paid_certificate || course.enable_certification"
-						:text="__('Get Certified')"
+						:text="certificateLabel"
 					>
 						<span class="relative z-10 flex">
 							<span
 								class="lucide-graduation-cap size-5 text-ink-gray-7"
 								aria-hidden="true"
 							/>
-							<span class="sr-only">{{ __('Get Certified') }}</span>
+							<span class="sr-only">{{ certificateLabel }}</span>
 						</span>
 					</Tooltip>
 				</div>
@@ -190,6 +190,12 @@ const props = defineProps({
 		default: false,
 	},
 })
+
+const certificateLabel = computed(() =>
+	props.course.paid_certificate
+		? __('Certificate option')
+		: __('Certificate of completion')
+)
 
 const enrollmentCountLabel = computed(() =>
 	Number(props.course.enrollments) === 1

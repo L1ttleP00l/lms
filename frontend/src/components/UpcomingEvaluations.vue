@@ -5,7 +5,7 @@
 				{{ __('Upcoming Evaluations') }}
 			</div>
 			<Button v-if="canScheduleEvals" @click="openEvalModal">
-				{{ __('Schedule') }}
+				{{ __('Schedule an evaluation') }}
 			</Button>
 		</div>
 		<Alert

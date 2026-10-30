@@ -30,7 +30,7 @@
 			<template #prefix>
 				<span class="lucide-graduation-cap size-4" />
 			</template>
-			{{ __('Get Certified') }}
+			{{ __('Buy the certificate option') }}
 		</Button>
 		<Button
 			v-else-if="!certification.data.membership.certificate"
@@ -45,7 +45,7 @@
 			<template #prefix>
 				<span class="lucide-graduation-cap size-4" />
 			</template>
-			{{ __('Get Certified') }}
+			{{ __('Access the evaluation') }}
 		</Button>
 	</div>
 </template>
