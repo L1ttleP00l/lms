@@ -2404,7 +2404,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:387
 msgid "Could not start the payment. Please contact the administrator."
-msgstr ""
+msgstr "Impossible de démarrer le paiement. Contactez l'administrateur."
 
 #: lms/lms/doctype/lms_enrollment/lms_enrollment.py:215
 #, python-brace-format
@@ -2446,7 +2446,7 @@ msgstr ""
 #: frontend/src/pages/Billing.vue:60
 #: lms/lms/doctype/lms_payment/lms_payment.json:172
 msgid "Coupon Code"
-msgstr "Code de coupon"
+msgstr "Code de réduction"
 
 #: frontend/src/components/Settings/Coupons/CouponForm.vue:257
 msgid "Coupon Code is required"
@@ -3805,7 +3805,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:54
 msgid "Enter a Coupon Code"
-msgstr ""
+msgstr "Saisissez un code de réduction"
 
 #: frontend/src/components/Assessment/AssessmentBlockPreview.vue:96
 #: frontend/src/components/Assignment.vue:146
@@ -7174,7 +7174,7 @@ msgstr ""
 
 #: lms/lms/payments.py:36
 msgid "No payment gateway is configured. Please contact the administrator."
-msgstr ""
+msgstr "Aucune passerelle de paiement n'est configurée. Contactez l'administrateur."
 
 #: frontend/src/components/Quiz/QuestionBankPanel.vue:82
 msgid "No questions found."
@@ -8093,7 +8093,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:403
 msgid "Please enter a coupon code"
-msgstr ""
+msgstr "Veuillez saisir un code de réduction."
 
 #: frontend/src/pages/Forms/LiveClassForm.vue:352
 msgid "Please enter a title."
@@ -9067,7 +9067,7 @@ msgstr ""
 
 #: frontend/src/pages/Billing.vue:75
 msgid "Remove coupon"
-msgstr ""
+msgstr "Retirer le code de réduction"
 
 #: frontend/src/pages/Forms/ChapterForm.vue:63
 #: frontend/src/pages/Forms/CourseImportForm.vue:74
@@ -10708,7 +10708,7 @@ msgstr ""
 
 #: lms/lms/payments.py:30
 msgid "The Payments app is not installed. Please contact the administrator."
-msgstr ""
+msgstr "L'application Payments n'est pas installée. Contactez l'administrateur."
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:206
 msgid "The address this payment is billed to."
@@ -10748,12 +10748,12 @@ msgstr ""
 #: lms/lms/payments.py:42
 #, python-brace-format
 msgid "The configured payment gateway {0} does not exist. Please contact the administrator."
-msgstr ""
+msgstr "La passerelle de paiement configurée {0} n'existe pas. Contactez l'administrateur."
 
 #: lms/lms/utils.py:3078
 #, python-brace-format
 msgid "The coupon code '{0}' is invalid."
-msgstr ""
+msgstr "Le code de réduction « {0} » n'est pas valide."
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:235
 msgid "The coupon this payment was discounted by."
@@ -11002,11 +11002,11 @@ msgstr ""
 
 #: lms/lms/utils.py:3107
 msgid "This coupon has expired."
-msgstr ""
+msgstr "Ce code de réduction a expiré."
 
 #: lms/lms/utils.py:3110 lms/lms/utils.py:3523
 msgid "This coupon has reached its maximum usage limit."
-msgstr ""
+msgstr "Ce code de réduction a atteint sa limite d'utilisation."
 
 #: lms/lms/utils.py:3119
 #, python-brace-format
@@ -13789,4 +13789,12 @@ msgstr "Veuillez saisir un numéro PAN valide."
 #: lms/lms/payments.py:29 lms/lms/payments.py:35 lms/lms/payments.py:43
 msgid "Payment Gateway Not Configured"
 msgstr "Passerelle de paiement non configurée"
+
+#: lms/lms/utils.py:3119
+msgid "This coupon is not applicable to this course."
+msgstr "Ce code de réduction ne s'applique pas à ce cours."
+
+#: lms/lms/utils.py:3121
+msgid "This coupon is not applicable to this training session."
+msgstr "Ce code de réduction ne s'applique pas à cette session de formation."
 

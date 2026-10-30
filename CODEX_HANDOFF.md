@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C.2 terminé localement : Billing contextualisé, retour certificat corrigé, validations et titre de passerelle extractibles. PO 657 traductions, POT 2 992 (+9/-2). 59 tests Billing + deux méthodes Python ciblées réussis. Quatre parcours Chromium passent leurs assertions fonctionnelles/sécurité, MAIS contrôle global JS échoué : 16 rejets de validation non capturés, non corrigés hors périmètre. Aucun endpoint sensible appelé. Deux commits locaux à soumettre ; aucun push, arrêt avant FR-02C.3.**
+Mis à jour le 30 octobre 2026 (Europe/Paris). **FR-02C.3 terminé localement : deux messages d’applicabilité contextualisés, 13 blocs français ciblés (12 ajouts et une correction Coupon Code). PO 669 traductions, POT 2 993 (+2/-1). 65 tests Vue et cinq méthodes Python réussis ; quatre parcours Chromium de réduction FR/EN bureau/mobile réussis, zéro endpoint sensible. Les 16 rejets de validation FR-02C.2 restent ouverts : ne pas déclarer le contrôle JS global réussi. Deux commits locaux non publiés ; arrêt avant FR-02C.4.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit source/tests local : `8696c22b` (FR-02C.2).
-- Dernier distant littlepool-dev vérifié : `34d09304e323a78e932fd11e68d08c056ef8a862`, base initiale propre FR-02C.2. Les deux commits FR-02C.1 sont publiés.
-- Commit courant de livraison : `feat(i18n): deliver French billing translations and catalogue` ; relever son SHA par git log -1.
+- Dernier commit source/tests local : `5a271c99` (FR-02C.3).
+- Dernier distant littlepool-dev vérifié : `389affaab75836471aec44a1e196ed8f83a5812e` ; FR-02C.2 publié après diagnostic confirmant le mécanisme préexistant des 16 rejets, sans test global déclaré réussi.
+- Commit courant de livraison : `feat(i18n): deliver French coupon and gateway messages` ; relever son SHA par git log -1.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -294,9 +294,19 @@ Tests finaux : Billing.test.ts étendu 59 réussis en une exécution 2,45 s ; de
 
 48 accès facturation + 48 récapitulatifs simulés avant montage ; aucune tentative/transmission d’endpoint sensible, aucun paiement/adresse/inscription/coupon/certificat créé. Trois retours avec destinations fictives vérifiés, consentement accessible et correction de case confirmés. Quatre HTTP annexes, 48 appels boot_config bloqués, pas de correction de ces services. Comptes fictifs fr/en conservent leurs préférences, confirmées en base sans modification ; système fr inchangé. Preuves /workspace/work/fr02c2/. Aucun FR-02C.3/4 commencé.
 
+### FR-02C.3 — état courant
+
+Rapport docs/FR-02C3-RESULTATS.md. Seule source applicative : utils.validate_coupon_applicability, deux phrases anglaises complètes à la place de Course/Batch injectés. AST intégral identique après normalisation du message, même requête et branche, aucun calcul/critère modifié. Billing.vue/payments.py inchangés. Coupon Code partagé avec formulaires administratifs corrigé en Code de réduction, usages vérifiés.
+
+13 blocs PO ciblés via Babel : 12 valeurs nouvelles et une correction ; toutes autres valeurs/en-tête/blocs conservés. PO 2 717 entrées / 669 traductions ; POT natif 2 993 (+2/-1, zéro référence commune changée), ancienne entrée PO conservée. 78 autres PO/Framework intacts. Compilation/cache du seul site réussis, MO 669, 13 valeurs concordantes dans PO/MO/dictionnaire ; préférences fr/en et défaut fr inchangés.
+
+Tests : 65 Vue / un fichier réussis 4,27 s ; cinq méthodes Python mock sans site/DB réussies 0,118 s, avec date simulée après erreurs initiales du harnais. Extraction native/paramètres/contextes/flags, Prettier/Ruff/AST/diff/secrets réussis. Manifeste PO initial incomplet (mauvais chemin Framework) remplacé par comparaison aux 78 empreintes de référence FR-02C.2, toutes identiques. Hooks désactivés après contrôles ; aucun build nécessaire, source Vue inchangée.
+
+Chromium quatre parcours FR/EN bureau/mobile : noms accessibles, vide, application/retrait fictifs réussis ; 4 accès et 12 résumés simulés, zéro appel sensible tenté/transmis. Première attente incorrecte Remise au lieu de Remise: corrigée dans le harnais. Final zéro pageerror/HTTP en erreur dans cette recette ; quatre boot_config bloqués. Ne pas généraliser : les 16 rejets de validation FR-02C.2 restent préexistants et ouverts, non rejoués/corrigés/masqués. Aucun paiement/coupon réel, aucune inscription/adresse/certificat créé, aucun callback. Erreurs de passerelle seulement simulées en Python ; bold natif préservé, pas présenté comme assainisseur HTML. Preuves /workspace/work/fr02c3/. Aucun FR-02C.4, aucun push.
+
 ## 7. Problèmes connus et limites
 
-- Traduction partielle : après FR-02C.2, 657/2 715 entrées PO LMS renseignées ; POT 2 992 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
+- Traduction partielle : après FR-02C.3, 669/2 717 entrées PO LMS renseignées ; POT 2 993 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
 - Babel signale une anomalie préexistante dans le PO Framework : `Use % for any non empty value.` / incompatibilité de paramètres. Compilation réussie mais validation Babel non entièrement verte. Aucun PO à modifier manuellement ; remonter au circuit amont.
 - Pre-commit complet bloqué à l’installation npm du miroir Prettier (`EALLOWGIT`). Les contrôles Python et les versions prévues de Prettier/ESLint ont été exécutés séparément. Ne pas déclarer le lanceur complet réussi ; ne pas repartir dans une longue réparation sans nécessité.
 - Avertissements de build existants : Vite esbuildOptions dépréciée, Browserslist ancien, module fs externalisé pour face-api.js.
@@ -312,13 +322,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Base FR-02C.2 propre : 34d09304, identique au distant vérifié. develop connu 6b791f33b34efa15566a0cb707f5be59d136df50 ; Framework propre à 959b85de4086656273e1d158f41923dd3808c350. Aucune modification de develop ou production.
+Base FR-02C.3 propre : `389affaab75836471aec44a1e196ed8f83a5812e`, distant vérifié identique. FR-02C.2 publié. develop reste `6b791f33b34efa15566a0cb707f5be59d136df50` ; Framework propre à `959b85de4086656273e1d158f41923dd3808c350`.
 
-Deux commits locaux non publiés : 8696c22b (deux sources et deux tests), puis le commit courant de PO/POT/rapport/handoff. Checkout propre attendu après commit, aucun autre changement suivi. Mentions historiques « non publié » des phases précédentes dépassées.
+Deux commits locaux non publiés : `5a271c99` (utils.py, Billing.test.ts, test_coupon_messages.py), puis livraison courante fr.po/main.pot/rapport/handoff, SHA à relever. Checkout propre après commit ; aucun autre changement suivi. Les mentions historiques « non publié » antérieures sont dépassées.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** présenter docs/FR-02C2-RESULTATS.md et les deux commits locaux pour accord de publication, en rappelant les 16 rejets non capturés observés. Ne pas commencer FR-02C.3/4. Réutiliser les résultats ciblés et preuves sans refaire les suites. Un éventuel correctif de gestion des exceptions de validation, et celui du double clic, demandent une autorisation distincte ; aucune transaction réelle à initier. FR-02C.3 : corps des erreurs de passerelle/coupon ; FR-02C.4 : Get Certified et étapes de certificat.
+**Prochaine action précise :** lire docs/FR-02C3-RESULTATS.md, revoir les deux commits puis attendre autorisation explicite de publication. Ne pas commencer FR-02C.4. Réutiliser preuves et tests ciblés ; aucune transaction réelle. Gestion des rejets et double clic : autorisation distincte nécessaire.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -328,8 +338,8 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 terminé localement avec limite JS documentée, attendre accord de publication ; aucun FR-02C.3/4. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 local, attendre accord de publication ; aucun FR-02C.4. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
-Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) et FR-02C.2 (17 blocs nécessaires) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
+Ne jamais intervenir sur la production OpenMediaVault 8 ni sur sa configuration Docker. Aucun déploiement, aucune fusion, aucune modification de develop, aucun push sans accord explicite. Pas de refonte graphique pendant FR-01A. Convention générale : suivre Crowdin et AGENTS.md pour les PO ; exceptions limitées FR-01F (21 clés) , FR-02B.1 (sept traductions nécessaires) , FR-02B.2 (16 entrées nécessaires) , FR-02B.3 (22 entrées nécessaires) , FR-02B.4 (six entrées nécessaires) , FR-02C.1 (quatre entrées nécessaires) FR-02C.2 (17 blocs nécessaires) et FR-02C.3 (13 blocs nécessaires) du fr.po LMS, via Babel contrôlé ; aucune généralisation sans nouvelle décision. Pas de modification Framework pour les correctifs LMS. Utiliser uniquement des comptes de test sans données personnelles réelles et ne publier ni mots de passe, jetons, cookies de session, configurations sensibles, MO ni assets générés.
