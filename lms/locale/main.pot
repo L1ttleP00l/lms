@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 16:36+0000\n"
-"PO-Revision-Date: 2026-10-30 16:36+0000\n"
+"POT-Creation-Date: 2026-10-30 16:56+0000\n"
+"PO-Revision-Date: 2026-10-30 16:56+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "1 day ago"
 msgstr ""
 
-#: frontend/src/components/CourseCard.vue:202
+#: frontend/src/components/CourseCard.vue:208
 #: frontend/src/pages/Courses/CourseOverview.vue:223
 msgid "1 lesson"
 msgstr ""
@@ -81,7 +81,7 @@ msgstr ""
 msgid "1 student could not be enrolled"
 msgstr ""
 
-#: frontend/src/components/CourseCard.vue:196
+#: frontend/src/components/CourseCard.vue:202
 #: frontend/src/components/CourseCardOverlay.vue:231
 #: frontend/src/components/Enrollment/enrollment.ts:126
 #: frontend/src/pages/Courses/CourseOverview.vue:201
@@ -246,6 +246,10 @@ msgstr ""
 #: frontend/src/components/Quiz/QuestionAnswers.vue:115
 #, python-brace-format
 msgid "Accepted answer {0}"
+msgstr ""
+
+#: frontend/src/components/CertificationLinks.vue:48
+msgid "Access the evaluation"
 msgstr ""
 
 #: frontend/src/components/CommandPalette/CommandPalette.vue:489
@@ -1663,6 +1667,10 @@ msgstr ""
 msgid "Business Owner"
 msgstr ""
 
+#: frontend/src/components/CertificationLinks.vue:33
+msgid "Buy the certificate option"
+msgstr ""
+
 #: frontend/src/components/CourseCardOverlay.vue:60
 msgid "Buy this course"
 msgstr ""
@@ -1829,8 +1837,13 @@ msgstr ""
 msgid "Certificate already purchased by {0}."
 msgstr ""
 
+#: frontend/src/components/CourseCard.vue:197
 #: frontend/src/components/CourseCardOverlay.vue:145
 msgid "Certificate of completion"
+msgstr ""
+
+#: frontend/src/components/CourseCard.vue:196
+msgid "Certificate option"
 msgstr ""
 
 #: frontend/src/pages/Courses/CoursePublishSettings.vue:118
@@ -5272,10 +5285,6 @@ msgstr ""
 msgid "Get Certificate"
 msgstr ""
 
-#: frontend/src/components/CertificationLinks.vue:33
-#: frontend/src/components/CertificationLinks.vue:48
-#: frontend/src/components/CourseCard.vue:152
-#: frontend/src/components/CourseCard.vue:159
 #: frontend/src/pages/CertifiedParticipants.vue:19
 msgid "Get Certified"
 msgstr ""
@@ -10575,7 +10584,6 @@ msgid "Saved. This format can't be previewed here."
 msgstr ""
 
 #. Label of the schedule (Table) field in DocType 'Course Evaluator'
-#: frontend/src/components/UpcomingEvaluations.vue:8
 #: frontend/src/pages/Profile.vue:279
 #: lms/lms/doctype/course_evaluator/course_evaluator.json:35
 msgid "Schedule"
@@ -10605,6 +10613,10 @@ msgstr ""
 
 #: frontend/src/pages/Forms/AssignmentForm.vue:290 lms/lms/schedule_utils.py:27
 msgid "Schedule Start is required when scheduling is enabled."
+msgstr ""
+
+#: frontend/src/components/UpcomingEvaluations.vue:8
+msgid "Schedule an evaluation"
 msgstr ""
 
 #: frontend/src/components/UpcomingEvaluations.vue:112
@@ -14852,7 +14864,7 @@ msgstr ""
 msgid "{0} left"
 msgstr ""
 
-#: frontend/src/components/CourseCard.vue:203
+#: frontend/src/components/CourseCard.vue:209
 #: frontend/src/pages/Courses/CourseOverview.vue:223
 #, python-brace-format
 msgid "{0} lessons"
@@ -15007,7 +15019,7 @@ msgstr ""
 msgid "{0} students could not be enrolled"
 msgstr ""
 
-#: frontend/src/components/CourseCard.vue:197
+#: frontend/src/components/CourseCard.vue:203
 #: frontend/src/components/CourseCardOverlay.vue:232
 #: frontend/src/components/Enrollment/enrollment.ts:126
 #: frontend/src/pages/Courses/CourseOverview.vue:202

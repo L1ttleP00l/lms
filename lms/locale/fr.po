@@ -1560,7 +1560,7 @@ msgstr "Lien de certificat"
 
 #: frontend/src/components/CourseCardOverlay.vue:145
 msgid "Certificate of completion"
-msgstr ""
+msgstr "Certificat de fin de cours"
 
 #: frontend/src/pages/Courses/CoursePublishSettings.vue:118
 msgid "Certificate price"
@@ -1641,7 +1641,7 @@ msgstr ""
 
 #: lms/lms/doctype/lms_certificate/lms_certificate.py:236
 msgid "Certification is not enabled for this course."
-msgstr ""
+msgstr "La délivrance d'un certificat de fin de cours n'est pas activée pour ce cours."
 
 #. Label of the certifications (Check) field in DocType 'LMS Settings'
 #: lms/lms/doctype/lms_settings/lms_settings.json:472
@@ -2384,7 +2384,7 @@ msgstr ""
 
 #: frontend/src/pages/Courses/CourseCertification.vue:73
 msgid "Could not load this certification."
-msgstr ""
+msgstr "Impossible de charger les informations de certification."
 
 #: frontend/src/components/Settings/Raven/WorkspaceView.vue:83
 msgid "Could not load this workspace"
@@ -4591,7 +4591,7 @@ msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:95
 msgid "Get Certificate"
-msgstr ""
+msgstr "Obtenir le certificat"
 
 #: frontend/src/components/CertificationLinks.vue:33
 #: frontend/src/components/CertificationLinks.vue:48
@@ -5418,7 +5418,7 @@ msgstr ""
 #: frontend/src/pages/Courses/CourseCertification.vue:22
 #: lms/lms/doctype/lms_badge_assignment/lms_badge_assignment.json:40
 msgid "Issued On"
-msgstr ""
+msgstr "Délivré le"
 
 #: frontend/src/pages/ProfileAbout.vue:58
 #: frontend/src/pages/ProfileCertificates.vue:21
@@ -7207,7 +7207,7 @@ msgstr "Aucun résultat trouvé"
 
 #: frontend/src/components/Modals/EvaluationModal.vue:87
 msgid "No slots available for the selected course."
-msgstr ""
+msgstr "Aucun créneau disponible pour ce cours."
 
 #: frontend/src/components/Modals/VideoStatistics.vue:92
 msgid "No statistics available for this video."
@@ -8244,7 +8244,7 @@ msgstr ""
 
 #: frontend/src/components/Modals/EvaluationModal.vue:130
 msgid "Please select a slot for your evaluation."
-msgstr ""
+msgstr "Sélectionnez un créneau pour votre évaluation."
 
 #: frontend/src/pages/Forms/BatchStudentForm.vue:152
 #: frontend/src/pages/Forms/CourseEnrollmentForm.vue:172
@@ -9504,7 +9504,7 @@ msgstr ""
 
 #: frontend/src/components/UpcomingEvaluations.vue:112
 msgid "Schedule an evaluation to get certified."
-msgstr ""
+msgstr "Planifiez une évaluation en vue d'obtenir votre certificat."
 
 #: lms/lms/api.py:1223
 msgid "Schedule must be a list of time ranges."
@@ -9512,7 +9512,7 @@ msgstr ""
 
 #: frontend/src/components/Modals/EvaluationModal.vue:4
 msgid "Schedule your evaluation"
-msgstr ""
+msgstr "Planifiez votre évaluation"
 
 #. Name of a DocType
 #: lms/lms/doctype/scheduled_flow/scheduled_flow.json:63
@@ -11681,7 +11681,7 @@ msgstr ""
 #: frontend/src/components/UpcomingEvaluations.vue:5
 #: frontend/src/pages/Home/AdminHome.vue:6 lms/templates/upcoming_evals.html:3
 msgid "Upcoming Evaluations"
-msgstr ""
+msgstr "Évaluations à venir"
 
 #: frontend/src/pages/Home/AdminHome.vue:55
 #: frontend/src/pages/Home/StudentHome.vue:7
@@ -11932,7 +11932,7 @@ msgstr ""
 #: frontend/src/components/CertificationLinks.vue:9
 #: frontend/src/components/Modals/Event.vue:78
 msgid "View Certificate"
-msgstr ""
+msgstr "Consulter le certificat"
 
 #: frontend/src/pages/JobApplications.vue:247
 msgid "View Resume"
@@ -12189,7 +12189,7 @@ msgstr ""
 
 #: frontend/src/pages/Courses/CourseCertification.vue:8
 msgid "You are already certified for this course. Click on the card below to open your certificate."
-msgstr ""
+msgstr "Un certificat vous a déjà été délivré pour ce cours. Sélectionnez la carte pour le consulter."
 
 #: lms/lms/api.py:290
 msgid "You are already enrolled for this batch."
@@ -12249,7 +12249,7 @@ msgstr ""
 #: lms/lms/doctype/lms_certificate/lms_certificate.py:233
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:60
 msgid "You are not enrolled in this course."
-msgstr ""
+msgstr "Vous n'êtes pas inscrit à ce cours."
 
 #: frontend/src/pages/SCORMChapter.vue:22
 msgid "You are not enrolled in this course. Please enroll to access this lesson."
@@ -12601,7 +12601,7 @@ msgstr ""
 
 #: lms/lms/doctype/lms_certificate/lms_certificate.py:242
 msgid "You have not completed the course yet."
-msgstr ""
+msgstr "Vous n'avez pas encore terminé ce cours."
 
 #: frontend/src/pages/ProfileCertificates.vue:27
 msgid "You have not received any certificates yet."
@@ -13797,4 +13797,20 @@ msgstr "Ce code de réduction ne s'applique pas à ce cours."
 #: lms/lms/utils.py:3121
 msgid "This coupon is not applicable to this training session."
 msgstr "Ce code de réduction ne s'applique pas à cette session de formation."
+
+#: frontend/src/components/CertificationLinks.vue:33
+msgid "Buy the certificate option"
+msgstr "Acheter l'option certificat"
+
+#: frontend/src/components/CertificationLinks.vue:48
+msgid "Access the evaluation"
+msgstr "Accéder à l'évaluation"
+
+#: frontend/src/components/CourseCard.vue:196
+msgid "Certificate option"
+msgstr "Option certificat"
+
+#: frontend/src/components/UpcomingEvaluations.vue:8
+msgid "Schedule an evaluation"
+msgstr "Planifier une évaluation"
 
