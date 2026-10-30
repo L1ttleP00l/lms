@@ -5093,7 +5093,7 @@ msgstr ""
 #. Option for the 'Status' (Select) field in DocType 'LMS Course Progress'
 #: lms/lms/doctype/lms_course_progress/lms_course_progress.json:55
 msgid "Incomplete"
-msgstr ""
+msgstr "Incomplet"
 
 #: frontend/src/components/Quiz.vue:419 frontend/src/components/Quiz.vue:439
 msgid "Incorrect"
@@ -13955,4 +13955,218 @@ msgstr "Vérification des apprenants sélectionnés"
 #: frontend/src/components/Enrollment/EnrollStudentsForm.vue:558
 msgid "Add students to enroll"
 msgstr "Ajoutez des apprenants à inscrire"
+
+#: frontend/src/components/Enrollment/enrollment.ts:73
+msgid "Record payments"
+msgstr "Enregistrer des paiements"
+
+#: frontend/src/components/Enrollment/enrollment.ts:72
+msgid "Include paid certificate"
+msgstr "Activer l'option certificat payante"
+
+#: frontend/src/components/Enrollment/enrollment.ts:85
+msgid "Turn off to enroll without a payment record."
+msgstr "Désactivez cette option pour inscrire sans enregistrer de paiement."
+
+#: frontend/src/components/Enrollment/enrollment.ts:80
+msgid "For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked."
+msgstr "Pour chaque inscription ou activation réussie, l'option certificat payante est activée et un paiement est enregistré ou associé."
+
+#: frontend/src/components/Enrollment/enrollment.ts:83
+#, python-brace-format
+msgid "Certificate price {0}."
+msgstr "Prix de l'option certificat : {0}."
+
+#: frontend/src/components/Enrollment/enrollment.ts:89
+#, python-brace-format
+msgid "Course price {0}."
+msgstr "Prix du cours : {0}."
+
+#: frontend/src/components/Enrollment/enrollment.ts:90
+#, python-brace-format
+msgid "Batch price {0}."
+msgstr "Prix de la session : {0}."
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:353
+msgid "New payment"
+msgstr "Nouveau paiement enregistré"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:354
+msgid "Link existing"
+msgstr "Associer un paiement existant"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:40
+#, python-brace-format
+msgid "Payment mode for {0}"
+msgstr "Mode d'enregistrement du paiement pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:50
+#, python-brace-format
+msgid "Payment for {0}"
+msgstr "Paiement pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:51
+msgid "Select payment"
+msgstr "Sélectionner un paiement"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:107
+#: frontend/src/components/Enrollment/enrollment.ts:489
+msgid "Billing address"
+msgstr "Adresse de facturation"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:146
+msgid "Change billing address"
+msgstr "Modifier l'adresse de facturation"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:181
+msgid "Replace billing addresses"
+msgstr "Remplacer les adresses de facturation"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:114
+msgid "Existing address"
+msgstr "Adresse existante"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:122
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:152
+msgid "Add new address"
+msgstr "Ajouter une nouvelle adresse"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:222
+msgid "Use existing address"
+msgstr "Utiliser une adresse existante"
+
+#: frontend/src/components/Enrollment/enrollment.ts:184
+msgid "Billing name"
+msgstr "Nom de facturation"
+
+#: frontend/src/components/Enrollment/enrollment.ts:192
+msgid "Address line 1"
+msgstr "Ligne d'adresse 1"
+
+#: frontend/src/components/Enrollment/enrollment.ts:194
+msgid "Address line 2"
+msgstr "Ligne d'adresse 2"
+
+#: frontend/src/components/Enrollment/enrollment.ts:198
+msgid "State"
+msgstr "État ou région"
+
+#: frontend/src/components/Enrollment/enrollment.ts:202
+msgid "Postal code"
+msgstr "Code postal"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:25
+msgid "Close details"
+msgstr "Fermer les détails"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:381
+#, python-brace-format
+msgid "Details for {0} students"
+msgstr "Détails pour {0} apprenants"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:382
+#, python-brace-format
+msgid "Details for all {0} students"
+msgstr "Détails communs aux {0} apprenants"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:386
+msgid "Empty fields use the details for all."
+msgstr "Les champs vides reprennent les détails communs."
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:388
+#, python-brace-format
+msgid "What you enter applies to these {0}. Empty fields use the details for all."
+msgstr "Les informations saisies s’appliquent à ces {0} apprenants. Les champs vides reprennent les détails communs."
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:496
+msgid "Each student's name"
+msgstr "Nom de chaque apprenant"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:534
+msgid "Varies"
+msgstr "Valeurs différentes"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:491
+msgid "Required"
+msgstr "Obligatoire"
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:61
+#, python-brace-format
+msgid "Missing: {0}"
+msgstr "Informations manquantes : {0}"
+
+#: frontend/src/components/Enrollment/enrollment.ts:361
+msgid "Linked"
+msgstr "Associé"
+
+#: frontend/src/components/Enrollment/enrollment.ts:361
+msgid "Not selected"
+msgstr "Non sélectionné"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:463
+#, python-brace-format
+msgid "Enter details for {0}"
+msgstr "Détails pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:466
+#, python-brace-format
+msgid "Enter details for {0} students"
+msgstr "Détails pour {0} apprenants"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:468
+msgid "Enter details for all"
+msgstr "Détails communs"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:509
+#: frontend/src/utils/peopleSummary.ts:12
+#, python-brace-format
+msgid "{0} and {1}"
+msgstr "{0} et {1}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:525
+#, python-brace-format
+msgid "Choose a payment to link for {0}"
+msgstr "Sélectionnez un paiement à associer pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:529
+#, python-brace-format
+msgid "Fill in {0} in the details for all"
+msgstr "Renseignez {0} dans les détails communs"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:546
+#, python-brace-format
+msgid "Fill in the missing details for {0}"
+msgstr "Renseignez les informations manquantes pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:549
+#, python-brace-format
+msgid "Add a billing address for {0}"
+msgstr "Ajoutez une adresse de facturation pour {0}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:551
+#, python-brace-format
+msgid "Fill in {0} for {1}"
+msgstr "Renseignez {0} pour {1}"
+
+#: frontend/src/components/Enrollment/enrollment.ts:149
+#, python-brace-format
+msgid "{0}: {1}, and {2} more"
+msgstr "{0} : {1} ; autres échecs : {2}"
+
+#: frontend/src/components/Enrollment/enrollment.ts:150
+#, python-brace-format
+msgid "{0}: {1}"
+msgstr "{0} : {1}"
+
+#: frontend/src/components/Enrollment/EnrollStudentsForm.vue:701
+msgid "Could not enroll students"
+msgstr "Impossible d’inscrire les apprenants"
+
+#: frontend/src/components/Enrollment/EnrollStudentTable.vue:22
+msgid "Billing"
+msgstr "Facturation"
+
+#: frontend/src/components/Enrollment/EnrollStudentTable.vue:80
+msgid "Requires address"
+msgstr "Adresse obligatoire"
 

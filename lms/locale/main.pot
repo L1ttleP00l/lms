@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 19:33+0000\n"
-"PO-Revision-Date: 2026-10-30 19:33+0000\n"
+"POT-Creation-Date: 2026-10-30 20:56+0000\n"
+"PO-Revision-Date: 2026-10-30 20:56+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -1968,9 +1968,12 @@ msgid "Certified Participants"
 msgstr ""
 
 #: frontend/src/components/Controls/ImageUploader.vue:19
-#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:146
 #: frontend/src/components/Settings/EmailAccount/EmailAccountForm.vue:48
 msgid "Change"
+msgstr ""
+
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:146
+msgid "Change billing address"
 msgstr ""
 
 #: frontend/src/components/Settings/Raven/MassRemovalConfirmDialog.vue:74
@@ -5147,6 +5150,10 @@ msgstr ""
 
 #: frontend/src/components/Settings/Transactions/transactions.ts:123
 msgid "For Course"
+msgstr ""
+
+#: frontend/src/components/Enrollment/enrollment.ts:80
+msgid "For each successful enrollment or upgrade, the paid certificate option is enabled and a payment is recorded or linked."
 msgstr ""
 
 #. Option for the 'Attire Preference' (Select) field in DocType 'User'
@@ -8733,10 +8740,6 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:181
-msgid "Overwrite"
-msgstr ""
-
 #: frontend/src/components/Settings/Badges/badges.ts:144
 #: lms/lms/doctype/lms_badge/lms_badge.js:37
 msgid "Owner"
@@ -10253,6 +10256,10 @@ msgstr ""
 msgid "Replace"
 msgstr ""
 
+#: frontend/src/components/Enrollment/EnrollPaymentPanel.vue:181
+msgid "Replace billing addresses"
+msgstr ""
+
 #: lms/lms/utils.py:3965
 msgid "Replies can only be posted under a lesson or a batch."
 msgstr ""
@@ -11630,10 +11637,6 @@ msgstr ""
 
 #: frontend/src/components/Profile/ProfileEvaluatorHours.vue:127
 msgid "Students can't book an evaluation with you until you add hours."
-msgstr ""
-
-#: frontend/src/components/Enrollment/enrollment.ts:80
-msgid "Students get the certificate and a payment is recorded for each."
 msgstr ""
 
 #. Description of the 'Enforce Lesson Completion' (Check) field in DocType 'LMS
