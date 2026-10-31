@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 00:26+0000\n"
-"PO-Revision-Date: 2026-10-31 00:26+0000\n"
+"POT-Creation-Date: 2026-10-31 00:47+0000\n"
+"PO-Revision-Date: 2026-10-31 00:47+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -1829,7 +1829,6 @@ msgstr ""
 
 #. Label of the certificate (Link) field in DocType 'LMS Enrollment'
 #. Label of a shortcut in the Learning Workspace
-#: frontend/src/components/Settings/Transactions/transactions.ts:277
 #: lms/lms/doctype/lms_enrollment/lms_enrollment.json:127
 #: lms/lms/workspace/learning/learning.json:215
 msgid "Certificate"
@@ -5156,11 +5155,8 @@ msgid "Flexible Time"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/transactions.ts:122
+#: frontend/src/components/Settings/Transactions/transactions.ts:277
 msgid "For Certificate"
-msgstr ""
-
-#: frontend/src/components/Settings/Transactions/transactions.ts:123
-msgid "For Course"
 msgstr ""
 
 #: frontend/src/components/Enrollment/enrollment.ts:80
@@ -8286,6 +8282,11 @@ msgstr ""
 msgid "Not linked"
 msgstr ""
 
+#: frontend/src/components/Settings/Transactions/transactions.ts:121
+#: frontend/src/components/Settings/Transactions/transactions.ts:274
+msgid "Not received"
+msgstr ""
+
 #: frontend/src/pages/Forms/ProgrammingExerciseForm.vue:6
 #: frontend/src/pages/Forms/QuizForm.vue:9
 msgid "Not saved"
@@ -8697,6 +8698,10 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
+#: frontend/src/components/Settings/Transactions/transactions.ts:123
+msgid "Other payments"
+msgstr ""
+
 #. Option for the 'User Category' (Select) field in DocType 'User'
 #: lms/fixtures/custom_field.json:153 lms/templates/signup-form.html:42
 msgid "Others"
@@ -8784,11 +8789,6 @@ msgstr ""
 
 #: frontend/src/pages/NotFound.vue:4 frontend/src/pages/NotFound.vue:27
 msgid "Page not found"
-msgstr ""
-
-#: frontend/src/components/Settings/Transactions/transactions.ts:120
-#: frontend/src/components/Settings/Transactions/transactions.ts:273
-msgid "Paid"
 msgstr ""
 
 #. Label of the paid_batch (Check) field in DocType 'LMS Batch'
@@ -10080,6 +10080,8 @@ msgid "Ready"
 msgstr ""
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:7
+#: frontend/src/components/Settings/Transactions/transactions.ts:120
+#: frontend/src/components/Settings/Transactions/transactions.ts:273
 msgid "Received"
 msgstr ""
 
@@ -12999,11 +13001,6 @@ msgstr ""
 #: frontend/src/components/AudioBlock.vue:38
 #: frontend/src/components/VideoBlock.vue:103
 msgid "Unmute"
-msgstr ""
-
-#: frontend/src/components/Settings/Transactions/transactions.ts:121
-#: frontend/src/components/Settings/Transactions/transactions.ts:274
-msgid "Unpaid"
 msgstr ""
 
 #: frontend/src/pages/Batches/BatchDetail.vue:34

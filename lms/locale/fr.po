@@ -3930,7 +3930,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:475
 msgid "Error saving transaction"
-msgstr ""
+msgstr "Erreur lors de l'enregistrement de la transaction"
 
 #: frontend/src/components/Courses/CourseThumbnailField.vue:251
 msgid "Error uploading file"
@@ -4396,7 +4396,7 @@ msgstr ""
 
 #: frontend/src/components/Settings/Transactions/Transactions.vue:22
 msgid "Filter by payment status"
-msgstr ""
+msgstr "Filtrer par statut du paiement"
 
 #: frontend/src/components/Settings/Members/Members.vue:21
 msgid "Filter by role"
@@ -11415,11 +11415,11 @@ msgstr ""
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:465
 msgid "Transaction created successfully"
-msgstr ""
+msgstr "Transaction créée avec succès"
 
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:466
 msgid "Transaction updated successfully"
-msgstr ""
+msgstr "Transaction mise à jour avec succès"
 
 #. Option for the 'Location Preference' (Select) field in DocType 'User'
 #: lms/fixtures/custom_field.json:1777
@@ -14243,4 +14243,38 @@ msgstr "Accès et disponibilité"
 #: frontend/src/components/Settings/settingsText.ts:14
 msgid "Seconds a learner must stay on a lesson before it is marked complete."
 msgstr "Durée minimale pendant laquelle un apprenant doit rester sur une leçon avant qu'elle soit considérée comme terminée."
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:119
+msgid "All Payments"
+msgstr "Tous les paiements"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:121
+#: frontend/src/components/Settings/Transactions/transactions.ts:274
+msgid "Not received"
+msgstr "Non reçu"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:122
+#: frontend/src/components/Settings/Transactions/transactions.ts:277
+msgid "For Certificate"
+msgstr "Option certificat"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:123
+msgid "Other payments"
+msgstr "Autres paiements"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:199
+msgid "Delete this transaction?"
+msgstr "Supprimer cette transaction ?"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:200
+msgid "This will permanently delete this payment record, including its billing details. This cannot be undone."
+msgstr "Cette action supprime définitivement cet enregistrement de paiement, y compris ses détails de facturation. Elle ne peut pas être annulée."
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:191
+msgid "Unable to delete transaction"
+msgstr "Impossible de supprimer la transaction"
+
+#: frontend/src/components/Settings/Transactions/transactions.ts:186
+msgid "Transaction deleted successfully"
+msgstr "Transaction supprimée avec succès"
 
