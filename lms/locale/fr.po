@@ -1851,7 +1851,7 @@ msgstr "Ville"
 
 #: lms/templates/emails/live_class_reminder.html:10
 msgid "Class:"
-msgstr ""
+msgstr "Séance :"
 
 #: frontend/src/pages/Batches/BatchDetail.vue:204
 msgid "Classes"
@@ -3758,7 +3758,7 @@ msgstr ""
 #: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:175
 #, python-brace-format
 msgid "Enrollment Confirmation for {0}"
-msgstr ""
+msgstr "Confirmation de votre inscription à {0}"
 
 #: lms/lms/web_template/lms_statistics/lms_statistics.html:14
 #: lms/templates/statistics.html:20
@@ -4990,7 +4990,7 @@ msgstr ""
 #: lms/templates/emails/batch_start_reminder_recorded.html:30
 #: lms/templates/emails/live_class_reminder.html:24
 msgid "If you have any questions or require assistance, feel free to contact us."
-msgstr ""
+msgstr "Si vous avez des questions ou besoin d’aide, n’hésitez pas à nous contacter."
 
 #. Description of the 'Amount (USD)' (Currency) field in DocType 'LMS Batch'
 #. Description of the 'Amount (USD)' (Currency) field in DocType 'LMS Course'
@@ -10730,7 +10730,7 @@ msgstr ""
 
 #: lms/templates/emails/batch_start_reminder.html:6
 msgid "The batch you have enrolled for is starting tomorrow. Please be prepared and be on time for the session."
-msgstr ""
+msgstr "La session de formation à laquelle vous êtes inscrit commence demain. Préparez-vous et soyez à l’heure."
 
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExerciseSubmission.vue:178
 msgid "The code runner could not be loaded, so this exercise cannot be run."
@@ -10807,7 +10807,7 @@ msgstr ""
 #: lms/templates/emails/batch_start_reminder_recorded.html:13
 #, python-brace-format
 msgid "The last day to schedule your evaluation is {0}."
-msgstr ""
+msgstr "La date limite pour programmer votre évaluation est le {0}."
 
 #: frontend/src/components/UpcomingEvaluations.vue:20
 msgid "The last day to schedule your evaluations is "
@@ -11300,7 +11300,7 @@ msgstr ""
 #: lms/templates/emails/batch_start_reminder.html:16
 #: lms/templates/emails/live_class_reminder.html:16
 msgid "Timings:"
-msgstr ""
+msgstr "Horaire :"
 
 #. Label of the title (Data) field in DocType 'Course Chapter'
 #. Label of the title (Data) field in DocType 'Course Lesson'
@@ -12004,7 +12004,7 @@ msgstr ""
 #: lms/templates/emails/batch_start_reminder_recorded.html:26
 #: lms/templates/emails/live_class_reminder.html:20
 msgid "Visit your batch"
-msgstr ""
+msgstr "Accéder à votre session"
 
 #. Label of the internship (Table) field in DocType 'User'
 #: lms/fixtures/custom_field.json:872
@@ -12027,7 +12027,7 @@ msgstr ""
 
 #: lms/templates/emails/batch_confirmation.html:6
 msgid "We are pleased to inform you that you have been enrolled in our upcoming batch. Congratulations!"
-msgstr ""
+msgstr "Nous avons le plaisir de confirmer votre inscription à notre prochaine session de formation. Félicitations !"
 
 #: lms/lms/utils.py:3422
 msgid "We could not find your payment record. Please contact the administrator."
@@ -12083,7 +12083,7 @@ msgstr ""
 
 #: lms/templates/emails/batch_start_reminder_recorded.html:11
 msgid "When you feel ready, you can schedule an evaluation to get certified."
-msgstr ""
+msgstr "Lorsque vous vous sentez prêt, vous pouvez programmer une évaluation pour obtenir votre certification."
 
 #: frontend/src/pages/Billing.vue:171
 msgid "Where did you hear about us?"
@@ -12669,12 +12669,12 @@ msgstr ""
 
 #: lms/templates/emails/batch_start_reminder_recorded.html:6
 msgid "You're enrolled and all set! The course content is ready, so you can start learning right away and go at your own pace."
-msgstr ""
+msgstr "Votre inscription est confirmée ! Le contenu du cours est disponible : vous pouvez commencer dès maintenant et apprendre à votre rythme."
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:646
 #, python-brace-format
 msgid "You're enrolled in {0} – start whenever you're ready"
-msgstr ""
+msgstr "Votre inscription à {0} est confirmée – commencez à votre rythme"
 
 #: lms/templates/emails/mentor_request_creation_email.html:4
 msgid "You've applied to become a mentor for this course. Your request is currently under review."
@@ -12731,7 +12731,7 @@ msgstr ""
 #: lms/lms/doctype/lms_batch/lms_batch.py:643
 #, python-brace-format
 msgid "Your batch {0} is starting tomorrow"
-msgstr ""
+msgstr "Votre session de formation {0} commence demain"
 
 #: frontend/src/components/Controls/Uploader.vue:37
 msgid "Your browser does not support the video tag."
@@ -12740,7 +12740,7 @@ msgstr ""
 #: lms/lms/doctype/lms_live_class/lms_live_class.py:474
 #, python-brace-format
 msgid "Your class on {0} is today"
-msgstr ""
+msgstr "Votre séance sur {0} a lieu aujourd’hui"
 
 #: frontend/src/pages/Forms/EmailTemplateForm.vue:20
 msgid "Your enrollment in {{ batch_name }} is confirmed"
@@ -14330,4 +14330,38 @@ msgstr "Cours avec certificat"
 #: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:28
 msgid "Reminder for Certificate Evaluation"
 msgstr "Rappel pour votre évaluation de certification"
+
+#: lms/templates/emails/batch_confirmation.html:16
+#: lms/templates/emails/batch_start_reminder.html:19
+#: lms/templates/emails/batch_start_reminder_recorded.html:22
+msgid "Delivery mode:"
+msgstr "Modalité :"
+
+#: lms/templates/emails/batch_confirmation.html:25
+msgid "View your session details:"
+msgstr "Consultez les détails de votre session :"
+
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:492
+#, python-brace-format
+msgid "Class Reminder: {0}"
+msgstr "Rappel de séance : {0}"
+
+#: lms/templates/emails/live_class_reminder.html:6
+msgid "You have a live class scheduled today. Please be prepared and be on time for the session."
+msgstr "Vous avez une séance en direct prévue aujourd’hui. Préparez-vous et soyez à l’heure."
+
+#: lms/lms/doctype/lms_batch/lms_batch.py:667
+#, python-brace-format
+msgid "Batch Start Reminder: {0}"
+msgstr "Rappel de début de session : {0}"
+
+#: lms/templates/emails/batch_confirmation.html:11
+#: lms/templates/emails/batch_start_reminder.html:13
+msgid "Session start date:"
+msgstr "Date de début de session :"
+
+#: lms/templates/emails/batch_start_reminder.html:10
+#: lms/templates/emails/batch_start_reminder_recorded.html:19
+msgid "Training session:"
+msgstr "Session de formation :"
 

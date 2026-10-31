@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 17:08+0000\n"
-"PO-Revision-Date: 2026-10-31 17:08+0000\n"
+"POT-Creation-Date: 2026-10-31 18:12+0000\n"
+"PO-Revision-Date: 2026-10-31 18:12+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -148,7 +148,7 @@ msgstr ""
 msgid "A 750×422 .jpg, .gif or .png, shown on the course card."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:188
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:189
 msgid "A Google Calendar connection is needed to send invites for live classes."
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "A line or two about this person"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:341
+#: lms/lms/doctype/lms_batch/lms_batch.py:342
 #, python-brace-format
 msgid "A new batch '{0}' has been published that might interest you. Check it out!"
 msgstr ""
@@ -190,7 +190,7 @@ msgstr ""
 msgid "A new course has been published on "
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:302
+#: lms/lms/doctype/lms_batch/lms_batch.py:303
 #: lms/lms/doctype/lms_course/lms_course.py:222
 #, python-brace-format
 msgid "A new course has been published on {0}"
@@ -391,11 +391,11 @@ msgstr ""
 msgid "Add a Chapter"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:241
+#: lms/lms/doctype/lms_batch/lms_batch.py:242
 msgid "Add a Google Calendar to the selected Google Meet account to use it for live classes."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:181
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:182
 msgid "Add a Google Calendar to this Google Meet account to schedule classes."
 msgstr ""
 
@@ -770,7 +770,7 @@ msgstr ""
 msgid "Amount (USD)"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:166
+#: lms/lms/doctype/lms_batch/lms_batch.py:167
 msgid "Amount and currency are required for paid batches."
 msgstr ""
 
@@ -1003,7 +1003,7 @@ msgstr ""
 msgid "Assessment added successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:174
+#: lms/lms/doctype/lms_batch/lms_batch.py:175
 #, python-brace-format
 msgid "Assessment {0} has already been added to this batch."
 msgstr ""
@@ -1147,7 +1147,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:203
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:204
 msgid "Authorise your Google Calendar to schedule classes."
 msgstr ""
 
@@ -1455,8 +1455,9 @@ msgstr ""
 msgid "Batch Start Date"
 msgstr ""
 
-#: lms/templates/emails/batch_confirmation.html:11
-msgid "Batch Start Date:"
+#: lms/lms/doctype/lms_batch/lms_batch.py:667
+#, python-brace-format
+msgid "Batch Start Reminder: {0}"
 msgstr ""
 
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:120
@@ -1478,7 +1479,7 @@ msgstr ""
 msgid "Batch deleted successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:130
+#: lms/lms/doctype/lms_batch/lms_batch.py:131
 msgid "Batch end date cannot be before the batch start date"
 msgstr ""
 
@@ -1511,7 +1512,7 @@ msgstr ""
 msgid "Batch published"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:135
+#: lms/lms/doctype/lms_batch/lms_batch.py:136
 msgid "Batch start time cannot be greater than or equal to end time."
 msgstr ""
 
@@ -1525,11 +1526,6 @@ msgstr ""
 
 #: lms/lms/api.py:2062
 msgid "Batch, subject, content and reply-to must be strings."
-msgstr ""
-
-#: lms/templates/emails/batch_start_reminder.html:10
-#: lms/templates/emails/batch_start_reminder_recorded.html:19
-msgid "Batch:"
 msgstr ""
 
 #. Label of a Workspace Sidebar Item
@@ -2180,6 +2176,11 @@ msgstr ""
 #: lms/job/doctype/job_opportunity/job_opportunity.json:40
 #: lms/lms/bulk_enrollment.py:85
 msgid "City"
+msgstr ""
+
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:492
+#, python-brace-format
+msgid "Class Reminder: {0}"
 msgstr ""
 
 #: lms/templates/emails/live_class_reminder.html:10
@@ -3199,7 +3200,7 @@ msgstr ""
 msgid "Course updated successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:142
+#: lms/lms/doctype/lms_batch/lms_batch.py:143
 #, python-brace-format
 msgid "Course {0} has already been added to this batch."
 msgstr ""
@@ -3474,13 +3475,6 @@ msgstr ""
 msgid "Dear"
 msgstr ""
 
-#: lms/templates/emails/batch_confirmation.html:2
-#: lms/templates/emails/batch_start_reminder.html:2
-#: lms/templates/emails/batch_start_reminder_recorded.html:2
-#: lms/templates/emails/live_class_reminder.html:2
-msgid "Dear "
-msgstr ""
-
 #: frontend/src/pages/Forms/EmailTemplateForm.vue:133
 msgid "Dear {{ member_name }},\\n\\nYou have been enrolled in our upcoming batch {{ batch_name }}.\\n\\nThanks,\\nFrappe Learning"
 msgstr ""
@@ -3686,6 +3680,12 @@ msgstr ""
 #: lms/lms/api.py:1917
 #, python-brace-format
 msgid "Deletion not allowed for {0}"
+msgstr ""
+
+#: lms/templates/emails/batch_confirmation.html:16
+#: lms/templates/emails/batch_start_reminder.html:19
+#: lms/templates/emails/batch_start_reminder_recorded.html:22
+msgid "Delivery mode:"
 msgstr ""
 
 #. Label of the demo_data_present (Check) field in DocType 'LMS Settings'
@@ -4379,7 +4379,7 @@ msgstr ""
 msgid "Enrollment Confirmation Email Template"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:175
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:178
 #, python-brace-format
 msgid "Enrollment Confirmation for {0}"
 msgstr ""
@@ -4403,7 +4403,7 @@ msgstr ""
 msgid "Enrollment from Batch"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:79
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:81
 msgid "Enrollment in this batch is restricted. Please contact the Administrator."
 msgstr ""
 
@@ -4498,7 +4498,7 @@ msgstr ""
 msgid "Error creating email template"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:431
+#: lms/lms/doctype/lms_batch/lms_batch.py:432
 #, python-brace-format
 msgid "Error creating live class. Please try again. {0}"
 msgstr ""
@@ -4628,7 +4628,7 @@ msgstr ""
 msgid "Evaluation cancelled successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:179
+#: lms/lms/doctype/lms_batch/lms_batch.py:180
 msgid "Evaluation end date cannot be less than the batch end date."
 msgstr ""
 
@@ -4954,7 +4954,7 @@ msgstr ""
 msgid "Failed to enroll in program: {0}"
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:524
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:526
 #, python-brace-format
 msgid "Failed to fetch attendance data from Zoom for class {0}: {1}"
 msgstr ""
@@ -5403,7 +5403,7 @@ msgstr ""
 msgid "Google Calendar didn't take the new name. Try again in a few minutes."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:394
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:395
 msgid "Google Calendar didn't take their invites. Open the class and select Retry to send them."
 msgstr ""
 
@@ -5591,7 +5591,11 @@ msgstr ""
 msgid "Hi"
 msgstr ""
 
+#: lms/templates/emails/batch_confirmation.html:2
+#: lms/templates/emails/batch_start_reminder.html:2
+#: lms/templates/emails/batch_start_reminder_recorded.html:2
 #: lms/templates/emails/certification.html:2
+#: lms/templates/emails/live_class_reminder.html:2
 #: lms/templates/emails/lms_course_interest.html:3
 #, python-brace-format
 msgid "Hi {0},"
@@ -5954,7 +5958,7 @@ msgstr ""
 msgid "Instructor notes"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:150
+#: lms/lms/doctype/lms_batch/lms_batch.py:151
 #, python-brace-format
 msgid "Instructor {0} has already been added to this batch."
 msgstr ""
@@ -6709,7 +6713,7 @@ msgstr ""
 msgid "Learners can't book you during time off."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:392
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:393
 #, python-brace-format
 msgid "Learners haven't been invited to {0}"
 msgstr ""
@@ -7237,12 +7241,6 @@ msgstr ""
 msgid "Medium ID"
 msgstr ""
 
-#: lms/templates/emails/batch_confirmation.html:16
-#: lms/templates/emails/batch_start_reminder.html:19
-#: lms/templates/emails/batch_start_reminder_recorded.html:22
-msgid "Medium:"
-msgstr ""
-
 #. Label of the meeting_id (Data) field in DocType 'LMS Live Class'
 #: lms/lms/doctype/lms_live_class/lms_live_class.json:173
 msgid "Meeting ID"
@@ -7414,7 +7412,7 @@ msgstr ""
 msgid "Member already added to program"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:101
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:103
 msgid "Member already enrolled in this batch"
 msgstr ""
 
@@ -8391,6 +8389,9 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchForm.vue:657
 #: frontend/src/pages/Forms/NewBatchForm.vue:353
 #: lms/lms/doctype/lms_batch/lms_batch.json:168
+#: lms/templates/emails/batch_confirmation.html:16
+#: lms/templates/emails/batch_start_reminder.html:19
+#: lms/templates/emails/batch_start_reminder_recorded.html:22
 msgid "Offline"
 msgstr ""
 
@@ -8428,6 +8429,9 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchForm.vue:653
 #: frontend/src/pages/Forms/NewBatchForm.vue:349
 #: lms/lms/doctype/lms_batch/lms_batch.json:168
+#: lms/templates/emails/batch_confirmation.html:16
+#: lms/templates/emails/batch_start_reminder.html:19
+#: lms/templates/emails/batch_start_reminder_recorded.html:22
 msgid "Online"
 msgstr ""
 
@@ -8491,11 +8495,11 @@ msgstr ""
 msgid "Only the authors of this quiz can edit it."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:276
+#: lms/lms/doctype/lms_batch/lms_batch.py:277
 msgid "Only the batch's instructors can change who teaches it."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:503
+#: lms/lms/doctype/lms_batch/lms_batch.py:504
 msgid "Only the batch's instructors can schedule live classes."
 msgstr ""
 
@@ -9025,7 +9029,7 @@ msgstr ""
 msgid "Payment gateway updated successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:66
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:68
 msgid "Payment is required to enroll in this batch."
 msgstr ""
 
@@ -9167,11 +9171,11 @@ msgstr ""
 msgid "Please complete the previous course to unlock this one."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:475
+#: lms/lms/doctype/lms_batch/lms_batch.py:476
 msgid "Please enable the Google Meet account to use this feature."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:513
+#: lms/lms/doctype/lms_batch/lms_batch.py:514
 msgid "Please enable the zoom account to use this feature."
 msgstr ""
 
@@ -9233,7 +9237,7 @@ msgstr ""
 msgid "Please fill the mandatory fields: {0}"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:160
+#: lms/lms/doctype/lms_batch/lms_batch.py:161
 #, python-brace-format
 msgid "Please install the Payments App to create a paid batch. Refer to the documentation for more details. {0}"
 msgstr ""
@@ -9297,13 +9301,13 @@ msgstr ""
 msgid "Please provide your consent to proceed with the payment."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:229
-#: lms/lms/doctype/lms_batch/lms_batch.py:465
+#: lms/lms/doctype/lms_batch/lms_batch.py:230
+#: lms/lms/doctype/lms_batch/lms_batch.py:466
 msgid "Please select a Google Meet account for this batch."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:246
-#: lms/lms/doctype/lms_batch/lms_batch.py:370
+#: lms/lms/doctype/lms_batch/lms_batch.py:247
+#: lms/lms/doctype/lms_batch/lms_batch.py:371
 msgid "Please select a Zoom account for this batch."
 msgstr ""
 
@@ -10440,27 +10444,27 @@ msgstr ""
 msgid "Route"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:220
+#: lms/lms/doctype/lms_batch/lms_batch.py:221
 #, python-brace-format
 msgid "Row #{0} Date cannot be outside the batch duration."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:216
+#: lms/lms/doctype/lms_batch/lms_batch.py:217
 #, python-brace-format
 msgid "Row #{0} Date is required."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:212
+#: lms/lms/doctype/lms_batch/lms_batch.py:213
 #, python-brace-format
 msgid "Row #{0} End time cannot be outside the batch duration."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:196
+#: lms/lms/doctype/lms_batch/lms_batch.py:197
 #, python-brace-format
 msgid "Row #{0} Start time cannot be greater than or equal to end time."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:205
+#: lms/lms/doctype/lms_batch/lms_batch.py:206
 #, python-brace-format
 msgid "Row #{0} Start time cannot be outside the batch duration."
 msgstr ""
@@ -10828,7 +10832,7 @@ msgstr ""
 msgid "Seat Left"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:183
+#: lms/lms/doctype/lms_batch/lms_batch.py:184
 msgid "Seat count cannot be negative."
 msgstr ""
 
@@ -11070,6 +11074,11 @@ msgstr ""
 
 #: frontend/src/pages/Profile.vue:289
 msgid "Session refreshed successfully"
+msgstr ""
+
+#: lms/templates/emails/batch_confirmation.html:11
+#: lms/templates/emails/batch_start_reminder.html:13
+msgid "Session start date:"
 msgstr ""
 
 #: frontend/src/utils/evaluatorAvailability.ts:133
@@ -11490,10 +11499,6 @@ msgstr ""
 #: lms/lms/doctype/education_detail/education_detail.json:63
 #: lms/lms/doctype/lms_batch/lms_batch.json:114
 msgid "Start Date"
-msgstr ""
-
-#: lms/templates/emails/batch_start_reminder.html:13
-msgid "Start Date:"
 msgstr ""
 
 #: frontend/src/components/CourseCardOverlay.vue:38
@@ -12222,7 +12227,7 @@ msgstr ""
 msgid "The schedule for {0} has ended."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:235
+#: lms/lms/doctype/lms_batch/lms_batch.py:236
 msgid "The selected Google Meet account is disabled. Please enable it or select another account."
 msgstr ""
 
@@ -12271,8 +12276,8 @@ msgstr ""
 msgid "There are no courses currently. Keep an eye out, fresh learning experiences are on the way!"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:187
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:107
+#: lms/lms/doctype/lms_batch/lms_batch.py:188
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:109
 msgid "There are no seats available in this batch."
 msgstr ""
 
@@ -12811,6 +12816,11 @@ msgstr ""
 msgid "Training Feedback"
 msgstr ""
 
+#: lms/templates/emails/batch_start_reminder.html:10
+#: lms/templates/emails/batch_start_reminder_recorded.html:19
+msgid "Training session:"
+msgstr ""
+
 #: frontend/src/components/Settings/Transactions/TransactionForm.vue:396
 msgid "Transaction"
 msgstr ""
@@ -12860,7 +12870,7 @@ msgstr ""
 msgid "Turn on Google in Google Settings and add a client ID and secret. Until then, evaluations are booked without a calendar event or meeting link."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:208
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:209
 msgid "Turn on Push to Google Calendar to schedule classes."
 msgstr ""
 
@@ -13428,6 +13438,10 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
+#: lms/templates/emails/batch_confirmation.html:25
+msgid "View your session details:"
+msgstr ""
+
 #: frontend/src/components/Quiz/QuizActivityLog.vue:48
 #: frontend/src/pages/QuizSubmission.vue:506
 msgid "Violation"
@@ -13462,10 +13476,6 @@ msgstr ""
 
 #: frontend/src/pages/JobDetail.vue:30
 msgid "Visit Website"
-msgstr ""
-
-#: lms/templates/emails/batch_confirmation.html:25
-msgid "Visit the following link to view your "
 msgstr ""
 
 #: lms/templates/emails/batch_start_reminder.html:23
@@ -13685,8 +13695,8 @@ msgstr ""
 msgid "You are already enrolled for this course."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:111
-#: lms/lms/doctype/lms_batch/lms_batch.py:124
+#: lms/lms/doctype/lms_batch/lms_batch.py:112
+#: lms/lms/doctype/lms_batch/lms_batch.py:125
 #, python-brace-format
 msgid "You are not authorized to add {0} to this batch."
 msgstr ""
@@ -13860,11 +13870,11 @@ msgstr ""
 msgid "You can't schedule live classes for this batch. Ask one of its instructors or a Moderator."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:260
+#: lms/lms/doctype/lms_batch/lms_batch.py:261
 msgid "You can't set this account on the batch. Choose your own account, or ask its owner or a Moderator to set it."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:167
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:168
 msgid "You can't use this account for this batch's live classes. Use your own account or the one set on the batch."
 msgstr ""
 
@@ -13990,7 +14000,7 @@ msgstr ""
 msgid "You do not have permission to cancel this evaluation."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:506
+#: lms/lms/doctype/lms_batch/lms_batch.py:507
 msgid "You do not have permission to create a live class for this batch."
 msgstr ""
 
@@ -14047,11 +14057,11 @@ msgstr ""
 msgid "You do not have permission to move this row out of {0} {1}"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:540
+#: lms/lms/doctype/lms_batch/lms_batch.py:541
 msgid "You do not have permission to see this batch's timetable."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:147
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:149
 msgid "You do not have permission to send confirmation emails for this enrollment."
 msgstr ""
 
@@ -14076,7 +14086,7 @@ msgid "You don't have any notifications."
 msgstr ""
 
 #: lms/templates/emails/live_class_reminder.html:6
-msgid "You have a live class scheduled tomorrow. Please be prepared and be on time for the session."
+msgid "You have a live class scheduled today. Please be prepared and be on time for the session."
 msgstr ""
 
 #: lms/job/doctype/lms_job_application/lms_job_application.py:32
@@ -14153,7 +14163,7 @@ msgstr ""
 msgid "You have {0} {1} scheduled."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:50
+#: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:52
 msgid "You must be a Moderator, Batch Evaluator, or this batch's instructor to enroll users."
 msgstr ""
 
@@ -14189,7 +14199,7 @@ msgstr ""
 msgid "You're enrolled and all set! The course content is ready, so you can start learning right away and go at your own pace."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:646
+#: lms/lms/doctype/lms_batch/lms_batch.py:648
 #, python-brace-format
 msgid "You're enrolled in {0} – start whenever you're ready"
 msgstr ""
@@ -14246,7 +14256,7 @@ msgstr ""
 msgid "Your application has been submitted successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:643
+#: lms/lms/doctype/lms_batch/lms_batch.py:645
 #, python-brace-format
 msgid "Your batch {0} is starting tomorrow"
 msgstr ""
@@ -14255,7 +14265,7 @@ msgstr ""
 msgid "Your browser does not support the video tag."
 msgstr ""
 
-#: lms/lms/doctype/lms_live_class/lms_live_class.py:474
+#: lms/lms/doctype/lms_live_class/lms_live_class.py:476
 #, python-brace-format
 msgid "Your class on {0} is today"
 msgstr ""
@@ -14823,7 +14833,7 @@ msgstr ""
 msgid "{0} has no availability set up yet."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:337
+#: lms/lms/doctype/lms_batch/lms_batch.py:338
 #, python-brace-format
 msgid "{0} has published a new batch {1}"
 msgstr ""

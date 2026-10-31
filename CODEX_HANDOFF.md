@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-04B.3 rappel standard corrigé et validé sur sources en isolation : get_context natif, sujet/textes/horaire dans la langue du membre, contenu commun à l’évaluateur, contexte restauré. 34/34 tests ciblés, zéro email/écriture métier réel, aucune Notification installée modifiée. 959 FR (+2, 957 préservées), 3 020 POT (+1/−0). Source/tests 382e6f58, catalogues/rapport/handoff dans le commit courant, publication contrôlée autorisée après vérifications. Rapport docs/FR-04B3-RESULTATS.md. Synchronisation native future requise, risque de source/DB mixte explicite ; pas de réception réelle validée. FR-03 clôturé avec réserves ; B.4 sessions, PDF et I18N-01 non commencés.**
+Mis à jour le 31 octobre 2026. **FR-04B.4 terminé : quatre emails de session/classe localisés par apprenant via get_user_lang/print_language, incohérence demain/aujourd’hui corrigée sans toucher aux schedulers. 16/16 tests Python isolés, 8 rendus Jinja depuis MO, zéro email/écriture métier réel. 979 FR (+20, 959 antérieures intactes), 3 020 POT (+7/−7), 78 autres PO et Framework inchangés. Sources/tests 6facc1cc ; catalogue/rapport/handoff dans le commit courant (SHA via git log -1). Publication normale autorisée après contrôles et vérification GitHub. Rapport docs/FR-04B4-RESULTATS.md. Réserve de synchronisation B.3 et réserves FR-03 maintenues. Aucun lot suivant commencé.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Base publiée vérifiée B.3 : `d90ab299eed0a8cf5d00e88beb40442e5f0bd34d`, B.2 confirmation et diagnostic livrés. B.1 556f388f et A b31fdf7c restent publiés.
-- Livraison B.3 : `382e6f58` source/JSON/HTML/tests, puis commit courant catalogues/rapport/handoff (SHA via git log -1). Publication normale autorisée sous contrôles, vérifier rapport GitHub/SHA/alignement ; état final attendu propre, aucun commit non publié.
-- Mandat B.3 seulement : rappel natif, langue membre commune, horaires de confirmation, aucun changement du calendrier/destinataires/permissions. Ni envoi réel, DB Notification, migration/synchronisation, compte/calendrier/certificat réels, Framework/develop, PR/fusion/Crowdin/production. B.4 sessions/PDF/I18N-01 non autorisés.
+- Base publiée vérifiée B.4 : `9ba39a55f66a8666006960d966201030445210d5` (FR-04B.3). Distant attendu identique avant publication.
+- Livraison B.4 : `6facc1cc` sources/tests, puis commit courant catalogues/rapport/handoff. Mandat explicite de publication normale sous contrôles ; vérifier SHA distant, rapport GitHub et alignement après push. État attendu propre, aucun commit restant à publier ; l’état réel se vérifie par Git sans commit de constat.
+- B.4 uniquement : confirmation de session, rappels de démarrage direct/enregistré et classe du jour. Aucun email/inscription/calendrier/paiement/certificat réel, aucun scheduler exécuté, aucune migration/Notification installée, Framework/develop, PR/fusion/Crowdin/production. FR-04B.5/PDF/I18N-01 non commencés.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -599,3 +599,16 @@ Autorisation de poursuite ordinaire FR-04A puis FR-04B.1, publications normales 
 Audit des 20 templates, 13 référencés et sept hérités/à confirmer ; expéditeurs/hook/scheduler/Notification/PDF/personnalisation/langue native documentés dans FR-04A-AUDIT. User.language → System Settings.language → contexte → en ; sendmail rend avant queue, pas de langue par destinataire implicite. Notification déduplique les adresses exactes par groupe via set ; pas de double envoi prouvé par les quatre lignes du rappel. Print Format Certificate par défaut en, langue du PDF distincte de l’email. Jinja sans autoescape global, bold non échappant ; risques de fragments/HTML/liens. Aucun rappel/envoi/DB métier/certificat/PDF/session exécuté. Versions relues : LMS2.45.2/Framework17.0.0-dev959b85de, Python3.14.10/Node24.22.1 du conteneur ; dépendances réutilisées.
 
 Prochaine action FR-04 : publier ce seul audit/handoff après contrôles, vérifier GitHub puis pilote B.1 certification standard/surcharge en isolation. Trois paragraphes FR vides, salutation Hi {0}, déjà traduite, contexte natif print_language/get_user_lang, tests Jinja et sendmail intercepté. Ne pas toucher PDF ou autre famille. Source/tests puis PO/POT et rapport B.1 sous dérogation bornée, conservation 951 valeurs/78 autres PO. Ne pas démarrer B.2/I18N-01. Mentions historiques « FR-04 non autorisé » remplacées pour ce seul mandat.
+
+
+## FR-04B.4 — Reprise immédiate
+
+- Fichiers : trois contrôleurs LMS Batch Enrollment/Batch/Live Class, quatre templates de session/classe, nouveau test_session_emails.py, fr.po/main.pot, docs/FR-04B4-RESULTATS.md et ce handoff (12).
+- Confirmations et rappels : sujet/corps standard dans la langue du membre, contexte rétabli après erreur ; bootstrap natif d’un worker non résolu conservé. En-têtes gettext littéraux avec {0}, titres non traduits. Corps du rappel de classe dit aujourd’hui, sélection du jour inchangée.
+- Modèles personnalisés : session prioritaire puis LMS Settings, rendu natif et variables brutes conservés ; littéraux d’auteur non traduits automatiquement. Données HTML échappées, get_lms_route relatif inchangé, modalités Online/Offline localisées seulement à l’affichage.
+- Dates/heures : format natif FR/EN ; short pour l’heure. Pas de conversion de fuseau : champ timezone présent dans les documents mais absent des args historiques. Tests minuit/changement d’heure valident la présentation brute uniquement.
+- Validation finale : 16/16 méthodes ciblées (test_session_emails), Ruff quatre Python, Babel, extraction native, compilation française, 20 valeurs MO et huit rendus Jinja FR/EN ; AST métier/schedulers/permissions inchangé. 959 traductions antérieures préservées, total979, POT3020 (+7/−7), PO2845, 78 autres PO identiques.
+- Preuves hors Git : /workspace/work/fr04b4/ (tests-final.log, checks.json, translations.json, mo-renders.json, generate.log, compile.log, snapshots before.\*). Rapport détaille les incidents intermédiaires ; pas de suite complète, navigateur ni SMTP relancés. Aucun cache de site purgé.
+- Zéro envoi réel et zéro écriture métier réelle : transport/queue/Communication/Notification Log/enqueue/DB/réseau interceptés ; seul set_value attendu est un Mock local. Pas de compte/session/inscription/calendrier existants touchés.
+- Limites : pas de recette MIME/réception, liens relatifs historiques conservés, fuseaux non déduits ; contenus personnalisés sous responsabilité de leur auteur. **Réserve B.3 inchangée : Notification installée non synchronisée, mélange source/DB encore possible.** Réserves FR-03 et autres limites historiques conservées.
+- Prochaine action précise : vérifier la publication B.4 par git log/status/ls-remote puis lire son rapport ; attendre un nouveau mandat avant FR-04B.5 (annonces/portail), PDF ou I18N-01. Aucun chantier suivant engagé.
