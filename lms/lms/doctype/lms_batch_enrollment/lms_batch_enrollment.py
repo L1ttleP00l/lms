@@ -8,6 +8,8 @@ from frappe import _
 from frappe.email.doctype.email_template.email_template import get_email_template
 from frappe.model.document import Document
 from frappe.query_builder import Bracket
+from frappe.translate import get_user_lang, print_language
+from frappe.utils import escape_html
 from pypika.terms import LiteralValue
 
 from lms.lms.doctype.lms_enrollment.lms_enrollment import validate_identity_unchanged
@@ -158,49 +160,50 @@ def send_confirmation_email(doc: Document | str):
 
 
 def send_mail(doc):
-	batch = frappe.db.get_value(
-		"LMS Batch",
-		doc.batch,
-		[
-			"name",
-			"title",
-			"start_date",
-			"start_time",
-			"medium",
-			"confirmation_email_template",
-		],
-		as_dict=1,
-	)
+	with print_language(get_user_lang(doc.member)):
+		batch = frappe.db.get_value(
+			"LMS Batch",
+			doc.batch,
+			[
+				"name",
+				"title",
+				"start_date",
+				"start_time",
+				"medium",
+				"confirmation_email_template",
+			],
+			as_dict=1,
+		)
 
-	subject = _("Enrollment Confirmation for {0}").format(batch.title)
-	template = "batch_confirmation"
-	custom_template = batch.confirmation_email_template or frappe.db.get_single_value(
-		"LMS Settings", "batch_confirmation_template"
-	)
+		subject = _("Enrollment Confirmation for {0}").format(batch.title)
+		template = "batch_confirmation"
+		custom_template = batch.confirmation_email_template or frappe.db.get_single_value(
+			"LMS Settings", "batch_confirmation_template"
+		)
 
-	args = {
-		"title": batch.title,
-		"student_name": doc.member_name,
-		"start_time": batch.start_time,
-		"start_date": batch.start_date,
-		"medium": batch.medium,
-		"name": batch.name,
-	}
+		args = {
+			"title": batch.title,
+			"student_name": doc.member_name,
+			"start_time": batch.start_time,
+			"start_date": batch.start_date,
+			"medium": batch.medium,
+			"name": batch.name,
+		}
 
-	if custom_template:
-		email_template = get_email_template(custom_template, args)
-		subject = email_template.get("subject")
-		content = email_template.get("message")
+		if custom_template:
+			email_template = get_email_template(custom_template, args)
+			subject = email_template.get("subject")
+			content = email_template.get("message")
 
-	frappe.sendmail(
-		recipients=doc.member,
-		subject=subject,
-		template=template if not custom_template else None,
-		content=content if custom_template else None,
-		args=args,
-		header=[_(batch.title), "green"],
-		retry=3,
-	)
+		frappe.sendmail(
+			recipients=doc.member,
+			subject=subject,
+			template=template if not custom_template else None,
+			content=content if custom_template else None,
+			args=args,
+			header=[escape_html(batch.title), "green"],
+			retry=3,
+		)
 
 
 def has_permission(doc, ptype="read", user=None):

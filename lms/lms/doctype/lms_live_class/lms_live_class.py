@@ -8,7 +8,8 @@ import requests
 from frappe import _
 from frappe.model.document import Document
 from frappe.query_builder import Bracket
-from frappe.utils import cint, format_date, format_time, get_datetime, nowdate
+from frappe.translate import get_user_lang, print_language
+from frappe.utils import cint, escape_html, format_date, format_time, get_datetime, nowdate
 from pypika.terms import LiteralValue
 
 from lms.lms.doctype.lms_batch.lms_batch import authenticate
@@ -471,24 +472,25 @@ def send_live_class_reminder():
 
 
 def send_mail(live_class, student):
-	subject = _("Your class on {0} is today").format(live_class.title)
-	template = "live_class_reminder"
+	with print_language(get_user_lang(student.member)):
+		subject = _("Your class on {0} is today").format(live_class.title)
+		template = "live_class_reminder"
 
-	args = {
-		"student_name": student.member_name,
-		"title": live_class.title,
-		"date": live_class.date,
-		"time": live_class.time,
-		"batch_name": live_class.batch_name,
-	}
+		args = {
+			"student_name": student.member_name,
+			"title": live_class.title,
+			"date": live_class.date,
+			"time": live_class.time,
+			"batch_name": live_class.batch_name,
+		}
 
-	frappe.sendmail(
-		recipients=student.member,
-		subject=subject,
-		template=template,
-		args=args,
-		header=[_(f"Class Reminder: {live_class.title}"), "orange"],
-	)
+		frappe.sendmail(
+			recipients=student.member,
+			subject=subject,
+			template=template,
+			args=args,
+			header=[_("Class Reminder: {0}").format(escape_html(live_class.title)), "orange"],
+		)
 
 
 def update_attendance():

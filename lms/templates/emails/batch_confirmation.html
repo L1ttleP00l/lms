@@ -1,5 +1,5 @@
 <p>
-    {{ _("Dear ") }} {{ student_name }},
+    {{ _("Hi {0},").format(student_name | e) }}
 </p>
 <br>
 <p>
@@ -8,22 +8,22 @@
 <br>
 
 <p>
-    <b>{{ _("Batch Start Date:") }}</b> {{ frappe.utils.format_date(start_date, "medium") }}
+    <b>{{ _("Session start date:") }}</b> {{ frappe.utils.format_date(start_date, "medium") | e }}
 </p>
 
 {% if medium %}
 <p>
-    <b>{{ _("Medium:") }}</b> {{ medium }}
+    <b>{{ _("Delivery mode:") }}</b> {{ {"Online": _("Online"), "Offline": _("Offline")}.get(medium, medium) | e }}
 </p>
 {% endif %}
 
 <p>
-    <b>{{ _("Timings:") }}</b> {{ frappe.utils.format_time(start_time, "hh:mm a") }}
+    <b>{{ _("Timings:") }}</b> {{ frappe.utils.format_time(start_time, "short") | e }}
 </p>
 <br>
 <p>
-    {{ _("Visit the following link to view your ") }}
-    <a href="{{ get_lms_route('batches/' ~ name) }}">{{ _("Batch Details") }}</a>
+    {{ _("View your session details:") }}
+    <a href="{{ get_lms_route('batches/' ~ name) | e }}">{{ _("Batch Details") }}</a>
 </p>
 <p>
     {{ _("If you have any questions or require assistance, feel free to contact us.") }}

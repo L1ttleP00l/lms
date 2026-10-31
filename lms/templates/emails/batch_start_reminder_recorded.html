@@ -1,5 +1,5 @@
 <p>
-    {{ _("Dear ") }} {{ student_name }},
+    {{ _("Hi {0},").format(student_name | e) }}
 </p>
 <br>
 <p>
@@ -10,20 +10,20 @@
 <p>
     {{ _("When you feel ready, you can schedule an evaluation to get certified.") }}
     {% if evaluation_end_date %}
-    {{ _("The last day to schedule your evaluation is {0}.").format(frappe.utils.format_date(evaluation_end_date, "long")) }}
+    {{ _("The last day to schedule your evaluation is {0}.").format(frappe.utils.format_date(evaluation_end_date, "long") | e) }}
     {% endif %}
 </p>
 {% endif %}
 <br>
 <p>
-    <b>{{ _("Batch:") }}</b> {{ title }}
+    <b>{{ _("Training session:") }}</b> {{ title | e }}
 </p>
 <p>
-    <b>{{ _("Medium:") }}</b> {{ medium }}
+    <b>{{ _("Delivery mode:") }}</b> {{ {"Online": _("Online"), "Offline": _("Offline")}.get(medium, medium) | e }}
 </p>
 <br>
 <p>
-    <a href="{{ get_lms_route('batches/' ~ name) }}">👉 {{ _("Visit your batch") }}</a>
+    <a href="{{ get_lms_route('batches/' ~ name) | e }}">👉 {{ _("Visit your batch") }}</a>
 </p>
 <br>
 <p>

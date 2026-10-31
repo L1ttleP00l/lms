@@ -1,23 +1,23 @@
 <p>
-    {{ _("Dear ") }} {{ student_name }},
+    {{ _("Hi {0},").format(student_name | e) }}
 </p>
 <br>
 <p>
-    {{ _("You have a live class scheduled tomorrow. Please be prepared and be on time for the session.") }}
+    {{ _("You have a live class scheduled today. Please be prepared and be on time for the session.") }}
 </p>
 <br>
 <p>
-    <b>{{ _("Class:") }}</b> {{ title }}
+    <b>{{ _("Class:") }}</b> {{ title | e }}
 </p>
 <p>
-    <b>{{ _("Date:") }}</b> {{ frappe.utils.format_date(date, "long") }}
+    <b>{{ _("Date:") }}</b> {{ frappe.utils.format_date(date, "long") | e }}
 </p>
 <p>
-    <b>{{ _("Timings:") }}</b> {{ frappe.utils.format_time(time, "hh:mm a") }}
+    <b>{{ _("Timings:") }}</b> {{ frappe.utils.format_time(time, "short") | e }}
 </p>
 <br>
 <p>
-    <a href="{{ get_lms_route('batches/' ~ batch_name) }}">👉 {{ _("Visit your batch") }}</a>
+    <a href="{{ get_lms_route('batches/' ~ batch_name) | e }}">👉 {{ _("Visit your batch") }}</a>
 </p>
 <br>
 <p>

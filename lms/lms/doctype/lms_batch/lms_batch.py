@@ -11,7 +11,8 @@ from frappe import _
 from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
 from frappe.model.document import Document
 from frappe.query_builder import Bracket
-from frappe.utils import add_days, cint, format_datetime, get_time, getdate, nowdate
+from frappe.translate import get_user_lang, print_language
+from frappe.utils import add_days, cint, escape_html, format_datetime, get_time, getdate, nowdate
 from pypika.terms import LiteralValue
 
 from lms.lms.permissions import (
@@ -639,31 +640,32 @@ def send_batch_start_reminder():
 
 
 def send_mail(batch, student):
-	if batch.show_live_class:
-		subject = _("Your batch {0} is starting tomorrow").format(batch.title)
-		template = "batch_start_reminder"
-	else:
-		subject = _("You're enrolled in {0} – start whenever you're ready").format(batch.title)
-		template = "batch_start_reminder_recorded"
+	with print_language(get_user_lang(student.member)):
+		if batch.show_live_class:
+			subject = _("Your batch {0} is starting tomorrow").format(batch.title)
+			template = "batch_start_reminder"
+		else:
+			subject = _("You're enrolled in {0} – start whenever you're ready").format(batch.title)
+			template = "batch_start_reminder_recorded"
 
-	args = {
-		"student_name": student.member_name,
-		"title": batch.title,
-		"start_date": batch.start_date,
-		"start_time": batch.start_time,
-		"medium": batch.medium,
-		"name": batch.name,
-		"evaluation": batch.evaluation,
-		"evaluation_end_date": batch.evaluation_end_date,
-	}
+		args = {
+			"student_name": student.member_name,
+			"title": batch.title,
+			"start_date": batch.start_date,
+			"start_time": batch.start_time,
+			"medium": batch.medium,
+			"name": batch.name,
+			"evaluation": batch.evaluation,
+			"evaluation_end_date": batch.evaluation_end_date,
+		}
 
-	frappe.sendmail(
-		recipients=student.member,
-		subject=subject,
-		template=template,
-		args=args,
-		header=[_(f"Batch Start Reminder: {batch.title}"), "orange"],
-	)
+		frappe.sendmail(
+			recipients=student.member,
+			subject=subject,
+			template=template,
+			args=args,
+			header=[_("Batch Start Reminder: {0}").format(escape_html(batch.title)), "orange"],
+		)
 
 
 def has_permission(doc, ptype="read", user=None):
