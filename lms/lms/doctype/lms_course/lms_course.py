@@ -241,6 +241,18 @@ def send_email_notification_for_published_courses(courses):
 
 	for course in courses:
 		instructors = get_instructors("LMS Course", course.name)
+		recipients = []
+		for instructor in instructors:
+			if not instructor.name:
+				raise frappe.InvalidEmailAddressError
+			recipient = frappe.utils.get_email_address(instructor.name)
+			if (
+				not recipient
+				or len(frappe.utils.split_emails(recipient)) != 1
+				or not frappe.utils.validate_email_address(recipient)
+			):
+				raise frappe.InvalidEmailAddressError(recipient)
+			recipients.append(recipient)
 
 		args = {
 			"brand_logo": brand_logo,
@@ -252,7 +264,7 @@ def send_email_notification_for_published_courses(courses):
 		}
 
 		frappe.sendmail(
-			recipients=instructors,
+			recipients=recipients,
 			bcc=students,
 			subject=subject,
 			template=template,

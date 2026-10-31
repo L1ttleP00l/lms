@@ -37,6 +37,8 @@ class TestAnnouncementEmails(unittest.TestCase):
 				user_image="/files/avatar.png",
 			)
 		]
+		self.instructor_emails = {self.instructors[0].name: self.instructors[0].name}
+		self.native_envelopes = []
 		self.users = ["fictional-fr@example.com", "fictional-en@example.com"]
 		self.jobs = []
 		self.logs = []
@@ -109,6 +111,8 @@ class TestAnnouncementEmails(unittest.TestCase):
 			if fields == "first_name":
 				return "Fictional Learner"
 			if fields == "email":
+				if isinstance(name, str):
+					return self.instructor_emails.get(name)
 				return name["name"].replace("@example.com", ".delivery@example.com")
 		if doctype == "LMS Batch" and fields == "title":
 			return self.batch.title
@@ -176,17 +180,20 @@ class TestAnnouncementEmails(unittest.TestCase):
 				message = self.announce(kind, "fr")
 				self.assertEqual(len(self.messages), before + 1)
 				self.assertEqual(message["lang"], "fr")
-				self.assertEqual(message["recipients"], self.instructors)
+				self.assertEqual(
+					message["recipients"], [self.instructor_emails[i.name] for i in self.instructors]
+				)
 				self.assertEqual(message["bcc"], users)
 				self.assertNotIn("cc", message)
 				self.assertEqual(message["args"]["instructors"], self.instructors)
 				self.assertEqual(frappe.local.lang, "en")
 
-	def test_existing_instructor_object_contract_is_not_email_list(self):
-		message = self.announce("course")
-		builder = QueueBuilder(recipients=message["recipients"], bcc=message["bcc"])
-		with self.assertRaisesRegex(TypeError, "unhashable"):
-			_ = builder.recipients
+	def test_announcement_addresses_pass_native_normalization(self):
+		for kind in ["course", "batch"]:
+			message = self.announce(kind)
+			builder = QueueBuilder(recipients=message["recipients"], bcc=message["bcc"])
+			self.assertEqual(set(builder.recipients), {self.instructors[0].name})
+			self.assertEqual(set(builder.bcc), set(self.users))
 
 	def test_html_plain_fields_and_attributes_escaped(self):
 		self.course.title = self.batch.title = '<img src=x> & "Title"'
@@ -467,3 +474,177 @@ class TestAnnouncementEmails(unittest.TestCase):
 				self.assertIn(expected, message["body"])
 				if day == "2027-03-28":
 					self.assertNotEqual(expected, utils.format_timezone("Europe/Paris", day + " 23:45:00"))
+
+	def native_announce(self, kind, language="en", unsubscribed=()):
+		capture = self.capture
+
+		def prepare(**kwargs):
+			capture(**kwargs)
+			message = self.messages[-1]
+			builder = QueueBuilder(
+				recipients=kwargs["recipients"],
+				bcc=kwargs["bcc"],
+				subject=kwargs["subject"],
+				message=message["body"],
+			)
+			with (
+				patch.object(builder, "get_unsubscribed_user_emails", return_value=list(unsubscribed)),
+				patch.object(
+					builder,
+					"as_dict",
+					return_value={"subject": message["subject"], "message": message["body"]},
+				),
+				patch(
+					"frappe.email.doctype.email_queue.email_queue.EmailQueue.new",
+					return_value=SimpleNamespace(send=Mock(side_effect=AssertionError("Delivery forbidden"))),
+				) as new,
+			):
+				builder.process(send_now=False)
+				new.assert_called_once()
+				self.native_envelopes.append(
+					{
+						"to": builder.final_recipients(),
+						"bcc": builder.final_bcc(),
+						"cc": builder.final_cc(),
+						"queue": copy.deepcopy(new.call_args.args[0]),
+					}
+				)
+				new.return_value.send.assert_not_called()
+
+		with patch.object(frappe, "sendmail", side_effect=prepare) as transport:
+			message = self.announce(kind, language)
+			transport.assert_called_once()
+		return message
+
+	def test_reproduce_historical_objects_then_accept_addresses(self):
+		with self.assertRaisesRegex(TypeError, "unhashable"):
+			_ = QueueBuilder(recipients=self.instructors).recipients
+		for kind in ["course", "batch"]:
+			message = self.native_announce(kind)
+			self.assertEqual(message["recipients"], [self.instructors[0].name])
+			self.assertEqual(message["args"]["instructors"], self.instructors)
+
+	def test_multiple_instructors_native_to_and_jinja_unchanged(self):
+		second = frappe._dict(
+			name="fictional-second@example.com", full_name="Second Fictional", user_image=None
+		)
+		self.instructors.append(second)
+		self.instructor_emails[second.name] = second.name
+		before = copy.deepcopy(self.instructors)
+		for kind in ["course", "batch"]:
+			for language in ["fr", "en"]:
+				message = self.native_announce(kind, language)
+				envelope = self.native_envelopes[-1]
+				self.assertEqual(set(envelope["to"]), set(self.instructor_emails.values()))
+				self.assertEqual(set(envelope["bcc"]), set(self.users))
+				self.assertEqual(envelope["cc"], [])
+				self.assertFalse(set(self.users) & set(envelope["to"]))
+				self.assertEqual(message["args"]["instructors"], before)
+				self.assertIn("Second Fictional", message["body"])
+				self.assertIn("/files/avatar.png", message["body"])
+				self.assertEqual(
+					message["body"], get_email_from_template(message["template"], message["args"])[0]
+				) if language == "en" else None
+		self.assertEqual(self.instructors, before)
+
+	def test_user_identity_resolved_to_its_stored_email(self):
+		# An exceptional/legacy identity is not itself a deliverable address.
+		self.instructors[0].name = "FictionalLegacyIdentity"
+		self.instructors[0].username = "not-a-fallback-address"
+		self.instructor_emails = {"FictionalLegacyIdentity": "fictional-delivery@example.com"}
+		for kind in ["course", "batch"]:
+			message = self.native_announce(kind)
+			self.assertEqual(message["recipients"], ["fictional-delivery@example.com"])
+			self.assertEqual(message["args"]["instructors"][0].name, "FictionalLegacyIdentity")
+
+	def test_native_exact_duplicates_and_to_bcc_overlap(self):
+		duplicate = copy.deepcopy(self.instructors[0])
+		self.instructors.append(duplicate)
+		self.users.append(duplicate.name)
+		self.users.append(self.users[0])
+		for kind in ["course", "batch"]:
+			message = self.native_announce(kind)
+			envelope = self.native_envelopes[-1]
+			self.assertEqual(message["recipients"], [duplicate.name, duplicate.name])
+			self.assertEqual(message["bcc"], self.users)
+			self.assertEqual(envelope["to"], [duplicate.name])
+			self.assertIn(duplicate.name, envelope["bcc"])
+			self.assertEqual(set(envelope["queue"]["recipients"]), {duplicate.name, *self.users})
+			self.assertEqual(len(envelope["queue"]["recipients"]), len(set(envelope["queue"]["recipients"])))
+
+	def test_empty_instructors_preserve_bcc_only_native_envelope(self):
+		self.instructors.clear()
+		for kind in ["course", "batch"]:
+			message = self.native_announce(kind)
+			self.assertEqual(message["recipients"], [])
+			self.assertEqual(message["args"]["instructors"], [])
+			self.assertEqual(self.native_envelopes[-1]["to"], [])
+			self.assertEqual(set(self.native_envelopes[-1]["queue"]["recipients"]), set(self.users))
+
+	def test_missing_invalid_or_multiple_instructor_email_stops_before_send_and_flag(self):
+		for address in [
+			None,
+			"",
+			"not-an-email",
+			"fictional-a@example.com, fictional-b@example.com",
+			"undisclosed-recipients:;",
+		]:
+			self.instructor_emails[self.instructors[0].name] = address
+			for kind in ["course", "batch"]:
+				with (
+					self.subTest(address=address, kind=kind),
+					patch.object(frappe, "sendmail") as transport,
+					patch.object(self.db, "set_value") as writes,
+				):
+					with self.assertRaises(frappe.InvalidEmailAddressError):
+						if kind == "course":
+							courses.send_email_notification_for_published_courses([self.course])
+						else:
+							batches.send_email_notification_for_published_batch(self.batch)
+					transport.assert_not_called()
+					writes.assert_not_called()
+
+	def test_missing_instructor_identity_never_falls_back_to_session_user(self):
+		self.instructors[0].name = None
+		for kind in ["course", "batch"]:
+			with (
+				patch.object(frappe, "sendmail") as transport,
+				patch.object(self.db, "set_value") as writes,
+				patch.object(frappe.utils, "get_email_address") as resolve,
+			):
+				with self.assertRaises(frappe.InvalidEmailAddressError):
+					if kind == "course":
+						courses.send_email_notification_for_published_courses([self.course])
+					else:
+						batches.send_email_notification_for_published_batch(self.batch)
+				resolve.assert_not_called()
+				transport.assert_not_called()
+				writes.assert_not_called()
+
+	def test_native_preparation_failure_does_not_mark_notification_sent(self):
+		def reject(**kwargs):
+			# Reach the native boundary, then simulate its preparation failure.
+			self.assertEqual(
+				QueueBuilder(recipients=kwargs["recipients"]).recipients, [self.instructors[0].name]
+			)
+			raise RuntimeError("Fictional preparation failure")
+
+		for kind in ["course", "batch"]:
+			frappe.local.lang = "fr"
+			with (
+				patch.object(frappe, "sendmail", side_effect=reject) as transport,
+				patch.object(self.db, "set_value") as writes,
+			):
+				with self.assertRaises(RuntimeError):
+					if kind == "course":
+						courses.send_email_notification_for_published_courses([self.course])
+					else:
+						batches.send_email_notification_for_published_batch(self.batch)
+				self.assertEqual(transport.call_count, 1)
+				writes.assert_not_called()
+				self.assertEqual(frappe.local.lang, "fr")
+
+	def test_native_unsubscribe_filter_is_not_reimplemented(self):
+		for kind in ["course", "batch"]:
+			self.native_announce(kind, unsubscribed=[self.users[0]])
+			self.assertEqual(self.native_envelopes[-1]["bcc"], [self.users[1]])
