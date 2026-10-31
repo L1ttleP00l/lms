@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03 clôturé avec réserves, publication finale bc1bc97b vérifiée. FR-04 autorisé : audit FR-04A terminé, docs/FR-04A-AUDIT.md ; documentaire uniquement, aucun envoi/session/certificat réel. Publication A puis pilote B.1 certification autorisés sous contrôles. I18N-01 hors périmètre. Base bc1bc97b, 951 FR/3 019 POT intacts.**
+Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03 clôturé avec réserves à bc1bc97b. FR-04A publié/vérifié à b31fdf7cf164533c6409aed81775ecb9c36a08a2 ; FR-04B.1 terminé, source/tests 9cfdee8b, catalogues/rapport/handoff dans le commit courant. Dix tests Python hors site réussis, natifs langue/Jinja, sendmail intégralement remplacé ; zéro email ou certificat réel. 954 FR (+3, 951 préservées), 3 019 POT sans ajout/retrait, 19 références actualisées. Publication normale B.1 autorisée sous contrôles, vérifier SHA/rapport après push puis arrêter. Aucun autre lot, I18N-01 ou déploiement autorisé.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier correctif publié : FR-03C.1, `a6c4e93e` source/tests puis `d6c52d02` rapport/handoff ; isolation des suivis secondaires, contrats et permissions inchangés.
-- Dernier distant vérifié avant formalisation finale : `940d6415cde686373d8682b0c1a0c1a0a2eff2c9`, préparation publiée, document GitHub identique. Le commit portant cette approbation doit être publié et vérifié au SHA affiché par git log -1 ; compte rendu final et trace de publication font foi.
-- Livraison courante : approbation finale documentaire dans le commit portant ce handoff, publication explicitement autorisée. Aucun travail applicatif ou nouvelle phase autorisé. Les mentions historiques d’accord attendu sont actualisées par la décision finale ci-dessous.
+- Dernière base publiée du pilote : FR-04A `b31fdf7c`, audit documentaire. Pilote FR-04B.1 : `9cfdee8b` source/tests puis commit courant catalogues/rapport ; vérifier la publication finale dans le compte rendu/ls-remote.
+- Distant vérifié avant livraison B.1 : `b31fdf7cf164533c6409aed81775ecb9c36a08a2`, audit GitHub identique. Source/tests `9cfdee8b`, second SHA via git log -1 ; publication B.1 autorisée après contrôles, puis état attendu propre/aligné, aucun commit restant à publier.
+- Mandat courant : FR-04A puis FR-04B.1 seulement, publiables sous contrôles sans accord intermédiaire. Aucun envoi réel, compte ou certificat réel, permissions/SMTP/OAuth, PR/fusion/Crowdin/production. Arrêter après le pilote, attendre nouvel ordre pour B.2/I18N-01.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -512,6 +512,18 @@ Conserver explicitement : risque analogue Settings ; accueil indisponible omis s
 
 Deux documents seulement modifiés par la formalisation finale : clôture/handoff. Commit documentaire complémentaire, SHA via git log -1, publication normale autorisée après revue du diff. Vérifier identité distante des documents, SHA final, checkout propre/aligné et develop inchangé avant confirmation finale. Horodatages effectifs de contrôle après les deux pushes dans /workspace/work/fr03-final/publications.json et compte rendu final ; ne pas créer un nouveau commit uniquement pour constater ce push. Aucun autre travail autorisé ; attendre un nouvel ordre.
 
+### FR-04B.1 — pilote de certification isolé
+
+Audit A publié à b31fdf7cf164533c6409aed81775ecb9c36a08a2 et rapport distant identique vérifié avant développement. Famille retenue certification standard/surcharge existante : send_mail dans print_language(get_user_lang(member)), fonctions natives, aucune préférence écrite. Sujet FR existant conservé ; salutation Hi {0},/Bonjour déjà extraite. Trois paragraphes vides remplis via Babel seulement ; noms/titres échappés dans le standard, name encodé dans la query sans changer destination/paramètres PDF ; modèles personnalisés, arguments et contrôles métier inchangés. Aucun nouveau moteur de langue ou modification Framework.
+
+Dix méthodes unittest hors site réussies en 0,800 s après Ruff : sujet/corps FR/EN, quatre replis sans préférence, source EN pour clé absente, séparation des données, restauration langue/Jinja et job, modèles natifs personnalisés texte/HTML avec données/lectures fictives, HTML/URL/accents et erreur sans envoi. sendmail totalement remplacé ; DB/get_doc sauf faux Email Template, SQL, enqueue et PDF interdits. Aucun after_insert réel, email/queue/Communication/certificat/utilisateur/session créé. Premiers passages 7 échecs/2 erreurs avant, 1 échec/1 erreur après source, puis erreur logger hors site corrigée uniquement dans harnais, neuf puis dix réussites finales ; conserver logs /workspace/work/fr04/. Script AST cwd initial corrigé ; Ruff réutilisé depuis cache existant, rien installé.
+
+954 valeurs FR, trois nouvelles, 951 anciennes préservées ; PO 2 837 entrées inchangé, Babel/paramètres/contextes/flags/pluriels contrôlés. POT natif bench generate-pot-file : 3 019 identiques, zéro ajout/retrait, 19 références modifiées (certificat/salutation et sept MemberForm C.1 déjà publié), dates d’en-tête seulement ailleurs. Aucun POT manuel/update-po-files. 78 autres PO et Framework intacts ; AST métier/permissions hors unique contexte send_mail identiques. Compilation native LMS fr forcée et trois valeurs MO vérifiées ; pas de cache invalidé ni test d’email livré/site. MO et captures non suivis. Aucun test global/frontend/build nécessaire.
+
+Rapport docs/FR-04B1-RESULTATS.md. Source/template/tests 9cfdee8b ; PO/POT/rapport/handoff dans le commit courant, publication autonome autorisée sous revue diff/tests/catalogues/secrets et zéro envoi réel. Vérifier ensuite rapport GitHub et SHA, develop 6b791f33 et Framework959b85de inchangés, checkout propre. Ne pas créer de commit supplémentaire uniquement pour constater le push. Preuves /workspace/work/fr04/ ; les compte rendus de publication et ls-remote décrivent l’état réel.
+
+Limites : pas de SMTP/MIME/wrapper/signature/client mail/PDF testés ; cache du site non invalidé, pas d’email en réception. Dictionnaire de tests issu du PO, rendu natif isolé, pas preuve de tous les hooks/templates en base. Littéraux personnalisés restent ceux de l’auteur ; compte de signature fictif absent dans le test HTML. Certificat sans cours/session et liens relatifs/PDF anglais par défaut nécessitent un lot séparé ; pas d’initialisation métier ajoutée. Réserves FR-03 conservées. Prochain lot recommandé B.2 : demande/rappel évaluation, déduplication et langues membre/évaluateur, non commencé. I18N-01 exclu.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-03B.9, 951/2 837 entrées PO LMS renseignées ; POT 3 019 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -530,13 +542,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Préparation publiée et vérifiée : 940d6415cde686373d8682b0c1a0c1a0a2eff2c9, descendante directe de d6c52d02 ; document identique. Approbation définitive dans le commit portant ce handoff, à publier puis vérifier (SHA via git log -1). État attendu après vérification finale : checkout propre et aligné au même SHA distant, zéro commit non publié. Consulter ls-remote et le compte rendu final, pas seulement la référence origin locale.
+FR-03 clôturé : bc1bc97b880ec5ae8bf29f0d9664e054cb92d3ec publié. FR-04A : b31fdf7cf164533c6409aed81775ecb9c36a08a2 publié/rapport identique. Livraison B.1 : 9cfdee8b source/template/tests puis commit courant (SHA via git log -1) catalogues/rapport/handoff, push normal autorisé après contrôles. Après vérification de publication, état attendu propre/aligné, aucun commit non publié ; vérifier ls-remote et le compte rendu final plutôt que les seules références locales.
 
-develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre ; sources/tests/catalogues/configurations inchangés pendant la clôture. Les anciennes mentions de non-publication et d’accord attendu décrivent leurs missions historiques.
+develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Seuls fichiers B.1 : contrôleur certificat, certification.html, nouveau test Python, fr.po/main.pot, rapport/handoff. Aucun autre PO, source frontend, backend métier/permission ou configuration modifié. Mentions antérieures de phase non autorisée/non publiée historiques, remplacées par ce mandat borné.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** FR-04A terminé, publier l’audit documentaire sous les contrôles autorisés puis développer uniquement FR-04B.1 certification isolée, sans envoi ni certificat réel. Après B.1 et publication contrôlée éventuelle, arrêter et présenter le bilan. FR-03 reste clôturé avec réserves, I18N-01 exclu.
+**Prochaine action précise :** vérifier les deux commits B.1 puis leur publication normale autorisée (rapport GitHub identique, SHA distant, checkout propre, develop intact), présenter le bilan FR-04A/B.1 et arrêter. Attendre un nouvel ordre avant B.2 ou tout autre lot. Aucun email/certificat réel, modification de comptes/droits/SMTP/OAuth, déploiement, PR/fusion/Crowdin ou I18N-01 autorisé. Réutiliser les dix tests isolés et preuves de catalogue, ne pas relancer les suites déjà validées sans changement.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 

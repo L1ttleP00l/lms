@@ -4951,7 +4951,7 @@ msgstr ""
 #: lms/templates/emails/certification.html:6
 #, python-brace-format
 msgid "I am delighted to inform you that you have successfully earned your certification for the {0} course. Congratulations!"
-msgstr ""
+msgstr "Nous avons le plaisir de vous informer que vous avez obtenu votre certificat pour le cours {0}. Félicitations !"
 
 #: frontend/src/pages/ProfileAbout.vue:150
 #, python-brace-format
@@ -7453,7 +7453,7 @@ msgstr ""
 
 #: lms/templates/emails/certification.html:16
 msgid "Once again, congratulations on this significant accomplishment."
-msgstr ""
+msgstr "Encore toutes nos félicitations pour cette réussite."
 
 #: frontend/src/components/Assignment.vue:183
 msgid "Once the moderator grades your submission, you'll find the details here."
@@ -12107,7 +12107,7 @@ msgstr ""
 
 #: lms/templates/emails/certification.html:10
 msgid "With this certification, you can now showcase your updated skills and share your achievement with your colleagues and on LinkedIn. To access your certificate, please click on the link provided below. Make sure you are logged in to the portal."
-msgstr ""
+msgstr "Vous pouvez désormais mettre en valeur vos compétences et partager votre réussite avec vos collègues et sur LinkedIn. Pour accéder à votre certificat, cliquez sur le lien ci-dessous. Assurez-vous d’être connecté à la plateforme."
 
 #. Option for the 'Open to' (Select) field in DocType 'User'
 #: lms/fixtures/custom_field.json:265
