@@ -1,16 +1,16 @@
 <p>
-    {{ _("Dear ") }} {{ member_name }},
+    {{ _("Hi {0},").format(member_name | e) }}
 </p>
 <br>
 <p>
-    {{ _("I am delighted to inform you that you have successfully earned your certification for the {0} course. Congratulations!").format(frappe.bold(course_title)) }}
+    {{ _("I am delighted to inform you that you have successfully earned your certification for the {0} course. Congratulations!").format(frappe.bold(course_title | e)) }}
 </p>
 <br>
 <p>
     {{ _("With this certification, you can now showcase your updated skills and share your achievement with your colleagues and on LinkedIn. To access your certificate, please click on the link provided below. Make sure you are logged in to the portal.") }}
 </p>
 <br>
-<a href="/api/method/frappe.utils.print_format.download_pdf?doctype=LMS+Certificate&name={{name}}&format={{template | urlencode }}&no_letterhead=1">{{ _("Certificate Link") }}</a>
+<a href="/api/method/frappe.utils.print_format.download_pdf?doctype=LMS+Certificate&name={{ name | urlencode }}&format={{template | urlencode }}&no_letterhead=1">{{ _("Certificate Link") }}</a>
 <br>
 <p>
     {{ _("Once again, congratulations on this significant accomplishment.")}}

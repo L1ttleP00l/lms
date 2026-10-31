@@ -6,6 +6,7 @@ from frappe import _
 from frappe.email.doctype.email_template.email_template import get_email_template
 from frappe.model.document import Document
 from frappe.model.naming import make_autoname
+from frappe.translate import get_user_lang, print_language
 from frappe.utils import nowdate
 from pypika import Case
 
@@ -32,30 +33,33 @@ class LMSCertificate(Document):
 			self.send_mail()
 
 	def send_mail(self):
-		subject = _("Congratulations on getting certified!")
-		template = "certification"
-		custom_template = frappe.db.get_single_value("LMS Settings", "certification_template")
+		# Render subject, custom content and the standard sendmail template in
+		# the recipient's native language; restore the caller/job context afterwards.
+		with print_language(get_user_lang(self.member)):
+			subject = _("Congratulations on getting certified!")
+			template = "certification"
+			custom_template = frappe.db.get_single_value("LMS Settings", "certification_template")
 
-		args = {
-			"member_name": self.member_name,
-			"course_name": self.course,
-			"course_title": frappe.db.get_value("LMS Course", self.course, "title"),
-			"name": self.name,
-			"template": self.template,
-		}
+			args = {
+				"member_name": self.member_name,
+				"course_name": self.course,
+				"course_title": frappe.db.get_value("LMS Course", self.course, "title"),
+				"name": self.name,
+				"template": self.template,
+			}
 
-		if custom_template:
-			email_template = get_email_template(custom_template, args)
-			subject = email_template.get("subject")
-			content = email_template.get("message")
-		frappe.sendmail(
-			recipients=self.member,
-			subject=subject,
-			template=template if not custom_template else None,
-			content=content if custom_template else None,
-			args=args,
-			header=[subject, "green"],
-		)
+			if custom_template:
+				email_template = get_email_template(custom_template, args)
+				subject = email_template.get("subject")
+				content = email_template.get("message")
+			frappe.sendmail(
+				recipients=self.member,
+				subject=subject,
+				template=template if not custom_template else None,
+				content=content if custom_template else None,
+				args=args,
+				header=[subject, "green"],
+			)
 
 	def validate_criteria(self):
 		self.validate_role_of_owner()
