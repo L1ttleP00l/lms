@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03V1 publié/vérifié à d4a65e21c3e4fa70238fc852499f009d8ad77a92. FR-03C.1 terminé localement : faux échec de création mobile corrigé, 42/42 tests Vue ciblés et build réussis ; 4/4 parcours Chromium FR/EN ordinateur/mobile avec accueil indisponible, plus un parcours disponible réussi. Zéro écriture métier transmise. Source/tests a6c4e93e, documentation dans le commit courant, aucun push C.1. Rapport docs/FR-03C1-RESULTATS.md. Accueil indisponible signalé/omis sans rattrapage ; risque analogue Settings non corrigé. Clôture avec réserves seulement recommandée, FR-03 NON clôturé ; FR-04/I18N-01 NON démarrés.**
+Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03C.1 publié et vérifié à d6c52d02345555f65a003714d4e052af1135104d (a6c4e93e puis d6c52d02). Preuves 42/42 Vue, 4/4 Chromium membres + contrôle disponible, relues sans relance ; avis 4/4 dans la campagne distincte V1. Préparation locale de clôture avec réserves réalisée dans docs/FR-03-CLOTURE-RESERVES.md, publication et confirmation finale en attente d’accord. Bilan : 687→951 FR (+264, trois corrections), POT 2 997→3 019 (+33/−11), catalogues/Framework/develop intacts. Risques Settings, JS, paiements, permissions, accessibilité, résidus linguistiques et accueil omis à froid conservés. Aucun nouveau correctif ; FR-04/I18N-01 NON commencés.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Derniers commits applicatifs publiés FR-03B.9 : `9fe29fbc` sources/tests puis `fb684be0` catalogues/rapport/handoff ; aucune modification métier/permission.
-- Dernier distant littlepool-dev réellement vérifié : `d4a65e21c3e4fa70238fc852499f009d8ad77a92`, validation complémentaire publiée sur autorisation ; rapport GitHub identique.
-- Livraison courante : deux commits locaux FR-03C.1 : `a6c4e93e` source/tests puis rapport/handoff (SHA via git log -1), non publiés. Aucun push C.1 ni clôture définitive FR-03 ou ouverture FR-04/I18N-01 autorisé.
+- Dernier correctif publié : FR-03C.1, `a6c4e93e` source/tests puis `d6c52d02` rapport/handoff ; isolation des suivis secondaires, contrats et permissions inchangés.
+- Dernier distant littlepool-dev réellement vérifié : `d6c52d02345555f65a003714d4e052af1135104d`, FR-03C.1 publié sur autorisation ; rapport GitHub identique.
+- Livraison courante : un commit documentaire local de préparation de clôture avec réserves (document/handoff, SHA via git log -1). Aucun push de ce document ni annonce de clôture définitive sans dernier accord. FR-04/I18N-01 non autorisés.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -492,6 +492,16 @@ Chromium final : quatre recettes FR/EN ordinateur/mobile avec accueil indisponib
 
 Rapport docs/FR-03C1-RESULTATS.md, preuves /workspace/work/fr03c1/ et FR03V1. Empreintes 39 PO LMS + POT et 78 autres PO conformes ; 951 FR/3 019 POT conservés, backend/Framework/develop inchangés. Source/tests commit local a6c4e93e ; rapport/handoff dans un second commit local, SHA via git log -1. Aucun push C.1. Recommandation : clôture avec réserves à décider explicitement, ou lot distinct Settings ; pas de clôture automatique ni début FR-04/I18N-01. Conserver toutes réserves historiques et celle du suivi d’accueil omis à froid.
 
+### Préparation de clôture FR-03 avec réserves — documentaire locale
+
+FR-03C.1 publié après contrôle de la base d4a65e21, checkout propre, ordre/parents a6c4e93e puis d6c52d02, diff intégral de quatre fichiers, paramètres add_member/assignRoles/refus/saveRoles identiques, secrets et empreintes conformes. Rapport GitHub au SHA d6c52d02345555f65a003714d4e052af1135104d identique ; checkout aligné après push normal. develop reste 6b791f33, Framework 959b85de propre. Les mentions historiques de non-publication C.1 sont dépassées par ce constat.
+
+AGENTS, handoff, ROADMAP/PLAN, revue, V1, C.1 et synthèse B.9 rapprochés sans recommencer l’audit. Neuf fins de lot et revue/V1/C.1 dans l’ascendance publiée. 951 valeurs FR/3 019 POT, +264 nouvelles valeurs/trois corrections, +33/−11 POT reconfirmés par métriques historiques et empreintes inchangées ; pas de pourcentage d’interface ou somme des tests recoupés. 42 tests ciblés C.1 et cinq parcours relus, pas rejoués ; quatre avis V1 et quatre membres C.1 sont deux campagnes distinctes. Zéro transmission sensible documentée, pas audit de sécurité par déduction des mocks. Accueil omis à froid reste une réserve, pas un succès intégral du suivi.
+
+Nouveau docs/FR-03-CLOTURE-RESERVES.md : historique, grille de critères vérifiés, preuves et réserves A fonctionnement (Settings/JS/double clic/transactions/suppressions), B sécurité (certificats/permissions/modération), C accessibilité/mobile/confirmations, D résidus linguistiques/formats, E accueil omis sans rattrapage et promesses secondaires traitées. Revue de sécurité distincte avant décision de droits recommandée. Chantiers fonctionnel Settings, sécurité, qualité, accessibilité et résidus proposés sans démarrage. FR-04/I18N-01 non commencés. ROADMAP/PLAN conservent des statuts historiques à synchroniser séparément ; rapports antérieurs intacts.
+
+Autorisation de principe limitée à préparation locale de clôture avec réserves. Recommandation explicite d’accepter cette clôture dans son périmètre testé, pas d’homologation de production, francisation intégrale ou conformité globale. Dernier accord requis avant publication documentaire et annonce définitive. Deux seuls fichiers de cette préparation : nouveau document et handoff, un commit local non publié (SHA via git log -1), preuves /workspace/work/fr03-close/. Aucun test applicatif, navigateur, build, compilation, extraction, cache, installation, DB ou nouveau changement produit. Contrôles documentaires Prettier du nouveau rapport, secrets et git diff --check ; hooks complets non déclarés réussis.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-03B.9, 951/2 837 entrées PO LMS renseignées ; POT 3 019 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -510,13 +520,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Distant vérifié : d4a65e21c3e4fa70238fc852499f009d8ad77a92, validation FR-03V1 publiée sur b67c8c55, rapport identique. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Utiliser ls-remote si origin/littlepool-dev manque.
+Distant vérifié : d6c52d02345555f65a003714d4e052af1135104d, FR-03C.1 publié (a6c4e93e puis d6c52d02) depuis d4a65e21 ; rapport identique. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Tous les neuf lots et revue/V1 sont dans cette ascendance. Utiliser ls-remote si la référence locale distante manque.
 
-Deux nouveaux commits locaux FR-03C.1 non publiés : a6c4e93e (source/tests) puis documentation/handoff (SHA par git log -1). Checkout propre après commit attendu, deux commits d’avance sur d4a65e21. Aucun autre changement ou catalogue modifié ; aucun artefact de build suivi. Les mentions anciennes de non-publication sont historiques.
+Un nouveau commit documentaire local de préparation de clôture avec réserves : docs/FR-03-CLOTURE-RESERVES.md et handoff (SHA par git log -1), non publié. Checkout propre après commit attendu, un commit d’avance sur d6c52d02. Aucun changement applicatif/test/catalogue/artefact de build pendant cette partie ; les mentions antérieures de non-publication C.1 sont historiques.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-03C1-RESULTATS.md et git log -2 ; présenter les deux commits et attendre accord pour leur publication et/ou décision de clôture avec réserves. Ne pas republier sans accord, ni corriger Settings par déduction. Le faux échec de la route mobile est corrigé et vérifié en simulation ; accueil indisponible omis sans rattrapage, risque analogue Settings maintenu. Ne pas rejouer les recettes/tests sans changement. FR-03 non définitivement clôturé, FR-04/I18N-01 non démarrés. Conserver les réserves JS, lecture certificats, sécurité, accessibilité et opérations réelles.
+**Prochaine action précise :** lire docs/FR-03-CLOTURE-RESERVES.md et git log -1 ; présenter la préparation et attendre le dernier accord pour publier le document/handoff et confirmer la clôture FR-03 avec réserves. Ne pas pousser le commit documentaire, annoncer une clôture définitive, corriger Settings, modifier des permissions ou ouvrir une phase par déduction. Avis V1 et membres C.1 disposent des validations ciblées, sans valider toute l’application ou le suivi d’accueil indisponible. Conserver les réserves A–E ; revue de sécurité séparée avant toute décision de droits. FR-04/I18N-01 non commencés, aucun déploiement autorisé.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
