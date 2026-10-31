@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-04B.6 livré partiellement : HTML du Certificate standard FR/EN, proposition cours/évaluations/date paramétrée, variables échappées ; inclusion Jinja native extractible depuis JSON. 14/14 tests isolés +2 rendus depuis MO ; 998 FR (+3, 995 intactes), POT3024 (+3/−0). HTML validé, PDF binaire NON validé ; format installé NON synchronisé. default_print_language="en" inchangé, priorités simple/Desk/multiple distinctes confirmées ; aucun forçage de langue du titulaire. Source/tests 812d5a0c, catalogue/rapport/handoff dans commit courant ; publication normale autorisée sous contrôles. Zéro certificat/email/écriture réelle. Réserves FR-03/B.3/B.4/B.5 et politique C.2 non adoptée conservées. I18N-01 non commencé.**
+Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-04B.6C.1 : préparation documentaire uniquement, adoption BLOQUÉE faute de site jetable confirmé. Seul learning.localhost configuré, données persistantes et blocage emails/jobs/réseau non démontré ; aucune connexion DB, sauvegarde de site, lecture du format installé ou import effectué. Aucun certificat/email/écriture réelle. Rapport docs/FR-04B6C1-ADOPTION-RESULTATS.md ; deux documents, publication normale autorisée sous contrôles. Nouveaux tests0 ; résultats B.6 historiques14+2 rendus non rejoués, pas une validation d’adoption. 998 FR/POT3024 et code inchangés. Réserves FR-03/B.3/B.4/B.5 et politique C.2 non adoptée conservées. C.2 binaire et I18N-01 non commencés.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Base publiée vérifiée B.6 : `c0a5474f79146c2d46cb62565e27343f04634955`, C.2 documentaire publié, politique proposée non adoptée ; checkout initial propre.
-- Livraison B.6 : `812d5a0c` JSON/template/tests, puis commit courant catalogues/rapport/handoff (SHA via git log -1). Publication normale conditionnelle autorisée ; vérifier SHA distant et rapport GitHub identique/checkout propre. Aucun commit de constat supplémentaire attendu, état réel à vérifier via Git.
-- Mandat B.6 terminé partiellement : HTML standard, audit chemins/langues/permissions et synchronisation ; pas de PDF binaire ni format installé validé. Aucune délivrance, email, données réelles, import/migration/cachepurge, permission, production, PR ou Crowdin. Aucun changement de default_print_language, aucune harmonisation globale/I18N-01. Ne pas enchaîner sur un autre lot.
+- Base publiée vérifiée B.6C.1 : `65360541bdcb3a90c113e0037146b2d48d9784f5`, checkout initial propre ; source B.6 812d5a0c déjà publiée.
+- Livraison C.1 : commit documentaire courant (SHA via git log -1), seulement rapport et handoff. Publication normale autorisée après contrôles ; vérifier SHA distant/rapport GitHub identique/checkout propre, sans commit de constat. État réel à consulter par Git.
+- Mandat C.1 arrêté à la préparation conformément à sa garde : aucun site jetable attesté. Ne pas importer ou sauvegarder learning.localhost pour ce lot, ne pas créer/supprimer/restaurer un site pour contourner l’incertitude. Prochaine recette exige qualification/protections/restauration sous mandat distinct ; pas de binaire C.2, production, PR, migration/Crowdin ou I18N-01.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -666,3 +666,16 @@ Prochaine action FR-04 : publier ce seul audit/handoff après contrôles, vérif
 - Synchronisation : JSON source modifié ne prouve pas adoption ; import natif non forcé peut ignorer une date DB plus récente, et ne protège pas automatiquement toute personnalisation Print Format homonyme. Aucun migrate/reload/import/SQL/cachepurge. Sauvegarde/comparaison et mandat distinct avant adoption/recette réelle du format ; réserve comparable B.3 toujours ouverte.
 - Réserves FR-03 (dont personnel pouvant lire plus que ses affectations), B.4/B.5, C.2 politique non adoptée intactes ; aucun accès/publication/permission changé, aucune campagne ou production activée.
 - Prochaine action précise : vérifier publication B.6, puis décider d’un mandat d’adoption du format en développement isolé et recette PDF binaire sur fixtures sans ressources externes. Arbitrer les priorités de langue séparément si nécessaire ; ne pas commencer I18N-01 ni autre chantier automatiquement.
+
+
+## FR-04B.6C.1 — Blocage d’adoption et reprise
+
+- Rapport docs/FR-04B6C1-ADOPTION-RESULTATS.md. Deux fichiers documentaires seulement ; aucune nouvelle source ou test. Pas d’adoption ni HTML installé déclaré conforme.
+- Découverte : Bench /workspace/frappe-bench, seul site_config.json dans learning.localhost, flow-server non site configuré. MariaDB hôte interne lms-mariadb/3306, données persistantes /workspace/.setup/db-data ; réseau Docker lms-dev. Métadonnées non secrètes seulement, aucun apprenant/certificat réel interrogé. Absence de données à préserver/partage production non attestée.
+- Protections mute_emails/pause_scheduler/disable_scheduler/suspend_email_queue/pause_queue non définies dans les fichiers lus ; pas preuve de blocage effectif ailleurs. Pas de paramètres mail dans ces fichiers, mais Email Account DB inconnu. Processus applicatifs actifs, fonctions exactes non inférées ; aucun worker/réseau/config arrêté ou modifié.
+- Aucun export du Print Format installé, backup, import, purge ou rollback. Zéro fichier de backup au répertoire par défaut observé, autres copies inconnues. Outils dump/client MariaDB/tar/gzip et commandes natives backup/restore présents, aucune restauration vérifiée. Source modèle/include/CSS identifiés dans le rapport.
+- Contrat import : modified DB >= source peut sauter le Print Format sans force ; import peut supprimer/recréer, flags d’import et hooks/cache/commit associés. Ne jamais forcer un document plus récent ; noms identiques ne prouvent pas absence d’effets. Répétition susceptible de saut attendue par code, pas idempotence testée.
+- Attention sauvegarde : new_backup appelle delete_temp_backups ; risque de suppression d’archives anciennes à neutraliser/prévenir selon mandat avant toute commande. Pas de nettoyage ni suppression ici. Préparation/retour arrière détaillés hors exécution : site jetable nommé, protections prouvées, backup base/fichiers/config protégé et restauration validée, comparaison des personnalisations, import ciblé non forcé unique, lectures HTML/permissions fictives ; pas de migration globale/SQL.
+- Contrôles de cette mission : Git/environnement/source natif/empreintes et documentation, tests applicatifs0. Ne pas présenter les14 tests et2 rendus B.6 non rejoués comme une preuve de C.1. Code/998 FR/POT3024/78 autres PO/Framework/develop inchangés. Zéro certificat, email, données sensibles ou opération production.
+- Réserves FR-03 A–E, B.3 non synchronisé, B.4/B.5, adoption B.6 et politique C.2 non adoptée intactes. PDF binaire C.2 non lancé ; I18N-01 non commencé.
+- Prochaine action précise : faire qualifier/provisionner séparément un site réellement jetable sans données à préserver, isoler emails/jobs/réseau et démontrer sauvegarde/restauration ; reprendre C.1 avant de demander C.2 binaire. Aucune autorisation implicite d’opérer learning.localhost ou de créer un site dans ce mandat.
