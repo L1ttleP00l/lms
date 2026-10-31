@@ -3,6 +3,7 @@
  * `lms.lms.api` endpoint, never `frappe.client.*` (Course Evaluator role perms).
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { installTranslations } from './helpers/frenchCatalog'
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 
@@ -136,6 +137,7 @@ const EVALUATOR = 'eva@example.com'
 const find = (url: string) => resources.value.find((r) => r.config.url === url)
 
 interface MountOptions {
+	lang?: string
 	viewer?: { name: string; username: string; is_moderator?: boolean }
 	googleEnabled?: boolean
 	canConfigureGoogle?: boolean
@@ -165,17 +167,19 @@ async function mountPanel(options: MountOptions = {}) {
 		schedule = MONDAY,
 		loaded = true,
 		attach = false,
+		lang,
 	} = options
 	resources.value = []
 	const { default: ProfileEvaluator } = await import(
 		'@/pages/ProfileEvaluator.vue'
 	)
+	const translate = lang ? installTranslations(lang) : (s: string) => s
 	const wrapper = mount(ProfileEvaluator, {
 		attachTo: attach ? document.body : undefined,
 		props: { profile: { data: { name: EVALUATOR, username: 'eva' } } },
 		global: {
 			provide: { $user: { data: { ...viewer, is_evaluator: true } } },
-			mocks: { __: (s: string) => s },
+			mocks: { __: translate },
 		},
 	})
 	if (!loaded) return wrapper
@@ -1471,3 +1475,39 @@ describe('ProfileEvaluator Google Calendar', () => {
 		expect(routerReplace).toHaveBeenCalled()
 	})
 })
+
+for (const lang of ['fr', 'en'])
+	describe(`FR-03B.8 availability ${lang}`, () => {
+		const tr = (fr: string, en: string) => (lang === 'fr' ? fr : en)
+		it('renders hours, local slots and time off without submitting', async () => {
+			const wrapper = await mountPanel({
+				lang,
+				timeOff: ['2026-11-01', '2026-11-02'],
+			})
+			expect(wrapper.text()).toContain(tr('Disponibilités', 'Availability'))
+			expect(wrapper.text()).toContain(tr('Indisponibilités', 'Time off'))
+			expect(wrapper.text()).toContain(tr('Ajouter un créneau', 'Add slot'))
+			await day(wrapper, 'Monday')
+				.findAll('button')
+				.find((b) => b.text() === tr('Ajouter un créneau', 'Add slot'))!
+				.trigger('click')
+			expect(writes()).toHaveLength(0)
+			expect(timesOf(wrapper, 'Monday').slice(0, 2)).toEqual(['09:00', '10:00'])
+		})
+		it('renders an empty week and a load error with retry', async () => {
+			let wrapper = await mountPanel({ lang, schedule: [] })
+			expect(wrapper.text()).toContain(
+				tr('Aucun créneau défini pour le moment', 'No hours yet')
+			)
+			wrapper.unmount()
+			wrapper = await mountPanel({ lang, loaded: false })
+			find('lms.lms.api.get_evaluator_details').error = {
+				message: 'Fictional refusal',
+			}
+			await flushPromises()
+			expect(wrapper.text()).toContain(
+				tr('Impossible de charger les horaires', 'Could not load hours')
+			)
+			expect(writes()).toHaveLength(0)
+		})
+	})

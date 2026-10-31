@@ -7,6 +7,7 @@ import {
 	type Router,
 } from 'vue-router'
 import { defineComponent, h } from 'vue'
+import { installTranslations } from './helpers/frenchCatalog'
 
 vi.stubGlobal('__', (text: string) => text)
 
@@ -73,8 +74,9 @@ vi.mock('@/components/Controls/Link.vue', () => ({
 }))
 vi.mock('@/components/Controls/BooleanSwitch.vue', () => ({
 	default: {
+		name: 'BooleanSwitch',
 		props: ['modelValue', 'label', 'description', 'size'],
-		template: `<label>{{ label }}</label>`,
+		template: `<div><label>{{ label }}</label><p>{{ description }}</p></div>`,
 	},
 }))
 
@@ -109,7 +111,12 @@ const makeRouter = (): Router =>
 		],
 	})
 
-const mountForm = async (router: Router, user: Record<string, unknown>) => {
+const mountForm = async (
+	router: Router,
+	user: Record<string, unknown>,
+	lang = 'en'
+) => {
+	const translate = installTranslations(lang)
 	const wrapper = mount(defineComponent({ render: () => h(RouterView) }), {
 		global: {
 			plugins: [router],
@@ -118,7 +125,7 @@ const mountForm = async (router: Router, user: Record<string, unknown>) => {
 				$dayjs: () => ({ format: () => '2026-07-31' }),
 			},
 			stubs: { teleport: true },
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	await flushPromises()
@@ -350,4 +357,77 @@ describe('BulkCertificatesForm as a route', () => {
 		await flushPromises()
 		expect(router.currentRoute.value.fullPath).toBe('/batches/B1#dashboard')
 	})
+	for (const lang of ['fr', 'en']) {
+		const tr = (fr: string, en: string) => (lang === 'fr' ? fr : en)
+		it(`FR-03B.8 ${lang}: distinguishes published from generated without writing`, async () => {
+			const router = makeRouter()
+			await router.push('/batches/B1/certificates')
+			const wrapper = await mountForm(router, moderator, lang)
+			expect(wrapper.text()).toContain(
+				tr('Générer des certificats', 'Generate Certificates')
+			)
+			expect(wrapper.text()).toContain(
+				tr(
+					'Cette option publie le certificat sur la page des participants certifiés.',
+					'Enabling this will publish the certificate on the certified participants page.'
+				)
+			)
+			const config = createResourceMock.mock.calls.find(
+				(c) => c[0].url === 'lms.lms.api.generate_batch_certificates'
+			)![0]
+			expect(config.makeParams()).toEqual({
+				batch: 'B1',
+				details: {
+					issue_date: '2026-07-31',
+					expiry_date: null,
+					template: null,
+					evaluator: null,
+					published: true,
+					course: null,
+				},
+			})
+			const toggle = wrapper.findComponent({ name: 'BooleanSwitch' })
+			toggle.vm.$emit('update:modelValue', false)
+			await flushPromises()
+			expect(config.makeParams().details.published).toBe(false)
+			expect(certificateSubmit).not.toHaveBeenCalled()
+		})
+		it(`FR-03B.8 ${lang}: simulates generation success and leaves the untranslated success as English fallback`, async () => {
+			certificateSubmit.mockImplementation((_doc: any, opts: any) => {
+				opts.onSuccess({ created: 2, errors: [] })
+				return Promise.resolve()
+			})
+			const router = makeRouter()
+			await router.push('/batches/B1/certificates')
+			const wrapper = await mountForm(router, moderator, lang)
+			await wrapper
+				.get('[data-testid="bulk-certificates-save"]')
+				.trigger('click')
+			await flushPromises()
+			expect(certificateSubmit).toHaveBeenCalledTimes(1)
+			expect(toastSuccess).toHaveBeenCalledWith(
+				'Certificates generated successfully'
+			)
+		})
+		it(`FR-03B.8 ${lang}: preserves the server refusal and never claims success`, async () => {
+			const refusal = tr(
+				'Refus fictif : certificat hors périmètre.',
+				'Fictional refusal: certificate outside scope.'
+			)
+			certificateSubmit.mockImplementation((_doc: any, opts: any) => {
+				opts.onError({ messages: [refusal] })
+				return Promise.resolve()
+			})
+			const router = makeRouter()
+			await router.push('/batches/B1/certificates')
+			const wrapper = await mountForm(router, moderator, lang)
+			await wrapper
+				.get('[data-testid="bulk-certificates-save"]')
+				.trigger('click')
+			await flushPromises()
+			expect(toastError).toHaveBeenCalledWith(refusal)
+			expect(toastSuccess).not.toHaveBeenCalled()
+			expect(router.currentRoute.value.name).toBe('BulkCertificates')
+		})
+	}
 })

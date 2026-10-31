@@ -11,6 +11,7 @@
  */
 import { describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
+import { installTranslations } from './helpers/frenchCatalog'
 
 const { listResources, seed } = vi.hoisted(() => ({
 	listResources: { value: [] as any[] },
@@ -84,7 +85,8 @@ const CALENDAR_CONFIG_KEYS = [
 async function mountSchedule(
 	rows: any[] = [{ name: 'CR-0001' }],
 	viewer = 'evaluator@example.com',
-	error: unknown = null
+	error: unknown = null,
+	lang = 'en'
 ) {
 	listResources.value = []
 	seed.rows = rows
@@ -92,11 +94,12 @@ async function mountSchedule(
 	const { default: ProfileEvaluationSchedule } = await import(
 		'@/pages/ProfileEvaluationSchedule.vue'
 	)
+	const translate = installTranslations(lang)
 	const wrapper = mount(ProfileEvaluationSchedule, {
 		props: { profile: { data: { name: 'evaluator@example.com' } } },
 		global: {
 			provide: { $user: { data: { name: viewer } } },
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	return { wrapper, resource: listResources.value[0] }
@@ -148,7 +151,7 @@ describe('ProfileEvaluationSchedule events', () => {
 
 		expect(event).toMatchObject({
 			id: 'CR-0001',
-			title: "Ada's Evaluation",
+			title: 'Evaluation of Ada',
 			participant: 'Ada',
 			venue: 'https://meet.example/abc',
 			fromDate: '2026-09-16',
@@ -226,3 +229,95 @@ describe('ProfileEvaluationSchedule when the list fails to load', () => {
 		expect(wrapper.find('[data-testid="calendar"]').exists()).toBe(true)
 	})
 })
+
+for (const lang of ['fr', 'en'])
+	describe(`FR-03B.8 schedule ${lang}`, () => {
+		const tr = (fr: string, en: string) => (lang === 'fr' ? fr : en)
+		it('translates personal and other evaluator empty states from the actual catalogue', async () => {
+			for (const viewer of ['evaluator@example.com', 'mod@example.com']) {
+				const { wrapper } = await mountSchedule([], viewer, null, lang)
+				expect(wrapper.text()).toContain(
+					tr('Aucune évaluation pour le moment', 'No evaluations yet')
+				)
+				expect(wrapper.text()).toContain(
+					viewer === 'evaluator@example.com'
+						? tr(
+								'Les évaluations réservées auprès de vous apparaîtront ici.',
+								'Evaluations students book with you will show up here.'
+						  )
+						: tr(
+								'Les évaluations réservées auprès de cet évaluateur apparaîtront ici.',
+								'Evaluations students book with this evaluator will show up here.'
+						  )
+				)
+				wrapper.unmount()
+			}
+		})
+		it('keeps errors and retry visible without a write', async () => {
+			const { wrapper, resource } = await mountSchedule(
+				[],
+				undefined,
+				new Error('Fictional refusal'),
+				lang
+			)
+			expect(wrapper.text()).toContain(
+				tr(
+					'Impossible de charger les évaluations',
+					'Could not load evaluations'
+				)
+			)
+			expect(wrapper.get('button').text()).toBe(tr('Réessayer', 'Retry'))
+			await wrapper.get('button').trigger('click')
+			await flushPromises()
+			expect(resource.reload).toHaveBeenCalledTimes(1)
+			wrapper.unmount()
+		})
+		it('translates only the event title, preserves identifiers, times and arbitrary member data', async () => {
+			const { wrapper, resource } = await mountSchedule(
+				undefined,
+				undefined,
+				null,
+				lang
+			)
+			const row = {
+				name: 'FAKE-REQUEST',
+				member_name: 'Fictional {1} <Learner>',
+				date: '2026-10-31',
+				start_time: '10:00:00',
+				end_time: '11:00:00',
+				member: 'fictional@example.com',
+				course: 'FAKE-COURSE',
+			}
+			const before = JSON.stringify(row)
+			const [event] = resource.config.transform([row])
+			expect(event.title).toBe(
+				tr(
+					'Évaluation de Fictional {1} <Learner>',
+					'Evaluation of Fictional {1} <Learner>'
+				)
+			)
+			expect(event.participant).toBe(row.member_name)
+			expect(event.id).toBe(row.name)
+			expect(event.fromTime).toBe(row.start_time)
+			expect(event.toTime).toBe(row.end_time)
+			expect(event.fromDate).toBe(row.date)
+			expect(JSON.stringify(row)).toBe(before)
+			expect(resource.config.filters).toEqual({
+				evaluator: 'evaluator@example.com',
+				status: ['!=', 'Cancelled'],
+			})
+			expect(
+				wrapper
+					.get(
+						'button[aria-label="' + installTranslations(lang)('Previous') + '"]'
+					)
+					.exists()
+			).toBe(true)
+			expect(
+				wrapper
+					.get('button[aria-label="' + tr('Suivant', 'Next') + '"]')
+					.exists()
+			).toBe(true)
+			wrapper.unmount()
+		})
+	})
