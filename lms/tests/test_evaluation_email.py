@@ -300,17 +300,22 @@ class TestEvaluationEmail(unittest.TestCase):
 		self.assertEqual(self.queue.call_count, 1)
 		self.assertEqual(self.queue.call_args.args[0]["recipients"], ["fictional-fr@example.com"])
 
-	def test_reminder_diagnostic_single_render_subject_stays_english(self):
+	def test_reminder_low_level_without_standard_hook_uses_current_language(self):
 		for lang in ["fr", "en"]:
 			m = self.remind(lang)
-			self.assertEqual(m["subject"], "Reminder for Certificate Evaluation")
+			self.assertEqual(
+				m["subject"],
+				"Rappel pour votre évaluation de certification"
+				if lang == "fr"
+				else "Reminder for Certificate Evaluation",
+			)
 			self.assertEqual(set(m["recipients"]), {self.request.member, self.request.evaluator})
 			self.assertEqual(m["lang"], lang)
 			self.assertIn("Votre évaluation" if lang == "fr" else "Your evaluation", m["body"])
 		self.assertEqual(self.communication.call_count, 2)  # fully mocked
 		self.assertEqual(self.queue.call_count, 0)
 
-	def test_reminder_diagnostic_same_instant_different_display_zone(self):
+	def test_reminder_low_level_without_standard_hook_keeps_stored_time(self):
 		booking = self.booking()
 		reminder = self.remind("fr")
 		self.assertIn("16 mai 2027", booking["body"])
@@ -345,7 +350,7 @@ class TestEvaluationEmail(unittest.TestCase):
 			patch.object(FictionalNotification, "get_list_of_recipients", new=recipients),
 		):
 			self.remind("fr")
-		self.assertEqual(events, ["render", "recipients"])  # plain subject is not rendered
+		self.assertEqual(events, ["render", "render", "recipients"])  # Jinja subject, then body
 		n = self.notification()
 		n.email_template = "FICTIONAL-CUSTOM"
 		template = certification_fixture.FictionalEmailTemplate(
@@ -373,7 +378,7 @@ class TestEvaluationEmail(unittest.TestCase):
 			rules = get_method_map("lms") + get_method_map("frappe")
 		path = RULE.relative_to(ROOT.parent).as_posix()
 		self.assertFalse(any(pathmatch(pattern, path) for pattern, method in rules))
-		self.assertEqual(self.notification().subject, "Reminder for Certificate Evaluation")
+		self.assertIn("evaluation_reminder.subject", self.notification().subject)
 
 
 if __name__ == "__main__":

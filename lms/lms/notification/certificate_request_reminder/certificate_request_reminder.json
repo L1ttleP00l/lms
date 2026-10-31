@@ -12,10 +12,10 @@
  "event": "Days Before",
  "idx": 0,
  "is_standard": 1,
- "message": "<p> {{ _(\"Hey {0}\").format(doc.member_name) }} </p>\n<br>\n<p> {{ _('Your evaluation for the course {0} has been scheduled on {1} at {2} {3}.').format(doc.course_title, frappe.utils.format_date(doc.date, \"medium\"), frappe.utils.format_time(doc.start_time, \"short\"), doc.timezone) }}</p>\n<br>\n<p> {{ _(\"{0} is your evaluator\").format(doc.evaluator_name) }} </p>\n<br>\n<p> {{ _(\"Please prepare well and be on time for the evaluations.\") }} </p>\n",
+ "message": "{% if evaluation_reminder is defined %}\n<p>{{ evaluation_reminder.greeting | e }}</p>\n<br>\n<p>{{ evaluation_reminder.schedule | e }}</p>\n<br>\n<p>{{ evaluation_reminder.evaluator | e }}</p>\n<br>\n<p>{{ evaluation_reminder.preparation | e }}</p>\n{% else %}\n<p>{{ _(\"Hey {0}\").format(doc.member_name | e) }}</p>\n<br>\n<p>{{ _('Your evaluation for the course {0} has been scheduled on {1} at {2} {3}.').format(doc.course_title | e, frappe.utils.format_date(doc.date, \"medium\") | e, frappe.utils.format_time(doc.start_time, \"short\") | e, doc.timezone | e) }}</p>\n<br>\n<p>{{ _(\"{0} is your evaluator\").format(doc.evaluator_name | e) }}</p>\n<br>\n<p>{{ _(\"Please prepare well and be on time for the evaluations.\") }}</p>\n{% endif %}\n",
  "message_type": "HTML",
  "minutes_offset": 0,
- "modified": "2025-07-04 10:47:58.448814",
+ "modified": "2026-10-31 18:09:39.774308",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "Certificate Request Reminder",
@@ -36,5 +36,5 @@
  ],
  "send_system_notification": 0,
  "send_to_all_assignees": 0,
- "subject": "Reminder for Certificate Evaluation"
+ "subject": "{{ evaluation_reminder.subject if evaluation_reminder is defined else _('Reminder for Certificate Evaluation') }}"
 }
