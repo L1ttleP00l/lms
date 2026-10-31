@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026. **FR-03B.8 publié à f559542d4ef99c318818b839501b0a9c21a21f42, rapport GitHub identique, base propre/alignée. FR-03B.9 terminé localement : 31 traductions nouvelles, 951 FR/3 019 POT (+9/-3), statistiques contextualisées, Devoirs sans surcharge Assignments, annuaire et accueil/réponses. 115 Vue/sept fichiers, compilation/dictionnaire/build réussis ; quatre recettes FR/EN ordinateur/mobile sur surfaces retenues, zéro écriture sensible. Avis non validés en navigateur ; légendes de données encore anglaises. Bilan neuf lots dans docs/FR-03B9-RESULTATS.md : +264 valeurs depuis 687, +22 POT nets. Attendre accord pour publication ET clôture éventuelle de FR-03 ; aucun FR-04.**
+Mis à jour le 31 octobre 2026. **FR-03B.9 publié et vérifié à fb684be0f5c4f4d18fe6dd1d49260f6942a4c5f7 (9fe29fbc puis fb684be0), rapport GitHub identique. Revue préparatoire locale dans docs/FR-03-REVUE-CLOTURE.md : métriques recalculées sur dix états Git, 687→951 FR (+264), trois corrections B.5, POT 2 997→3 019 (+33/−11). Recommandation : validation complémentaire bornée avant clôture, avis navigateur/toast mobile et arbitrage des réserves. FR-03 NON définitivement clôturé ; FR-04 et I18N-01 NON démarrés. Aucun push du rapport de revue autorisé.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Dernier commit source/tests local FR-03B.9 : `9fe29fbc` (statistiques/navigation/annuaire/discussion et tests ; aucune modification métier/permission).
-- Dernier distant littlepool-dev réellement vérifié : `f559542d4ef99c318818b839501b0a9c21a21f42`, après publication autorisée FR-03B.8 (3844585e puis f559542d).
-- Livraison courante : deux commits locaux FR-03B.9, sources/tests puis catalogues/rapport/handoff ; relever le second SHA avec git log -1. Aucun push autorisé pour ce lot, ni clôture définitive FR-03 ou ouverture FR-04.
+- Derniers commits applicatifs publiés FR-03B.9 : `9fe29fbc` sources/tests puis `fb684be0` catalogues/rapport/handoff ; aucune modification métier/permission.
+- Dernier distant littlepool-dev réellement vérifié : `fb684be0f5c4f4d18fe6dd1d49260f6942a4c5f7`, après publication autorisée FR-03B.9.
+- Livraison courante : un commit documentaire local de revue préparatoire et de handoff, SHA à relever avec git log -1. Aucun push du rapport, aucune clôture définitive FR-03 ni ouverture FR-04/I18N-01 autorisé.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -454,6 +454,20 @@ Bilan des neuf lots dans docs/FR-03B9-RESULTATS.md : depuis 687 FR/2 997 POT, +2
 
 Dix-neuf fichiers : dix sources frontend, cinq tests, fr.po/main.pot, rapport et handoff. Source/tests 9fe29fbc ; second SHA à relever avec git log -1. Preuves /workspace/work/fr03b9/. Aucun push B.9, clôture définitive de FR-03 ou début FR-04 autorisé. Prochaine action : revue du rapport, puis attendre accord explicite.
 
+### Revue préparatoire de clôture FR-03 — documentaire
+
+B.9 publié par push normal autorisé de 9fe29fbc puis fb684be0f5c4f4d18fe6dd1d49260f6942a4c5f7, base f559542d vérifiée ; dix-neuf fichiers, 951 FR/3 019 POT, +9/−3, 920 valeurs antérieures et Assignments préservés. Preuves 115 Vue/compilation/build/quatre recettes limitées relues sans relancer les tests, zéro écriture sensible. Rapport GitHub identique, checkout initial propre/aligné, develop 6b791f33 et Framework 959b85de inchangés. Avis navigateur/légendes anglaises/réserves historiques conservés.
+
+Revue docs/FR-03-REVUE-CLOTURE.md fondée sur AGENTS, handoff, ROADMAP/PLAN/GLOSSAIRE, audit et neuf rapports. Lecture Babel des dix catalogues historiques, sans extraction/compilation/cache/build/tests applicatifs/DB/navigateur. Chiffres concordants : 687→951 FR, +264 nouvelles valeurs, trois corrections B.5 (Batches/Batch Details/Batch Start Date), aucune valeur renseignée perdue ; POT 2 997→3 019 =33 ajouts/11 retraits ; zéro fuzzy. Les 38 autres PO LMS sont identiques depuis avant B.1, les 40 PO Framework conformes aux empreintes ; catalogue et sources inchangés pendant la revue. Pas de pourcentage d’interface francisée ni somme des tests qui se recoupent.
+
+Omissions distinguées : Completed/In Progress déjà traduits mais pas appliqués à la légende (affichage), messages transaction/évaluateur vides dans le PO, validations horaires présentes POT mais absentes PO, schémas Settings absents POT, Previous mal accentué, Assignments pédagogique encore Affectations dans le schéma Enforce completion. Ce dernier cas est hors navigation B.9 : ne pas affirmer que tous les usages pédagogiques sont déjà corrigés. Dates/Joined/AM-PM relèvent d’I18N-01 ; emails/PDF de FR-04. ROADMAP/PLAN/glossaire comportent des statuts historiques dépassés, à synchroniser ultérieurement, pas un écart des métriques.
+
+Couverture par domaine et matrice FR/EN dans le rapport : lectures/simulations ≠ validation métier réelle ; avis navigateur et toast membre mobile incomplets, Settings/transactions absents mobile, paramètres limités à trois clés. Quatre refus JS B.8 et rejets historiques restent ouverts ; aucune validation JS globale. Lecture des certificats du personnel plus large que l’affectation, permissions effectives non vérifiées. Association de description accessible, double clic paiement, suppressions et vrais paiements restent des sujets indépendants. Inventaire de modération confirmé sans annoncer signalement/approbation/sanctions/journal immuable natifs.
+
+Recommandation non décisionnelle : validation complémentaire bornée avant clôture (fixtures fiables d’avis/toast mobile, arbitrage de lecture et acceptation explicite des réserves), puis éventuelle clôture avec réserves sur accord. Aucun P0 démontré par cette revue, aucune certification de sécurité déduite de tests non exécutés. Plan A résidus linguistiques, B fonctionnel/sécurité/a11y, C FR-04/I18N-01 proposé sans démarrage.
+
+Seuls docs/FR-03-REVUE-CLOTURE.md et CODEX_HANDOFF.md changés, un commit documentaire local ; preuves de lecture /workspace/work/fr03-review/. Réutiliser les traces B.1–B.9. FR-03 pas définitivement clôturé ; attendre accord pour publier la revue ou commencer tout complément/phase.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-03B.9, 951/2 837 entrées PO LMS renseignées ; POT 3 019 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -472,13 +486,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-FR-03B.8 publié sur accord par push normal : 3844585e puis f559542d4ef99c318818b839501b0a9c21a21f42. Rapport GitHub identique, develop distant 6b791f33b34efa15566a0cb707f5be59d136df50 et Framework 959b85de4086656273e1d158f41923dd3808c350 inchangés. Références distantes locales parfois absentes : utiliser ls-remote.
+FR-03B.9 publié : 9fe29fbc puis fb684be0f5c4f4d18fe6dd1d49260f6942a4c5f7, rapport GitHub identique. Tous les neuf lots sont dans l’ascendance du distant vérifié. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Une référence locale origin/littlepool-dev peut manquer : vérifier le SHA par ls-remote.
 
-Deux commits locaux FR-03B.9 non publiés : `9fe29fbc` sources/tests puis catalogues/rapport/handoff (SHA à relever avec git log -1). Checkout propre après livraison, aucun changement non enregistré attendu. Les mentions de lots précédents non publiés sont historiques. Aucun accord de push B.9, clôture FR-03 ou début FR-04.
+Un seul nouveau commit documentaire local, revue préparatoire et handoff (SHA à relever avec git log -1), non publié. Checkout propre après commit attendu, un commit d’avance sur fb684be0, aucun fichier applicatif/catalogue modifié. Les mentions de non-publication d’anciens lots sont historiques, pas l’état actuel.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** revue de docs/FR-03B9-RESULTATS.md et git log -2 ; attendre accord explicite avant publication des deux commits. Avant push normal éventuel, vérifier distant f559542d et sécurité. Soumettre séparément clôture documentaire de FR-03, fixture d’avis navigateur, résidus linguistiques/accessibilité/permissions, puis éventuel périmètre FR-04 emails/notifications/PDF. Ne pas commencer ces chantiers automatiquement et ne pas affirmer que toute l’application est francisée. Préserver preuves, quotas et réserves de tests.
+**Prochaine action précise :** lire docs/FR-03-REVUE-CLOTURE.md et git log -1 ; présenter la recommandation et attendre la décision du responsable : publication du rapport, validation complémentaire ou clôture avec réserves. Aucun de ces accords ne se déduit des autres. Ne pas clôturer définitivement FR-03 et ne pas démarrer FR-04/I18N-01 ou un correctif automatiquement. Si une validation complémentaire est autorisée, borner avis/toast mobile avec fixtures et interceptions avant montage ; ne pas rejouer tous les lots. Conserver les réserves de lecture des certificats, sécurité, accessibilité et opérations réelles.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
@@ -488,7 +502,7 @@ Une génération POT contrôlée a été autorisée et exécutée dans FR-01D, s
 
 FR-01C et FR-01E restent des études ; FR-01F a livré localement les traductions des 21 clés, sans Crowdin. L’aria-label Search by keyword reste hors lot et en anglais. La relecture terminologique du pilote n’implique pas l’approbation générale de toutes les propositions du glossaire.
 
-FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A publié ; FR-03B.1 publié ; FR-03B.2 publié ; FR-03B.3 publié ; FR-03B.4 publié ; FR-03B.5 publié ; FR-03B.6 publié ; FR-03B.7 publié ; FR-03B.8 publié ; FR-03B.9 local terminé, attendre accord de publication et clôture éventuelle de FR-03 ; aucun FR-04 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
+FR-02B.1 à FR-02B.4, audit FR-02C et FR-02C.1 publiés ; FR-02C.2 publié avec limite JS documentée ; FR-02C.3 publié ; FR-02C.4 publié ; FR-03A publié ; FR-03B.1 publié ; FR-03B.2 publié ; FR-03B.3 publié ; FR-03B.4 publié ; FR-03B.5 publié ; FR-03B.6 publié ; FR-03B.7 publié ; FR-03B.8 publié ; FR-03B.9 publié ; revue préparatoire locale terminée, attendre décision explicite de publication et clôture éventuelle de FR-03 ; aucun FR-04/I18N-01 commencé. Les lots FR-02 à FR-05 et I18N-01 restent ceux du plan ; conserver EN source/secours, préférence utilisateur persistante/prioritaire et défaut configurable, et choisir des tests ciblés au lieu de relancer systématiquement les suites.
 
 ## 10. Sécurité et déploiement
 
