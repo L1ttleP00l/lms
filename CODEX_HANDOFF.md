@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03C.1 publié et vérifié à d6c52d02345555f65a003714d4e052af1135104d (a6c4e93e puis d6c52d02). Preuves 42/42 Vue, 4/4 Chromium membres + contrôle disponible, relues sans relance ; avis 4/4 dans la campagne distincte V1. Préparation locale de clôture avec réserves réalisée dans docs/FR-03-CLOTURE-RESERVES.md, publication et confirmation finale en attente d’accord. Bilan : 687→951 FR (+264, trois corrections), POT 2 997→3 019 (+33/−11), catalogues/Framework/develop intacts. Risques Settings, JS, paiements, permissions, accessibilité, résidus linguistiques et accueil omis à froid conservés. Aucun nouveau correctif ; FR-04/I18N-01 NON commencés.**
+Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03 : clôturé avec réserves sur décision explicite du responsable datée du 31 octobre 2026, sous réserve de la vérification effective de la publication finale. Préparation publiée à 940d6415cde686373d8682b0c1a0c1a0a2eff2c9 ; approbation finale dans le commit portant ce handoff (SHA via git log -1), publication autorisée. Bilan préservé : 951 FR (+264, trois corrections), 3 019 POT ; avis V1 4/4 et membres C.1 4/4 dans deux campagnes distinctes, 42/42 Vue ciblés, zéro transmission sensible. Réserves A–E inchangées. FR-04 : non démarré. I18N-01 : non démarré. Aucun déploiement ou nouveau correctif autorisé.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Dernier correctif publié : FR-03C.1, `a6c4e93e` source/tests puis `d6c52d02` rapport/handoff ; isolation des suivis secondaires, contrats et permissions inchangés.
-- Dernier distant littlepool-dev réellement vérifié : `d6c52d02345555f65a003714d4e052af1135104d`, FR-03C.1 publié sur autorisation ; rapport GitHub identique.
-- Livraison courante : un commit documentaire local de préparation de clôture avec réserves (document/handoff, SHA via git log -1). Aucun push de ce document ni annonce de clôture définitive sans dernier accord. FR-04/I18N-01 non autorisés.
+- Dernier distant vérifié avant formalisation finale : `940d6415cde686373d8682b0c1a0c1a0a2eff2c9`, préparation publiée, document GitHub identique. Le commit portant cette approbation doit être publié et vérifié au SHA affiché par git log -1 ; compte rendu final et trace de publication font foi.
+- Livraison courante : approbation finale documentaire dans le commit portant ce handoff, publication explicitement autorisée. Aucun travail applicatif ou nouvelle phase autorisé. Les mentions historiques d’accord attendu sont actualisées par la décision finale ci-dessous.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -502,6 +502,16 @@ Nouveau docs/FR-03-CLOTURE-RESERVES.md : historique, grille de critères vérifi
 
 Autorisation de principe limitée à préparation locale de clôture avec réserves. Recommandation explicite d’accepter cette clôture dans son périmètre testé, pas d’homologation de production, francisation intégrale ou conformité globale. Dernier accord requis avant publication documentaire et annonce définitive. Deux seuls fichiers de cette préparation : nouveau document et handoff, un commit local non publié (SHA via git log -1), preuves /workspace/work/fr03-close/. Aucun test applicatif, navigateur, build, compilation, extraction, cache, installation, DB ou nouveau changement produit. Contrôles documentaires Prettier du nouveau rapport, secrets et git diff --check ; hooks complets non déclarés réussis.
 
+### Clôture officielle FR-03 avec réserves — décision du 31 octobre 2026
+
+Autorisation finale explicite reçue pour publier 940d6415 puis formaliser et publier l’approbation. Prépublication : base d6c52d02 inchangée, parent direct/checkout propre, diff intégral limité à clôture/handoff, secrets/chemins relus, catalogues et Framework intacts. Préparation 940d6415cde686373d8682b0c1a0c1a0a2eff2c9 publiée par push normal et document GitHub identique vérifié le 2026-10-31T15:15:51+01:00 (contrôle après push, distinct de la date de décision et de commit). Preuves antérieures réutilisées : 951 FR, +264/trois corrections, 3 019 POT, quatre avis V1 et quatre membres C.1 distincts, 42 Vue et zéro transmission sensible ; aucun test applicatif relancé.
+
+Approbation finale ajoutée en fin de docs/FR-03-CLOTURE-RESERVES.md, sans effacer ses conclusions historiques. Registre de suivi existant maintenu, priorités conditionnelles avant mise en production sensible précisées (permissions, rejets valides, doublons paiement, avertissements destructifs, Settings) sans gravité ou tickets inventés. FR-03 clôturé administrativement avec réserves ; ne pas déclarer traduction intégrale, sécurité, transactions réelles, accessibilité globale ou production validées. FR-04 et I18N-01 non démarrés. ROADMAP inchangée : table de périmètres sans statut explicite FR-03 à corriger ; le statut effectif est consigné ici et dans l’approbation, sans réécriture générale des mentions historiques d’autres phases.
+
+Conserver explicitement : risque analogue Settings ; accueil indisponible omis sans rattrapage ; rejets JavaScript et global non validé ; double clic et finances réelles non testées ; avertissements destructifs ; lecture large de certificats et droits de production non audités ; modération limitée aux fonctions confirmées, pas de workflow complet signalement/sanctions/traçabilité validé ; description de durée non associée, administration mobile partielle et autres états accessibles incomplets ; légendes anglaises, résidus administratifs/transactions/évaluations/certificats/devoirs et formats date/heure/fuseau. Aucune de ces réserves corrigée par la clôture.
+
+Deux documents seulement modifiés par la formalisation finale : clôture/handoff. Commit documentaire complémentaire, SHA via git log -1, publication normale autorisée après revue du diff. Vérifier identité distante des documents, SHA final, checkout propre/aligné et develop inchangé avant confirmation finale. Horodatages effectifs de contrôle après les deux pushes dans /workspace/work/fr03-final/publications.json et compte rendu final ; ne pas créer un nouveau commit uniquement pour constater ce push. Aucun autre travail autorisé ; attendre un nouvel ordre.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-03B.9, 951/2 837 entrées PO LMS renseignées ; POT 3 019 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -520,13 +530,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Distant vérifié : d6c52d02345555f65a003714d4e052af1135104d, FR-03C.1 publié (a6c4e93e puis d6c52d02) depuis d4a65e21 ; rapport identique. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Tous les neuf lots et revue/V1 sont dans cette ascendance. Utiliser ls-remote si la référence locale distante manque.
+Préparation publiée et vérifiée : 940d6415cde686373d8682b0c1a0c1a0a2eff2c9, descendante directe de d6c52d02 ; document identique. Approbation définitive dans le commit portant ce handoff, à publier puis vérifier (SHA via git log -1). État attendu après vérification finale : checkout propre et aligné au même SHA distant, zéro commit non publié. Consulter ls-remote et le compte rendu final, pas seulement la référence origin locale.
 
-Un nouveau commit documentaire local de préparation de clôture avec réserves : docs/FR-03-CLOTURE-RESERVES.md et handoff (SHA par git log -1), non publié. Checkout propre après commit attendu, un commit d’avance sur d6c52d02. Aucun changement applicatif/test/catalogue/artefact de build pendant cette partie ; les mentions antérieures de non-publication C.1 sont historiques.
+develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre ; sources/tests/catalogues/configurations inchangés pendant la clôture. Les anciennes mentions de non-publication et d’accord attendu décrivent leurs missions historiques.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-03-CLOTURE-RESERVES.md et git log -1 ; présenter la préparation et attendre le dernier accord pour publier le document/handoff et confirmer la clôture FR-03 avec réserves. Ne pas pousser le commit documentaire, annoncer une clôture définitive, corriger Settings, modifier des permissions ou ouvrir une phase par déduction. Avis V1 et membres C.1 disposent des validations ciblées, sans valider toute l’application ou le suivi d’accueil indisponible. Conserver les réserves A–E ; revue de sécurité séparée avant toute décision de droits. FR-04/I18N-01 non commencés, aucun déploiement autorisé.
+**Prochaine action précise :** après vérification de la publication finale de l’approbation (SHA distant, documents identiques, checkout propre et develop inchangé), arrêter et attendre un nouvel ordre. FR-03 est clôturé avec réserves, FR-04 et I18N-01 non démarrés. Ne pas rouvrir les lots, corriger Settings ou les autres réserves, modifier des droits, déployer, créer des tickets ou engager une nouvelle phase sans instruction distincte. Le registre de suivi figure dans docs/FR-03-CLOTURE-RESERVES.md ; les preuves existantes suffisent pour cette clôture documentaire.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
