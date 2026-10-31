@@ -63,7 +63,12 @@
 import { call, createResource, FormControl, toast } from 'frappe-ui'
 import type { FrappeResourceError } from 'frappe-ui'
 import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
-import { useOnboarding } from '@framework/ui/components/Onboarding/index'
+import {
+	minimize,
+	useOnboarding,
+} from '@framework/ui/components/Onboarding/index'
+import { sessionUser } from '@framework/ui/utils/session'
+import { useStorage } from '@vueuse/core'
 import { seesOnboarding } from '@/utils/onboarding'
 import { useTelemetry } from '@framework/ui/telemetry/index'
 import RoleSwitches from '@/components/Controls/RoleSwitches.vue'
@@ -85,7 +90,52 @@ const props = defineProps<{ memberID: string }>()
 
 const user = inject<SessionUser>('$user')!
 const { capture } = useTelemetry()
-const { updateOnboardingStep } = useOnboarding('learning')
+const onboarding = useOnboarding('learning')
+type StoredStep = { name: string; completed: boolean }
+// Share the native Framework cache, not a separate onboarding store.
+const onboardingStatus = useStorage<
+	Record<string, Record<string, StoredStep[]>>
+>('onboardingStatus', {})
+
+async function trackInvitation() {
+	if (onboarding?.isOnboardingStepsCompleted.value) return
+	const userId = sessionUser()
+	if (!userId || !onboarding?.steps) throw new Error('Onboarding unavailable')
+	const stored = onboardingStatus.value[userId]?.learning_onboarding_status
+	const steps = (stored?.length ? stored : onboarding.steps).map((step) => ({
+		name: step.name,
+		completed: step.name === 'invite_students' || Boolean(step.completed),
+	}))
+	// The installed updateOnboardingStep returns void and discards this RPC's
+	// promise. Await the same native endpoint here so a rejection is handled.
+	await call('frappe.onboarding.update_user_onboarding_status', {
+		steps: JSON.stringify(steps),
+		appName: 'learning',
+	})
+	onboardingStatus.value[userId] ??= {}
+	onboardingStatus.value[userId].learning_onboarding_status = steps
+	for (const step of onboarding.steps) {
+		const saved = steps.find((entry) => entry.name === step.name)
+		if (saved) step.completed = saved.completed
+	}
+	onboarding.isOnboardingStepsCompleted.value = steps.every(
+		(step) => step.completed
+	)
+	minimize.value = false
+}
+
+function trackSecondary(
+	kind: 'onboarding' | 'telemetry',
+	action: () => unknown
+) {
+	// A missing integration, a synchronous throw and a returned rejection all
+	// remain secondary. Never log the error object: it may contain user data.
+	void Promise.resolve()
+		.then(action)
+		.catch(() => {
+			console.warn(`Member created; ${kind} tracking failed.`)
+		})
+}
 
 // House style for a route that serves both create and edit
 // (`/job-opening/:jobName/edit`, JobForm.vue:147-149).
@@ -214,17 +264,19 @@ const addMember = async () => {
 		})
 
 		await assignRoles(created.name)
-
-		if (seesOnboarding(user.data)) updateOnboardingStep('invite_students')
-		capture('user_added')
-		toast.success(__('Member added successfully'))
-		reloadMembers()
-		close()
 	} catch (err: any) {
 		toast.error(errorMessage(err, __('Unable to add member')))
+		return
 	} finally {
 		submitting.value = false
 	}
+
+	// Only confirmed creation AND role assignment may reach this point.
+	if (seesOnboarding(user.data)) trackSecondary('onboarding', trackInvitation)
+	trackSecondary('telemetry', () => capture('user_added'))
+	toast.success(__('Member added successfully'))
+	reloadMembers()
+	close()
 }
 
 const saveRoles = async () => {

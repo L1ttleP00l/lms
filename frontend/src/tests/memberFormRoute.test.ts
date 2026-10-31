@@ -19,6 +19,8 @@ const {
 	getCachedResourceMock,
 	switchIds,
 	toastMock,
+	onboardingMock,
+	captureMock,
 } = vi.hoisted(() => {
 	window.matchMedia ??= (() => ({
 		matches: false,
@@ -31,6 +33,12 @@ const {
 		getCachedResourceMock: vi.fn(),
 		switchIds: { n: 0 },
 		toastMock: { success: vi.fn(), error: vi.fn() },
+		onboardingMock: {
+			steps: undefined as { name: string; completed: boolean }[] | undefined,
+			isOnboardingStepsCompleted: { value: false },
+			updateOnboardingStep: vi.fn(),
+		},
+		captureMock: vi.fn(),
 	}
 })
 
@@ -101,12 +109,16 @@ vi.mock(
 		...(await importOriginal<
 			typeof import('@framework/ui/components/Onboarding/index')
 		>()),
-		useOnboarding: () => ({ updateOnboardingStep: vi.fn() }),
+		useOnboarding: () => onboardingMock,
 	})
 )
 vi.mock('@framework/ui/telemetry/index', async (importOriginal) => ({
 	...(await importOriginal<typeof import('@framework/ui/telemetry/index')>()),
-	useTelemetry: () => ({ capture: vi.fn() }),
+	useTelemetry: () => ({ capture: captureMock }),
+}))
+
+vi.mock('@framework/ui/utils/session', () => ({
+	sessionUser: () => 'mod@example.com',
 }))
 
 // @/utils is the barrel that pulls in plyr; only cleanError is used here.
@@ -194,6 +206,20 @@ describe('the member form route', () => {
 			writable: true,
 			configurable: true,
 		})
+		localStorage.clear()
+		onboardingMock.steps = undefined
+		onboardingMock.isOnboardingStepsCompleted.value = true
+		onboardingMock.updateOnboardingStep.mockReset()
+		onboardingMock.updateOnboardingStep.mockImplementation(() => {
+			if (
+				!onboardingMock.isOnboardingStepsCompleted.value &&
+				!onboardingMock.steps
+			)
+				throw new TypeError(
+					"Cannot read properties of undefined (reading 'map')"
+				)
+		})
+		captureMock.mockReset()
 		lookup.data = null
 		lookup.fetch.mockClear()
 		callMock.mockReset()
@@ -229,6 +255,204 @@ describe('the member form route', () => {
 			value: 1,
 		})
 		expect(toastMock.success).toHaveBeenCalledWith('Membre ajouté avec succès')
+	})
+
+	describe('creation and secondary effects', () => {
+		beforeEach(() => {
+			onboardingMock.isOnboardingStepsCompleted.value = false
+		})
+		for (const lang of ['fr', 'en']) {
+			it(`confirms ${lang} creation without initialized onboarding`, async () => {
+				const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
+				try {
+					const router = makeRouter()
+					await router.push('/settings/users/new')
+					const view = await mountForm(router, moderator, lang)
+					await view.get(`input`).setValue(MEMBER)
+					await switchNamed(
+						view,
+						lang === 'fr' ? 'Apprenant' : 'Student'
+					).trigger('click')
+					callMock.mockResolvedValue({ name: MEMBER })
+					const before = membersRevision.value
+					await save(view).trigger('click')
+					await flushPromises()
+					expect(
+						callMock.mock.calls.filter(
+							([method]) => method === 'lms.lms.api.add_member'
+						)
+					).toHaveLength(1)
+					expect(callMock).toHaveBeenCalledWith('lms.lms.api.save_role', {
+						user: MEMBER,
+						role: 'LMS Student',
+						value: 1,
+					})
+					expect(toastMock.success).toHaveBeenCalledWith(
+						lang === 'fr'
+							? 'Membre ajouté avec succès'
+							: 'Member added successfully'
+					)
+					expect(toastMock.error).not.toHaveBeenCalled()
+					expect(membersRevision.value).toBeGreaterThan(before)
+					expect(router.currentRoute.value.name).toBe('MobileYou')
+					expect(warning).toHaveBeenCalledWith(
+						'Member created; onboarding tracking failed.'
+					)
+				} finally {
+					warning.mockRestore()
+				}
+			})
+		}
+
+		it.each([
+			'available',
+			'synchronous error',
+			'asynchronous rejection',
+			'telemetry rejection',
+			'telemetry synchronous error',
+		])('keeps business success with %s secondary tracking', async (mode) => {
+			const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
+			try {
+				onboardingMock.steps = [
+					{ name: 'invite_students', completed: false },
+					{ name: 'create_course', completed: true },
+				]
+				const router = makeRouter()
+				await router.push('/settings/users/new')
+				const view = await mountForm(router)
+				await view.get('input').setValue(MEMBER)
+				callMock.mockImplementation((method) => {
+					if (method === 'frappe.onboarding.update_user_onboarding_status') {
+						if (mode === 'synchronous error')
+							throw new Error('synthetic private detail')
+						if (mode === 'asynchronous rejection')
+							return Promise.reject(new Error('synthetic private detail'))
+					}
+					return Promise.resolve({ name: MEMBER })
+				})
+				if (mode === 'telemetry synchronous error')
+					captureMock.mockImplementation(() => {
+						throw new Error('synthetic private detail')
+					})
+				if (mode === 'telemetry rejection')
+					captureMock.mockRejectedValue(new Error('synthetic private detail'))
+				await save(view).trigger('click')
+				await flushPromises()
+				expect(toastMock.success).toHaveBeenCalledWith(
+					'Member added successfully'
+				)
+				expect(toastMock.error).not.toHaveBeenCalled()
+				expect(router.currentRoute.value.name).toBe('MobileYou')
+				expect(
+					callMock.mock.calls.filter(
+						([method]) => method === 'lms.lms.api.add_member'
+					)
+				).toHaveLength(1)
+				expect(callMock).toHaveBeenCalledWith(
+					'frappe.onboarding.update_user_onboarding_status',
+					{
+						appName: 'learning',
+						steps: JSON.stringify([
+							{ name: 'invite_students', completed: true },
+							{ name: 'create_course', completed: true },
+						]),
+					}
+				)
+				if (mode === 'available' || mode.startsWith('telemetry')) {
+					expect(onboardingMock.steps[0].completed).toBe(true)
+					expect(
+						JSON.parse(localStorage.getItem('onboardingStatus')!)[
+							'mod@example.com'
+						].learning_onboarding_status[0].completed
+					).toBe(true)
+				}
+				if (mode === 'synchronous error' || mode === 'asynchronous rejection') {
+					expect(onboardingMock.steps[0].completed).toBe(false)
+					expect(
+						localStorage.getItem('onboardingStatus') || '{}'
+					).not.toContain('invite_students')
+				}
+				if (mode !== 'available')
+					expect(warning).toHaveBeenCalledWith(
+						`Member created; ${
+							mode.startsWith('telemetry') ? 'telemetry' : 'onboarding'
+						} tracking failed.`
+					)
+				for (const args of warning.mock.calls)
+					expect(args.join(' ')).not.toContain('synthetic private detail')
+			} finally {
+				warning.mockRestore()
+			}
+		})
+
+		it('waits for required roles but not for secondary network completion', async () => {
+			onboardingMock.steps = [{ name: 'invite_students', completed: false }]
+			const router = makeRouter()
+			await router.push('/settings/users/new')
+			const view = await mountForm(router)
+			await view.get('input').setValue(MEMBER)
+			await switchNamed(view, 'Student').trigger('click')
+			let finishRole!: (value: boolean) => void
+			let finishTracking!: (value: boolean) => void
+			callMock.mockImplementation((method) => {
+				if (method === 'lms.lms.api.save_role')
+					return new Promise((resolve) => {
+						finishRole = resolve
+					})
+				if (method === 'frappe.onboarding.update_user_onboarding_status')
+					return new Promise((resolve) => {
+						finishTracking = resolve
+					})
+				return Promise.resolve({ name: MEMBER })
+			})
+			await save(view).trigger('click')
+			await flushPromises()
+			expect(toastMock.success).not.toHaveBeenCalled()
+			expect(router.currentRoute.value.name).toBe('MemberForm')
+			finishRole(true)
+			await flushPromises()
+			expect(toastMock.success).toHaveBeenCalledWith(
+				'Member added successfully'
+			)
+			expect(router.currentRoute.value.name).toBe('MobileYou')
+			finishTracking(true)
+			await flushPromises()
+			expect(onboardingMock.steps[0].completed).toBe(true)
+		})
+
+		it.each(['lms.lms.api.add_member', 'lms.lms.api.save_role'])(
+			'preserves a required failure from %s',
+			async (failed) => {
+				const router = makeRouter()
+				await router.push('/settings/users/new')
+				const view = await mountForm(router)
+				await view.get('input').setValue(MEMBER)
+				await switchNamed(view, 'Student').trigger('click')
+				callMock.mockImplementation((method) =>
+					method === failed
+						? Promise.reject({ messages: ['Fictional required failure'] })
+						: Promise.resolve({ name: MEMBER })
+				)
+				await save(view).trigger('click')
+				await flushPromises()
+				expect(toastMock.error).toHaveBeenCalledWith(
+					'Fictional required failure'
+				)
+				expect(toastMock.success).not.toHaveBeenCalled()
+				expect(router.currentRoute.value.name).toBe('MemberForm')
+				expect(captureMock).not.toHaveBeenCalled()
+				expect(
+					callMock.mock.calls.some(([method]) =>
+						method.startsWith('frappe.onboarding.')
+					)
+				).toBe(false)
+				expect(
+					callMock.mock.calls.filter(
+						([method]) => method === 'lms.lms.api.add_member'
+					)
+				).toHaveLength(1)
+			}
+		)
 	})
 
 	// resolve(), not push(): matching is synchronous and does not pull in the
