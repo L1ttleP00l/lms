@@ -156,7 +156,7 @@ msgstr ""
 #: lms/lms/doctype/lms_course/lms_course.py:222
 #, python-brace-format
 msgid "A new course has been published on {0}"
-msgstr ""
+msgstr "Un nouveau cours a été publié sur {0}"
 
 #: frontend/src/components/Quiz/QuestionEditor.vue:178
 msgid "A quiz cannot mix Open Ended questions with other question types."
@@ -4815,7 +4815,7 @@ msgstr "Bonjour"
 #: lms/templates/emails/published_batch_notification.html:4
 #: lms/templates/emails/published_course_notification.html:4
 msgid "Hello Learner"
-msgstr ""
+msgstr "Bonjour"
 
 #: frontend/src/components/Sidebar/AppSidebar.vue:91
 msgid "Help"
@@ -4832,7 +4832,7 @@ msgstr ""
 #: lms/templates/emails/published_batch_notification.html:7
 #: lms/templates/emails/published_course_notification.html:7
 msgid "Here are the details:"
-msgstr ""
+msgstr "Voici les détails :"
 
 #: frontend/src/pages/Home/Home.vue:6
 msgid "Hey"
@@ -10700,7 +10700,7 @@ msgstr ""
 #: lms/templates/emails/mentor_request_creation_email.html:7
 #: lms/templates/emails/mentor_request_status_update_email.html:6
 msgid "Thanks and Regards"
-msgstr ""
+msgstr "Merci et cordialement"
 
 #: lms/lms/api.py:1139
 msgid "That slot does not belong to this evaluator."
@@ -10762,7 +10762,7 @@ msgstr ""
 #: lms/templates/emails/lms_course_interest.html:5
 #, python-brace-format
 msgid "The course {0} is now available on {1}."
-msgstr ""
+msgstr "Le cours {0} est maintenant disponible sur {1}."
 
 #: lms/lms/course_import_export.py:1079
 #, python-brace-format
@@ -13411,7 +13411,7 @@ msgstr ""
 #: lms/lms/utils.py:815
 #, python-brace-format
 msgid "{0} mentioned you in a comment"
-msgstr ""
+msgstr "{0} vous a mentionné dans un commentaire"
 
 #: lms/templates/emails/mention_template.html:2
 #, python-brace-format
@@ -14364,4 +14364,51 @@ msgstr "Date de début de session :"
 #: lms/templates/emails/batch_start_reminder_recorded.html:19
 msgid "Training session:"
 msgstr "Session de formation :"
+
+#: lms/lms/doctype/lms_batch/lms_batch.py:303
+#, python-brace-format
+msgid "A new batch has been published on {0}"
+msgstr "Une nouvelle session de formation a été publiée sur {0}"
+
+#: lms/templates/emails/published_batch_notification.html:7
+#, python-brace-format
+msgid "A new batch has been published on {0} that might interest you!"
+msgstr "Une nouvelle session de formation susceptible de vous intéresser a été publiée sur {0} !"
+
+#: lms/templates/emails/published_course_notification.html:7
+#, python-brace-format
+msgid "A new course has been published on {0} that might interest you!"
+msgstr "Un nouveau cours susceptible de vous intéresser a été publié sur {0} !"
+
+#: lms/templates/emails/lms_course_interest.html:6
+msgid "Click on the link below to start learning."
+msgstr "Cliquez sur le lien ci-dessous pour commencer à apprendre."
+
+#: lms/templates/emails/published_batch_notification.html:19
+#, python-brace-format
+msgid "From {0} to {1}"
+msgstr "Du {0} au {1}"
+
+#: lms/templates/emails/published_batch_notification.html:29
+#, python-brace-format
+msgid "Time: {0} {1}"
+msgstr "Horaire : {0} {1}"
+
+#: lms/templates/emails/published_batch_notification.html:52
+msgid "View the batch"
+msgstr "Consulter la session"
+
+#: lms/templates/emails/published_course_notification.html:36
+msgid "View the course"
+msgstr "Consulter le cours"
+
+#: lms/lms/doctype/lms_course/lms_course.py:184
+#, python-brace-format
+msgid "{0} is now available!"
+msgstr "{0} est maintenant disponible !"
+
+#: lms/templates/emails/mention_template.html:2
+#, python-brace-format
+msgid "{0} mentioned you in a discussion."
+msgstr "{0} vous a mentionné dans une discussion."
 

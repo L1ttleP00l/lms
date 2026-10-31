@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026. **FR-04B.4 terminé : quatre emails de session/classe localisés par apprenant via get_user_lang/print_language, incohérence demain/aujourd’hui corrigée sans toucher aux schedulers. 16/16 tests Python isolés, 8 rendus Jinja depuis MO, zéro email/écriture métier réel. 979 FR (+20, 959 antérieures intactes), 3 020 POT (+7/−7), 78 autres PO et Framework inchangés. Sources/tests 6facc1cc ; catalogue/rapport/handoff dans le commit courant (SHA via git log -1). Publication normale autorisée après contrôles et vérification GitHub. Rapport docs/FR-04B4-RESULTATS.md. Réserve de synchronisation B.3 et réserves FR-03 maintenues. Aucun lot suivant commencé.**
+Mis à jour le 31 octobre 2026. **FR-04B.5 livré partiellement : textes d’annonces FR/EN dans contexte commun, sujet session corrigé, initiale sans image corrigée ; cours disponibles localisés dans leur job individuel, mentions par User. 23/23 tests isolés, 36 messages simulés +8 rendus depuis MO, zéro envoi/écriture réel. 995 FR (+16, 979 intactes), POT3 021 (+10/−9), 78 autres PO/Framework inchangés. Source/tests 194639b2 ; catalogue/rapport/handoff dans le commit courant. Publication normale du sous-lot sûr autorisée sous contrôles. Rapport docs/FR-04B5-RESULTATS.md. Masse multilingue et portail persistants non résolus, contrat To des annonces défectueux préexistant, offset au jour de changement d’heure à arbitrer. Réserves FR-03 et B.3/B.4 conservées ; aucun lot suivant commencé.**
 
 ## 1. Projet et références Git
 
@@ -9,9 +9,9 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Dépôt : https://github.com/L1ttleP00l/lms
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
-- Base publiée vérifiée B.4 : `9ba39a55f66a8666006960d966201030445210d5` (FR-04B.3). Distant attendu identique avant publication.
-- Livraison B.4 : `6facc1cc` sources/tests, puis commit courant catalogues/rapport/handoff. Mandat explicite de publication normale sous contrôles ; vérifier SHA distant, rapport GitHub et alignement après push. État attendu propre, aucun commit restant à publier ; l’état réel se vérifie par Git sans commit de constat.
-- B.4 uniquement : confirmation de session, rappels de démarrage direct/enregistré et classe du jour. Aucun email/inscription/calendrier/paiement/certificat réel, aucun scheduler exécuté, aucune migration/Notification installée, Framework/develop, PR/fusion/Crowdin/production. FR-04B.5/PDF/I18N-01 non commencés.
+- Base publiée vérifiée B.5 : `7068eee5f7ed4bc9adc234cb0ecb68747bc1736a` (FR-04B.4), checkout initial propre.
+- Livraison B.5 : `194639b2` sources/tests, puis commit courant catalogues/rapport/handoff (SHA via git log -1). Push normal du sous-lot sûr explicitement autorisé après contrôles ; vérifier SHA distant/rapport GitHub/alignement. Aucun commit de constat nécessaire ; état final attendu propre et publié, à vérifier par Git.
+- Mandat B.5 terminé partiellement : aucun changement des destinataires, droits, schedulers ou format Notification Log, aucun envoi/notification/donnée réel, migration, PR, Crowdin ou déploiement. Ni PDF, I18N-01, synchronisation B.3 ou lot suivant engagé.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -612,3 +612,18 @@ Prochaine action FR-04 : publier ce seul audit/handoff après contrôles, vérif
 - Zéro envoi réel et zéro écriture métier réelle : transport/queue/Communication/Notification Log/enqueue/DB/réseau interceptés ; seul set_value attendu est un Mock local. Pas de compte/session/inscription/calendrier existants touchés.
 - Limites : pas de recette MIME/réception, liens relatifs historiques conservés, fuseaux non déduits ; contenus personnalisés sous responsabilité de leur auteur. **Réserve B.3 inchangée : Notification installée non synchronisée, mélange source/DB encore possible.** Réserves FR-03 et autres limites historiques conservées.
 - Prochaine action précise : vérifier la publication B.4 par git log/status/ls-remote puis lire son rapport ; attendre un nouveau mandat avant FR-04B.5 (annonces/portail), PDF ou I18N-01. Aucun chantier suivant engagé.
+
+
+## FR-04B.5 — Reprise immédiate et décisions ouvertes
+
+- Rapport : docs/FR-04B5-RESULTATS.md, référence prioritaire pour la cartographie et les conceptions. Douze fichiers : Course/Batch/utils, quatre templates, nouveau test_announcement_emails.py, fr.po/main.pot, rapport et handoff.
+- Annonces : phrases complètes, sujet session distinct de cours, échappement texte/attributs, initiales sans image corrigées (ValueError historique reproduite). Message toujours commun dans le contexte actif : pas de langue individuelle pour public mixte, mêmes objets To et mêmes User.enabled=1 BCC.
+- Blocage historique isolé : get_instructors renvoie des _dict et recipients les reçoit tels quels ; QueueBuilder.recipients lève TypeError si liste non vide. Aucun adressage corrigé sans décision séparée ; rendu simulé ne vaut pas preuve de livraison. Le BCC enabled=1 dépasse les seuls apprenants inscrits.
+- Cours disponible : même job par intérêt, nouveau callable send_course_interest_email sélectionnant get_user_lang dans print_language lors du rendu, non autour d’enqueue. Même queue/timeout/now et email_sent après enqueue ; ancien risque de reprise/flag avant livraison et anciens jobs non convertis conservés.
+- Mentions : garde compte sortant ET mail_login inchangée, même liste autorisée et mêmes adresses ; langue par identité User, retry3 et liens historiques conservés. Texte générique discussion ; Markdown inchangé, pas de sanitation générale d’email revendiquée.
+- Portail : diagnostic seulement ; sujets déjà rendus, pas de msgid/paramètres ni retraduction à la lecture. API/panneau/stockage et anciennes lignes inchangés. Conception A (création par utilisateur), B (source/paramètres à la lecture), C (existant) comparée ; C maintenu pour ce pilote, mandat distinct avant changement. Email natif de Notification Log peut s’ajouter selon Settings ; aucune déduplication nouvelle.
+- Dates : formats FR/EN natifs, sans conversion. Diagnostic réel annonce batch : format_timezone reçoit start_date à minuit ; le 28 mars 2027 Europe/Paris, offset peut être GMT+1 à la date mais GMT+2 à 23:45. Appel historique conservé ; décision distincte pour corriger la référence temporelle.
+- Tests finaux : 23/23 méthodes isolées, 36 messages simulés +8 rendus natifs FR/EN depuis MO ; Ruff4 Python, Babel, extraction/compilation, AST gardes/destinataires/écritures/schedulers et empreintes conformes. Total995 FR, PO2855, POT3021 (+10/−9), 979 valeurs précédentes et 78 autres PO préservées. Aucun cache de site purgé, aucune suite globale/SMTP/build/navigateur relancée.
+- Preuves : /workspace/work/fr04b5/ (before.*, regression-before.log, tests-final.log/tests-summary.json, checks.json, generate.log, compile.log, translations.json, mo-renders.json ; publication-check/final à produire au contrôle). Zéro email/notification/écriture réelle : frontières transport/queues/DB/réseau simulées ou interdites, insert natif Notification Log factice.
+- Réserves FR-03 A–E et B.3/B.4 intactes : notamment sync Notification rappel non effectuée, réception SMTP non testée, fuseaux absents anciens emails, liens relatifs et contenus personnalisés, JS global non validé, Settings/accueil/permissions/finance/accessibilité. Consulter les rapports historiques, aucun point levé par B.5.
+- Prochaine action précise : vérifier la publication B.5 puis faire choisir le chantier (contrat des adresses/consentement BCC et langue de masse, ou notifications persistantes). Aucun correctif supplémentaire sans nouveau mandat ; FR-04B.6/PDF et I18N-01 non commencés.
