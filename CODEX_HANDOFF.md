@@ -1,6 +1,6 @@
 # LittlePool Learning — Reprise Codex
 
-Mis à jour le 31 octobre 2026. **Revue FR-03 publiée et vérifiée à b67c8c55f243b259f84e81bee37d6d055c3bcf06. FR-03V1 terminé localement : 6/8 parcours principaux réussis ; avis FR/EN ordinateur/mobile validés avec fixtures corrigées. Défaut produit mobile reproduit : onboarding non initialisé après ouverture directe, faux échec après création/rôle simulés, ni toast de succès ni retour. Contrôle accueil terminé réussi, sans lever cette réserve. Recommandation B : correction distincte à autoriser. Aucun correctif produit ou catalogue. Rapport docs/FR-03-VALIDATION-CIBLEE.md non publié. FR-03 NON clôturé ; FR-04/I18N-01 NON démarrés.**
+Mis à jour le 31 octobre 2026 (Europe/Paris). **FR-03V1 publié/vérifié à d4a65e21c3e4fa70238fc852499f009d8ad77a92. FR-03C.1 terminé localement : faux échec de création mobile corrigé, 42/42 tests Vue ciblés et build réussis ; 4/4 parcours Chromium FR/EN ordinateur/mobile avec accueil indisponible, plus un parcours disponible réussi. Zéro écriture métier transmise. Source/tests a6c4e93e, documentation dans le commit courant, aucun push C.1. Rapport docs/FR-03C1-RESULTATS.md. Accueil indisponible signalé/omis sans rattrapage ; risque analogue Settings non corrigé. Clôture avec réserves seulement recommandée, FR-03 NON clôturé ; FR-04/I18N-01 NON démarrés.**
 
 ## 1. Projet et références Git
 
@@ -10,8 +10,8 @@ LittlePool Learning est un nom de travail provisoire pour une plateforme multili
 - Branche exclusive : `littlepool-dev`.
 - Répertoire : `/workspace/frappe-bench/apps/lms` ; `/workspace/lms` est un lien vers ce checkout.
 - Derniers commits applicatifs publiés FR-03B.9 : `9fe29fbc` sources/tests puis `fb684be0` catalogues/rapport/handoff ; aucune modification métier/permission.
--   Dernier distant littlepool-dev réellement vérifié : `b67c8c55f243b259f84e81bee37d6d055c3bcf06`, revue documentaire publiée sur autorisation ; fichier GitHub identique.
--   Livraison courante : un commit documentaire local FR-03V1 (rapport/handoff), SHA à relever avec git log -1. Aucun push de cette validation ni correction applicative autorisé ; aucune clôture définitive FR-03 ou ouverture FR-04/I18N-01.
+- Dernier distant littlepool-dev réellement vérifié : `d4a65e21c3e4fa70238fc852499f009d8ad77a92`, validation complémentaire publiée sur autorisation ; rapport GitHub identique.
+- Livraison courante : deux commits locaux FR-03C.1 : `a6c4e93e` source/tests puis rapport/handoff (SHA via git log -1), non publiés. Aucun push C.1 ni clôture définitive FR-03 ou ouverture FR-04/I18N-01 autorisé.
 
 ## 2. Règles permanentes pour économiser le quota
 
@@ -480,6 +480,18 @@ Membres : route /settings/users/new monte pages/Forms/MemberForm, distincte du f
 
 Aucun code/test versionné/catalogue modifié. Empreintes 39 PO LMS + POT et 78 autres PO conformes ; Framework propre. Deux seuls documents changés : rapport FR-03V1 et handoff. Un commit local non publié, SHA via git log -1. Recommandation B, sans décision de clôture : autoriser séparément une initialisation de l’accueil indépendante du layout et séparer le suivi de l’accueil du résultat métier ; ne pas masquer les erreurs. Toutes réserves historiques conservées.
 
+### FR-03C.1 — correctif local du faux échec mobile
+
+Validation FR-03V1 d4a65e21 publiée par push normal autorisé, parent b67c8c55, deux documents, métriques/réserves contrôlées ; rapport GitHub identique, checkout aligné avant travaux. develop 6b791f33 et Framework 959b85de inchangés. Les mentions historiques de non-publication de V1 ne décrivent plus l’état courant.
+
+Deux seuls fichiers source/test modifiés : pages/Forms/MemberForm.vue et tests/memberFormRoute.test.ts. Opérations obligatoires add_member puis assignRoles attendues ; vrais échecs conservés. Toast/signal/fermeture après succès confirmé, onboarding/télémétrie en promesses secondaires traitées et non bloquantes. Le helper Framework installé renvoie void et détache sa requête : l’adaptation locale appelle le même endpoint natif avec promesse attendue et met à jour le même cache useStorage onboardingStatus/étapes après réussite. Aucun Framework, API métier, permission, rôle, paramètre, mode édition ou traduction changé. Si étapes indisponibles, suivi signalé par message constant sans détail privé, omis pour cette création ; pas d’initialisation globale ni rattrapage ajoutés, pas de désactivation globale de l’accueil. Risque analogue Settings (onboarding/capture dans runSave) documenté, non corrigé.
+
+42/42 Vue dans deux fichiers (31 route dont dix nouveaux cas, 11 Settings inchangés), exécution finale 3,88 s. FR/EN, accueil absent/disponible, erreurs synchrones/rejets secondaires, télémétrie, vrais échecs création/rôle, promesses différées et absence de double création. Reproduction isolée sur source publiée : un cas échoue avant et passe après. Premiers passages 6/29 échecs avant, puis 5/40 après (anciens mocks ne modélisaient pas l’accueil et garde console refusant le diagnostic) conservés ; mocks anciens déclarés accueil terminé, nouveaux cas indisponibles explicites avec assertion du diagnostic, pas d’exception ignorée. Build frontend réussi 16,00 s, déclarations générées restaurées ; Prettier et diff/secrets contrôlés, hooks complets non exécutés, aucun test global/backend/compilation/catalogue/cache.
+
+Chromium final : quatre recettes FR/EN ordinateur/mobile avec accueil indisponible + une FR ordinateur disponible, cinq réussies. Mobile direct natif ; ordinateur principal en layout natif sans sidebar (?fromLesson=1) et profil fictif élevé uniquement dans la ressource navigateur après montage, car un rendu initial desktop enregistrait sinon les étapes. Cette manipulation de fixture n’attribue aucun rôle réel ; le contrôle desktop normal couvre l’intégration disponible. Première tentative de harnais échouée sur assertion d’indisponibilité (succès métier déjà obtenu), trace conservée. Toasts natifs visibles, retour /you, une création par tentative valide, save_role exact LMS Student/value 1. 16 appels sensibles entièrement simulés (10 add_member dont cinq refus, 5 save_role, 1 onboarding), zéro transmis ; auth synthétique/ping/traductions seuls réellement autorisés, tout autre method/REST bloqué. Zéro pageerror, cinq boot_config bloqués, diagnostics secondaires et erreurs externes attendues conservés ; pas de validation JS globale.
+
+Rapport docs/FR-03C1-RESULTATS.md, preuves /workspace/work/fr03c1/ et FR03V1. Empreintes 39 PO LMS + POT et 78 autres PO conformes ; 951 FR/3 019 POT conservés, backend/Framework/develop inchangés. Source/tests commit local a6c4e93e ; rapport/handoff dans un second commit local, SHA via git log -1. Aucun push C.1. Recommandation : clôture avec réserves à décider explicitement, ou lot distinct Settings ; pas de clôture automatique ni début FR-04/I18N-01. Conserver toutes réserves historiques et celle du suivi d’accueil omis à froid.
+
 ## 7. Problèmes connus et limites
 
 - Traduction partielle : après FR-03B.9, 951/2 837 entrées PO LMS renseignées ; POT 3 019 clés. Les autres clés manquantes restent à traiter, et le Framework peut fournir des traductions communes au runtime. Compiler ne complète pas le catalogue ; les contenus éditoriaux ne sont pas traduits automatiquement.
@@ -498,13 +510,13 @@ Les preuves, scripts et captures locales sont dans `/workspace/work/fr01/`, hors
 
 ## 8. État Git local et distant
 
-Distant vérifié : b67c8c55f243b259f84e81bee37d6d055c3bcf06, revue publiée sur fb684be0 ; tous les lots précédents dans son ascendance. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Une référence locale origin/littlepool-dev peut manquer : utiliser ls-remote.
+Distant vérifié : d4a65e21c3e4fa70238fc852499f009d8ad77a92, validation FR-03V1 publiée sur b67c8c55, rapport identique. develop reste 6b791f33b34efa15566a0cb707f5be59d136df50, Framework 959b85de4086656273e1d158f41923dd3808c350 propre. Utiliser ls-remote si origin/littlepool-dev manque.
 
-Un seul nouveau commit documentaire local FR-03V1, rapport/handoff (SHA par git log -1), non publié. Checkout propre après commit attendu, un commit d’avance sur b67c8c55 ; aucune modification applicative/catalogue. Les mentions historiques de non-publication ne décrivent pas l’état actuel.
+Deux nouveaux commits locaux FR-03C.1 non publiés : a6c4e93e (source/tests) puis documentation/handoff (SHA par git log -1). Checkout propre après commit attendu, deux commits d’avance sur d4a65e21. Aucun autre changement ou catalogue modifié ; aucun artefact de build suivi. Les mentions anciennes de non-publication sont historiques.
 
 ## 9. Prochaine opération et travaux restants
 
-**Prochaine action précise :** lire docs/FR-03-VALIDATION-CIBLEE.md et git log -1 ; présenter la recommandation B et attendre accord pour publier le rapport et/ou ouvrir le correctif distinct du faux échec mobile. Ne pas corriger le produit ni clôturer FR-03 par déduction. Ne pas rejouer les huit parcours sans changement. Les avis navigateur sont validés dans le périmètre décrit ; le toast mobile à froid est désormais un défaut reproduit, non une simple attente inexpliquée. FR-04/I18N-01 restent non démarrés. Conserver les autres réserves de lecture des certificats, JS, sécurité, accessibilité et opérations réelles.
+**Prochaine action précise :** lire docs/FR-03C1-RESULTATS.md et git log -2 ; présenter les deux commits et attendre accord pour leur publication et/ou décision de clôture avec réserves. Ne pas republier sans accord, ni corriger Settings par déduction. Le faux échec de la route mobile est corrigé et vérifié en simulation ; accueil indisponible omis sans rattrapage, risque analogue Settings maintenu. Ne pas rejouer les recettes/tests sans changement. FR-03 non définitivement clôturé, FR-04/I18N-01 non démarrés. Conserver les réserves JS, lecture certificats, sécurité, accessibilité et opérations réelles.
 
 **Décision BRAND-01 en attente :** soumettre Didorive et Syllovia pour test linguistique FR/EN puis vérification des antériorités/disponibilités ; consulter les risques des cinq noms dans IDENTITE_PROJET. Obtenir la validation explicite du nom et du périmètre avant tout changement de références publiques. Ne pas renommer le dépôt ni l’identifiant technique lms, changer les visuels ou réserver un domaine par déduction. Aucune opération de renommage autorisée à ce jour.
 
