@@ -18,9 +18,11 @@
  * focused it. This is the fix, and it reaches every settings page that renders
  * through SettingsFields, not just Email Accounts.
  */
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { EditorView } from '@codemirror/view'
+import { installTranslations } from './helpers/frenchCatalog'
+import { settingsText } from '@/components/Settings/settingsText'
 import type { SettingsField } from '@/types/settingsSchema'
 
 vi.hoisted(() => {
@@ -55,14 +57,18 @@ vi.mock('frappe-ui/code-editor', () => ({
 
 const mountFields = async (
 	fields: SettingsField[],
-	data: Record<string, unknown> = {}
+	data: Record<string, unknown> = {},
+	lang?: string,
+	sectionLabel?: string
 ) => {
 	const SettingsFields = (
 		await import('@/components/Layouts/settings/desktop/SettingsFields.vue')
 	).default
 	return mount(SettingsFields, {
-		props: { sections: [{ fields }], data },
-		global: { mocks: { __: (s: string) => s } },
+		props: { sections: [{ fields, label: sectionLabel }], data },
+		global: {
+			mocks: { __: lang ? vi.fn(installTranslations(lang)) : (s: string) => s },
+		},
 	})
 }
 
@@ -369,7 +375,9 @@ describe('SettingsFields focuses the field it is asked for', () => {
 				data: {},
 				focus: 'send_invites',
 			},
-			global: { mocks: { __: (s: string) => s } },
+			global: {
+				mocks: { __: (s: string) => s },
+			},
 		})
 		await vi.dynamicImportSettled()
 		await w.vm.$nextTick()
@@ -406,7 +414,9 @@ describe('SettingsFields focuses the field it is asked for', () => {
 				data: {},
 				focus: 'send"]invites',
 			},
-			global: { mocks: { __: (s: string) => s } },
+			global: {
+				mocks: { __: (s: string) => s },
+			},
 		})
 		await vi.dynamicImportSettled()
 		await flushPromises()
@@ -591,4 +601,54 @@ describe('SettingsFields toggles a switch from its label', () => {
 		await w.get('label').trigger('click')
 		expect(data.enforce_quiz_completion).toBe(1)
 	})
+})
+
+describe('FR-03B.6 source-only schema labels', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		it(`renders the real catalogue description in ${lang} without changing the document`, async () => {
+			const data = { lesson_dwell_time: 35 }
+			const before = JSON.stringify(data)
+			const w = await mountFields(
+				[
+					{
+						name: 'lesson_dwell_time',
+						label: 'Lesson Completion Time (seconds)',
+						type: 'number',
+						min: 1,
+						description: settingsText.lessonDwellDescription,
+					},
+				],
+				data,
+				lang,
+				settingsText.accessAvailability
+			)
+			expect(w.text()).toContain(
+				lang === 'fr' ? 'Accès et disponibilité' : 'Access & Availability'
+			)
+			expect(w.text()).toContain(
+				lang === 'fr'
+					? "Durée minimale pendant laquelle un apprenant doit rester sur une leçon avant qu'elle soit considérée comme terminée."
+					: settingsText.lessonDwellDescription
+			)
+			expect(w.get('input').attributes('min')).toBe('1')
+			expect((w.get('input').element as HTMLInputElement).value).toBe('35')
+			expect(JSON.stringify(data)).toBe(before)
+			const calls = (
+				(w.vm as any).__ as ReturnType<typeof vi.fn>
+			).mock.calls.map(([source]) => source)
+			expect(calls).toContain(settingsText.lessonDwellDescription)
+			expect(calls).not.toContain('Accès et disponibilité')
+			expect(calls).not.toContain(
+				"Durée minimale pendant laquelle un apprenant doit rester sur une leçon avant qu'elle soit considérée comme terminée."
+			)
+			installTranslations(lang === 'fr' ? 'en' : 'fr')
+			await flushPromises()
+			expect(w.text()).toContain(
+				lang === 'fr' ? 'Access & Availability' : 'Accès et disponibilité'
+			)
+			expect(settingsText.accessAvailability).toBe('Access & Availability')
+			expect(JSON.stringify(data)).toBe(before)
+			w.unmount()
+		})
 })

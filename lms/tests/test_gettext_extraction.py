@@ -32,6 +32,24 @@ def extract_files(files):
 
 
 class TypeScriptExtractionTests(unittest.TestCase):
+	def test_settings_source_markers(self):
+		path = "frontend/src/components/Settings/settingsText.ts"
+		keys = {message for _, _, message, _, _ in extract_files({path: (ROOT / path).read_text()})}
+		self.assertEqual(
+			keys,
+			{
+				"System Configuration",
+				"Access & Availability",
+				"Seconds a learner must stay on a lesson before it is marked complete.",
+			},
+		)
+
+	def test_settings_marker_scope(self):
+		path = "frontend/src/components/Settings/settingsText.ts"
+		code = "const label = N_('Probe {0}'); const raw = 'Not a message';"
+		self.assertEqual([message for _, _, message, _, _ in extract_files({path: code})], ["Probe {0}"])
+		self.assertEqual(extract_files({"frontend/src/utils/not_schema.ts": code}), [])
+
 	def test_vue_bulk_enrollment_messages(self):
 		paths = [
 			"frontend/src/components/Enrollment/StudentPicker.vue",

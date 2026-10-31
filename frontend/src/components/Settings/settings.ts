@@ -1,3 +1,4 @@
+import { settingsText } from './settingsText'
 import { defineAsyncComponent, markRaw } from 'vue'
 import type { SettingsGroup } from '@/types/settingsSchema'
 import Categories from '@/components/Settings/Categories.vue'
@@ -42,7 +43,7 @@ const emailAccountDefaults = markRaw(
  */
 export const settingsTree: SettingsGroup[] = [
 	{
-		label: 'System Configuration',
+		label: settingsText.systemConfiguration,
 		items: [
 			{
 				label: 'General',
@@ -112,8 +113,7 @@ export const settingsTree: SettingsGroup[] = [
 									name: 'lesson_dwell_time',
 									type: 'number',
 									min: 1,
-									description:
-										'Seconds a learner must stay on a lesson before it is marked complete.',
+									description: settingsText.lessonDwellDescription,
 								},
 								{
 									label: 'Enforce completion',

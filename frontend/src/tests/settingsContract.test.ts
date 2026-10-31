@@ -5,6 +5,7 @@
  */
 import { describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
+import { installTranslations } from './helpers/frenchCatalog'
 
 vi.hoisted(() => {
 	// The tree imports every settings page, and one of them reaches @/utils,
@@ -205,4 +206,42 @@ describe('the course progress descriptions', () => {
 				expect(field?.caution).toContain(provider)
 		}
 	)
+})
+
+describe('FR-03B.6 static schema language contract', () => {
+	it('keeps source labels, field names, minimum and autosave raw in both languages', () => {
+		const group = settingsTree.find((g) => g.label === 'System Configuration')
+		expect(group).toBeDefined()
+		const item = items.find((i) => i.slug === 'course-progress')!
+		const page = item.page as FieldsPage
+		const dwell = fieldsOfItem(item).find(
+			(f) => f.name === 'lesson_dwell_time'
+		)!
+		const before = {
+			slug: item.slug,
+			pageSource: page.source,
+			save: page.save,
+			field: { ...dwell },
+		}
+		for (const lang of ['fr', 'en']) {
+			const translate = installTranslations(lang)
+			expect(translate(group!.label)).toBe(
+				lang === 'fr' ? 'Configuration du système' : 'System Configuration'
+			)
+			expect(group!.label).toBe('System Configuration')
+			expect(dwell.description).toBe(
+				'Seconds a learner must stay on a lesson before it is marked complete.'
+			)
+			expect({
+				slug: item.slug,
+				pageSource: page.source,
+				save: page.save,
+				field: { ...dwell },
+			}).toEqual(before)
+		}
+		expect(page.save).toBe('auto')
+		expect(page.source).toEqual({ doc: 'LMS Settings' })
+		expect((dwell as any).min).toBe(1)
+		installTranslations('en')
+	})
 })

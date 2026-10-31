@@ -3,4 +3,5 @@ frontend/src/**.test.ts,ignore
 frontend/src/**.spec.ts,ignore
 frontend/src/tests/**.ts,ignore
 frontend/src/**/__tests__/**.ts,ignore
+frontend/src/components/Settings/settingsText.ts,javascript
 frontend/src/**.ts,frappe.gettext.extractors.javascript.extract

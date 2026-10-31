@@ -94,6 +94,7 @@
 </template>
 
 <script setup lang="ts">
+import { settingsText } from './settingsText'
 import {
 	Combobox,
 	Select,
@@ -244,7 +245,7 @@ const directionOptions = computed(() => [
 
 const accessSections = [
 	{
-		label: 'Access & Availability',
+		label: settingsText.accessAvailability,
 		fields: [
 			{
 				label: 'Allow Guest Access',
