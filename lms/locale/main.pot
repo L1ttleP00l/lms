@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 23:48+0000\n"
-"PO-Revision-Date: 2026-10-30 23:48+0000\n"
+"POT-Creation-Date: 2026-10-31 00:26+0000\n"
+"PO-Revision-Date: 2026-10-31 00:26+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -246,6 +246,10 @@ msgstr ""
 #: frontend/src/components/Quiz/QuestionAnswers.vue:115
 #, python-brace-format
 msgid "Accepted answer {0}"
+msgstr ""
+
+#: frontend/src/components/Settings/settingsText.ts:13
+msgid "Access & Availability"
 msgstr ""
 
 #: frontend/src/components/CertificationLinks.vue:48
@@ -1179,7 +1183,7 @@ msgid "Authors"
 msgstr ""
 
 #. Option for the 'Text Direction' (Select) field in DocType 'LMS Settings'
-#: frontend/src/components/Settings/Preferences.vue:240
+#: frontend/src/components/Settings/Preferences.vue:241
 #: lms/lms/doctype/lms_settings/lms_settings.json:381
 msgid "Auto"
 msgstr ""
@@ -6746,7 +6750,7 @@ msgid "Left at"
 msgstr ""
 
 #. Option for the 'Text Direction' (Select) field in DocType 'LMS Settings'
-#: frontend/src/components/Settings/Preferences.vue:241
+#: frontend/src/components/Settings/Preferences.vue:242
 #: lms/lms/doctype/lms_settings/lms_settings.json:381
 msgid "Left to Right"
 msgstr ""
@@ -10373,7 +10377,7 @@ msgid "Review"
 msgstr ""
 
 #. Option for the 'Text Direction' (Select) field in DocType 'LMS Settings'
-#: frontend/src/components/Settings/Preferences.vue:242
+#: frontend/src/components/Settings/Preferences.vue:243
 #: lms/lms/doctype/lms_settings/lms_settings.json:381
 msgid "Right to Left"
 msgstr ""
@@ -10804,6 +10808,10 @@ msgstr ""
 #: frontend/src/pages/Batches/components/BatchCard.vue:18
 #: frontend/src/pages/Batches/components/BatchOverlay.vue:21
 msgid "Seats Left"
+msgstr ""
+
+#: frontend/src/components/Settings/settingsText.ts:14
+msgid "Seconds a learner must stay on a lesson before it is marked complete."
 msgstr ""
 
 #: frontend/src/pages/Home/AdminHome.vue:91
@@ -11828,6 +11836,10 @@ msgstr ""
 
 #: frontend/src/components/Sidebar/UserDropdown.vue:156
 msgid "System"
+msgstr ""
+
+#: frontend/src/components/Settings/settingsText.ts:12
+msgid "System Configuration"
 msgstr ""
 
 #: frontend/src/components/Settings/Preferences.vue:12

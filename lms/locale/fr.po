@@ -14232,3 +14232,15 @@ msgstr "les sessions payantes"
 msgid "Amount must be a positive number for {0}."
 msgstr "Le montant doit être un nombre strictement positif pour {0}."
 
+#: frontend/src/components/Settings/settingsText.ts:12
+msgid "System Configuration"
+msgstr "Configuration du système"
+
+#: frontend/src/components/Settings/settingsText.ts:13
+msgid "Access & Availability"
+msgstr "Accès et disponibilité"
+
+#: frontend/src/components/Settings/settingsText.ts:14
+msgid "Seconds a learner must stay on a lesson before it is marked complete."
+msgstr "Durée minimale pendant laquelle un apprenant doit rester sur une leçon avant qu'elle soit considérée comme terminée."
+
