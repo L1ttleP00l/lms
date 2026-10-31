@@ -68,7 +68,7 @@
 					/>
 					<Select
 						v-model="batch.medium"
-						:label="__('Medium')"
+						:label="__('Session delivery mode')"
 						:options="mediumOptions"
 						variant="outline"
 						class="w-full"

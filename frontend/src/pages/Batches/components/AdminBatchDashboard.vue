@@ -2,12 +2,12 @@
 	<div v-if="batch?.data" class="p-5">
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
 			<NumberChartGraph
-				:title="__('Enrolled')"
+				:title="__('Enrolled learners')"
 				:value="formatAmount(studentCount.data) || 0"
 			/>
 
 			<NumberChartGraph
-				:title="__('Certified')"
+				:title="__('Certificates')"
 				:value="certificationCount.data || 0"
 			/>
 

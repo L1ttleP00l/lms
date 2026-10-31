@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
 	enableAutoUnmount,
@@ -167,7 +168,13 @@ const makeRouter = (): Router =>
 		],
 	})
 
-const mountForm = async (router: Router, user: Record<string, unknown>) => {
+const mountForm = async (
+	router: Router,
+	user: Record<string, unknown>,
+	lang = 'en'
+) => {
+	const translate = installTranslations(lang)
+	vi.stubGlobal('__', translate)
 	const wrapper = mount(defineComponent({ render: () => h(RouterView) }), {
 		global: {
 			plugins: [router],
@@ -175,7 +182,7 @@ const mountForm = async (router: Router, user: Record<string, unknown>) => {
 			stubs: { teleport: true },
 			// vi.stubGlobal alone doesn't reach a compiled template's `_ctx.__`
 			// access — it has to be on the instance too (see FormShell.test.ts).
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	await flushPromises()
@@ -202,7 +209,7 @@ const FIELD_LABELS = [
 	'Timezone',
 	'Category',
 	'Seat Count',
-	'Medium',
+	'Session delivery mode',
 	'Description',
 	'Instructors',
 	'Batch Details',
@@ -408,4 +415,54 @@ describe('NewBatchForm as a route', () => {
 		await flushPromises()
 		expect(router.currentRoute.value.name).toBe('Batches')
 	})
+})
+
+describe('FR-03B.5 new session language', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en']) {
+		it(`labels dates, modality and instructor selection in ${lang} without inserting`, async () => {
+			insertSubmit.mockReset()
+			const router = makeRouter()
+			await router.push({ name: 'NewBatch' })
+			const w = await mountForm(router, moderator, lang)
+			for (const text of lang === 'fr'
+				? [
+						'Date de début',
+						'Date de fin',
+						'Heure de début',
+						'Heure de Fin',
+						'Fuseau horaire',
+						'Nombre de places',
+						'Modalité',
+						'Formateurs',
+						'Détails de la session',
+				  ]
+				: [
+						'Start Date',
+						'End Date',
+						'Start Time',
+						'End Time',
+						'Timezone',
+						'Seat Count',
+						'Session delivery mode',
+						'Instructors',
+						'Batch Details',
+				  ])
+				expect(w.text()).toContain(text)
+			expect(insertSubmit).not.toHaveBeenCalled()
+		})
+		it(`keeps refused creation in ${lang}`, async () => {
+			insertSubmit.mockReset()
+			const router = makeRouter()
+			await router.push({ name: 'NewBatch' })
+			const w = await mountForm(router, student, lang)
+			expect(w.text()).toContain(
+				lang === 'fr'
+					? "Vous n'êtes pas autorisé à créer une session."
+					: 'You are not permitted to create a batch.'
+			)
+			expect(w.find('[data-testid="new-batch-fields"]').exists()).toBe(false)
+			expect(insertSubmit).not.toHaveBeenCalled()
+		})
+	}
 })

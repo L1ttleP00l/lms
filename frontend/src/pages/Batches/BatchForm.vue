@@ -168,7 +168,7 @@
 						</MultiLink>
 						<Select
 							v-model="batchDetail.doc.medium"
-							:label="__('Medium')"
+							:label="__('Session delivery mode')"
 							:options="mediumOptions"
 							variant="outline"
 							class="w-full"

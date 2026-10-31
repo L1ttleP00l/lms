@@ -16,7 +16,7 @@
 								{{ studentDetails.data.full_name }}
 							</div>
 							<Badge v-if="hasProgress" :theme="progressTheme">
-								{{ studentDetails.data.progress }}% {{ __('Complete') }}
+								{{ studentDetails.data.progress }}% {{ __('Completed') }}
 							</Badge>
 						</div>
 						<div class="text-sm text-ink-gray-7">

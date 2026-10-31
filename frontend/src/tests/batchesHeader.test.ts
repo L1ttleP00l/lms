@@ -1,7 +1,8 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import { defineComponent, h } from 'vue'
+import { installTranslations } from './helpers/frenchCatalog'
 
 vi.stubGlobal('__', (text: string) => text)
 // translation.js installs String.prototype.format at app boot; the page title
@@ -22,10 +23,14 @@ const { state, openFormRouteMock } = vi.hoisted(() => ({
 // Only the header actions are under test.
 vi.mock('@/components/Layouts/pages/ListPage.vue', () => ({
 	default: defineComponent({
+		name: 'ListPageTestStub',
+		props: ['title'],
 		setup:
-			(_, { slots }) =>
+			(props, { slots }) =>
 			() =>
-				h('div', [h('header', slots.actions?.())]),
+				h('div', { 'data-title': props.title }, [
+					h('header', slots.actions?.()),
+				]),
 	}),
 }))
 
@@ -88,7 +93,9 @@ vi.mock('@/pages/Batches/components/BatchCard.vue', () => ({
 	default: defineComponent({ setup: () => () => h('div') }),
 }))
 
-const mountBatches = async () => {
+const mountBatches = async (lang = 'en') => {
+	const translate = installTranslations(lang)
+	vi.stubGlobal('__', translate)
 	const { default: Batches } = await import('@/pages/Batches/Batches.vue')
 	const router = createRouter({
 		history: createMemoryHistory(),
@@ -110,7 +117,7 @@ const mountBatches = async () => {
 				$user: { data: { name: 'a@b.c', is_moderator: state.isModerator } },
 				$dayjs: () => ({ format: () => '' }),
 			},
-			mocks: { __: (text: string) => text },
+			mocks: { __: translate },
 		},
 	})
 	await flushPromises()
@@ -147,4 +154,20 @@ describe('Batches page header', () => {
 
 		expect(wrapper.find('header').text()).toBe('')
 	})
+})
+
+describe('FR-03B.5 session list title', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		it(`uses a complete session phrase in ${lang}`, async () => {
+			state.isModerator = 1
+			const { wrapper } = await mountBatches(lang)
+			expect(wrapper.get('[data-title]').attributes('data-title')).toBe(
+				lang === 'fr' ? 'Sessions en cours' : 'Active batches'
+			)
+			expect(wrapper.find('header').text()).toContain(
+				lang === 'fr' ? 'Nouvelle session' : 'New Batch'
+			)
+			wrapper.unmount()
+		})
 })

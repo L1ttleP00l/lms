@@ -1,3 +1,4 @@
+import { installTranslations } from './helpers/frenchCatalog'
 /**
  * The students list carries a frappe-ui `cache` key so BatchStudentForm can
  * reload it after inserting. That key makes the resource outlive the component,
@@ -11,7 +12,7 @@
  * resources.js:9-21). A mock that handed back a fresh resource each time would
  * pass against the bug.
  */
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { afterEach, describe, expect, it, vi, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { reactive } from 'vue'
 
@@ -76,6 +77,10 @@ vi.mock('frappe-ui', () => {
 				data:
 					options.url === 'lms.lms.utils.get_batch_chart_data'
 						? h.chartRows
+						: options.params?.doctype === 'LMS Certificate'
+						? 9
+						: options.params?.doctype === 'LMS Batch Enrollment'
+						? 7
 						: null,
 				loading: false,
 				reload: () => {},
@@ -121,15 +126,17 @@ import AdminBatchDashboard from '@/pages/Batches/components/AdminBatchDashboard.
 
 const BATCH = { data: { name: 'B1', title: 'Batch One', seat_count: 10 } }
 
-const mountDashboard = (batch: object = BATCH) =>
-	mount(AdminBatchDashboard, {
+const mountDashboard = (batch: object = BATCH, lang = 'en') => {
+	const translate = installTranslations(lang)
+	vi.stubGlobal('__', translate)
+	return mount(AdminBatchDashboard, {
 		props: { batch },
 		global: {
 			provide: { $dayjs: (v: unknown) => ({ format: () => String(v) }) },
-			mocks: { __: (s: string) => s },
+			mocks: { __: translate },
 		},
 	})
-
+}
 const cachedList = (): FakeList =>
 	h.listCache.get(JSON.stringify(['batchStudents', 'B1']))
 
@@ -225,4 +232,39 @@ describe('AdminBatchDashboard students filters', () => {
 		).toBe('E1')
 		wrapper.unmount()
 	})
+})
+
+describe('FR-03B.5 dashboard terminology', () => {
+	afterEach(() => installTranslations('en'))
+	for (const lang of ['fr', 'en'])
+		it(`labels document counts and chart axes in ${lang}`, async () => {
+			h.listCache.clear()
+			h.chartRows = [{ task: 'Fictional course', value: 3 }]
+			const w = mountDashboard(
+				{ data: { ...BATCH.data, courses: [{ course: 'Fictional course' }] } },
+				lang
+			)
+			cachedList().data = [
+				{ name: 'FAKE-ENROLLMENT', member_name: 'Fictional Learner' },
+			]
+			await flushPromises()
+			const titles = w
+				.findAllComponents({ name: 'NumberChartGraph' })
+				.map((c) => c.attributes('title'))
+			expect(titles).toContain(
+				lang === 'fr' ? 'Apprenants inscrits' : 'Enrolled learners'
+			)
+			expect(titles).toContain(lang === 'fr' ? 'Certificats' : 'Certificates')
+			const chart = w.findComponent({ name: 'BarChart' })
+			expect(chart.props('title')).toBe(
+				lang === 'fr' ? 'Synthèse de la session' : 'Batch Summary'
+			)
+			expect(chart.props('yAxis').title).toBe(
+				lang === 'fr' ? "Nombre d'apprenants" : 'Number of Students'
+			)
+			expect(chart.props('data')).toEqual([
+				{ task: 'Fictional course', value: 3 },
+			])
+			w.unmount()
+		})
 })

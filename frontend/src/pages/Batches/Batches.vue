@@ -322,15 +322,15 @@ watch(currentTab, () => {
 const batchTabs = computed(() => {
 	if (isAdmin.value) {
 		return [
-			{ label: __('Active'), value: 'active' },
-			{ label: __('Upcoming'), value: 'upcoming' },
-			{ label: __('Archived'), value: 'archived' },
-			{ label: __('Unpublished'), value: 'unpublished' },
+			{ label: __('Active batches'), value: 'active' },
+			{ label: __('Upcoming batches'), value: 'upcoming' },
+			{ label: __('Archived batches'), value: 'archived' },
+			{ label: __('Unpublished batches'), value: 'unpublished' },
 		]
 	}
-	const tabs = [{ label: __('Upcoming'), value: 'upcoming' }]
+	const tabs = [{ label: __('Upcoming batches'), value: 'upcoming' }]
 	if (user.data) {
-		tabs.push({ label: __('Enrolled'), value: 'enrolled' })
+		tabs.push({ label: __('Enrolled batches'), value: 'enrolled' })
 	}
 	return tabs
 })
@@ -344,7 +344,7 @@ watch(batchTabs, (tabs) => {
 
 const pageTitle = computed(() => {
 	const tab = batchTabs.value.find((t) => t.value === currentTab.value)
-	return __('{0} Batches').format(tab?.label)
+	return tab?.label || __('Batches')
 })
 
 const canCreateBatch = () => {
