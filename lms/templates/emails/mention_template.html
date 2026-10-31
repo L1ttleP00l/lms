@@ -1,5 +1,5 @@
 <p>
-    {{ _("{0} mentioned you in a comment in your batch.").format(sender) }}
+    {{ _("{0} mentioned you in a discussion.").format(sender | e) }}
 </p>
 <p>
     <blockquote>
@@ -7,5 +7,5 @@
     </blockquote>
 </p>
 <div class="more-info">
-	<a href="{{ link }}">{{ _("Check Discussion") }}</a>
+	<a href="{{ link | e }}">{{ _("Check Discussion") }}</a>
 </div>

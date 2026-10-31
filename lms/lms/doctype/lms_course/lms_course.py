@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
 from frappe.model.document import Document
+from frappe.translate import get_user_lang, print_language
 from frappe.utils import cint, comma_and, escape_html, flt, today
 
 from lms.lms.doctype.course_lesson.course_lesson import get_valid_question_count
@@ -159,7 +160,14 @@ class LMSCourse(Document):
 				args=args,
 				now=True,
 			)
-			frappe.enqueue(method=frappe.sendmail, queue="short", timeout=300, is_async=True, **email_args)
+			frappe.enqueue(
+				method=send_course_interest_email,
+				recipient_user=user.user,
+				queue="short",
+				timeout=300,
+				is_async=True,
+				**email_args,
+			)
 			frappe.db.set_value("LMS Course Interest", user.name, "email_sent", True)
 
 	def autoname(self):
@@ -168,6 +176,14 @@ class LMSCourse(Document):
 
 	def __repr__(self):
 		return f"<Course#{self.name}>"
+
+
+def send_course_interest_email(recipient_user, **email_args):
+	"""Render inside the existing per-user job, rather than the enqueue context."""
+	with print_language(get_user_lang(recipient_user)):
+		subject = _("{0} is now available!").format(email_args["args"]["title"])
+		email_args.update(subject=subject, header=[escape_html(subject), "green"])
+		frappe.sendmail(**email_args)
 
 
 def get_quizzes_without_questions(course: str) -> list[str]:

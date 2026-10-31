@@ -300,7 +300,7 @@ def send_notification_for_published_batch(batch):
 def send_email_notification_for_published_batch(batch):
 	brand_name = frappe.db.get_single_value("Website Settings", "app_name")
 	brand_logo = frappe.db.get_single_value("Website Settings", "banner_image")
-	subject = _("A new course has been published on {0}").format(brand_name)
+	subject = _("A new batch has been published on {0}").format(brand_name)
 	template = "published_batch_notification"
 	students = frappe.get_all("User", {"enabled": 1}, pluck="name")
 	instructors = get_instructors("LMS Batch", batch.name)

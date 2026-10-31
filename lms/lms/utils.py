@@ -16,6 +16,7 @@ from frappe.desk.doctype.notification_log.notification_log import make_notificat
 from frappe.desk.notifications import extract_mentions
 from frappe.model.document import Document
 from frappe.rate_limiter import rate_limit
+from frappe.translate import get_user_lang, print_language
 from frappe.utils import (
 	add_months,
 	cint,
@@ -812,7 +813,6 @@ def notify_mentions_via_email(doc: Document, topic: dict):
 		)
 		for name in mentions
 	]
-	subject = _("{0} mentioned you in a comment").format(sender_fullname)
 	template = "mention_template"
 
 	if topic.reference_doctype == "LMS Batch":
@@ -828,15 +828,17 @@ def notify_mentions_via_email(doc: Document, topic: dict):
 		"link": link,
 	}
 
-	for recipient in recipients:
-		frappe.sendmail(
-			recipients=recipient,
-			subject=subject,
-			template=template,
-			args=args,
-			header=[subject, "green"],
-			retry=3,
-		)
+	for user, recipient in zip(mentions, recipients, strict=True):
+		with print_language(get_user_lang(user)):
+			subject = _("{0} mentioned you in a comment").format(sender_fullname)
+			frappe.sendmail(
+				recipients=recipient,
+				subject=subject,
+				template=template,
+				args=args,
+				header=[escape_html(subject), "green"],
+				retry=3,
+			)
 
 
 def get_mention_recipients(doc: Document, topic: dict) -> list[str]:
