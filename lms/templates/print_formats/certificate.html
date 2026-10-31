@@ -1,0 +1,58 @@
+{% set member = frappe.db.get_value("User", doc.member, ["full_name"], as_dict=True) %}
+{% set course = frappe.db.get_value("LMS Course", doc.course, ["title", "name", "image"], as_dict=True) %}
+{% set logo = frappe.db.get_single_value("Website Settings", "banner_image") %}
+{% set brand_name = frappe.db.get_single_value("Website Settings", "app_name") %}
+{% set instructors = frappe.get_all("Course Instructor", {"parent": doc.course}, pluck="instructor", order_by="idx") %}
+
+<meta name="pdfkit-orientation" content="Landscape">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<div class="certificate-container">
+   <div style="margin-bottom: 13rem;">
+        {% if logo %}
+        <img src="{{ logo | e }}" class="certificate-logo"> <span style="font-weight: 900; font-size: 1.5rem;"> {{ brand_name | e }} </span>
+        {% else %}
+        <span style="font-weight: 900; font-size: 1.5rem;"> {{ brand_name | e }} </span>
+        {% endif %}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        {{ _("This is to certify that") }}
+    </div>
+
+    <div style="margin-bottom: 1rem; font-weight: 900; font-size: 1.5rem;">
+        {{ member.full_name | e }}
+    </div>
+
+    <div style="margin-bottom: 12rem; width: 70%;">
+        {% set course_title %}<span style="font-weight: 900;"> {{ course.title | e }} </span>{% endset %}
+        {{ _("has successfully completed the course {0}, including all required assessments, on {1}.").format(course_title, frappe.utils.format_date(doc.issue_date, "medium") | e) }}
+    </div>
+
+    <div>
+        {% if doc.evaluator %}
+        <div>
+            <div style="margin-bottom: 0.5rem; color: gray; font-weight: 500;">
+                {{ _("Evaluated By")}}
+            </div>
+            <div style="font-weight: 900;">
+                {{ doc.evaluator_name | e }}
+            </div>
+        </div>
+        {% else %}
+        <div style="margin-bottom: 0.5rem; color: gray; font-weight: 500;">
+            {{ _("Instructor") if instructors|length == 1 else _("Instructors") }}
+        </div>
+        <div>
+            {% for instructor in instructors %}
+                {% set instructor_name = frappe.db.get_value("User", instructor, "full_name") %}
+                <span style="font-weight: 900;">
+                    {{ instructor_name | e }}{% if not loop.last %}, {% endif %}
+                </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
