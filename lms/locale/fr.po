@@ -13391,7 +13391,7 @@ msgstr "{0} est requis"
 #: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:5
 #, python-brace-format
 msgid "{0} is your evaluator"
-msgstr ""
+msgstr "Votre évaluateur est {0}"
 
 #: frontend/src/components/Assessment/QuizStats.vue:49
 #, python-brace-format
@@ -14326,4 +14326,8 @@ msgstr "Démarrer une discussion"
 #: frontend/src/pages/CertifiedParticipants.vue:19
 msgid "Certificate courses"
 msgstr "Cours avec certificat"
+
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:28
+msgid "Reminder for Certificate Evaluation"
+msgstr "Rappel pour votre évaluation de certification"
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 16:30+0000\n"
-"PO-Revision-Date: 2026-10-31 16:30+0000\n"
+"POT-Creation-Date: 2026-10-31 17:08+0000\n"
+"PO-Revision-Date: 2026-10-31 17:08+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -5576,7 +5576,8 @@ msgstr ""
 msgid "Hey"
 msgstr ""
 
-#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:1
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:10
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:29
 #: lms/templates/emails/certificate_request_notification.html:1
 #, python-brace-format
 msgid "Hey {0}"
@@ -9278,7 +9279,8 @@ msgstr ""
 msgid "Please make sure to schedule your evaluation before this date."
 msgstr ""
 
-#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:7
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:16
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:39
 #: lms/templates/emails/certificate_request_notification.html:7
 msgid "Please prepare well and be on time for the evaluations."
 msgstr ""
@@ -10188,6 +10190,10 @@ msgstr ""
 #: frontend/src/components/Quiz.vue:1567
 #, python-brace-format
 msgid "Remaining: {0}"
+msgstr ""
+
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:28
+msgid "Reminder for Certificate Evaluation"
 msgstr ""
 
 #. Option for the 'Work Mode' (Select) field in DocType 'Job Opportunity'
@@ -14258,7 +14264,8 @@ msgstr ""
 msgid "Your enrollment in {{ batch_name }} is confirmed"
 msgstr ""
 
-#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:3
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:12
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:31
 #: lms/templates/emails/certificate_request_notification.html:3
 #, python-brace-format
 msgid "Your evaluation for the course {0} has been scheduled on {1} at {2} {3}."
@@ -14932,7 +14939,8 @@ msgstr ""
 msgid "{0} is required"
 msgstr ""
 
-#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:5
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:14
+#: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.py:38
 #, python-brace-format
 msgid "{0} is your evaluator"
 msgstr ""
