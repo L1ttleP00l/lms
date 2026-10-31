@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-30 23:13+0000\n"
-"PO-Revision-Date: 2026-10-30 23:13+0000\n"
+"POT-Creation-Date: 2026-10-30 23:48+0000\n"
+"PO-Revision-Date: 2026-10-30 23:48+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -309,12 +309,15 @@ msgid "Actions for {0}"
 msgstr ""
 
 #: frontend/src/components/Settings/Raven/WorkspaceList.vue:107
-#: frontend/src/pages/Batches/Batches.vue:325
 msgid "Active"
 msgstr ""
 
 #: frontend/src/pages/Statistics.vue:19
 msgid "Active Members"
+msgstr ""
+
+#: frontend/src/pages/Batches/Batches.vue:325
+msgid "Active batches"
 msgstr ""
 
 #: frontend/src/components/Quiz/QuizActivityLog.vue:4
@@ -919,7 +922,7 @@ msgid "Apps"
 msgstr ""
 
 #: frontend/src/pages/Batches/Batches.vue:327
-msgid "Archived"
+msgid "Archived batches"
 msgstr ""
 
 #: frontend/src/components/UpcomingEvaluations.vue:218
@@ -1533,6 +1536,7 @@ msgstr ""
 #. Label of a Workspace Sidebar Item
 #: frontend/src/components/Settings/Sidebar/sidebar.ts:26
 #: frontend/src/pages/Batches/BatchDetail.vue:298
+#: frontend/src/pages/Batches/Batches.vue:347
 #: frontend/src/pages/Batches/Batches.vue:366
 #: frontend/src/pages/Batches/Batches.vue:373
 #: lms/workspace_sidebar/learning.json:50 lms/www/_lms.py:149
@@ -1864,6 +1868,7 @@ msgid "Certificate saved successfully"
 msgstr ""
 
 #. Label of a Workspace Sidebar Item
+#: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:10
 #: frontend/src/pages/Profile.vue:271
 #: frontend/src/pages/ProfileCertificates.vue:4
 #: lms/workspace_sidebar/learning.json:110
@@ -1948,10 +1953,6 @@ msgstr ""
 
 #: frontend/src/pages/Statistics.vue:78
 msgid "Certifications per day"
-msgstr ""
-
-#: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:10
-msgid "Certified"
 msgstr ""
 
 #. Label of the certified_members (Check) field in DocType 'LMS Settings'
@@ -2440,7 +2441,6 @@ msgid "Company or Workplace"
 msgstr ""
 
 #. Option for the 'Status' (Select) field in DocType 'LMS Course Progress'
-#: frontend/src/pages/Batches/components/BatchStudentProgress.vue:19
 #: frontend/src/pages/Courses/StudentCourseProgress.vue:60
 #: lms/lms/doctype/lms_course_progress/lms_course_progress.json:55
 #: lms/lms/widgets/CourseCard.html:75
@@ -2487,6 +2487,7 @@ msgstr ""
 #: frontend/src/components/ChapterRow.vue:177
 #: frontend/src/components/StudentLessonSidebar.vue:19
 #: frontend/src/components/StudentLessonSidebar.vue:115
+#: frontend/src/pages/Batches/components/BatchStudentProgress.vue:19
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.json:153
 #: lms/lms/widgets/CourseCard.html:78
 msgid "Completed"
@@ -4335,8 +4336,6 @@ msgstr ""
 msgid "Enroll {0} students"
 msgstr ""
 
-#: frontend/src/pages/Batches/Batches.vue:333
-#: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:5
 #: frontend/src/pages/Programs/StudentPrograms.vue:98
 msgid "Enrolled"
 msgstr ""
@@ -4351,6 +4350,11 @@ msgstr ""
 msgid "Enrolled Students"
 msgstr ""
 
+#: frontend/src/pages/Batches/Batches.vue:333
+msgid "Enrolled batches"
+msgstr ""
+
+#: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:5
 #: frontend/src/pages/Courses/CourseDashboard.vue:7
 msgid "Enrolled learners"
 msgstr ""
@@ -7213,8 +7217,6 @@ msgid "Maximum Attempts"
 msgstr ""
 
 #. Label of the medium (Select) field in DocType 'LMS Batch'
-#: frontend/src/pages/Batches/BatchForm.vue:171
-#: frontend/src/pages/Forms/NewBatchForm.vue:71
 #: lms/lms/doctype/lms_batch/lms_batch.json:167
 msgid "Medium"
 msgstr ""
@@ -11026,6 +11028,11 @@ msgstr ""
 msgid "Session Start Time"
 msgstr ""
 
+#: frontend/src/pages/Batches/BatchForm.vue:171
+#: frontend/src/pages/Forms/NewBatchForm.vue:71
+msgid "Session delivery mode"
+msgstr ""
+
 #: frontend/src/pages/Profile.vue:289
 msgid "Session refreshed successfully"
 msgstr ""
@@ -13001,10 +13008,13 @@ msgid "Unpublish course"
 msgstr ""
 
 #: frontend/src/components/ContinueCoursePanel.vue:39
-#: frontend/src/pages/Batches/Batches.vue:328
 #: frontend/src/pages/Courses/Courses.vue:354
 #: frontend/src/pages/Programs/Programs.vue:264
 msgid "Unpublished"
+msgstr ""
+
+#: frontend/src/pages/Batches/Batches.vue:328
+msgid "Unpublished batches"
 msgstr ""
 
 #: frontend/src/components/Notifications/NotificationPanel.vue:70
@@ -13051,8 +13061,6 @@ msgstr ""
 
 #. Option for the 'Status' (Select) field in DocType 'LMS Certificate Request'
 #. Label of the upcoming (Check) field in DocType 'LMS Course'
-#: frontend/src/pages/Batches/Batches.vue:326
-#: frontend/src/pages/Batches/Batches.vue:331
 #: frontend/src/pages/Courses/CoursePublishSettings.vue:8
 #: frontend/src/pages/Courses/Courses.vue:344
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.json:153
@@ -13072,6 +13080,11 @@ msgstr ""
 #: frontend/src/pages/Home/AdminHome.vue:55
 #: frontend/src/pages/Home/StudentHome.vue:7
 msgid "Upcoming Live Classes"
+msgstr ""
+
+#: frontend/src/pages/Batches/Batches.vue:326
+#: frontend/src/pages/Batches/Batches.vue:331
+msgid "Upcoming batches"
 msgstr ""
 
 #: lms/templates/emails/community_course_membership.html:11
@@ -14678,11 +14691,6 @@ msgstr ""
 #: frontend/src/pages/Assignments.vue:4
 #, python-brace-format
 msgid "{0} Assignments"
-msgstr ""
-
-#: frontend/src/pages/Batches/Batches.vue:347
-#, python-brace-format
-msgid "{0} Batches"
 msgstr ""
 
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExercises.vue:4

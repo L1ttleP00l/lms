@@ -430,7 +430,7 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchDetail.vue:45
 #: frontend/src/pages/Forms/AnnouncementForm.vue:96
 msgid "Add students to the batch to make an announcement"
-msgstr ""
+msgstr "Inscrivez des apprenants à la session pour pouvoir rédiger une annonce"
 
 #: frontend/src/components/Sidebar/AppSidebar.vue:379
 msgid "Add students to your batch"
@@ -589,7 +589,7 @@ msgstr "Autoriser l'accès aux dates futures"
 
 #: frontend/src/pages/Batches/BatchForm.vue:87
 msgid "Allow users to enroll in this batch on their own."
-msgstr ""
+msgstr "Permettre aux utilisateurs de s'inscrire eux-mêmes à cette session."
 
 #: frontend/src/pages/Forms/QuizForm.vue:300
 msgid "Allow users to view their past quiz attempts."
@@ -1156,7 +1156,7 @@ msgstr "Cours par lots"
 #: lms/lms/doctype/lms_batch/lms_batch.json:217
 #: lms/templates/emails/batch_confirmation.html:26
 msgid "Batch Details"
-msgstr "Détails du lot"
+msgstr "Détails de la session"
 
 #. Label of the batch_details_raw (HTML Editor) field in DocType 'LMS Batch'
 #: lms/lms/doctype/lms_batch/lms_batch.json:256
@@ -1165,7 +1165,7 @@ msgstr "Détails du lot brut"
 
 #: frontend/src/pages/Batches/BatchForm.vue:36
 msgid "Batch End Date"
-msgstr ""
+msgstr "Date de fin de la session"
 
 #: frontend/src/pages/Forms/EmailTemplateForm.vue:13
 msgid "Batch Enrollment Confirmation"
@@ -1219,7 +1219,7 @@ msgstr "Paramètres de lot"
 
 #: frontend/src/pages/Batches/BatchForm.vue:28
 msgid "Batch Start Date"
-msgstr "Date de début du lot "
+msgstr "Date de début de la session"
 
 #: lms/templates/emails/batch_confirmation.html:11
 msgid "Batch Start Date:"
@@ -1227,7 +1227,7 @@ msgstr "Date de début du lot :"
 
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:120
 msgid "Batch Summary"
-msgstr ""
+msgstr "Synthèse de la session"
 
 #. Label of the batch_title (Data) field in DocType 'LMS Certificate'
 #. Label of the batch_title (Data) field in DocType 'LMS Certificate Request'
@@ -1238,11 +1238,11 @@ msgstr ""
 
 #: frontend/src/pages/Forms/NewBatchForm.vue:283
 msgid "Batch created successfully"
-msgstr ""
+msgstr "Session créée avec succès"
 
 #: frontend/src/pages/Batches/BatchForm.vue:594
 msgid "Batch deleted successfully"
-msgstr ""
+msgstr "Session supprimée avec succès"
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:130
 msgid "Batch end date cannot be before the batch start date"
@@ -1262,15 +1262,15 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchDetail.vue:23
 msgid "Batch options"
-msgstr ""
+msgstr "Options de la session"
 
 #: frontend/src/pages/Batches/BatchForm.vue:144
 msgid "Batch overview"
-msgstr ""
+msgstr "Présentation de la session"
 
 #: frontend/src/pages/Batches/BatchDetail.vue:254
 msgid "Batch published"
-msgstr ""
+msgstr "Session publiée"
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:135
 msgid "Batch start time cannot be greater than or equal to end time."
@@ -1278,11 +1278,11 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchDetail.vue:254
 msgid "Batch unpublished"
-msgstr ""
+msgstr "Session dépubliée"
 
 #: frontend/src/pages/Batches/BatchForm.vue:553
 msgid "Batch updated successfully"
-msgstr ""
+msgstr "Session mise à jour avec succès"
 
 #: lms/lms/api.py:2047
 msgid "Batch, subject, content and reply-to must be strings."
@@ -1299,7 +1299,7 @@ msgstr "Lot:"
 #: frontend/src/pages/Batches/Batches.vue:371
 #: lms/workspace_sidebar/learning.json:50 lms/www/_lms.py:149
 msgid "Batches"
-msgstr "Lots"
+msgstr "Sessions de formation"
 
 #. Label of the batches (Check) field in DocType 'LMS Settings'
 #: lms/lms/doctype/lms_settings/lms_settings.json:299
@@ -1753,7 +1753,7 @@ msgstr "Chapitres"
 
 #: frontend/src/pages/Batches/BatchForm.vue:101
 msgid "Charge a fee for batch enrollment."
-msgstr ""
+msgstr "Faire payer l'inscription à la session."
 
 #: frontend/src/pages/Courses/CoursePublishSettings.vue:43
 msgid "Charge learners to enroll in this course."
@@ -2231,7 +2231,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:572
 msgid "Confirm your action to delete"
-msgstr ""
+msgstr "Confirmer la suppression"
 
 #. Label of the confirmation_email_sent (Check) field in DocType 'LMS Batch
 #. Enrollment'
@@ -3093,7 +3093,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchDetail.vue:289
 msgid "Delete batch"
-msgstr ""
+msgstr "Supprimer la session"
 
 #: frontend/src/components/Settings/Raven/WorkspaceChannels.vue:190
 #: frontend/src/components/Settings/Raven/WorkspaceList.vue:199
@@ -3151,7 +3151,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:573
 msgid "Deleting this batch will also delete all its data including enrolled students, linked courses, assessments, feedback and discussions. Are you sure you want to continue?"
-msgstr ""
+msgstr "La suppression de cette session supprimera également ses données, notamment les inscriptions, les liens avec les cours, les évaluations, les retours et les discussions. Voulez-vous vraiment continuer ?"
 
 #: frontend/src/components/CourseOutline.vue:283
 msgid "Deleting this chapter will also delete all its lessons and permanently remove it from the course. This action cannot be undone. Are you sure you want to continue?"
@@ -3606,7 +3606,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:128
 msgid "Enable evaluations for batch participants."
-msgstr ""
+msgstr "Activer les évaluations pour les participants de la session."
 
 #: frontend/src/pages/Forms/ChapterForm.vue:23
 msgid "Enable this only if you want to upload a SCORM package as a chapter."
@@ -3749,7 +3749,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:79
 msgid "Enrollment & Certification"
-msgstr ""
+msgstr "Inscription et certificats"
 
 #: frontend/src/pages/Batches/BatchForm.vue:179
 msgid "Enrollment Confirmation Email Template"
@@ -3848,7 +3848,7 @@ msgstr ""
 
 #: frontend/src/pages/Forms/NewBatchForm.vue:299
 msgid "Error creating batch"
-msgstr ""
+msgstr "Impossible de créer la session"
 
 #: frontend/src/pages/Forms/EmailTemplateForm.vue:198
 msgid "Error creating email template"
@@ -3956,7 +3956,7 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchForm.vue:133
 #: lms/lms/doctype/lms_batch/lms_batch.json:307
 msgid "Evaluation End Date"
-msgstr ""
+msgstr "Date de fin des évaluations"
 
 #. Label of a Link in the Learning Workspace
 #: lms/lms/workspace/learning/learning.json:145
@@ -5190,7 +5190,7 @@ msgstr ""
 #: lms/lms/doctype/lms_batch_feedback/lms_batch_feedback.json:54
 #: lms/lms/doctype/lms_course/lms_course.json:132
 msgid "Instructors"
-msgstr ""
+msgstr "Formateurs"
 
 #: lms/lms/doctype/lms_quiz/lms_quiz.py:531
 msgid "Insufficient Permission"
@@ -5412,7 +5412,7 @@ msgstr "Délivrer un certificat gratuit aux apprenants qui terminent le cours."
 
 #: frontend/src/pages/Batches/BatchForm.vue:94
 msgid "Issue certificates to batch participants."
-msgstr ""
+msgstr "Permettre la délivrance de certificats aux participants de la session."
 
 #. Label of the issued_on (Date) field in DocType 'LMS Badge Assignment'
 #: frontend/src/pages/Courses/CourseCertification.vue:22
@@ -6257,7 +6257,7 @@ msgstr "Principal"
 #: frontend/src/pages/Batches/BatchDetail.vue:48
 #: frontend/src/pages/Batches/BatchDetail.vue:55
 msgid "Make Announcement"
-msgstr ""
+msgstr "Rédiger une annonce"
 
 #. Label of the default_home (Check) field in DocType 'LMS Settings'
 #: lms/lms/doctype/lms_settings/lms_settings.json:141
@@ -6900,7 +6900,7 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:26
 #: frontend/src/pages/Forms/NewBatchForm.vue:2 lms/www/_lms.py:183
 msgid "New Batch"
-msgstr ""
+msgstr "Nouvelle session"
 
 #: frontend/src/components/Settings/Categories.vue:30
 msgid "New Category"
@@ -7410,11 +7410,11 @@ msgstr ""
 
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:124
 msgid "Number of Students"
-msgstr ""
+msgstr "Nombre d'apprenants"
 
 #: frontend/src/pages/Batches/BatchForm.vue:72
 msgid "Number of seats available"
-msgstr ""
+msgstr "Nombre de places disponibles"
 
 #. Label of the sb_00 (Section Break) field in DocType 'Zoom Settings'
 #: lms/lms/doctype/zoom_settings/zoom_settings.json:25
@@ -7431,7 +7431,7 @@ msgstr ""
 #: frontend/src/pages/Forms/NewBatchForm.vue:353
 #: lms/lms/doctype/lms_batch/lms_batch.json:168
 msgid "Offline"
-msgstr ""
+msgstr "Hors ligne"
 
 #: frontend/src/components/CourseCardOverlay.vue:114
 msgid "On demand course video"
@@ -7468,7 +7468,7 @@ msgstr ""
 #: frontend/src/pages/Forms/NewBatchForm.vue:349
 #: lms/lms/doctype/lms_batch/lms_batch.json:168
 msgid "Online"
-msgstr ""
+msgstr "En ligne"
 
 #: frontend/src/utils/index.js:748
 msgid "Only PDF files are allowed."
@@ -7504,7 +7504,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/Batches.vue:60
 msgid "Only show batches that offer a certificate"
-msgstr ""
+msgstr "Afficher uniquement les sessions proposant un certificat"
 
 #: frontend/src/pages/Courses/Courses.vue:66
 msgid "Only show courses that offer a certificate"
@@ -7790,7 +7790,7 @@ msgstr "Page non trouvée"
 #: frontend/src/pages/Batches/BatchForm.vue:100
 #: lms/lms/doctype/lms_batch/lms_batch.json:128
 msgid "Paid Batch"
-msgstr ""
+msgstr "Session payante"
 
 #. Label of the paid_certificate (Check) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:272
@@ -8634,7 +8634,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:121
 msgid "Progress of students in courses and assessments"
-msgstr ""
+msgstr "Progression des apprenants dans les cours et les évaluations"
 
 #: frontend/src/components/Settings/PaymentGateways/PaymentGatewayForm.vue:20
 msgid "Provider"
@@ -8648,7 +8648,7 @@ msgstr "Publier"
 
 #: frontend/src/pages/Batches/BatchDetail.vue:283
 msgid "Publish batch"
-msgstr ""
+msgstr "Publier la session"
 
 #: frontend/src/pages/Courses/CourseDetail.vue:365
 msgid "Publish course"
@@ -9634,7 +9634,7 @@ msgstr ""
 #: frontend/src/pages/Forms/NewBatchForm.vue:64
 #: lms/lms/doctype/lms_batch/lms_batch.json:133
 msgid "Seat Count"
-msgstr ""
+msgstr "Nombre de places"
 
 #: frontend/src/pages/Batches/components/BatchCard.vue:18
 #: frontend/src/pages/Batches/components/BatchOverlay.vue:21
@@ -9722,7 +9722,7 @@ msgstr "Sélectionner un évaluateur"
 #: frontend/src/pages/Forms/NewBatchForm.vue:95
 #: frontend/src/pages/Forms/NewCourseForm.vue:33
 msgid "Select instructors"
-msgstr ""
+msgstr "Sélectionner des formateurs"
 
 #: frontend/src/components/Courses/CourseOverviewSection.vue:37
 msgid "Select related courses"
@@ -9818,11 +9818,11 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:53
 msgid "Session End Time"
-msgstr ""
+msgstr "Heure de fin de la session"
 
 #: frontend/src/pages/Batches/BatchForm.vue:46
 msgid "Session Start Time"
-msgstr ""
+msgstr "Heure de début de la session"
 
 #: frontend/src/pages/Profile.vue:289
 msgid "Session refreshed successfully"
@@ -9906,7 +9906,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:186
 msgid "Short Description"
-msgstr ""
+msgstr "Brève description"
 
 #. Label of the short_introduction (Small Text) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:90
@@ -9919,7 +9919,7 @@ msgstr ""
 
 #: frontend/src/pages/Batches/BatchForm.vue:188
 msgid "Short description of the batch"
-msgstr ""
+msgstr "Brève description de la session"
 
 #: frontend/src/pages/Forms/NewCourseForm.vue:82
 msgid "Short introduction"
@@ -11613,7 +11613,7 @@ msgstr "Dépublier"
 
 #: frontend/src/pages/Batches/BatchDetail.vue:282
 msgid "Unpublish batch"
-msgstr ""
+msgstr "Dépublier la session"
 
 #: frontend/src/pages/Courses/CourseDetail.vue:364
 msgid "Unpublish course"
@@ -12265,7 +12265,7 @@ msgstr "Vous n'êtes pas autorisé à accéder à cette page."
 
 #: frontend/src/pages/Forms/NewBatchForm.vue:5
 msgid "You are not permitted to create a batch."
-msgstr ""
+msgstr "Vous n'êtes pas autorisé à créer une session."
 
 #: frontend/src/pages/Forms/CourseImportForm.vue:5
 #: frontend/src/pages/Forms/NewCourseForm.vue:5
@@ -14196,4 +14196,39 @@ msgstr "Le prix doit être un nombre strictement positif pour {0}."
 #: frontend/src/pages/Courses/CourseDashboard.vue:7
 msgid "Enrolled learners"
 msgstr "Apprenants inscrits"
+
+#: frontend/src/pages/Batches/Batches.vue:325
+msgid "Active batches"
+msgstr "Sessions en cours"
+
+#: frontend/src/pages/Batches/Batches.vue:326
+#: frontend/src/pages/Batches/Batches.vue:331
+msgid "Upcoming batches"
+msgstr "Sessions à venir"
+
+#: frontend/src/pages/Batches/Batches.vue:327
+msgid "Archived batches"
+msgstr "Sessions archivées"
+
+#: frontend/src/pages/Batches/Batches.vue:328
+msgid "Unpublished batches"
+msgstr "Sessions non publiées"
+
+#: frontend/src/pages/Batches/Batches.vue:333
+msgid "Enrolled batches"
+msgstr "Mes sessions"
+
+#: frontend/src/pages/Batches/BatchForm.vue:171
+#: frontend/src/pages/Forms/NewBatchForm.vue:71
+msgid "Session delivery mode"
+msgstr "Modalité"
+
+#: frontend/src/utils/batchForm.ts:62 frontend/src/utils/batchForm.ts:66
+msgid "paid batches"
+msgstr "les sessions payantes"
+
+#: frontend/src/utils/batchForm.ts:65
+#, python-brace-format
+msgid "Amount must be a positive number for {0}."
+msgstr "Le montant doit être un nombre strictement positif pour {0}."
 
