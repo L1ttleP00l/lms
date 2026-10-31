@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 16:09+0000\n"
-"PO-Revision-Date: 2026-10-31 16:09+0000\n"
+"POT-Creation-Date: 2026-10-31 16:30+0000\n"
+"PO-Revision-Date: 2026-10-31 16:30+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -12142,11 +12142,11 @@ msgstr ""
 msgid "The deadline to schedule evaluations has passed. Please contact the Instructor for assistance."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:77
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:78
 msgid "The evaluator is assigned by the course or batch."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:104
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:105
 #, python-brace-format
 msgid "The evaluator of this course is unavailable from {0} to {1}. Please select a date after {1}"
 msgstr ""
@@ -12220,7 +12220,7 @@ msgstr ""
 msgid "The selected Google Meet account is disabled. Please enable it or select another account."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:122
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:123
 msgid "The slot is already booked by another participant."
 msgstr ""
 
@@ -13662,7 +13662,7 @@ msgstr ""
 msgid "You"
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:144
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:145
 #, python-brace-format
 msgid "You already have an evaluation on {0} at {1} for the course {2}."
 msgstr ""
@@ -13727,7 +13727,7 @@ msgid "You are not authorized to view this quiz."
 msgstr ""
 
 #: lms/lms/doctype/lms_certificate/lms_certificate.py:237
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:60
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:61
 msgid "You are not enrolled in this course."
 msgstr ""
 
@@ -13862,7 +13862,7 @@ msgstr ""
 msgid "You can't use this account for this batch's live classes. Use your own account or the one set on the batch."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:50
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:51
 msgid "You cannot book an evaluation for another user."
 msgstr ""
 
@@ -13907,12 +13907,12 @@ msgstr ""
 msgid "You cannot record payments for this course."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:160
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:161
 #, python-brace-format
 msgid "You cannot schedule evaluations after {0}."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:151
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:152
 msgid "You cannot schedule evaluations for past slots."
 msgstr ""
 
@@ -14049,7 +14049,7 @@ msgstr ""
 msgid "You do not have permission to send confirmation emails for this enrollment."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:241
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:245
 msgid "You do not have permission to set up calendar events for this evaluation."
 msgstr ""
 
@@ -14264,7 +14264,7 @@ msgstr ""
 msgid "Your evaluation for the course {0} has been scheduled on {1} at {2} {3}."
 msgstr ""
 
-#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:181
+#: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:185
 msgid "Your evaluation slot has been booked"
 msgstr ""
 

@@ -4842,7 +4842,7 @@ msgstr "Bonjour"
 #: lms/templates/emails/certificate_request_notification.html:1
 #, python-brace-format
 msgid "Hey {0}"
-msgstr ""
+msgstr "Bonjour {0}"
 
 #: lms/templates/emails/job_report.html:3
 msgid "Hey,"
@@ -12754,12 +12754,12 @@ msgstr "Votre évaluation pour le cours {0} a été programmée le {1} à {2} {3
 
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.py:181
 msgid "Your evaluation slot has been booked"
-msgstr ""
+msgstr "Votre créneau d’évaluation a été réservé"
 
 #: lms/templates/emails/certificate_request_notification.html:5
 #, python-brace-format
 msgid "Your evaluator is {0}"
-msgstr ""
+msgstr "Votre évaluateur est {0}"
 
 #: frontend/src/pages/Home/Streak.vue:49
 msgid "Your learning streak counts the number of days in a row you’ve kept up your learning, whether it’s a lesson, quiz, or assignment. Don’t worry, weekends don’t break your streak."
