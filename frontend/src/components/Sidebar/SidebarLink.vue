@@ -1,7 +1,7 @@
 <template>
 	<SidebarItem
 		v-if="link && !link.onlyMobile"
-		:label="__(link.label)"
+		:label="displayLabel"
 		:icon="icon"
 		:route="target.route"
 		:href="safeUrl(target.href)"
@@ -9,9 +9,9 @@
 		:data-notifications-trigger="link.panel === 'notifications' ? '' : null"
 		@click="target.onClick?.()"
 	>
-		<Tooltip :text="__(link.label)" side="right" :hoverDelay="1500">
+		<Tooltip :text="displayLabel" side="right" :hoverDelay="1500">
 			<span class="truncate text-p-sm">
-				{{ __(link.label) }}
+				{{ displayLabel }}
 			</span>
 		</Tooltip>
 		<template #suffix>
@@ -51,6 +51,12 @@ const settingsStore = useSettings()
 const showContactForm = ref<boolean>(false)
 
 const props = defineProps<{ link: SidebarLink }>()
+
+const displayLabel = computed(() =>
+	props.link.label === 'Assignments'
+		? __('Course assignments')
+		: __(props.link.label)
+)
 
 const icon = computed(() =>
 	typeof props.link.icon === 'string'

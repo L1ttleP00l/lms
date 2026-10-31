@@ -455,7 +455,7 @@ const articles = ref([
 		opened: false,
 		subArticles: [
 			{ name: 'quizzes', title: __('Quizzes') },
-			{ name: 'assignments', title: __('Assignments') },
+			{ name: 'assignments', title: __('Course assignments') },
 		],
 	},
 	{

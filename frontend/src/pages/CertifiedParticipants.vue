@@ -16,11 +16,17 @@
 				<template #prefix>
 					<span class="lucide-graduation-cap size-4" />
 				</template>
-				{{ __('Get Certified') }}
+				{{ __('Certificate courses') }}
 			</Button>
 		</template>
 
-		<template #name> {{ memberCount }} {{ __('Certified Members') }} </template>
+		<template #name>
+			{{
+				memberCount === 1
+					? __('1 certified participant')
+					: __('{0} certified participants').format(memberCount)
+			}}
+		</template>
 
 		<template #filters>
 			<FormControl

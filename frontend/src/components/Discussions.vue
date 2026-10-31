@@ -88,7 +88,11 @@
 				{{ __(emptyStateTitle) }}
 			</div>
 			<div class="text-ink-gray-6">
-				{{ __(emptyStateText) }}
+				{{
+					emptyStateText === 'Start a Discussion'
+						? __('Start a Discussion')
+						: __(emptyStateText)
+				}}
 			</div>
 		</div>
 	</div>

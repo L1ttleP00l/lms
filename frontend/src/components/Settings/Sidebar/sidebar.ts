@@ -29,7 +29,7 @@ const BUILT_IN_LABELS: Record<string, () => string> = {
 	statistics: () => __('Statistics'),
 	contact_us: () => __('Contact Us'),
 	quizzes: () => __('Quizzes'),
-	assignments: () => __('Assignments'),
+	assignments: () => __('Course assignments'),
 	programming_exercises: () => __('Programming Exercises'),
 }
 

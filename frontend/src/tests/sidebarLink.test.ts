@@ -28,13 +28,14 @@ vi.mock('@/components/ContactUsEmail.vue', () => ({
 
 vi.stubGlobal('__', (text: string) => text)
 
+import { installTranslations } from './helpers/frenchCatalog'
 import SidebarLink from '@/components/Sidebar/SidebarLink.vue'
 
 const Page = { template: '<div />' }
 
 let wrapper: VueWrapper | undefined
 
-async function build(link: Record<string, unknown>) {
+async function build(link: Record<string, unknown>, lang?: string) {
 	const router = createRouter({
 		history: createMemoryHistory(),
 		routes: [
@@ -46,7 +47,10 @@ async function build(link: Record<string, unknown>) {
 	await router.isReady()
 	wrapper = mount(SidebarLink, {
 		props: { link: { label: 'Row', icon: 'Home', ...link } },
-		global: { plugins: [router], mocks: { __: (t: string) => t } },
+		global: {
+			plugins: [router],
+			mocks: { __: lang ? installTranslations(lang) : (t: string) => t },
+		},
 	})
 	return { wrapper, router }
 }
@@ -164,3 +168,17 @@ describe('SidebarLink', () => {
 		)
 	})
 })
+
+for (const lang of ['fr', 'en'])
+	it(`FR-03B.9 pedagogical navigation ${lang} preserves the technical label and route`, async () => {
+		const { wrapper } = await build(
+			{ label: 'Assignments', to: 'Assignments' },
+			lang
+		)
+		expect(wrapper.text()).toContain(
+			lang === 'fr' ? 'Devoirs' : 'Course assignments'
+		)
+		expect(wrapper.props('link').label).toBe('Assignments')
+		if (lang === 'fr')
+			expect(installTranslations(lang)('Assignments')).toBe('Affectations')
+	})

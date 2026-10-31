@@ -100,7 +100,10 @@ const config: SubmissionsConfig = {
 			submissionName: String(row.name),
 		},
 	}),
-	parentCrumb: { label: __('Assignments'), route: { name: 'Assignments' } },
+	parentCrumb: {
+		label: __('Course assignments'),
+		route: { name: 'Assignments' },
+	},
 	scopeCrumb: {
 		filterKey: 'assignment',
 		doctype: 'LMS Assignment',

@@ -157,7 +157,7 @@ const destinationRow = (
 ): MobileRow => {
 	const row: MobileRow = {
 		key: link.label,
-		label: link.label,
+		label: link.label === 'Assignments' ? 'Course assignments' : link.label,
 		icon: iconClass(link.icon),
 	}
 

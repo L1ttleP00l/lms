@@ -9,37 +9,37 @@
 		</div>
 		<div v-else-if="chartDetails.data" class="p-5">
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-				<Tooltip :text="__('Published Courses')">
+				<Tooltip :text="__('Published courses excluding upcoming courses')">
 					<NumberCard
-						:title="__('Courses')"
+						:title="__('Published Courses')"
 						:value="chartDetails.data.courses"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Active Members')">
+				<Tooltip :text="__('Enabled accounts')">
 					<NumberCard
-						:title="__('Signups')"
+						:title="__('Enabled accounts')"
 						:value="chartDetails.data.users"
 						:format="compactNumber"
 					/>
 				</Tooltip>
 				<Tooltip :text="__('Course Enrollments')">
 					<NumberCard
-						:title="__('Enrollments')"
+						:title="__('Course Enrollments')"
 						:value="chartDetails.data.enrollments"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Course Completions')">
+				<Tooltip :text="__('Completed enrollments')">
 					<NumberCard
-						:title="__('Completions')"
+						:title="__('Completed enrollments')"
 						:value="chartDetails.data.completions"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Certified Members')">
+				<Tooltip :text="__('Published certificates')">
 					<NumberCard
-						:title="__('Certifications')"
+						:title="__('Published certificates')"
 						:value="chartDetails.data.certifications"
 						:format="compactNumber"
 					/>
@@ -74,7 +74,7 @@
 						:data="certification.data"
 						x="date"
 						y="count"
-						:title="__('Certifications')"
+						:title="__('Published certificates')"
 						:subtitle="__('Certifications per day')"
 						:x-axis="{ type: 'time', timeGrain: 'day' }"
 					/>

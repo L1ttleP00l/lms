@@ -257,14 +257,14 @@ const deleteAssignment = (selections, unselectAll) => {
 
 const breadcrumbs = computed(() => [
 	{
-		label: __('Assignments'),
+		label: __('Course assignments'),
 		route: { name: 'Assignments' },
 	},
 ])
 
 usePageMeta(() => {
 	return {
-		title: __('Assignments'),
+		title: __('Course assignments'),
 		icon: brand.favicon,
 	}
 })

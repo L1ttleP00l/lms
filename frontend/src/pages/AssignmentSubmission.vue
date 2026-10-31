@@ -66,7 +66,7 @@ const assignmentTitle = computed<string>(
 const breadcrumbs = computed(() => {
 	const crumbs = [
 		{
-			label: __('Assignments'),
+			label: __('Course assignments'),
 			route: { name: 'Assignments' },
 		},
 		{

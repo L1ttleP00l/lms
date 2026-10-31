@@ -95,7 +95,7 @@ describe('destinations', () => {
 			'Programs',
 			'Batches',
 			'Quizzes',
-			'Assignments',
+			'Course assignments',
 			'Programming Exercises',
 			'Jobs',
 			'Statistics',
@@ -280,4 +280,10 @@ describe('every icon the page can draw', () => {
 		const name = icon.slice('lucide-'.length)
 		expect(existsSync(resolve(ICONS_DIR, `${name}.svg`))).toBe(true)
 	})
+})
+
+it('FR-03B.9 changes only the assignment display label, not row key, group or destination', () => {
+	const row = allRows(build()).find((r) => r.key === 'Assignments')!
+	expect(row.label).toBe('Course assignments')
+	expect(row.to).toEqual({ name: 'Assignments' })
 })

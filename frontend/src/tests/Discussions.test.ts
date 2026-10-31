@@ -9,6 +9,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 import { reactive } from 'vue'
+import { installTranslations } from './helpers/frenchCatalog'
 import Discussions from '@/components/Discussions.vue'
 
 const TOPICS = [
@@ -34,7 +35,11 @@ const TOPICS = [
 // pieces Discussions uses.
 // Each mount gets this resource; a test can swap it for one that loads later.
 let resource: { data?: typeof TOPICS; reload: () => void; refresh: () => void }
-const loadedResource = () => ({ data: TOPICS, reload: vi.fn(), refresh: vi.fn() })
+const loadedResource = () => ({
+	data: TOPICS,
+	reload: vi.fn(),
+	refresh: vi.fn(),
+})
 vi.mock('frappe-ui', () => ({
 	Button: { template: '<button><slot /></button>' },
 	createResource: () => resource,
@@ -80,7 +85,9 @@ const mountDiscussions = () =>
 
 // jsdom has no matchMedia, so each test that needs one adds it and it is removed after.
 const setWideScreen = (wide: boolean) => {
-	window.matchMedia = (() => ({ matches: wide })) as unknown as typeof window.matchMedia
+	window.matchMedia = (() => ({
+		matches: wide,
+	})) as unknown as typeof window.matchMedia
 }
 
 describe('Discussions master-detail', () => {
@@ -136,3 +143,27 @@ describe('Discussions master-detail', () => {
 		expect(rows[1].classes()).not.toContain('bg-surface-gray-2')
 	})
 })
+
+for (const lang of ['fr', 'en'])
+	it(`FR-03B.9 empty discussion ${lang} uses the catalogue without creating a topic`, async () => {
+		resource = { data: [], reload: vi.fn(), refresh: vi.fn() }
+		const tr = installTranslations(lang)
+		const w = mount(Discussions, {
+			props: {
+				title: 'Questions',
+				doctype: 'Course Lesson',
+				docname: 'FAKE-LESSON',
+			},
+			global: {
+				provide: {
+					$socket: { on: vi.fn(), off: vi.fn() },
+					$user: { data: { name: 'fictional@example.com' } },
+				},
+				mocks: { __: tr },
+			},
+		})
+		expect(w.text()).toContain(
+			lang === 'fr' ? 'Démarrer une discussion' : 'Start a Discussion'
+		)
+		w.unmount()
+	})
