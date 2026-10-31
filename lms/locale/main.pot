@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 01:14+0000\n"
-"PO-Revision-Date: 2026-10-31 01:14+0000\n"
+"POT-Creation-Date: 2026-10-31 10:41+0000\n"
+"PO-Revision-Date: 2026-10-31 10:41+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,10 @@ msgstr ""
 
 #: frontend/src/pages/DataImports.vue:23
 msgid "1 Import"
+msgstr ""
+
+#: frontend/src/pages/CertifiedParticipants.vue:26
+msgid "1 certified participant"
 msgstr ""
 
 #: frontend/src/pages/Courses/CourseOverview.vue:217
@@ -314,10 +318,6 @@ msgstr ""
 
 #: frontend/src/components/Settings/Raven/WorkspaceList.vue:107
 msgid "Active"
-msgstr ""
-
-#: frontend/src/pages/Statistics.vue:19
-msgid "Active Members"
 msgstr ""
 
 #: frontend/src/pages/Batches/Batches.vue:325
@@ -1093,12 +1093,7 @@ msgstr ""
 msgid "Assignment will appear at the bottom of the lesson."
 msgstr ""
 
-#: frontend/src/components/Settings/Sidebar/sidebar.ts:32
-#: frontend/src/components/Sidebar/AppSidebar.vue:458
-#: frontend/src/pages/AssignmentSubmission.vue:69
-#: frontend/src/pages/AssignmentSubmissions.vue:103
-#: frontend/src/pages/Assignments.vue:260
-#: frontend/src/pages/Assignments.vue:267 lms/www/_lms.py:322
+#: lms/www/_lms.py:322
 msgid "Assignments"
 msgstr ""
 
@@ -1786,8 +1781,8 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchForm.vue:21
 #: frontend/src/pages/Batches/Batches.vue:52
 #: frontend/src/pages/Batches/Batches.vue:53
-#: frontend/src/pages/CertifiedParticipants.vue:40
-#: frontend/src/pages/CertifiedParticipants.vue:41
+#: frontend/src/pages/CertifiedParticipants.vue:46
+#: frontend/src/pages/CertifiedParticipants.vue:47
 #: frontend/src/pages/Courses/Courses.vue:64
 #: frontend/src/pages/Courses/Courses.vue:65
 #: frontend/src/pages/Forms/NewBatchForm.vue:58
@@ -1846,6 +1841,10 @@ msgstr ""
 #: lms/lms/api.py:3747
 #, python-brace-format
 msgid "Certificate already purchased by {0}."
+msgstr ""
+
+#: frontend/src/pages/CertifiedParticipants.vue:19
+msgid "Certificate courses"
 msgstr ""
 
 #: frontend/src/components/CourseCard.vue:197
@@ -1945,7 +1944,6 @@ msgid "Certification is not enabled for this course."
 msgstr ""
 
 #: frontend/src/components/Settings/Sidebar/sidebar.ts:27
-#: frontend/src/pages/Statistics.vue:42 frontend/src/pages/Statistics.vue:77
 msgid "Certifications"
 msgstr ""
 
@@ -1959,10 +1957,8 @@ msgid "Certifications per day"
 msgstr ""
 
 #. Label of the certified_members (Check) field in DocType 'LMS Settings'
-#: frontend/src/pages/CertifiedParticipants.vue:23
-#: frontend/src/pages/CertifiedParticipants.vue:270
-#: frontend/src/pages/CertifiedParticipants.vue:277
-#: frontend/src/pages/Statistics.vue:40
+#: frontend/src/pages/CertifiedParticipants.vue:276
+#: frontend/src/pages/CertifiedParticipants.vue:283
 #: lms/lms/doctype/lms_settings/lms_settings.json:434
 msgid "Certified Members"
 msgstr ""
@@ -2496,6 +2492,10 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
+#: frontend/src/pages/Statistics.vue:33 frontend/src/pages/Statistics.vue:35
+msgid "Completed enrollments"
+msgstr ""
+
 #. Label of the enable_certification (Check) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:146
 msgid "Completion Certificate"
@@ -2510,7 +2510,7 @@ msgstr ""
 msgid "Completion certificate"
 msgstr ""
 
-#: frontend/src/pages/Statistics.vue:35 frontend/src/pages/Statistics.vue:87
+#: frontend/src/pages/Statistics.vue:87
 msgid "Completions"
 msgstr ""
 
@@ -2968,10 +2968,6 @@ msgstr ""
 msgid "Course Completion"
 msgstr ""
 
-#: frontend/src/pages/Statistics.vue:33
-msgid "Course Completions"
-msgstr ""
-
 #. Label of the course_count (Int) field in DocType 'LMS Program'
 #: lms/lms/doctype/lms_program/lms_program.json:83
 msgid "Course Count"
@@ -3021,7 +3017,7 @@ msgstr ""
 msgid "Course Enrollment"
 msgstr ""
 
-#: frontend/src/pages/Statistics.vue:26
+#: frontend/src/pages/Statistics.vue:26 frontend/src/pages/Statistics.vue:28
 msgid "Course Enrollments"
 msgstr ""
 
@@ -3103,6 +3099,16 @@ msgstr ""
 #: lms/lms/course_import_export.py:1072
 #, python-brace-format
 msgid "Course asset {0} is not a supported image, video, audio or PDF file."
+msgstr ""
+
+#: frontend/src/components/Settings/Sidebar/sidebar.ts:32
+#: frontend/src/components/Sidebar/AppSidebar.vue:458
+#: frontend/src/components/Sidebar/SidebarLink.vue:57
+#: frontend/src/pages/AssignmentSubmission.vue:69
+#: frontend/src/pages/AssignmentSubmissions.vue:104
+#: frontend/src/pages/Assignments.vue:260
+#: frontend/src/pages/Assignments.vue:267
+msgid "Course assignments"
 msgstr ""
 
 #: frontend/src/pages/Courses/CourseOverview.vue:90
@@ -3219,7 +3225,7 @@ msgstr ""
 #: frontend/src/pages/Forms/ProgramForm.vue:44
 #: frontend/src/pages/Lesson.vue:736
 #: frontend/src/pages/Programs/Programs.vue:67
-#: frontend/src/pages/SCORMChapter.vue:320 frontend/src/pages/Statistics.vue:14
+#: frontend/src/pages/SCORMChapter.vue:320
 #: lms/lms/doctype/lms_batch/lms_batch.json:106
 #: lms/lms/doctype/lms_settings/lms_settings.json:218
 #: lms/workspace_sidebar/learning.json:14
@@ -4205,6 +4211,10 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
+#: frontend/src/pages/Statistics.vue:19 frontend/src/pages/Statistics.vue:21
+msgid "Enabled accounts"
+msgstr ""
+
 #: frontend/src/pages/Forms/BulkCertificatesForm.vue:46
 msgid "Enabling this will publish the certificate on the certified participants page."
 msgstr ""
@@ -4403,8 +4413,7 @@ msgstr ""
 #. Label of a shortcut in the Learning Workspace
 #. Label of a Workspace Sidebar Item
 #: frontend/src/components/Programs/ProgramProgressSummary.vue:12
-#: frontend/src/pages/Statistics.vue:28 frontend/src/pages/Statistics.vue:66
-#: frontend/src/pages/Statistics.vue:89
+#: frontend/src/pages/Statistics.vue:66 frontend/src/pages/Statistics.vue:89
 #: lms/lms/doctype/lms_course/lms_course.json:251
 #: lms/lms/workspace/learning/learning.json:14
 #: lms/workspace_sidebar/learning.json:26
@@ -5313,10 +5322,6 @@ msgstr ""
 msgid "Get Certificate"
 msgstr ""
 
-#: frontend/src/pages/CertifiedParticipants.vue:19
-msgid "Get Certified"
-msgstr ""
-
 #: lms/templates/onboarding_header.html:8
 msgid "Get Started"
 msgstr ""
@@ -5636,7 +5641,7 @@ msgstr ""
 #: frontend/src/components/Profile/ProfileAvatar.vue:38
 #: frontend/src/components/UserAvatar.vue:23
 #: frontend/src/components/UserAvatar.vue:30
-#: frontend/src/pages/CertifiedParticipants.vue:51
+#: frontend/src/pages/CertifiedParticipants.vue:57
 #: lms/fixtures/custom_field.json:265
 msgid "Hiring"
 msgstr ""
@@ -7907,7 +7912,7 @@ msgid "New reply on the topic {0} in course {1}"
 msgstr ""
 
 #: frontend/src/components/Discussions.vue:11
-#: frontend/src/components/Discussions.vue:97
+#: frontend/src/components/Discussions.vue:101
 #, python-brace-format
 msgid "New {0}"
 msgstr ""
@@ -8583,7 +8588,7 @@ msgstr ""
 #: frontend/src/components/Profile/ProfileAvatar.vue:38
 #: frontend/src/components/UserAvatar.vue:11
 #: frontend/src/components/UserAvatar.vue:18
-#: frontend/src/pages/CertifiedParticipants.vue:46
+#: frontend/src/pages/CertifiedParticipants.vue:52
 msgid "Open to Work"
 msgstr ""
 
@@ -9787,7 +9792,7 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: frontend/src/pages/Statistics.vue:12
+#: frontend/src/pages/Statistics.vue:14
 #: lms/lms/web_template/lms_statistics/lms_statistics.html:14
 #: lms/templates/statistics.html:4
 msgid "Published Courses"
@@ -9796,6 +9801,15 @@ msgstr ""
 #. Label of the published_on (Date) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:207
 msgid "Published On"
+msgstr ""
+
+#: frontend/src/pages/Statistics.vue:40 frontend/src/pages/Statistics.vue:42
+#: frontend/src/pages/Statistics.vue:77
+msgid "Published certificates"
+msgstr ""
+
+#: frontend/src/pages/Statistics.vue:12
+msgid "Published courses excluding upcoming courses"
 msgstr ""
 
 #. Label of the purchased_certificate (Check) field in DocType 'LMS Enrollment'
@@ -10721,8 +10735,8 @@ msgstr ""
 #: frontend/src/pages/Batches/Batches.vue:41
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:51
 #: frontend/src/pages/Batches/components/AdminBatchDashboard.vue:52
-#: frontend/src/pages/CertifiedParticipants.vue:28
-#: frontend/src/pages/CertifiedParticipants.vue:29
+#: frontend/src/pages/CertifiedParticipants.vue:34
+#: frontend/src/pages/CertifiedParticipants.vue:35
 #: frontend/src/pages/Courses/CourseDashboard.vue:50
 #: frontend/src/pages/Courses/Courses.vue:52
 #: frontend/src/pages/Courses/Courses.vue:53
@@ -11337,7 +11351,7 @@ msgid "Signup successful. Please ask your administrator to verify your sign-up."
 msgstr ""
 
 #. Label of a chart in the Learning Workspace
-#: frontend/src/pages/Statistics.vue:21 frontend/src/pages/Statistics.vue:55
+#: frontend/src/pages/Statistics.vue:55
 #: lms/lms/workspace/learning/learning.json:10
 msgid "Signups"
 msgstr ""
@@ -11510,6 +11524,10 @@ msgstr ""
 #. Label of the start_url (Small Text) field in DocType 'LMS Live Class'
 #: lms/lms/doctype/lms_live_class/lms_live_class.json:100
 msgid "Start URL"
+msgstr ""
+
+#: frontend/src/components/Discussions.vue:93
+msgid "Start a Discussion"
 msgstr ""
 
 #: frontend/src/pages/ProgrammingExercises/ProgrammingExerciseSubmission.vue:510
@@ -14385,11 +14403,11 @@ msgstr ""
 msgid "cancel your application"
 msgstr ""
 
-#: frontend/src/pages/CertifiedParticipants.vue:88
+#: frontend/src/pages/CertifiedParticipants.vue:94
 msgid "certificate"
 msgstr ""
 
-#: frontend/src/pages/CertifiedParticipants.vue:87
+#: frontend/src/pages/CertifiedParticipants.vue:93
 msgid "certificates"
 msgstr ""
 
@@ -14741,6 +14759,11 @@ msgstr ""
 #: lms/lms/api.py:742 lms/lms/api.py:1174 lms/lms/api.py:1200
 #, python-brace-format
 msgid "{0} cannot be changed."
+msgstr ""
+
+#: frontend/src/pages/CertifiedParticipants.vue:27
+#, python-brace-format
+msgid "{0} certified participants"
 msgstr ""
 
 #: frontend/src/pages/Courses/CourseOverview.vue:218

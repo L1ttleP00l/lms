@@ -1659,7 +1659,7 @@ msgstr ""
 #: frontend/src/pages/Statistics.vue:40
 #: lms/lms/doctype/lms_settings/lms_settings.json:429
 msgid "Certified Members"
-msgstr ""
+msgstr "Personnes certifiées"
 
 #: lms/www/_lms.py:354
 msgid "Certified Participants"
@@ -2576,7 +2576,7 @@ msgstr "Description du cours"
 
 #: frontend/src/pages/Statistics.vue:26
 msgid "Course Enrollments"
-msgstr ""
+msgstr "Inscriptions aux cours"
 
 #. Name of a DocType
 #: lms/lms/doctype/course_evaluator/course_evaluator.json:89
@@ -2780,7 +2780,7 @@ msgstr "Cours terminés"
 
 #: frontend/src/pages/Home/AdminHome.vue:82
 msgid "Courses Created"
-msgstr ""
+msgstr "Cours créés"
 
 #: frontend/src/pages/Batches/components/BatchCourses.vue:105
 msgid "Courses deleted successfully"
@@ -4836,7 +4836,7 @@ msgstr ""
 
 #: frontend/src/pages/Home/Home.vue:6
 msgid "Hey"
-msgstr ""
+msgstr "Bonjour"
 
 #: lms/lms/notification/certificate_request_reminder/certificate_request_reminder.html:1
 #: lms/templates/emails/certificate_request_notification.html:1
@@ -6278,7 +6278,7 @@ msgstr "Gérer les modèles"
 
 #: frontend/src/pages/Home/Home.vue:149
 msgid "Manage your courses and batches at a glance"
-msgstr ""
+msgstr "Gérez vos cours et vos sessions en un coup d'œil"
 
 #: frontend/src/components/Settings/Raven/RuleCondition.vue:220
 #, python-brace-format
@@ -6918,7 +6918,7 @@ msgstr ""
 #: frontend/src/pages/Forms/NewCourseForm.vue:2
 #: frontend/src/pages/Home/AdminHome.vue:160 lms/www/_lms.py:117
 msgid "New Course"
-msgstr ""
+msgstr "Nouveau cours"
 
 #: frontend/src/pages/Forms/EmailTemplateForm.vue:2
 msgid "New Email Template"
@@ -7091,7 +7091,7 @@ msgstr ""
 #: frontend/src/pages/Home/AdminHome.vue:141
 #: lms/templates/courses_created.html:14
 msgid "No courses created"
-msgstr ""
+msgstr "Aucun cours créé"
 
 #: lms/templates/courses_under_review.html:14
 msgid "No courses under review"
@@ -8687,7 +8687,7 @@ msgstr "Publié"
 #: lms/lms/web_template/lms_statistics/lms_statistics.html:14
 #: lms/templates/statistics.html:4
 msgid "Published Courses"
-msgstr ""
+msgstr "Cours publiés"
 
 #. Label of the published_on (Date) field in DocType 'LMS Course'
 #: lms/lms/doctype/lms_course/lms_course.json:207
@@ -9152,17 +9152,17 @@ msgstr ""
 
 #: frontend/src/components/DiscussionReplies.vue:63
 msgid "Reply actions"
-msgstr ""
+msgstr "Actions de la réponse"
 
 #: frontend/src/components/DiscussionReplies.vue:80
 #, python-brace-format
 msgid "Reply by {0}"
-msgstr ""
+msgstr "Réponse de {0}"
 
 #: frontend/src/components/DiscussionReplies.vue:201
 #: frontend/src/components/DiscussionReplies.vue:224
 msgid "Reply cannot be empty."
-msgstr ""
+msgstr "La réponse ne peut pas être vide."
 
 #: lms/lms/widgets/RequestInvite.html:7
 msgid "Request Invite"
@@ -9655,7 +9655,7 @@ msgstr ""
 #: frontend/src/pages/Home/StudentHome.vue:47
 #: frontend/src/pages/Home/StudentHome.vue:79
 msgid "See all"
-msgstr ""
+msgstr "Tout voir"
 
 #: frontend/src/components/CourseReviews.vue:85
 msgid "See less"
@@ -10898,7 +10898,7 @@ msgstr ""
 
 #: frontend/src/pages/Home/AdminHome.vue:147
 msgid "There are no courses currently. Create your first course to get started!"
-msgstr ""
+msgstr "Aucun cours pour le moment. Créez votre premier cours pour commencer !"
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:187
 #: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:107
@@ -11676,7 +11676,7 @@ msgstr "À venir"
 
 #: frontend/src/pages/Home/AdminHome.vue:110
 msgid "Upcoming Batches"
-msgstr ""
+msgstr "Sessions à venir"
 
 #: frontend/src/components/UpcomingEvaluations.vue:5
 #: frontend/src/pages/Home/AdminHome.vue:6 lms/templates/upcoming_evals.html:3
@@ -11686,7 +11686,7 @@ msgstr "Évaluations à venir"
 #: frontend/src/pages/Home/AdminHome.vue:55
 #: frontend/src/pages/Home/StudentHome.vue:7
 msgid "Upcoming Live Classes"
-msgstr ""
+msgstr "Séances en direct à venir"
 
 #: lms/templates/emails/community_course_membership.html:11
 msgid "Update Password"
@@ -12623,17 +12623,17 @@ msgstr ""
 #: frontend/src/pages/Home/Home.vue:132 frontend/src/pages/Home/Home.vue:155
 #, python-brace-format
 msgid "You have {0} upcoming {1} and {2} {3} scheduled."
-msgstr ""
+msgstr "Au programme : {0} {1} à venir et {2} {3}."
 
 #: frontend/src/pages/Home/Home.vue:139 frontend/src/pages/Home/Home.vue:162
 #, python-brace-format
 msgid "You have {0} upcoming {1}."
-msgstr ""
+msgstr "Vous avez {0} {1} à venir."
 
 #: frontend/src/pages/Home/Home.vue:144 frontend/src/pages/Home/Home.vue:167
 #, python-brace-format
 msgid "You have {0} {1} scheduled."
-msgstr ""
+msgstr "Au programme : {0} {1}."
 
 #: lms/lms/doctype/lms_batch_enrollment/lms_batch_enrollment.py:50
 msgid "You must be a Moderator, Batch Evaluator, or this batch's instructor to enroll users."
@@ -12771,7 +12771,7 @@ msgstr ""
 
 #: frontend/src/components/DiscussionReplies.vue:98
 msgid "Your reply"
-msgstr ""
+msgstr "Votre réponse"
 
 #: lms/templates/emails/mentor_request_status_update_email.html:4
 msgid "Your request to join us as a mentor for the course"
@@ -12954,7 +12954,7 @@ msgstr "évaluation"
 
 #: frontend/src/pages/Home/Home.vue:130 frontend/src/pages/Home/Home.vue:153
 msgid "evaluations"
-msgstr ""
+msgstr "évaluations"
 
 #: lms/lms/api.py:3157 lms/lms/api.py:3188
 msgid "exercise must be a string"
@@ -13002,11 +13002,11 @@ msgstr "lien"
 
 #: frontend/src/pages/Home/Home.vue:128 frontend/src/pages/Home/Home.vue:152
 msgid "live class"
-msgstr ""
+msgstr "séance en direct"
 
 #: frontend/src/pages/Home/Home.vue:128 frontend/src/pages/Home/Home.vue:152
 msgid "live classes"
-msgstr ""
+msgstr "séances en direct"
 
 #: frontend/src/components/Quiz.vue:1188
 #: frontend/src/components/Quiz/QuestionEditor.vue:210
@@ -14282,4 +14282,48 @@ msgstr "Transaction supprimée avec succès"
 #, python-brace-format
 msgid "Evaluation of {0}"
 msgstr "Évaluation de {0}"
+
+#: frontend/src/pages/Statistics.vue:12
+msgid "Published courses excluding upcoming courses"
+msgstr "Cours publiés hors cours à venir"
+
+#: frontend/src/pages/Statistics.vue:19 frontend/src/pages/Statistics.vue:21
+msgid "Enabled accounts"
+msgstr "Comptes activés"
+
+#: frontend/src/pages/Statistics.vue:33 frontend/src/pages/Statistics.vue:35
+msgid "Completed enrollments"
+msgstr "Inscriptions achevées"
+
+#: frontend/src/pages/Statistics.vue:40 frontend/src/pages/Statistics.vue:42
+#: frontend/src/pages/Statistics.vue:77
+msgid "Published certificates"
+msgstr "Certificats publiés"
+
+#: frontend/src/components/Settings/Sidebar/sidebar.ts:32
+#: frontend/src/components/Sidebar/AppSidebar.vue:458
+#: frontend/src/components/Sidebar/SidebarLink.vue:57
+#: frontend/src/pages/AssignmentSubmission.vue:69
+#: frontend/src/pages/AssignmentSubmissions.vue:104
+#: frontend/src/pages/Assignments.vue:260
+#: frontend/src/pages/Assignments.vue:267
+msgid "Course assignments"
+msgstr "Devoirs"
+
+#: frontend/src/pages/CertifiedParticipants.vue:26
+msgid "1 certified participant"
+msgstr "1 personne certifiée"
+
+#: frontend/src/pages/CertifiedParticipants.vue:27
+#, python-brace-format
+msgid "{0} certified participants"
+msgstr "{0} personnes certifiées"
+
+#: frontend/src/components/Discussions.vue:93
+msgid "Start a Discussion"
+msgstr "Démarrer une discussion"
+
+#: frontend/src/pages/CertifiedParticipants.vue:19
+msgid "Certificate courses"
+msgstr "Cours avec certificat"
 
