@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 00:47+0000\n"
-"PO-Revision-Date: 2026-10-31 00:47+0000\n"
+"POT-Creation-Date: 2026-10-31 01:14+0000\n"
+"PO-Revision-Date: 2026-10-31 01:14+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -4642,6 +4642,11 @@ msgstr ""
 
 #: lms/lms/doctype/lms_certificate_evaluation/lms_certificate_evaluation.py:125
 msgid "Evaluation must be a string."
+msgstr ""
+
+#: frontend/src/pages/ProfileEvaluationSchedule.vue:121
+#, python-brace-format
+msgid "Evaluation of {0}"
 msgstr ""
 
 #: frontend/src/components/Modals/Event.vue:297

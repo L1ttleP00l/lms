@@ -420,7 +420,7 @@ msgstr ""
 
 #: frontend/src/components/Profile/ProfileEvaluatorDay.vue:81
 msgid "Add slot"
-msgstr ""
+msgstr "Ajouter un créneau"
 
 #: frontend/src/components/Profile/ProfileEvaluatorDay.vue:75
 #, python-brace-format
@@ -1032,7 +1032,7 @@ msgstr ""
 
 #: frontend/src/pages/ProfileEvaluator.vue:6
 msgid "Availability"
-msgstr ""
+msgstr "Disponibilités"
 
 #: frontend/src/pages/ProfileEvaluator.vue:252
 msgid "Availability saved"
@@ -2363,11 +2363,11 @@ msgstr ""
 
 #: frontend/src/pages/ProfileEvaluationSchedule.vue:12
 msgid "Could not load evaluations"
-msgstr ""
+msgstr "Impossible de charger les évaluations"
 
 #: frontend/src/components/Profile/ProfileEvaluatorHours.vue:18
 msgid "Could not load hours"
-msgstr ""
+msgstr "Impossible de charger les horaires"
 
 #: frontend/src/components/Settings/Raven/WorkspaceMembers.vue:53
 #: frontend/src/components/Settings/Raven/WorkspaceMembers.vue:137
@@ -3633,7 +3633,7 @@ msgstr "Activé"
 
 #: frontend/src/pages/Forms/BulkCertificatesForm.vue:46
 msgid "Enabling this will publish the certificate on the certified participants page."
-msgstr ""
+msgstr "Cette option publie le certificat sur la page des participants certifiés."
 
 #. Label of the end_date (Date) field in DocType 'LMS Batch'
 #: frontend/src/pages/Forms/NewBatchForm.vue:26
@@ -4009,11 +4009,11 @@ msgstr ""
 
 #: frontend/src/pages/ProfileEvaluationSchedule.vue:146
 msgid "Evaluations students book with this evaluator will show up here."
-msgstr ""
+msgstr "Les évaluations réservées auprès de cet évaluateur apparaîtront ici."
 
 #: frontend/src/pages/ProfileEvaluationSchedule.vue:145
 msgid "Evaluations students book with you will show up here."
-msgstr ""
+msgstr "Les évaluations réservées auprès de vous apparaîtront ici."
 
 #. Label of the evaluator (Link) field in DocType 'Batch Course'
 #. Label of the evaluator (Link) field in DocType 'Course Evaluator'
@@ -4583,7 +4583,7 @@ msgstr ""
 #: frontend/src/pages/Batches/BatchDetail.vue:271
 #: frontend/src/pages/Forms/BulkCertificatesForm.vue:2
 msgid "Generate Certificates"
-msgstr ""
+msgstr "Générer des certificats"
 
 #: lms/lms/doctype/lms_certificate_request/lms_certificate_request.js:15
 msgid "Generate Google Meet Link"
@@ -7104,7 +7104,7 @@ msgstr ""
 
 #: frontend/src/pages/ProfileEvaluationSchedule.vue:33
 msgid "No evaluations yet"
-msgstr ""
+msgstr "Aucune évaluation pour le moment"
 
 #: frontend/src/pages/QuizSubmission.vue:344
 msgid "No event details were recorded for this attempt."
@@ -7132,7 +7132,7 @@ msgstr ""
 
 #: frontend/src/components/Profile/ProfileEvaluatorHours.vue:123
 msgid "No hours yet"
-msgstr ""
+msgstr "Aucun créneau défini pour le moment"
 
 #: frontend/src/components/Modals/EditCoverImage.vue:72
 #, python-brace-format
@@ -11235,7 +11235,7 @@ msgstr ""
 
 #: frontend/src/pages/ProfileEvaluator.vue:57
 msgid "Time off"
-msgstr ""
+msgstr "Indisponibilités"
 
 #: lms/lms/api.py:1231
 msgid "Time off incomplete"
@@ -14277,4 +14277,9 @@ msgstr "Impossible de supprimer la transaction"
 #: frontend/src/components/Settings/Transactions/transactions.ts:186
 msgid "Transaction deleted successfully"
 msgstr "Transaction supprimée avec succès"
+
+#: frontend/src/pages/ProfileEvaluationSchedule.vue:121
+#, python-brace-format
+msgid "Evaluation of {0}"
+msgstr "Évaluation de {0}"
 
