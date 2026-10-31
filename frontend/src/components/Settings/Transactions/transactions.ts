@@ -117,10 +117,10 @@ export const STATUS_ALL = 'All'
 
 export const statusOptions = (): SelectOption[] => [
 	{ label: __('All Payments'), value: STATUS_ALL },
-	{ label: __('Paid'), value: 'Paid' },
-	{ label: __('Unpaid'), value: 'Unpaid' },
+	{ label: __('Received'), value: 'Paid' },
+	{ label: __('Not received'), value: 'Unpaid' },
 	{ label: __('For Certificate'), value: 'Certificate' },
-	{ label: __('For Course'), value: 'Course' },
+	{ label: __('Other payments'), value: 'Course' },
 ]
 
 export const statusFilters = (status: string): SettingsListFilters => {
@@ -270,11 +270,11 @@ export const columns: SettingsListColumn[] = [
 			// payment was indistinguishable from one whose status had not loaded.
 			badges.push(
 				row.payment_received
-					? { label: __('Paid'), theme: 'green' as const }
-					: { label: __('Unpaid'), theme: 'amber' as const }
+					? { label: __('Received'), theme: 'green' as const }
+					: { label: __('Not received'), theme: 'amber' as const }
 			)
 			if (row.payment_for_certificate)
-				badges.push({ label: __('Certificate'), theme: 'blue' as const })
+				badges.push({ label: __('For Certificate'), theme: 'blue' as const })
 			return badges
 		},
 	},
