@@ -14412,3 +14412,16 @@ msgstr "{0} est maintenant disponible !"
 msgid "{0} mentioned you in a discussion."
 msgstr "{0} vous a mentionné dans une discussion."
 
+#: lms/templates/print_formats/certificate.html:38
+msgid "Evaluated By"
+msgstr "Évalué par"
+
+#: lms/templates/print_formats/certificate.html:22
+msgid "This is to certify that"
+msgstr "Nous attestons que"
+
+#: lms/templates/print_formats/certificate.html:31
+#, python-brace-format
+msgid "has successfully completed the course {0}, including all required assessments, on {1}."
+msgstr "a terminé avec succès le cours {0}, y compris toutes les évaluations requises, le {1}."
+

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Learning VERSION\n"
 "Report-Msgid-Bugs-To: jannat@frappe.io\n"
-"POT-Creation-Date: 2026-10-31 18:38+0000\n"
-"PO-Revision-Date: 2026-10-31 18:38+0000\n"
+"POT-Creation-Date: 2026-10-31 21:06+0000\n"
+"PO-Revision-Date: 2026-10-31 21:06+0000\n"
 "Last-Translator: jannat@frappe.io\n"
 "Language-Team: jannat@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +168,7 @@ msgstr ""
 msgid "A line or two about this person"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:342
+#: lms/lms/doctype/lms_batch/lms_batch.py:354
 #, python-brace-format
 msgid "A new batch '{0}' has been published that might interest you. Check it out!"
 msgstr ""
@@ -183,7 +183,7 @@ msgstr ""
 msgid "A new batch has been published on {0} that might interest you!"
 msgstr ""
 
-#: lms/lms/doctype/lms_course/lms_course.py:275
+#: lms/lms/doctype/lms_course/lms_course.py:287
 #, python-brace-format
 msgid "A new course '{0}' has been published that might interest you. Check it out!"
 msgstr ""
@@ -1457,7 +1457,7 @@ msgstr ""
 msgid "Batch Start Date"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:667
+#: lms/lms/doctype/lms_batch/lms_batch.py:679
 #, python-brace-format
 msgid "Batch Start Reminder: {0}"
 msgstr ""
@@ -4496,7 +4496,7 @@ msgstr ""
 msgid "Error creating email template"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:432
+#: lms/lms/doctype/lms_batch/lms_batch.py:444
 #, python-brace-format
 msgid "Error creating live class. Please try again. {0}"
 msgstr ""
@@ -4588,6 +4588,10 @@ msgstr ""
 
 #: frontend/src/components/Courses/CourseThumbnailField.vue:251
 msgid "Error uploading file"
+msgstr ""
+
+#: lms/templates/print_formats/certificate.html:38
+msgid "Evaluated By"
 msgstr ""
 
 #. Label of the evaluation (Check) field in DocType 'LMS Batch'
@@ -5932,6 +5936,7 @@ msgstr ""
 #: frontend/src/utils/batchForm.ts:57 frontend/src/utils/courseForm.ts:44
 #: lms/lms/doctype/course_instructor/course_instructor.json:16
 #: lms/lms/doctype/lms_quiz_violation_log/lms_quiz_violation_log.json:73
+#: lms/templates/print_formats/certificate.html:46
 msgid "Instructor"
 msgstr ""
 
@@ -5977,6 +5982,7 @@ msgstr ""
 #: lms/lms/doctype/lms_batch/lms_batch.json:331
 #: lms/lms/doctype/lms_batch_feedback/lms_batch_feedback.json:54
 #: lms/lms/doctype/lms_course/lms_course.json:132
+#: lms/templates/print_formats/certificate.html:46
 msgid "Instructors"
 msgstr ""
 
@@ -8498,7 +8504,7 @@ msgstr ""
 msgid "Only the batch's instructors can change who teaches it."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:504
+#: lms/lms/doctype/lms_batch/lms_batch.py:516
 msgid "Only the batch's instructors can schedule live classes."
 msgstr ""
 
@@ -9170,11 +9176,11 @@ msgstr ""
 msgid "Please complete the previous course to unlock this one."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:476
+#: lms/lms/doctype/lms_batch/lms_batch.py:488
 msgid "Please enable the Google Meet account to use this feature."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:514
+#: lms/lms/doctype/lms_batch/lms_batch.py:526
 msgid "Please enable the zoom account to use this feature."
 msgstr ""
 
@@ -9301,12 +9307,12 @@ msgid "Please provide your consent to proceed with the payment."
 msgstr ""
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:230
-#: lms/lms/doctype/lms_batch/lms_batch.py:466
+#: lms/lms/doctype/lms_batch/lms_batch.py:478
 msgid "Please select a Google Meet account for this batch."
 msgstr ""
 
 #: lms/lms/doctype/lms_batch/lms_batch.py:247
-#: lms/lms/doctype/lms_batch/lms_batch.py:371
+#: lms/lms/doctype/lms_batch/lms_batch.py:383
 msgid "Please select a Zoom account for this batch."
 msgstr ""
 
@@ -12440,6 +12446,10 @@ msgstr ""
 msgid "This is a proctored quiz. Leaving this page submits it now with the answers you have given so far."
 msgstr ""
 
+#: lms/templates/print_formats/certificate.html:22
+msgid "This is to certify that"
+msgstr ""
+
 #: lms/lms/schedule_utils.py:67
 msgid "This item"
 msgstr ""
@@ -14008,7 +14018,7 @@ msgstr ""
 msgid "You do not have permission to cancel this evaluation."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:507
+#: lms/lms/doctype/lms_batch/lms_batch.py:519
 msgid "You do not have permission to create a live class for this batch."
 msgstr ""
 
@@ -14065,7 +14075,7 @@ msgstr ""
 msgid "You do not have permission to move this row out of {0} {1}"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:541
+#: lms/lms/doctype/lms_batch/lms_batch.py:553
 msgid "You do not have permission to see this batch's timetable."
 msgstr ""
 
@@ -14207,7 +14217,7 @@ msgstr ""
 msgid "You're enrolled and all set! The course content is ready, so you can start learning right away and go at your own pace."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:648
+#: lms/lms/doctype/lms_batch/lms_batch.py:660
 #, python-brace-format
 msgid "You're enrolled in {0} – start whenever you're ready"
 msgstr ""
@@ -14264,7 +14274,7 @@ msgstr ""
 msgid "Your application has been submitted successfully"
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:645
+#: lms/lms/doctype/lms_batch/lms_batch.py:657
 #, python-brace-format
 msgid "Your batch {0} is starting tomorrow"
 msgstr ""
@@ -14512,6 +14522,11 @@ msgstr ""
 
 #: lms/templates/emails/mentor_request_status_update_email.html:4
 msgid "has been"
+msgstr ""
+
+#: lms/templates/print_formats/certificate.html:31
+#, python-brace-format
+msgid "has successfully completed the course {0}, including all required assessments, on {1}."
 msgstr ""
 
 #: frontend/src/components/Settings/EmailAccount/EmailAccountForm.vue:64
@@ -14836,12 +14851,12 @@ msgstr ""
 msgid "{0} has no availability set up yet."
 msgstr ""
 
-#: lms/lms/doctype/lms_batch/lms_batch.py:338
+#: lms/lms/doctype/lms_batch/lms_batch.py:350
 #, python-brace-format
 msgid "{0} has published a new batch {1}"
 msgstr ""
 
-#: lms/lms/doctype/lms_course/lms_course.py:271
+#: lms/lms/doctype/lms_course/lms_course.py:283
 #, python-brace-format
 msgid "{0} has published a new course {1}"
 msgstr ""
