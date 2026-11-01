@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <div class="certificate-container">
-   <div style="margin-bottom: 13rem;">
+   <div style="margin-bottom: 12rem;">
         {% if logo %}
         <img src="{{ logo | e }}" class="certificate-logo"> <span style="font-weight: 900; font-size: 1.5rem;"> {{ brand_name | e }} </span>
         {% else %}
@@ -26,7 +26,7 @@
         {{ member.full_name | e }}
     </div>
 
-    <div style="margin-bottom: 12rem; width: 70%;">
+    <div style="margin-bottom: 11rem; width: 70%;">
         {% set course_title %}<span style="font-weight: 900;"> {{ course.title | e }} </span>{% endset %}
         {{ _("has successfully completed the course {0}, including all required assessments, on {1}.").format(course_title, frappe.utils.format_date(doc.issue_date, "medium") | e) }}
     </div>

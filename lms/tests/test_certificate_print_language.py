@@ -406,3 +406,119 @@ class TestCertificatePrintLanguage(unittest.TestCase):
 		self.assertEqual(before, {k: self.doc[k] for k in before})
 		self.sendmail.assert_not_called()
 		self.db.set_value.assert_not_called()
+
+	def test_standard_landscape_paper_and_minimal_spacing(self):
+		from frappe.printing.doctype.print_format.print_format import PrintFormat
+		from frappe.utils.pdf_generator.browser import Browser
+
+		self.assertEqual(self.format.paper_size, "Custom")
+		self.assertEqual((self.format.paper_width, self.format.paper_height), (297, 210))
+		PrintFormat.validate_paper_size(self.format)
+		browser = Browser.__new__(Browser)
+		browser.print_format = self.format.name
+		browser.options = {}
+		with (
+			patch.object(self.db, "exists", return_value=True),
+			patch.object(frappe, "get_cached_value", return_value=["Custom", 297, 210]),
+		):
+			browser._set_page_size_from_print_format()
+		self.assertEqual(browser.options, {"page-width": "297mm", "page-height": "210mm"})
+		template = (ROOT / "templates/print_formats/certificate.html").read_text()
+		self.assertIn('style="margin-bottom: 12rem;"', template)
+		self.assertIn('style="margin-bottom: 11rem; width: 70%;"', template)
+		self.assertNotIn("margin-bottom: 13rem", template)
+		self.assertEqual(self.format.default_print_language, "en")
+
+	def test_long_french_english_content_and_custom_spacing_isolation(self):
+		self.member_name = "Élodie-Anaïs d’Arcy de la Vallée & Noël « Apprenant fictif au nom particulièrement long »"
+		self.title = "Écologie des océans, sécurité & coopération internationale : parcours approfondi d’évaluation des pratiques professionnelles et pédagogiques — module fictif avancé"
+		self.instructors = ["FICTIONAL-INSTRUCTOR"] * 3
+		custom = frappe._dict(self.format, name="Fictional Custom", html="Author literal {{ doc.name | e }}")
+		before = copy.deepcopy(custom)
+		for language, clause in [
+			("fr", "y compris toutes les évaluations requises"),
+			("en", "including all required assessments"),
+		]:
+			html = self.html(language)
+			self.assertIn(clause, html)
+			self.assertEqual(html.count("René Fictional"), 3)
+			self.assertIn("Élodie-Anaïs", html)
+			self.assertIn("pédagogiques", html)
+			self.assertIn("Author literal FICTIONAL-CERT", self.html(language, custom))
+		self.assertEqual(before, custom)
+		self.db.set_value.assert_not_called()
+		self.sendmail.assert_not_called()
+
+	def test_native_plutoprint_long_french_english_single_page_without_site(self):
+		"""Real optional converter; fake reads only. Installed-site recipe is separate."""
+		import importlib.util
+		import io
+		import unicodedata
+
+		from frappe.utils import pdf as pdf_module
+		from frappe.utils.pdf_generator import browser, pluto
+		from pypdf import PdfReader
+
+		if importlib.util.find_spec("plutoprint") is None:
+			self.skipTest("PlutoPrint is not installed; no download permitted")
+		bundles = list((Path(frappe.__file__).parent / "public/dist/css").glob("print.bundle.*.css"))
+		if len(bundles) != 1:
+			self.skipTest("One local native print CSS bundle is required; no build/download")
+		self.logo = None
+		self.member_name = "Élodie-Anaïs d’Arcy de la Vallée & Noël « Apprenant fictif au nom particulièrement long »"
+		self.title = "Écologie des océans, sécurité & coopération internationale : parcours approfondi d’évaluation des pratiques professionnelles et pédagogiques — module fictif avancé"
+		self.instructors = ["FICTIONAL-INSTRUCTOR"] * 3
+		# Native standard print typography matters to pagination; compiled CSS alone
+		# does not reproduce the printview wrapper/style.
+		frappe.get_jenv().loader.searchpath.append(str(Path(frappe.__file__).parent))
+		with (
+			patch.object(frappe, "get_cached_doc", return_value=frappe._dict(font_size=14)),
+			patch.object(printview, "resolve_pdf_generator", return_value="PlutoPrint"),
+		):
+			css = bundles[0].read_text() + printview.get_print_style(print_format=self.format)
+		# Use the native format-field resolver rather than a Landscape URL/option.
+		paper = browser.Browser.__new__(browser.Browser)
+		paper.print_format = self.format.name
+		paper.options = {}
+		with (
+			patch.object(self.db, "exists", return_value=True),
+			patch.object(
+				frappe,
+				"get_cached_value",
+				return_value=[self.format.paper_size, self.format.paper_width, self.format.paper_height],
+			),
+		):
+			paper._set_page_size_from_print_format()
+		for language in ["fr", "en"]:
+			html = (
+				"<html><head><style>"
+				+ css
+				+ '</style></head><body><div class="print-format">'
+				+ self.html(language)
+				+ "</div></body></html>"
+			)
+			with (
+				patch.object(frappe, "conf", frappe._dict(developer_mode=0), create=True),
+				patch.object(frappe, "get_cached_value", return_value=0),
+				patch.object(self.db, "get_single_value", return_value="A4"),
+				patch.object(pdf_module, "get_host_url", return_value="http://certificate.invalid/"),
+				patch.object(browser, "get_host_url", return_value="http://certificate.invalid/"),
+				patch.object(pluto, "get_host_url", return_value="http://certificate.invalid/"),
+			):
+				binary = pdf_module.get_pdf(
+					html,
+					{**paper.options, "block-external-requests": True},
+					pdf_generator="PlutoPrint",
+				)
+			self.assertTrue(binary.startswith(b"%PDF-"))
+			reader = PdfReader(io.BytesIO(binary), strict=True)
+			self.assertEqual(len(reader.pages), 1)
+			self.assertAlmostEqual(float(reader.pages[0].mediabox.width), 841.89, delta=0.1)
+			self.assertAlmostEqual(float(reader.pages[0].mediabox.height), 595.30, delta=0.1)
+			text = unicodedata.normalize("NFKC", reader.pages[0].extract_text())
+			self.assertIn("Élodie-Anaïs", text)
+			self.assertIn("pédagogiques", text)
+			self.assertEqual(text.count("René Fictional"), 3)
+		self.db.sql.assert_not_called()
+		self.db.insert.assert_not_called()
+		self.sendmail.assert_not_called()
