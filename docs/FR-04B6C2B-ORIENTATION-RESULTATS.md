@@ -1,4 +1,8 @@
-# FR-04B.6C.2B — Orientation native : candidat refusé pour pagination
+# FR-04B.6C.2B / C.2B.1 — Orientation native et pagination corrigée
+
+**Actualisation C.2B.1, 1er novembre 2026 : format installé adopté sans force sur les deux sites jetables ;18 PDF finaux,14 standards A4 paysage monopage et4 témoins personnalisés inchangés.17 tests ciblés réussis.** L’historique ci-dessous conserve l’échec C.2B initial ; la chronologie de la correction et ses limites suivent en fin de document. Aucun déploiement ni adoption sur learning.localhost.
+
+## Historique conservé : premier candidat C.2B
 
 1er novembre 2026 (Europe/Paris). Branche `littlepool-dev`, base locale/distante **686ebe9801951d8b635cdd8b30e1ade4fe1df3fb**, checkout initial propre. AGENTS/handoff, résultats B.6/C.1Q/C.2/C.2A et mécanismes natifs installés consultés. Framework propre **959b85de4086656273e1d158f41923dd3808c350**.
 
@@ -84,3 +88,86 @@ Alternatives à évaluer séparément : règle de pagination locale protégeant 
 Prochaine action précise : faire valider ce périmètre de présentation minimal avant toute modification source ; conserver le candidat privé et ses preuves, puis créer un test de régression qui exige paysage **et une page**, y compris le cas long actuellement rouge. Arrêt après C.2B sans autre lot automatique.
 
 Réserves FR-03/B.3/B.4/B.5, politique de diffusion B.5C.2 non adoptée, priorités de langue simple/Desk/multiple, ancien-format upgrade non démontré et police exacte conservés ; I18N-01 non commencé. Aucune production/OMV8/learning.localhost concernée.
+
+## C.2B.1 — Diagnostic mesuré et essais privés
+
+Mandat complémentaire autorisant uniquement les dimensions natives et les espacements nécessaires ; base distante686ebe9801951d8b635cdd8b30e1ade4fe1df3fb et commit local de constat **0bb3415fbac327071b9d4a3a21a324552dea1b75 préservé**. Aucun reset/rebase/amendement de cet historique.
+
+Les six conteneurs actifs ont été requalifiés : IDs/images/labels/montages, réseau none/ports0, sockets DB/Redis, protections mail/jobs et huit probes réservées bloquées. Aucun worker/scheduler Frappe, Email Account ou job métier. Huit archives/copies et40 PDF antérieurs (C.2/C.2A/C.2B) vérifiés par empreintes et conservés. Les rapports antérieurs et le handoff ont été réutilisés, sans audit global ou réinstallation.
+
+**Partage de code vérifié : lms-bench monte /workspace entier**, donc le checkout LMS y est accessible même s’il est RO dans les cibles jetables. lms-bench est exited ; aucun démarrage ou changement de configuration/site/base n’y a été effectué. Tous les essais de template sont restés dans un chargeur Jinja privé des seuls processus de recette. Aucune version expérimentale écrite dans le checkout pendant ces premiers essais. Après validation binaire, seules les modifications finales ont été intégrées ; un futur démarrage du site persistant pourra naturellement voir le code partagé validé, sans que son Print Format installé ait été adopté ici.
+
+Reproduction privée sur source : même candidat Custom297×210, espacements13rem/12rem, mêmes fixtures longues EN **et FR** → deux PDF, deux pages chacun. PDFium mesure la page595,296021pt de haut, marges natives0,591pouce≈42,552pt en haut/bas, soit≈510,192pt imprimables. Organisme vers y532,585–546,751 ; introduction FR vers y351,060–364,710 ; nom vers y317,442–335,298 ; phrase commençant vers y283,023 ; libellé formateurs vers y53,308–63,853. Les noms sont reportés en page2, vers y535,895–547,700. Coordonnées en points, origine au bas de page.
+
+Ces mesures montrent une consommation verticale importante après l’organisme et après la phrase, mais aussi le poids réel des lignes de texte et du bloc formateurs. Une hauteur de page correcte ne suffit pas à elle seule. Aucun texte, nom, taille de caractère, largeur70%, police, marge papier ou donnée métier n’a été réduit/modifié.
+
+## C.2B.1 — Valeurs expérimentées et erreur de harnais explicitée
+
+| Étape privée               | Valeurs effectives après organisme / après phrase | PDF conservés         | Résultat                               |
+| -------------------------- | ------------------------------------------------- | --------------------- | -------------------------------------- |
+| Reproduction               | 13rem /12rem                                      | 2 source, FR/EN longs | 2pages chacun, échec attendu           |
+| Premier essai annoncé12/11 | **11rem /11rem** en réalité                       | 2 source longs        | 1page                                  |
+| Première matrice privée    | mêmes11/11 effectifs                              | 9 par site,18 total   | 1page, témoins personnalisés inchangés |
+| Recontrôle exact final     | **12rem /11rem**                                  | 2 source longs        | 1page et contenu complet               |
+
+**Erreur identifiée** : le remplacement en chaîne du générateur privé transformait13→12, puis remplaçait tous les12→11, y compris celui qu’il venait de créer. La première validation privée ne portait donc pas exactement sur les deux valeurs ensuite intégrées. Cette erreur a été découverte en comparant les PNG privés aux PNG du format réellement installé ; elle n’est pas masquée dans le bilan.
+
+Les fichiers applicatifs ont reçu la réduction plus petite **13→12 et12→11**, sans remplacement ambigu. Leur matrice binaire installée réussit également ; le générateur privé a ensuite été corrigé pour cibler explicitement le bloc de largeur70%, et un contrôle supplémentaire des deux cas longs avec les valeurs exactes confirme le résultat. Aucun nouvel ajustement source nécessaire pour cette correction du harnais. Aucune exposition d’essai11/11 au site persistant.
+
+Mesures avec les **valeurs finales12/11** : introduction FR y363,075–376,725 ; libellé formateurs y77,323–87,868 ; premier nom y49,895–61,700 sur page1. Le bas de ce nom est à≈49,9pt du bord inférieur, au-delà de la marge native≈42,6pt. L’introduction remonte d’environ12pt et le libellé de24pt comparés à la reproduction ; les noms réintègrent la page. La marge de sécurité reste bornée, elle ne garantit pas des textes de longueur illimitée.
+
+## C.2B.1 — Sources et adoption native
+
+Correctif **a7c43154** : seulement
+
+-   certificate.json : paper_size=Custom, paper_width=297, paper_height=210 ; modified actualisé à l’heure réelle de l’édition, **2026-11-01 13:25:40.780861 UTC**, sans antidatage/futur artificiel pour forcer un import.
+-   certificate.html : exactement les deux réductions13rem→12rem et12rem→11rem. Chaînes gettext, variables, échappement, dates, largeur, polices, balise pdfkit historique et tout le reste byte-identiques après neutralisation de ces deux valeurs.
+-   Tests de langue/impression existants complétés par3 méthodes ciblées.
+
+standard/doc_type/custom_format/HTML include/CSS/default_print_language=en/pdf_generator et autres paramètres conservés. Print Settings globaux inchangés. Aucune extraction de traduction, compilation PO/MO ou modification des catalogues nécessaire.
+
+Avant chaque import : format installé relu, absence de personnalisation homonyme vérifiée sur ses champs et date ancienne identique à la référence Git, nouvelles dimensions absentes, source plus récente ; export privé du format installé conservé. Backups C.1Q complets et restauration auparavant vérifiée conservés, formats privés connus. **Un seul import_file_by_path(force=False) par cible**, depuis la nouvelle source. Pas de migration ni import forcé, aucune manipulation de date DB. Les deux imports ont eu lieu et ont été commités ; aucun import répété.
+
+Premier contrôle post-import interrompu sur une comparaison de représentation297.0 contre297. C’est un défaut de harnais : Frappe stocke les champs Float en nombres flottants. Relecture **seule**, comparaison numérique correcte, champs et date installés conformes au JSON, sur les deux sites. Les formats personnalisés et droits ont été revérifiés ; les lignes historiques Certificate exportées, substituées uniquement pour le calcul de l’ancienne empreinte complète Print Format, reproduisent l’empreinte d’avant import : les autres lignes/modèles n’ont donc pas changé.
+
+Les contrôles de préférences User/System Settings et Print Settings avant/après chaque matrice restent identiques. La tentative initiale d’import avait conservé leur hash seulement en mémoire ; son arrêt de contrôle n’est pas présenté comme une preuve persistée autonome de ces hashes autour de l’import. L’import ciblait uniquement Certificate, et les états installés/contrôles suivants sont documentés séparément.
+
+Aucun retour arrière exécuté, puisque le format est conforme et la recette finale réussit. En cas de besoin futur : préserver les exports avant/après et les sauvegardes complètes, définir un retour arrière contrôlé séparé ; ne pas forcer une ancienne date de document ni écraser une base existante sans mandat.
+
+## C.2B.1 — Recette finale sur formats installés
+
+**18 PDF authentiques, neuf par site**, depuis les formats relus dans les bases, sans surcharge de format ou de template : sept standards (FR/EN évaluateur+logo, FR un formateur, FR/EN longs avec trois formateurs, FR/EN langue du contexte), plus modèles personnalisés FR et EN.
+
+-   **14 standards :841,895996×595,296021pt, rotation0°, exactement1page**.
+-   **4 personnalisés :595,296021×841,895996pt, rotation0°,1page**, littéraux/HTML/CSS inchangés.
+    -18 signatures/lectures strictes pypdf/PDFium, textes complets après normalisation NFKC, glyphes dans page, accents, dates et noms/titres complets. Tous les trois formateurs retrouvés sur la même page dans les quatre scénarios longs installés.
+    -18 pages rasterisées ; neuf variantes installées inspectées à taille complète, dont les deux cas longs et leurs blocs formateurs. Les PNG source/restauration sont identiques ; seconde série vérifiée par comparaison. Pas de contenu masqué, coupure ou chevauchement majeur. Espaces et séparation des blocs conservés, logo dans les marges ; témoins personnalisés aux pixels identiques à C.2A.
+-   La comparaison au portrait C.2A et au paysage initial à deux pages conserve l’ordre de lecture et les données. Les différences de pixels avec le premier essai privé sont cohérentes avec ses11/11 effectifs, puis résolues par le contrôle exact12/11 ; aucune prétention de pixels identiques pour des présentations différentes.
+
+Fixtures longues mesurées : **nom89 caractères, titre163 caractères, trois formateurs**. Leur réussite n’homologue pas des contenus illimités, logos arbitraires, autres polices, fuseaux ou traductions de longueur différente. Polices CairoFont/CFF de secours toujours non identifiées avec certitude ; aucune police téléchargée. Les ressources Google Fonts existantes restent bloquées, aucun accès externe réussi.
+
+Nombre de PDF de recette **conservés pendant C.2B.1 :42** :2 reproduction+2 premier essai+18 première matrice privée+18 installés+2 contrôle exact. Les tests autonomes produisent aussi des PDF en mémoire, séparés de ces artefacts ; aucune sentinelle PDF. Les42 fichiers sont privés et ne sont pas publiés. Ils ne doivent pas être confondus avec42 validations finales : la reproduction échoue et la première matrice utilisait11/11.
+
+## C.2B.1 — Tests et contrôles de sécurité
+
+**Suite ciblée finale :17 méthodes réussies**,0 échec,0 skip dans cet environnement, dont14 tests existants et3 nouveaux : dimensions/champs natifs/espacements ; contenu long FR/EN et isolation du modèle personnalisé ; vraie conversion PlutoPrint FR/EN sans site privé, avec lecture du bundle CSS local et typographie native de printview. Les lectures sont simulées et les accès DB/SMTP/réseau sont bloqués ; aucune dépendance secrète ou chemin de site privé. Le test binaire est explicitement optionnel si PlutoPrint ou le bundle compilé local est absent, sans installation automatique.
+
+Un contre-test privé rétablit les seuls anciens espacements **en mémoire** : le nouveau test binaire échoue comme attendu à2pages. Aucun fichier Git reverti et aucune validation HTML assimilée à une preuve PDF. Les permissions privées/publiées et refus avant PDF restent couvertes par les tests antérieurs, ainsi que16 scénarios de droits exécutés dans la matrice installée (huit par site).
+
+Échecs intermédiaires conservés : premier test PDF autonome sans conf liée au site (harnais adapté avec conf fictive), puis rendu de test sans typographie native de printview qui paginait différemment (style natif ajouté). Après ce correctif, un test isolé a réussi, **puis la suite complète ciblée de17 méthodes a été relancée et réussie** ; la seule relance isolée n’a pas été utilisée pour déclarer la suite verte. La suite ne valide pas une recette Desk/multiple ni des transactions réelles.
+
+Ruff absent du venv et des commandes disponibles : tentative de commande échouée, **contrôle Ruff non exécuté**, aucune installation. Syntaxe Python analysée, JSON chargé, diff/espaces vérifiés ; rapport formaté avec Prettier existant. Pas de build frontend, tests backend globaux, migration, Crowdin ou recompilation de catalogues.
+
+Final : Certificate/DocShare/inscriptions/Email Account/Email Queue/Communication0 ; File2 préexistants par site, aucun File métier ajouté ; jobs RQ0, aucun worker/scheduler. Droits et modèles personnalisés inchangés. Source/template partagés modifiés seulement pour la version finale ; aucun démarrage ou adoption learning.localhost, services persistants et configurations conservés.
+
+**Access Logs techniques :source25→49 (+24), restauration16→34 (+18), total+42**, cohérent avec les42 PDF de recette. Tests autonomes sans site : pas d’Access Log métier ni écriture DB. Aucun email, délivrance de certificat, donnée pédagogique ou paiement. Ne pas annoncer zéro écriture absolue.
+
+Les huit archives et40 PDF historiques ont été revérifiés par SHA après les opérations ; tous conservés. Six conteneurs actifs, aucune suppression/recréation/installation.998 traductions françaises et3024 clés POT recomptées avec Babel natif ;79 PO/POT et Framework intacts. Réserves FR-03/B.3/B.4/B.5, diffusion B.5C.2 non adoptée, priorités de langue simple/Desk/multiple, ancien-format upgrade et police exacte maintenues ; I18N-01 non commencé.
+
+## C.2B.1 — Livraison et suite
+
+Commit de constat0bb3415f conservé ; correctif/tests **a7c43154**, puis complément documentaire courant (SHA via git log). Publication normale sur littlepool-dev autorisée par le mandat après contrôles ; aucune preuve binaire, script, secret, configuration, manifeste ou sauvegarde à publier. Les données de recette et exports restent sous `/workspace/work/fr04b6c1q/`, notamment source/restore/backup/c2b1-\*, et c2b1/ pour les contrôles et journaux techniques privés. Répertoires0700/fichiers0600 appliqués aux artefacts.
+
+**Conclusion : standard A4 paysage monopage validé sur les deux sites jetables pour cette matrice et ces limites.** La réserve historique d’ancien-format upgrade concerne toujours une installation ancienne/personnalisée, pas ces deux versions connues comparées puis importées sans force. Aucun déploiement ou adoption générale autorisé implicitement.
+
+Prochaine action possible, sur mandat distinct : décider de l’adoption sur une instance cible sauvegardée, en comparant ses personnalisations et dates, ou poursuivre les réserves FR-04 prioritaires. Ne pas supprimer de ressources ni généraliser la validation à des contenus illimités. Arrêt après C.2B.1.
